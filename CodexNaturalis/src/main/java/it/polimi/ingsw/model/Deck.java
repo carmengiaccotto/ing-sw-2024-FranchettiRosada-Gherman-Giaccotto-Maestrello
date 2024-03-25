@@ -23,14 +23,14 @@ public class Deck {
     }
 
     public void initializeDeck(String TypeOfDeck){
-        //inizializzazione del mazzo mediante file Json
+        //Initialize Deck with Json File
     }
 
     public ArrayList<PairOfCards> getCards() {
         return Cards;
     }
 
-    public PairOfCards getLastCard(){ //restituisce la carta pescata
+    public PairOfCards getLastCard(){ //returns drawn card
         if (!Cards.isEmpty()) {
             return Cards.get(getSize()-1);
         } else {

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-abstract class Card {
+public abstract class Card {
 
     public void play(){
 
