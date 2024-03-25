@@ -3,19 +3,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class PlayArea {
-    private HashMap<Symbol, Integer > symbols;
-    private Card[][] CardsOnArea;
+    private HashMap<Symbol, Integer > Symbols;
+    private Cards[][] CardsOnArea;
 
-    public PlayArea(HashMap<Symbol, Integer> symbols, Card[][] CardsOnArea){
-
-
-    }
-    public Card[][] getCardsOnArea() {
+    public Cards[][] getCardsOnArea() {
         return CardsOnArea;
     }
 
-    public void setCardsOnArea(Card[][] cardsOnArea) {
 
-        CardsOnArea = cardsOnArea;
-    }
 }
