@@ -1,9 +1,9 @@
+
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Deck;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PairOfCards;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayArea;
 
 import java.util.ArrayList;
-
+/*@author denisagherman19 */
 public class Player {
     private PlayArea playArea;
     private String nickname;
@@ -88,4 +88,7 @@ public Card ChooseSide(PairOfCards DoubleSidedCard, Sides side){//sides è la en
 }
 public void playCard(Card cardToPlay){
     cardToPlay.play();
+}
+
+public void main() {
 }

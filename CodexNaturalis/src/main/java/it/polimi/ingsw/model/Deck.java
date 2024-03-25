@@ -7,6 +7,7 @@ public class Deck {
     private String TypeOfDeck;
     private ArrayList<PairOfCards> Cards;
 
+
     public Deck(String TypeOfDeck) {
         Cards = new ArrayList<>();
         initializeDeck(TypeOfDeck);
@@ -38,6 +39,7 @@ public class Deck {
         }
 
     }
+
 
     public int getSize(){
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 /**
  * Hello world!
