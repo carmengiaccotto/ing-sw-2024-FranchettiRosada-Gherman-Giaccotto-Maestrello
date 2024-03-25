@@ -22,7 +22,7 @@ public class Deck {
     }
 
     public void initializeDeck(String TypeOfDeck){
-        //inizializzazine del mazzo mediante file Json
+        //inizializzazione del mazzo mediante file Json
     }
 
     public ArrayList<PairOfCards> getCards() {
