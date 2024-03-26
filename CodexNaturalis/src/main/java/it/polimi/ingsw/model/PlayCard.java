@@ -1,11 +1,12 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Card;
+import it.polimi.ingsw.model.Corner[][];
 
 import java.util.HashMap;
 
 public class PlayCard extends Card{
     private HashMap<Symbol, Integer> symbols;
-    private Corner[][] corners;
+    Corner[][] corners;
     private boolean isInConfiguration;
     private Colors color;
 

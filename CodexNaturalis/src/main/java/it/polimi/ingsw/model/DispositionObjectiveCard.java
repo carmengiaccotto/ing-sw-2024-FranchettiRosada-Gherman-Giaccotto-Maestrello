@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.ObjectiveCard;
 
-import java.util.HashMap;
-
-public class DispositionObjectiveCard extends ObjectiveCard{
+    public class DispositionObjectiveCard extends ObjectiveCard {
 
     private Card[][] disposition;
 

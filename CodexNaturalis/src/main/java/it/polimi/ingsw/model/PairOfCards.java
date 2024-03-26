@@ -1,11 +1,12 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Pair;
 
 public class PairOfCards {
     private Pair sides;
     private int idCard;
 
     public PairOfCards(Pair side, int idCard) {
-        this.side = side;
+        this.sides = sides;
         this.idCard = idCard;
     }
 

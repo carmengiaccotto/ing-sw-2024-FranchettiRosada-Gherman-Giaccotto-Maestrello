@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Pair;
+
 public class Corner {
 
     private Pair position;

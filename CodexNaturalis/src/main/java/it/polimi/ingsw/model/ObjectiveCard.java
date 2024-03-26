@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
-public class ObjectiveCard extends Card{
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
+import it.polimi.ingsw.model.Card;
+
+public class ObjectiveCard extends Card {
     private ObjectivePoints objectivePoint;
 
     public ObjectiveCard(ObjectivePoints objectivePoint) {
@@ -16,7 +19,7 @@ public class ObjectiveCard extends Card{
     }
 
     public int getPoints(int numberOfGoals, ObjectivePoints n) {
-        return numberOfGoals * n.getvalue();  // Remeber to implement getValue
+        return numberOfGoals * n.getvalue();  // Remember to implement getValue
 
     }
 

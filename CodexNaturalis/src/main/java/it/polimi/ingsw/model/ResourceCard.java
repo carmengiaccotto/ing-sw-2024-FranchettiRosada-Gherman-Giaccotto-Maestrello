@@ -1,5 +1,5 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-
+import it.polimi.ingsw.model.Corner[][];
 import java.util.HashMap;
 
 public class ResourceCard extends PlayCard{
