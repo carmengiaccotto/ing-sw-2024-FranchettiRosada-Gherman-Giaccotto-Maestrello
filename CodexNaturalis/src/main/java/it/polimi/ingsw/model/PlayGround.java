@@ -7,23 +7,22 @@ public class PlayGround {
 
     private HashMap<Player, PlayArea> Players;
     private ArrayList<Deck> Decks;
-    private ArrayList<Card>  CommonCards;
+    private ArrayList<PairOfCards>  CommonCards;
     private ArrayList<ObjectiveCard> CommonObjectives;
-    private String CurrentPlayer;
+    private Player CurrentPlayer;
     private GameStatus gameStatus;
 
-    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<Card> commonCards, ArrayList<ObjectiveCard> commonObjectives, String currentPlayer, GameStatus gameStatus) {
-        Players = players;
-        Decks = decks;
-        CommonCards = commonCards;
-        CommonObjectives = commonObjectives;
-        CurrentPlayer = currentPlayer;
-        this.gameStatus = gameStatus;
+    public PlayGround(ArrayList<Deck> Decks, ArrayList<PairOfCards> CommonCards, ArrayList<ObjectiveCard> CommonObjectives){
+        HashMap<Player, PlayArea> Players = new HashMap<>();
+        this.Decks = Deck;
+        this.CommonCards = CommonCards;
+        this.CommonObjectives = CommonObjectives;
+        this.CurrentPlayer = ......;
+        this.GameStatus = RUNNING;
+
     }
-    
-public Players getPlayers(){
-    Player Player;
-    return Players.get(Player);
+public HashMap<Player,PlayArea> getPlayers(){
+        return Players;
 }
 public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){
         Players.put(player, playarea);
@@ -47,7 +46,7 @@ public ArrayList<Card> addCommonCard(Card){
         return CommonCards;
 }
 
-public ArrayList<Card> getCommonCard(){
+public static ArrayList<PairOfCards> getCommonCard(){
         return CommonCards;
 
 }
@@ -83,4 +82,8 @@ public string getCurrentPlayer(){
         return CurrentPlayer;
 }
 
+
+    public static ArrayList<Deck> getDecks() {
+        return Decks;
+    }
 }

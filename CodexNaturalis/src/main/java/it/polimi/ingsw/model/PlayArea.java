@@ -7,7 +7,7 @@ import java.util.Map;
 * The player has already chosen the side they want to play the Card on*/
 public class PlayArea {
     /*Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
-    private Map<Symbol, Integer > Symbols;
+    private Map<Symbol, Integer > symbols;
     private Card[][] CardsOnArea;
 
 
@@ -65,19 +65,13 @@ public class PlayArea {
     /*Symbols Map getter
     * @return Symbols map with key and value*/
     public Map<Symbol, Integer> getSymbols() {
-        return Symbols;
+        return symbols;
     }
 
 
 
 
 
-
-    /*Symbols Map Setter
-    * @param Symbols*/
-    public void setSymbols(Map<Symbol, Integer> symbols) {
-        Symbols = symbols;
-    }
 
 
 
@@ -86,7 +80,7 @@ public class PlayArea {
     /**/
     public void initializePlayArea(){
         for (Symbol symbol : Symbol.values()) {//
-            Symbols.put(symbol, 0);
+            symbols.put(symbol, 0);
         }
         // add the initialization of the matrix.
         //Big matrix with the maximum of rows and columns or a dynamic one? How do we think of the dynamic one?
@@ -138,7 +132,7 @@ public class PlayArea {
     * @param symbol the symbol whose occurrences we want to save
     *  */
     public int getNumSymbols(Symbol symbol){
-        return Symbols.get(symbol);
+        return symbols.get(symbol);
     }
 
 
@@ -153,8 +147,8 @@ public class PlayArea {
     * @param symbolToUpdate new symbols on the board or symbol in the corner that is being covered
     * @param int n number of occurrences added or removed */
     public  void changeNumSymbol(Symbol symbolToUpdate, int n){
-        int NewNumSymbol = getNumSymbols(Symbols, symbolToUpdate) + n;
-        Symbols.put(symbolToUpdate, NewNumSymbol);
+        int NewNumSymbol = getNumSymbols(symbolToUpdate) + n;
+        symbols.put(symbolToUpdate, NewNumSymbol);
     }
 
 }
