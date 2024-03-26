@@ -699,6 +699,41 @@
         "corner3": "EMPTY",
         "corner4": "EMPTY"
       }
+    },
+    {
+      "id": 21,
+      "color": "PURPLE",
+      "front": {
+        "point": false,
+        "symbols": {
+          "PLANT": 0,
+          "ANIMAL": 2,
+          "FUNGI": 0,
+          "INSECT": 0,
+          "QUILL": 0,
+          "INKWELL": 0,
+          "MANUSCRIPT":0
+        },
+        "corner1": "ANIMAL",
+        "corner2": "ANIMAL",
+        "corner3": "EMPTY",
+        "corner4": "HIDDEN"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 0,
+          "ANIMAL": 1,
+          "FUNGI": 0,
+          "INSECT": 0,
+          "QUILL": 0,
+          "INKWELL": 0,
+          "MANUSCRIPT":0
+        },
+        "corner1": "EMPTY",
+        "corner2": "EMPTY",
+        "corner3": "EMPTY",
+        "corner4": "EMPTY"
+      }
     }
   ]
 }
