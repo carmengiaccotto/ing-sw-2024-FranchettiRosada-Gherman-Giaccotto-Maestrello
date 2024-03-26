@@ -20,8 +20,8 @@ public class PlayGround {
         CurrentPlayer = currentPlayer;
         this.gameStatus = gameStatus;
     }
-
-    public Players getPlayers(){
+    
+public Players getPlayers(){
     Player Player;
     return Players.get(Player);
 }

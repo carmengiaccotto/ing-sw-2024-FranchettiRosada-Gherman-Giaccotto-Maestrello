@@ -1,0 +1,125 @@
+{
+  "ResourceCard": [
+    {
+      "id": 1,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    },
+    {
+      "id": 2,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    },
+    {
+      "id": 3,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    },
+    {
+      "id": 4,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    },
+    {
+      "id": 5,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    },
+    {
+      "id": 6,
+      "color": "RED",
+      "side": "front",
+      "point": true,
+      "symbols": {
+        "PLANT": 0,
+        "ANIMAL": 1,
+        "FUNGI": 1,
+        "INSECT": 0,
+        "QUILL": 0,
+        "INKWELL": 0,
+        "MANUSCRIPT":0
+      },
+      "corner1": "EMPTY",
+      "corner2": "FUNGI",
+      "corner3": "INSECT",
+      "corner4": "EMPTY",
+      "IsInConfiguration": true
+    }
+  ]
+}
+

@@ -1,7 +1,10 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import it.polimi.ingsw.model.Card;
+
+
 
 /*@author Denisa Minodora Gherman
 * Class that represents the Player of the game which coincides with the client*/
@@ -13,6 +16,9 @@ public class Player {
     private int score;
     private ArrayList<PairOfCards> cardsInHand;
     private int round;
+
+
+
 
     public Player(String nickname, Color pawnColor) {
         this.playArea= new PlayArea();
@@ -165,6 +171,7 @@ public class Player {
 
 
 
+
     /*Used If the Players wants to draw a Card from the common Cards on the playGround
     * @param Card PairOfCards type
     * Once the player added the card to their hand, it has to be removed from the playground
@@ -172,11 +179,11 @@ public class Player {
     * search for*/
     public void drawCardFromPlayground(PairOfCards card) {
         cardsInHand.add(card);
-        commonCards.remove(card);
+        PlayGround.getCommonCard().remove(card);
         String cardType = card.getClass().getSimpleName();
-        for (Deck deck : Playground.getDecks) {
+        for (Deck deck : PlayGround.getDecks()) {
             if (deck.getTypeOfDeck().equals(cardType))
-                commonCards.add(drawCardFromDeck(deck));
+                PlayGround.getCommonCard().add(deck.DrawCard());
 
         }
     }
