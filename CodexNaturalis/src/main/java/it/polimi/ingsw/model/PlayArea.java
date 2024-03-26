@@ -62,14 +62,28 @@ public class PlayArea {
 
 
 
-
+    /*Symbols Map getter
+    * @return Symbols map with key and value*/
     public Map<Symbol, Integer> getSymbols() {
         return Symbols;
     }
 
+
+
+
+
+
+    /*Symbols Map Setter
+    * @param Symbols*/
     public void setSymbols(Map<Symbol, Integer> symbols) {
         Symbols = symbols;
     }
+
+
+
+
+
+    /**/
     public void initializePlayArea(){
         for (Symbol symbol : Symbol.values()) {//
             Symbols.put(symbol, 0);
@@ -81,6 +95,17 @@ public class PlayArea {
 
     }
 
+
+
+
+
+
+    /*Method to add a new card on the PlayGround.
+    * @param newCard card that we want to add
+    * @param row
+    * @param column
+    * row and column are the coordinates where we want the card to be placed
+    * It is a dynamic matrix, so we might need to add a new row and/or a new column.*/
     public void AddCardOnArea(Card newCard, int row, int column){
         if(row < CardsOnArea.length && column<CardsOnArea[0].length && row>=0 && column>=0){
             if(CardsOnArea[row][column]==null){
@@ -100,11 +125,34 @@ public class PlayArea {
         }
     }
 
-    public int getNumSymbols(Map<Symbol,Integer> Symbols, Symbol symbol){
+
+
+
+
+
+
+
+    /*Method to get the occurrences of a given symbol. This method is going to be used to check the requirements for the goldCards
+    * and to check if the goal of GoalObjectiveCards has been reached
+    * @return int n number of occurrences of the given symbol
+    * @param symbol the symbol whose occurrences we want to save
+    *  */
+    public int getNumSymbols(Symbol symbol){
         return Symbols.get(symbol);
     }
 
-    public static void changeNumSymbol(Map<Symbol, Integer> Symbols, Symbol symbolToUpdate, int n){
+
+
+
+
+
+
+
+    /*This method is being used each time a FrontCard is placed: The back cards don't have symbols in their corner
+    * n might also be a negative number, when a card covers a corner that contains a symbol
+    * @param symbolToUpdate new symbols on the board or symbol in the corner that is being covered
+    * @param int n number of occurrences added or removed */
+    public  void changeNumSymbol(Symbol symbolToUpdate, int n){
         int NewNumSymbol = getNumSymbols(Symbols, symbolToUpdate) + n;
         Symbols.put(symbolToUpdate, NewNumSymbol);
     }
