@@ -3,8 +3,10 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import java.util.ArrayList;
 import it.polimi.ingsw.model.Card;
 
-
+/*@author Denisa Minodora Gherman
+* Class that represents the Player of the game which coincides with the client*/
 public class Player {
+    /*Every Player has its own playArea. All t*/
     private PlayArea playArea;
     private String nickname;
     private Color pawnColor;
