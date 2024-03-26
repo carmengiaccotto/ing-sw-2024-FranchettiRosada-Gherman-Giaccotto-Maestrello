@@ -4,20 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Construction of the 'PlayCard' class and its subclasses. Getter and setter methods done. JavaDoc documentation is missing.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_24__13_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_24__13_35__Changes_.xml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Javadoc and comments on Player">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -40,26 +46,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Downloads/gson-2.8.8.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Player.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/denis/Downloads/gson-2.8.8.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -76,8 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
-      <workItem from="1711370835325" duration="6129000" />
-      <workItem from="1711379331734" duration="297000" />
+      <workItem from="1711461796620" duration="2010000" />
     </task>
     <task id="LOCAL-00001" summary="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc">
       <option name="closed" value="true" />
@@ -119,15 +134,47 @@
       <option name="project" value="LOCAL" />
       <updated>1711305394937</updated>
     </task>
-    <task id="LOCAL-00006" summary="Construction of the 'PlayCard' class and its subclasses. Getter and setter methods done. JavaDoc documentation is missing.">
+    <task id="LOCAL-00006" summary="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java">
       <option name="closed" value="true" />
-      <created>1711379304195</created>
+      <created>1711380837883</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1711379304195</updated>
+      <updated>1711380837883</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java">
+      <option name="closed" value="true" />
+      <created>1711408583477</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711408583477</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Solved the problem for Player And PlayArea Classes, and translated the comments in English">
+      <option name="closed" value="true" />
+      <created>1711408708615</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711408708615</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Solved the problem for Player And PlayArea Classes, modified PlayArea, added Javadoc comments for Deck">
+      <option name="closed" value="true" />
+      <created>1711449669494</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711449669494</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Javadoc and comments on Player">
+      <option name="closed" value="true" />
+      <created>1711452191488</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711452191488</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +220,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc" />
     <MESSAGE value="Player and Class both have setter and getter methods done, plus a first version of other methods. Missing to add comments for javaDoc Documentation." />
-    <MESSAGE value="Construction of the 'PlayCard' class and its subclasses. Getter and setter methods done. JavaDoc documentation is missing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Construction of the 'PlayCard' class and its subclasses. Getter and setter methods done. JavaDoc documentation is missing." />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" />
+    <MESSAGE value="Solved the problem for Player And PlayArea Classes, and translated the comments in English" />
+    <MESSAGE value="Solved the problem for Player And PlayArea Classes, modified PlayArea, added Javadoc comments for Deck" />
+    <MESSAGE value="Javadoc and comments on Player" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc and comments on Player" />
   </component>
 </project>

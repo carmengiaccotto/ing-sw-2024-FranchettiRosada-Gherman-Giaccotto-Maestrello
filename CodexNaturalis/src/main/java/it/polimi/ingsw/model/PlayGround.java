@@ -12,17 +12,18 @@ public class PlayGround {
     private String CurrentPlayer;
     private GameStatus gameStatus;
 
-    public PlayGround(ArrayList<Deck> Decks, ArrayList<Card> CommonCards, ArrayList<ObjectiveCard> CommonObjectives){
-        HashMap<Player, PlayArea> Players = new HashMap<>();
-        this.Decks = Deck;
-        this.CommonCards = CommonCards;
-        this.CommonObjectives = CommonObjectives;
-        this.CurrentPlayer = ......;
-        this.GameStatus = RUNNING;
-
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<Card> commonCards, ArrayList<ObjectiveCard> commonObjectives, String currentPlayer, GameStatus gameStatus) {
+        Players = players;
+        Decks = decks;
+        CommonCards = commonCards;
+        CommonObjectives = commonObjectives;
+        CurrentPlayer = currentPlayer;
+        this.gameStatus = gameStatus;
     }
+    
 public Players getPlayers(){
-        return Players.get(Player);
+    Player Player;
+    return Players.get(Player);
 }
 public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){
         Players.put(player, playarea);
