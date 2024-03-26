@@ -12,16 +12,16 @@ public class PlayGround {
     private Player CurrentPlayer;
     private GameStatus gameStatus;
 
-    public PlayGround(ArrayList<Deck> Decks, ArrayList<PairOfCards> CommonCards, ArrayList<ObjectiveCard> CommonObjectives){
-        HashMap<Player, PlayArea> Players = new HashMap<>();
-        this.Decks = Deck;
-        this.CommonCards = CommonCards;
-        this.CommonObjectives = CommonObjectives;
-        this.CurrentPlayer = ......;
-        this.GameStatus = RUNNING;
-
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
+        Players = players;
+        Decks = decks;
+        CommonCards = commonCards;
+        CommonObjectives = commonObjectives;
+        CurrentPlayer = currentPlayer;
+        this.gameStatus = gameStatus;
     }
-public HashMap<Player,PlayArea> getPlayers(){
+
+    public HashMap<Player,PlayArea> getPlayers(){
         return Players;
 }
 public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){
