@@ -113,23 +113,85 @@ public class PlayArea {
             }
         }
         else{
-           Card[][] TemporaryPlayArea= new Card[CardsOnArea.length+1][CardsOnArea[0].length];
-           if(row<0 && column<0){
-               for (int i = 0; i < CardsOnArea.length; i++) {
-                   System.arraycopy(CardsOnArea[i], 0, TemporaryPlayArea[i + 1], 1, CardsOnArea[i].length);
-               }
-               CardsOnArea=TemporaryPlayArea;
-               TemporaryPlayArea=null;
-               System.gc();
-               CardsOnArea[0][0]=newCard;
+            if ((row == CardsOnArea.length && column==CardsOnArea[0].length) || (row<0 && column<0)) {
+                Card[][] TemporaryPlayArea = new Card[CardsOnArea.length + 1][CardsOnArea[0].length+1];
+                if (row < 0 && column < 0) {
+                    for (int i = 0; i < CardsOnArea.length; i++) {
+                        System.arraycopy(CardsOnArea[i], 0, TemporaryPlayArea[i + 1], 1, CardsOnArea[i].length);
+                    }
+                    CardsOnArea = TemporaryPlayArea;
+                    TemporaryPlayArea = null;
+                    System.gc();
+                    CardsOnArea[0][0] = newCard;
 
-           } else if (row>CardsOnArea.length && column>CardsOnArea[0].length) {
-               CardsOnArea=TemporaryPlayArea;
-               TemporaryPlayArea=null;
-               System.gc();
-               CardsOnArea[CardsOnArea.length-1][CardsOnArea[0].length]=newCard;
+                } else if (row == CardsOnArea.length && column == CardsOnArea[0].length) {
+                    CardsOnArea = TemporaryPlayArea;
+                    TemporaryPlayArea = null;
+                    System.gc();
+                    CardsOnArea[CardsOnArea.length - 1][CardsOnArea[0].length-1] = newCard;
 
-           }
+                }
+            }
+            else{
+                if((row < 0|| row == CardsOnArea.length) && column>0 &&column<CardsOnArea[0].length ){
+                    Card[][] TemporaryPlayArea = new Card[CardsOnArea.length + 1][CardsOnArea[0].length];
+                    if(row<0){
+                        for (int i = 0; i < CardsOnArea.length; i++) {
+                            for (int j = 0; j < CardsOnArea[i].length; j++) {
+                                TemporaryPlayArea[i + 1][j] = CardsOnArea[i][j];
+                            }
+                        }
+                        CardsOnArea = TemporaryPlayArea;
+                        TemporaryPlayArea = null;
+                        System.gc();
+                        CardsOnArea[0][column] = newCard;
+
+                    } else if (row== CardsOnArea.length) {
+                        for (int i = 0; i < CardsOnArea.length; i++) {
+                            for (int j = 0; j < CardsOnArea[i].length; j++) {
+                                TemporaryPlayArea[i][j] = CardsOnArea[i][j];
+                            }
+                        }
+                        CardsOnArea = TemporaryPlayArea;
+                        TemporaryPlayArea = null;
+                        System.gc();
+                        CardsOnArea[CardsOnArea.length][column] = newCard;
+
+                    }
+
+                } else if ((column < 0|| column == CardsOnArea[0].length) && row>0 && row<CardsOnArea.length ) {
+                    Card[][] TemporaryPlayArea = new Card[CardsOnArea.length][CardsOnArea[0].length+1];
+                    if(column<0){
+                        for (int i = 0; i < CardsOnArea.length; i++) {
+                            for (int j = 0; j < CardsOnArea[i].length; j++) {
+                                TemporaryPlayArea[i][j+1] = CardsOnArea[i][j];
+                            }
+                        }
+                        CardsOnArea = TemporaryPlayArea;
+                        TemporaryPlayArea = null;
+                        System.gc();
+                        CardsOnArea[row][0] = newCard;
+                    }
+                    else if(column==CardsOnArea[0].length){
+                        for (int i = 0; i < CardsOnArea.length; i++) {
+                            for (int j = 0; j < CardsOnArea[i].length; j++) {
+                                TemporaryPlayArea[i][j] = CardsOnArea[i][j];
+                            }
+                        }
+                        CardsOnArea = TemporaryPlayArea;
+                        TemporaryPlayArea = null;
+                        System.gc();
+                        CardsOnArea[row][CardsOnArea[0].length] = newCard;
+
+
+                    } else if (column>CardsOnArea[0].length || row>CardsOnArea.length) {
+                        //messaggio di errore
+
+
+                    }
+
+                }
+            }
 
         }
     }
