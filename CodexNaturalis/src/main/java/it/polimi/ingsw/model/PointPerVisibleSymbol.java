@@ -1,6 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Corner[][];
 
+
 import java.util.HashMap;
 
 public class PointPerVisibleSymbol extends GoldCard{
@@ -12,7 +13,7 @@ public class PointPerVisibleSymbol extends GoldCard{
     }
 
     public int increasePoints(int point, Symbol symbol){
-       return getNumSymbols(symbol) * point;
+       return PlayArea.getNumSymbols(symbol) * point;
     }
 
     public Symbol getGoldGoal(){

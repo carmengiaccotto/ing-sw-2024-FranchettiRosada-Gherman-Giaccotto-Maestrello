@@ -7,7 +7,7 @@ import java.util.Map;
 * The player has already chosen the side they want to play the Card on*/
 public class PlayArea {
     /**Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
-    private Map<Symbol, Integer > symbols;
+    private static Map<Symbol, Integer > symbols;
     private Card[][] CardsOnArea;
 
 
@@ -36,10 +36,10 @@ public class PlayArea {
 
 
 
-    /*This method returns the card placed in a certain position in the PlayArea
+    /**This method returns the card placed in a certain position in the PlayArea
     * @return Card
     * @param  row
-    * @throws NullPointer exception if the PlayArea does not Exist yet
+    * @throws NullPointerException if the PlayArea does not Exist yet
     * @throws ArrayIndexOutOfBoundsException if we are trying to search an invalid position
     * row and column represent the position we want to search*/
     public Card getCard( int row, int column) {
@@ -76,12 +76,13 @@ public class PlayArea {
 
 
 
-    /**/
+    /**Initializes the Playarea to a 3x3 Matrix, so that, at the second round, we have space to place the
+     * second card without modifying the matrix. In also populates the map and sets all the counts to zero*/
     public void initializePlayArea(){
         for (Symbol symbol : Symbol.values()) {//
             symbols.put(symbol, 0);
         }
-        CardsOnArea=new Card[3][3];
+        CardsOnArea=new Card[3][3];//do we initialize at 3x3 or 1x1?
 
     }
 
@@ -90,7 +91,7 @@ public class PlayArea {
 
 
 
-    /*Method to add a new card on the PlayGround.
+    /**Method to add a new card on the PlayGround.
     * @param newCard card that we want to add
     * @param row
     * @param column
@@ -112,10 +113,24 @@ public class PlayArea {
             }
         }
         else{
+           Card[][] TemporaryPlayArea= new Card[CardsOnArea.length+1][CardsOnArea[0].length];
+           if(row<0 && column<0){
+               for (int i = 0; i < CardsOnArea.length; i++) {
+                   System.arraycopy(CardsOnArea[i], 0, TemporaryPlayArea[i + 1], 1, CardsOnArea[i].length);
+               }
+               CardsOnArea=TemporaryPlayArea;
+               TemporaryPlayArea=null;
+               System.gc();
+               CardsOnArea[0][0]=newCard;
 
+           } else if (row>CardsOnArea.length && column>CardsOnArea[0].length) {
+               CardsOnArea=TemporaryPlayArea;
+               TemporaryPlayArea=null;
+               System.gc();
+               CardsOnArea[CardsOnArea.length-1][CardsOnArea[0].length]=newCard;
 
-            //modify the matrix
-            //Add new row and new column even if we don't need them to avoid switch case?
+           }
+
         }
     }
 
@@ -126,12 +141,13 @@ public class PlayArea {
 
 
 
-    /*Method to get the occurrences of a given symbol. This method is going to be used to check the requirements for the goldCards
+    /**Method to get the occurrences of a given symbol. This method is going to be used to check the requirements for the goldCards
     * and to check if the goal of GoalObjectiveCards has been reached
     * @return int n number of occurrences of the given symbol
     * @param symbol the symbol whose occurrences we want to save
     *  */
-    public int getNumSymbols(Symbol symbol){
+    public static int getNumSymbols(Symbol symbol){
+
         return symbols.get(symbol);
     }
 
@@ -142,10 +158,10 @@ public class PlayArea {
 
 
 
-    /*This method is being used each time a FrontCard is placed: The back cards don't have symbols in their corner
+    /**This method is being used each time a FrontCard is placed: The back cards don't have symbols in their corner
     * n might also be a negative number, when a card covers a corner that contains a symbol
     * @param symbolToUpdate new symbols on the board or symbol in the corner that is being covered
-    * @param int n number of occurrences added or removed */
+    * @param  n number of occurrences added or removed */
     public  void changeNumSymbol(Symbol symbolToUpdate, int n){
         int NewNumSymbol = getNumSymbols(symbolToUpdate) + n;
         symbols.put(symbolToUpdate, NewNumSymbol);

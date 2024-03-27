@@ -2,7 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-/*@author Denisa Gherman
+/**@author Denisa Gherman
 * This is the class that implements the generic deck of cards*/
 public class Deck {
     /* We are going to need it to create the decks of the different type of cards */
@@ -13,7 +13,7 @@ public class Deck {
 
 
 
-    /*Class Constructor*/
+    /**Class Constructor*/
     public Deck(String TypeOfDeck) {
         Cards = new ArrayList<>();
         initializeDeck(TypeOfDeck);
@@ -23,7 +23,7 @@ public class Deck {
 
 
 
-    /*TypeOfDeck attribute getter*/
+    /**TypeOfDeck attribute getter*/
     public String getTypeOfDeck() {
         return TypeOfDeck;
     }
@@ -33,7 +33,7 @@ public class Deck {
 
 
 
-    /*TypeOfDeck attribute setter*/
+    /**TypeOfDeck attribute setter*/
     public void setTypeOfDeck(String typeOfDeck) {
         TypeOfDeck = typeOfDeck;
     }
@@ -42,7 +42,7 @@ public class Deck {
 
 
 
-    /* This is the method that creates the deck with all the cards
+    /** This is the method that creates the deck with all the cards
     * @param TypeOfDeck*/
     public void initializeDeck(String TypeOfDeck){
         //Initialize Deck with Json File
@@ -52,7 +52,7 @@ public class Deck {
 
 
 
-    /*Returns the Cards that are currently contained in the Deck
+    /**Returns the Cards that are currently contained in the Deck
     * @return ArrayList<PairOfCards>*/
     public ArrayList<PairOfCards> getCards() {
         return Cards;
@@ -60,7 +60,7 @@ public class Deck {
 
 
 
-    /*@returns Cards.size() the size of the deck we are considering*/
+    /**@returns Cards.size() the size of the deck we are considering*/
     public int getSize(){
 
         return Cards.size();
@@ -71,7 +71,7 @@ public class Deck {
 
 
 
-    /*Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
+    /**Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
     The player is later going to choose which side they want to play with
     * @return PairOfCards the card that is on top of the Deck*/
     public PairOfCards getLastCard(){
@@ -89,7 +89,7 @@ public class Deck {
 
 
 
-   /*Shuffles the cards of the Deck. Uses Collection library*/
+   /**Shuffles the cards of the Deck. Uses Collection library*/
     public void shuffle(){
         Collections.shuffle(Cards);
     }
@@ -98,7 +98,7 @@ public class Deck {
 
 
 
-    /*Method that allows to draw a card from the Deck.
+    /**Method that allows to draw a card from the Deck.
     * If the deck is empty:
     * @return null
     * else
