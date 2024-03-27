@@ -1,5 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Card;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -132,7 +134,7 @@ public class Player {
      * @return colorList the list of colors the player can still choose from
      */
 
-    public ArrayList<Color> DysplayAvailablePawnColors() {
+    public ArrayList<Color> DisplayAvailablePawnColors() {
         ArrayList<Color> colorsList = new ArrayList<Color>();
         ArrayList<Color> colorsArray = new ArrayList<Color>();//verificare questa parte per iterare sui componenti di una enum
         for (Color color : colorsArray) {
@@ -161,7 +163,7 @@ public class Player {
  */
 public Color ChoosePawnColor(Color chosenColor){
     ArrayList<Color> AvailableColors = new ArrayList<Color>();
-    AvailableColors=DysplayAvailablePawnColors();
+    AvailableColors=DisplayAvailablePawnColors();
     Boolean colorChoiceOk=false;
     int i=0;
     Color temporaryColor= null;
@@ -280,13 +282,17 @@ public Color ChoosePawnColor(Color chosenColor){
 
 
     /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
-     * param CardToPlay
+     * @param cardToPlay
+     * @param sideToPlay
+     * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
-    /*public void playCard(PairOfCards cardToPlay) {
-        cardToPlay.chooseSide();
+    public Card ChooseCardToPlay(PairOfCards  cardToPlay , Side sideToPlay) {
+        return cardToPlay.chooseSide(sideToPlay);
     }
-}*/
 
 
 }
+
+
+
 

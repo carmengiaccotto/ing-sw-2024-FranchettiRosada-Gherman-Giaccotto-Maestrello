@@ -14,7 +14,7 @@ public class PairOfCards {
         return sides;
     }
 
-    public PlayCard chooseSide(Side side) {
+    public static PlayCard chooseSide(Side side) {
         PlayCard card;
         return card;
     }
