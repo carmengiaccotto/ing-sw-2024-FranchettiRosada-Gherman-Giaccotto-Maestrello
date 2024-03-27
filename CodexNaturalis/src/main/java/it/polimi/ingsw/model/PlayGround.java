@@ -1,8 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import it.polimi.ingsw.model.ObjectiveCard;
 public class PlayGround {
 
     private HashMap<Player, PlayArea> Players;
@@ -12,16 +12,16 @@ public class PlayGround {
     private Player CurrentPlayer;
     private GameStatus gameStatus;
 
-    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
-        Players = players;
-        Decks = decks;
-        CommonCards = commonCards;
-        CommonObjectives = commonObjectives;
-        CurrentPlayer = currentPlayer;
-        this.gameStatus = gameStatus;
-    }
+    public PlayGround(ArrayList<Deck> Decks, ArrayList<PairOfCards> CommonCards, ArrayList<ObjectiveCard> CommonObjectives){
+        HashMap<Player, PlayArea> Players = new HashMap<>();
+        this.Decks = Deck;
+        this.CommonCards = CommonCards;
+        this.CommonObjectives = CommonObjectives;
+        this.CurrentPlayer = ......;
+        this.gameStatus = RUNNING;
 
-    public HashMap<Player,PlayArea> getPlayers(){
+    }
+public HashMap<Player,PlayArea> getPlayers(){
         return Players;
 }
 public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){

@@ -2,11 +2,11 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Card;
 
 import java.util.Map;
-/*@author Denisa Minodora Gherman
+/**@author Denisa Minodora Gherman
 * Class that implements the PlayArea of the single Player. It is built as a Matrix whose Type is Card:
 * The player has already chosen the side they want to play the Card on*/
 public class PlayArea {
-    /*Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
+    /**Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
     private Map<Symbol, Integer > symbols;
     private Card[][] CardsOnArea;
 
@@ -14,7 +14,7 @@ public class PlayArea {
 
 
 
-    /*CardsOnArea matrix getter method
+    /**CardsOnArea matrix getter method
     * @return Card[][] which represents the PlayArea to which the cards are to be added at every Round*/
     public Card[][] getCardsOnArea() {
         return CardsOnArea;
@@ -24,7 +24,7 @@ public class PlayArea {
 
 
 
-    /*CardsOnArea setter method
+    /**CardsOnArea setter method
     * @return Card[][]
     *
     * Do we need this??
@@ -38,8 +38,7 @@ public class PlayArea {
 
     /*This method returns the card placed in a certain position in the PlayArea
     * @return Card
-    * @param int row
-    * @param int column
+    * @param  row
     * @throws NullPointer exception if the PlayArea does not Exist yet
     * @throws ArrayIndexOutOfBoundsException if we are trying to search an invalid position
     * row and column represent the position we want to search*/
@@ -62,7 +61,7 @@ public class PlayArea {
 
 
 
-    /*Symbols Map getter
+    /**Symbols Map getter
     * @return Symbols map with key and value*/
     public Map<Symbol, Integer> getSymbols() {
         return symbols;
@@ -82,10 +81,7 @@ public class PlayArea {
         for (Symbol symbol : Symbol.values()) {//
             symbols.put(symbol, 0);
         }
-        // add the initialization of the matrix.
-        //Big matrix with the maximum of rows and columns or a dynamic one? How do we think of the dynamic one?
-        //For the big Matrix, where does the initial  card belong?
-
+        CardsOnArea=new Card[3][3];
 
     }
 
@@ -98,22 +94,26 @@ public class PlayArea {
     * @param newCard card that we want to add
     * @param row
     * @param column
+    * @throws IllegalStateException the playing is trying to place a card on a position already occupied by another card
     * row and column are the coordinates where we want the card to be placed
     * It is a dynamic matrix, so we might need to add a new row and/or a new column.*/
     public void AddCardOnArea(Card newCard, int row, int column){
         if(row < CardsOnArea.length && column<CardsOnArea[0].length && row>=0 && column>=0){
             if(CardsOnArea[row][column]==null){
-                //To add another if case, that checks that the angle is free
-                /*also check that the card does not cover two angles of the same card:
+                //To add another if case, that checks that the Corner is free
+                //if (CardToCover.checkCornerToCover)
+                /*also check that the card does not cover two corners of the same card:
                 * get the position of the card the angle belongs to, and check that
                 * Parameters row and column are not == to the ones of the card*/
                 CardsOnArea[row][column]=newCard;
             }
             else{
-                //Throw Exception
+                throw new IllegalStateException("The card cannot be placed here, as there is already another Card placed");
             }
         }
         else{
+
+
             //modify the matrix
             //Add new row and new column even if we don't need them to avoid switch case?
         }
