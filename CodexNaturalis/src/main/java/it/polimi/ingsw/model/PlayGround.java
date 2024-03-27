@@ -1,11 +1,13 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.ObjectiveCard;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import it.polimi.ingsw.model.ObjectiveCard;
+import java.util.List;
 public class PlayGround {
 
-    private HashMap<Player, PlayArea> Players;
+    private static HashMap<Player, PlayArea> Players;
     private ArrayList<Deck> Decks;
     private ArrayList<PairOfCards>  CommonCards;
     private ArrayList<ObjectiveCard> CommonObjectives;
@@ -21,7 +23,20 @@ public class PlayGround {
         this.gameStatus = RUNNING;
 
     }
-public HashMap<Player,PlayArea> getPlayers(){
+
+
+
+
+    /** @author Denisa Minodora Gherman
+     * Method to get the list of the Players in the game
+     * @return ListOfPlayers*/
+    public static ArrayList<Player> getListOfPlayers() {
+        ArrayList<Player> ListOfPlayers= new ArrayList<Player>();
+        ListOfPlayers.addAll(Players.keySet());
+        return ListOfPlayers;
+    }
+
+    public HashMap<Player,PlayArea> getPlayers(){
         return Players;
 }
 public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){

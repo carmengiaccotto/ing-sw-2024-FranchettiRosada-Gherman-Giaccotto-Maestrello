@@ -89,10 +89,12 @@ public class Player {
     }
 
 
+/** Method to give the player the pawnColors that have not been already taken by other players
+ * @return colorList the list of colors the player can still choose from*/
 
-public ArrayList<Color> DysplayPossiblePawnColors(){
+public ArrayList<Color> DysplayAvailablePawnColors(){
     ArrayList <Color> colorsList = new ArrayList<Color>();
-    Color[] colorsArray=new ArrayList<Color>;//verificare questa parte per iterare sui componenti di una enum
+    ArrayList<Color> colorsArray=new ArrayList<Color>();//verificare questa parte per iterare sui componenti di una enum
     for (Color color : colorsArray) {
         colorsList.add(Color.decode(String.valueOf(color)));
     }
@@ -239,10 +241,10 @@ public ArrayList<Color> DysplayPossiblePawnColors(){
     /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
     * param CardToPlay
     * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
-    public void playCard(PairOfCards cardToPlay) {
-        cardToPlay.ChooseSide();
+    /*public void playCard(PairOfCards cardToPlay) {
+        cardToPlay.chooseSide();
     }
-}
+}*/
 
 
 
