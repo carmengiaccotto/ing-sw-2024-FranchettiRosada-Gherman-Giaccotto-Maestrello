@@ -1,6 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.HashMap;
+
 import  it.polimi.ingsw.model.Corner[][];
 
 public class InitialCard extends PlayCard {

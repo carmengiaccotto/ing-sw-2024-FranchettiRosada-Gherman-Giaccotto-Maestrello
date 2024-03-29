@@ -1,0 +1,166 @@
+{
+  "InitialCards": [
+    {
+      "id": 81,
+      "front": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 0,
+          "FUNGI": 0,
+          "INSECT": 2
+        },
+        "corner1": "EMPTY",
+        "corner2": "PLANT",
+        "corner3": "INSECT",
+        "corner4": "EMPTY"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "FUNGI",
+        "corner2": "PLANT",
+        "corner3": "INSECT",
+        "corner4": "ANIMAL"
+      }
+    },
+    {
+      "id": 82,
+      "front": {
+        "symbols": {
+          "PLANT": 0,
+          "ANIMAL": 1,
+          "FUNGI": 2,
+          "INSECT": 0
+        },
+        "corner1": "ANIMAL",
+        "corner2": "EMPTY",
+        "corner3": "EMPTY",
+        "corner4": "FUNGI"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "PLANT",
+        "corner2": "ANIMAL",
+        "corner3": "FUNGI",
+        "corner4": "INSECT"
+      }
+    },
+    {
+      "id": 83,
+      "front": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 0,
+          "FUNGI": 1,
+          "INSECT": 0
+        },
+        "corner1": "EMPTY",
+        "corner2": "EMPTY",
+        "corner3": "EMPTY",
+        "corner4": "EMPTY"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "INSECT",
+        "corner2": "ANIMAL",
+        "corner3": "FUNGI",
+        "corner4": "PLANT"
+      }
+    },
+    {
+      "id": 84,
+      "front": {
+        "symbols": {
+          "PLANT": 0,
+          "ANIMAL": 1,
+          "FUNGI": 0,
+          "INSECT": 1
+        },
+        "corner1": "EMPTY",
+        "corner2": "EMPTY",
+        "corner3": "EMPTY",
+        "corner4": "EMPTY"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "PLANT",
+        "corner2": "INSECT",
+        "corner3": "ANIMAL",
+        "corner4": "FUNGI"
+      }
+    },
+    {
+      "id": 85,
+      "front": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 0,
+          "INSECT": 1
+        },
+        "corner1": "EMPTY",
+        "corner2": "EMPTY",
+        "corner3": "HIDDEN",
+        "corner4": "HIDDEN"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "INSECT",
+        "corner2": "FUNGI",
+        "corner3": "PLANT",
+        "corner4": "ANIMAL"
+      }
+    },
+    {
+      "id": 86,
+      "front": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 0
+        },
+        "corner1": "EMPTY",
+        "corner2": "EMPTY",
+        "corner3": "HIDDEN",
+        "corner4": "HIDDEN"
+      },
+      "back": {
+        "symbols": {
+          "PLANT": 1,
+          "ANIMAL": 1,
+          "FUNGI": 1,
+          "INSECT": 1
+        },
+        "corner1": "FUNGI",
+        "corner2": "ANIMAL",
+        "corner3": "PLANT",
+        "corner4": "INSECT"
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Corner[][];
 
 import java.util.HashMap;
 
-public class PlayCard extends Card{
+public class PlayCard extends Card {
     private HashMap<Symbol, Integer> symbols;
     Corner[][] corners;
     private boolean isInConfiguration;
