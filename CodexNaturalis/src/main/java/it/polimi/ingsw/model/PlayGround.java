@@ -1,19 +1,21 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.ObjectiveCard;
+import it.polimi.ingsw.model.Card;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import it.polimi.ingsw.model.ObjectiveCard;
 public class PlayGround {
 
-    private HashMap<Player, PlayArea> players;
+    private static HashMap<Player, PlayArea> players;
     private static ArrayList<Deck> decks;
-    private ArrayList<PairOfCards>  commonCards;
+    private ArrayList<Card>  commonCards;
     private ArrayList<ObjectiveCard> commonObjectives;
     private Player currentPlayer;
     private GameStatus gameStatus;
 
 
-    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList <PairOfCards> commonCards, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList <Card> commonCards, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
         this.players = players;
         this.decks = decks;
         this.commonCards = commonCards;
@@ -36,6 +38,30 @@ public class PlayGround {
      *
      * @return decks
      */
+
+
+
+
+
+
+    /**@author Denisa Minodora Gherman
+     * Method that returns the list of the players, without their playArea
+     * @return playersList */
+    public static ArrayList<Player> getListOfPlayers(){
+        ArrayList<Player> playersList = new ArrayList<>();
+        for (Player player : players.keySet()) {
+            playersList.add(player);
+        }
+        return playersList;
+
+    }
+
+
+
+
+
+
+
     public static ArrayList<Deck> getDecks() {
         return decks;
     }
@@ -45,7 +71,7 @@ public class PlayGround {
      *
      * @return commonCards
      */
-    public ArrayList<PairOfCards> getCommonCards() {
+    public static ArrayList<Card> getCommonCards() {
         return commonCards;
     }
 
@@ -117,7 +143,7 @@ public class PlayGround {
      *
      *
      */
-    public ArrayList<PairOfCards> addCommonCard(Card card){
+    public ArrayList<Card> addCommonCard(Card card){
         commonCards.add(card);
         return commonCards;
     }
@@ -146,3 +172,6 @@ public class PlayGround {
     public Player Winner(){
     }
 }
+
+
+

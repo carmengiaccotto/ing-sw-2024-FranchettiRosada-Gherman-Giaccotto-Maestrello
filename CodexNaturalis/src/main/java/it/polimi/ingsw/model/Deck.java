@@ -1,5 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Card;
+
 import java.util.ArrayList;
 import java.util.Collections;
 /**@author Denisa Gherman
@@ -7,7 +9,7 @@ import java.util.Collections;
 public class Deck {
     /* We are going to need it to create the decks of the different type of cards */
     private String TypeOfDeck;
-    private ArrayList<PairOfCards> Cards;
+    private ArrayList<Card> Cards;
 
 
 
@@ -54,7 +56,7 @@ public class Deck {
 
     /**Returns the Cards that are currently contained in the Deck
     * @return ArrayList<PairOfCards>*/
-    public ArrayList<PairOfCards> getCards() {
+    public ArrayList<Card> getCards() {
         return Cards;
     }
 
@@ -74,7 +76,7 @@ public class Deck {
     /**Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
     The player is later going to choose which side they want to play with
     * @return PairOfCards the card that is on top of the Deck*/
-    public PairOfCards getLastCard(){
+    public Card getLastCard(){
         if (!Cards.isEmpty()) {
             return Cards.get(getSize()-1);
         } else {
@@ -104,13 +106,13 @@ public class Deck {
     * else
     * @return PairOfCards using getLastCard() method
     * It also removes the Drawn Card from the deck, which is still the last one*/
-    public PairOfCards DrawCard(){
+    public Card DrawCard(){
         if (Cards.isEmpty()) {
             System.out.println("The deck is empty.");
             return null;
         }
         else{
-            PairOfCards drawnCard = getLastCard();
+            Card drawnCard = getLastCard();
             Cards.remove(getSize()-1);
             return drawnCard;
 

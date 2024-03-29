@@ -2,6 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import it.polimi.ingsw.model.Card;
 
 
 /**@author Denisa Minodora Gherman
@@ -12,7 +13,7 @@ public class Player {
     private String nickname;
     private static Color pawnColor;
     private int score;
-    private ArrayList<PairOfCards> cardsInHand;
+    private ArrayList<Card> cardsInHand;
     private int round;
 
 
@@ -230,7 +231,7 @@ public Color ChoosePawnColor(Color chosenColor){
      *
      * @return ArrayList<PairOfCards> cards that the player can currently play with
      */
-    public ArrayList<PairOfCards> getCardsInHand() {
+    public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
     }
 
@@ -255,13 +256,13 @@ public Color ChoosePawnColor(Color chosenColor){
      *             A new card of the same type needs to be drawn. We get the type of the drawn Card, and we use it as TypeOfDeck to
      *             search for
      */
-    public void drawCardFromPlayground(PairOfCards card) {
+    public void drawCardFromPlayground(Card card) {
         cardsInHand.add(card);
-        PlayGround.getCommonCard().remove(card);
+        PlayGround.getCommonCards().remove(card);
         String cardType = card.getClass().getSimpleName();
         for (Deck deck : PlayGround.getDecks()) {
             if (deck.getTypeOfDeck().equals(cardType))
-                PlayGround.getCommonCard().add(deck.DrawCard());
+                PlayGround.getCommonCards().add(deck.DrawCard());
 
         }
     }
@@ -282,7 +283,7 @@ public Color ChoosePawnColor(Color chosenColor){
      * @param sideToPlay
      * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
-    public Card ChooseCardToPlay(PairOfCards  cardToPlay , Side sideToPlay) {
+    public SideOfCard ChooseCardToPlay(Card cardToPlay , Side sideToPlay) {
         return cardToPlay.chooseSide(sideToPlay);
     }
 

@@ -7,7 +7,7 @@ import java.util.Map;
 public class PlayArea {
     /**Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
     private static Map<Symbol, Integer > symbols;
-    private Card[][] CardsOnArea;
+    private SideOfCard[][] CardsOnArea;
 
 
 
@@ -15,7 +15,7 @@ public class PlayArea {
 
     /**CardsOnArea matrix getter method
     * @return Card[][] which represents the PlayArea to which the cards are to be added at every Round*/
-    public Card[][] getCardsOnArea() {
+    public SideOfCard[][] getCardsOnArea() {
         return CardsOnArea;
     }
 
@@ -41,7 +41,7 @@ public class PlayArea {
     * @throws NullPointerException if the PlayArea does not Exist yet
     * @throws ArrayIndexOutOfBoundsException if we are trying to search an invalid position
     * row and column represent the position we want to search*/
-    public Card getCard( int row, int column) {
+    public SideOfCard getCard( int row, int column) {
         if (CardsOnArea != null) {
             if (row < CardsOnArea.length && column<CardsOnArea[0].length && row>=0 && column>=0) {
                 return CardsOnArea[row][column];
@@ -81,7 +81,7 @@ public class PlayArea {
         for (Symbol symbol : Symbol.values()) {//
             symbols.put(symbol, 0);
         }
-        CardsOnArea=new Card[3][3];//do we initialize at 3x3 or 1x1?
+        CardsOnArea=new SideOfCard[1][1];//do we initialize at 3x3 or 1x1?
 
     }
 
@@ -144,7 +144,7 @@ public class PlayArea {
     * @throws IllegalStateException the playing is trying to place a card on a position already occupied by another card
     * row and column are the coordinates where we want the card to be placed
     * It is a dynamic matrix, so we might need to add a new row and/or a new column.*/
-    public void AddCardOnArea(Card newCard, int row, int column){
+    public void AddCardOnArea(SideOfCard newCard, int row, int column){
         if(rowExists(row) && columnExists((column))){
             if(CardsOnArea[row][column]==null){
                     CardsOnArea[row][column]=newCard;
@@ -156,7 +156,7 @@ public class PlayArea {
         }
         else{
             if ((row == CardsOnArea.length && column==CardsOnArea[0].length) || (row<0 && column<0)) {
-                Card[][] TemporaryPlayArea = new Card[CardsOnArea.length + 1][CardsOnArea[0].length+1];
+                SideOfCard[][] TemporaryPlayArea = new SideOfCard[CardsOnArea.length + 1][CardsOnArea[0].length+1];
                 if (row < 0 && column < 0) {
                     for (int i = 0; i < CardsOnArea.length; i++) {
                         System.arraycopy(CardsOnArea[i], 0, TemporaryPlayArea[i + 1], 1, CardsOnArea[i].length);
@@ -176,7 +176,7 @@ public class PlayArea {
             }
             else{
                 if((row < 0|| row == CardsOnArea.length) && columnExists(column) ){
-                    Card[][] TemporaryPlayArea = new Card[CardsOnArea.length + 1][CardsOnArea[0].length];
+                    SideOfCard[][] TemporaryPlayArea = new SideOfCard[CardsOnArea.length + 1][CardsOnArea[0].length];
                     if(row<0){
                         for (int i = 0; i < CardsOnArea.length; i++) {
                             for (int j = 0; j < CardsOnArea[i].length; j++) {
@@ -202,7 +202,7 @@ public class PlayArea {
                     }
 
                 } else if ((column < 0|| column == CardsOnArea[0].length) && rowExists(row) ) {
-                    Card[][] TemporaryPlayArea = new Card[CardsOnArea.length][CardsOnArea[0].length+1];
+                    SideOfCard[][] TemporaryPlayArea = new SideOfCard[CardsOnArea.length][CardsOnArea[0].length+1];
                     if(column<0){
                         for (int i = 0; i < CardsOnArea.length; i++) {
                             for (int j = 0; j < CardsOnArea[i].length; j++) {
