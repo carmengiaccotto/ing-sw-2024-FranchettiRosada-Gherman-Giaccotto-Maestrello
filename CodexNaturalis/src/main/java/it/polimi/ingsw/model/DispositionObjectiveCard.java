@@ -1,12 +1,14 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.ObjectiveCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
     public class DispositionObjectiveCard extends ObjectiveCard {
 
-    private Card[][] disposition;
+    private SideOfCard[][] disposition;
 
-        public DispositionObjectiveCard(ObjectivePoints objectivePoint, Card[][] disposition) {
-            super(objectivePoint);
+        public DispositionObjectiveCard(ObjectivePoints points, SideOfCard[][] disposition) {
+            super(points);
             this.disposition = disposition;
         }
 
@@ -16,7 +18,7 @@ import it.polimi.ingsw.model.ObjectiveCard;
         return numberOfDispositions;
 
     }
-    public Card[][] getDisposition(){
+    public SideOfCard[][] getDisposition(){
         return disposition;
 
     }

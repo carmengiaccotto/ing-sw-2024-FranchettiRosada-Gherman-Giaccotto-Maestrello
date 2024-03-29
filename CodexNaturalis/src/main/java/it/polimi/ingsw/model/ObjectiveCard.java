@@ -3,10 +3,10 @@ package it.polimi.ingsw.model;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
 
 public class ObjectiveCard {
-    private ObjectivePoints objectivePoint;
+    private final ObjectivePoints points;
 
-    public ObjectiveCard(ObjectivePoints objectivePoint) {
-        this.objectivePoint = objectivePoint;
+    public ObjectiveCard(ObjectivePoints points) {
+        this.points = points;
     }
 
     public void play(){
@@ -18,7 +18,7 @@ public class ObjectiveCard {
     }
 
     public int getPoints(int numberOfGoals, ObjectivePoints n) {
-        return numberOfGoals * n.getvalue();  // Remember to implement getValue
+        return numberOfGoals * n.getvalue();
 
     }
 
