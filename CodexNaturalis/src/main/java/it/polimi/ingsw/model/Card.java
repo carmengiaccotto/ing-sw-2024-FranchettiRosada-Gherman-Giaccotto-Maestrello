@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Colors;
 
-public abstract class Card {
+public class Card {
 
     private Colors color;
 

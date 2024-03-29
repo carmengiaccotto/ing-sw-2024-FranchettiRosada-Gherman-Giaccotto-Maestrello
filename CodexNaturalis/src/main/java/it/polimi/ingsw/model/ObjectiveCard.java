@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
 
-public class ObjectiveCard extends Card {
+public class ObjectiveCard {
     private ObjectivePoints objectivePoint;
 
     public ObjectiveCard(ObjectivePoints objectivePoint) {
