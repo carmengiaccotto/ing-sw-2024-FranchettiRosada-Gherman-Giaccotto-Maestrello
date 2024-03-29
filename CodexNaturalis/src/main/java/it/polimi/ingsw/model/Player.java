@@ -284,6 +284,7 @@ public Color ChoosePawnColor(Color chosenColor){
      * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
     public SideOfCard ChooseCardToPlay(Card cardToPlay , Side sideToPlay) {
+        cardsInHand.remove(cardToPlay);
         return cardToPlay.chooseSide(sideToPlay);
     }
 
