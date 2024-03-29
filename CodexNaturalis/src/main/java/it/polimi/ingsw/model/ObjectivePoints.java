@@ -6,9 +6,10 @@ public enum ObjectivePoints {
 
     private final int value;
 
-    public  ObjectivePoints(int value){
+    ObjectivePoints(int value) {
         this.value = value;
     }
+
     public int getValue(){
         return value;
     }

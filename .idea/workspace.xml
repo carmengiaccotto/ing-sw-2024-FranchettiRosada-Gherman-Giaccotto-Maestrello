@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modification of the Side enumeration.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Corner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -34,6 +32,9 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -53,7 +54,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main.java.it.polimi.ingsw&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Downloads/gson-2.8.8.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -76,6 +77,13 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -85,7 +93,8 @@
       <option name="presentableId" value="Default" />
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
-      <workItem from="1711461796620" duration="2010000" />
+      <workItem from="1711461796620" duration="4553000" />
+      <workItem from="1711711060898" duration="242000" />
     </task>
     <task id="LOCAL-00001" summary="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc">
       <option name="closed" value="true" />
@@ -167,47 +176,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711452191488</updated>
     </task>
-    <task id="LOCAL-00011" summary="DisplayAvailableColors function useful for choosePawnColor()">
+    <task id="LOCAL-00011" summary="Modifications to the Card package, including the addition of the PairOfCards class and the Side enumeration.">
       <option name="closed" value="true" />
-      <created>1711552107730</created>
+      <created>1711463990797</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1711552107730</updated>
+      <updated>1711463990797</updated>
     </task>
-    <task id="LOCAL-00012" summary="getListOfPlayers() method in Playground class">
+    <task id="LOCAL-00012" summary="Modification of the Side enumeration.">
       <option name="closed" value="true" />
-      <created>1711552951248</created>
+      <created>1711464692147</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1711552951248</updated>
+      <updated>1711464692147</updated>
     </task>
-    <task id="LOCAL-00013" summary="chooseNickName method for player, that sets the nickname only if there are no other players with the same one">
+    <task id="LOCAL-00013" summary="Modification of the Side enumeration.">
       <option name="closed" value="true" />
-      <created>1711555017481</created>
+      <created>1711710991425</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1711555017481</updated>
+      <updated>1711710991426</updated>
     </task>
-    <task id="LOCAL-00014" summary="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction">
-      <option name="closed" value="true" />
-      <created>1711555953389</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1711555953389</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)">
-      <option name="closed" value="true" />
-      <created>1711571014252</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1711571014252</updated>
-    </task>
-    <option name="localTasksCounter" value="16" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,11 +251,8 @@
     <MESSAGE value="Solved the problem for Player And PlayArea Classes, and translated the comments in English" />
     <MESSAGE value="Solved the problem for Player And PlayArea Classes, modified PlayArea, added Javadoc comments for Deck" />
     <MESSAGE value="Javadoc and comments on Player" />
-    <MESSAGE value="DisplayAvailableColors function useful for choosePawnColor()" />
-    <MESSAGE value="getListOfPlayers() method in Playground class" />
-    <MESSAGE value="chooseNickName method for player, that sets the nickname only if there are no other players with the same one" />
-    <MESSAGE value="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction" />
-    <MESSAGE value="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)" />
+    <MESSAGE value="Modifications to the Card package, including the addition of the PairOfCards class and the Side enumeration." />
+    <MESSAGE value="Modification of the Side enumeration." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification of the Side enumeration." />
   </component>
 </project>

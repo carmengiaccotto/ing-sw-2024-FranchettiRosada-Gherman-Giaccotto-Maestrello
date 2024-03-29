@@ -13,7 +13,7 @@ public class ObjectiveCard extends Card {
 
     }
 
-    public void Check(){
+    public int Check(){
 
     }
 

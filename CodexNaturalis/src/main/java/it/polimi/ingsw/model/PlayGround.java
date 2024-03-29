@@ -1,104 +1,148 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.ObjectiveCard;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import it.polimi.ingsw.model.ObjectiveCard;
 public class PlayGround {
 
-    private static HashMap<Player, PlayArea> Players;
-    private ArrayList<Deck> Decks;
-    private ArrayList<PairOfCards>  CommonCards;
-    private ArrayList<ObjectiveCard> CommonObjectives;
-    private Player CurrentPlayer;
+    private HashMap<Player, PlayArea> players;
+    private static ArrayList<Deck> decks;
+    private ArrayList<PairOfCards>  commonCards;
+    private ArrayList<ObjectiveCard> commonObjectives;
+    private Player currentPlayer;
     private GameStatus gameStatus;
 
-    public PlayGround(ArrayList<Deck> Decks, ArrayList<PairOfCards> CommonCards, ArrayList<ObjectiveCard> CommonObjectives){
-        HashMap<Player, PlayArea> Players = new HashMap<>();
-        this.Decks = Deck;
-        this.CommonCards = CommonCards;
-        this.CommonObjectives = CommonObjectives;
-        this.CurrentPlayer = ......;
-        this.gameStatus = RUNNING;
 
-    }
-
-
-
-
-    /** @author Denisa Minodora Gherman
-     * Method to get the list of the Players in the game
-     * @return ListOfPlayers*/
-    public static ArrayList<Player> getListOfPlayers() {
-        ArrayList<Player> ListOfPlayers= new ArrayList<Player>();
-        ListOfPlayers.addAll(Players.keySet());
-        return ListOfPlayers;
-    }
-
-    public HashMap<Player,PlayArea> getPlayers(){
-        return Players;
-}
-public HashMap<Player, PlayArea> AddPlayer(HashMap<Player, PlayArea> Players, Player player, PlayArea playarea){
-        Players.put(player, playarea);
-        return Players;
-}
-public boolean CheckUniqueNickNames(){
-        for(Player chiave1: Players.keySet().getNickname){
-            for (Player chiave2: players.keySet().getNickname){
-                if(!chiave1.equals(chiav2)){
-                    return TRUE;
-                }
-                else
-                    return FALSE;
-            }
-
-    }
-}
-
-public ArrayList<Card> addCommonCard(Card){
-        CommonCards.add(Card);
-        return CommonCards;
-}
-
-public static ArrayList<PairOfCards> getCommonCard(){
-        return CommonCards;
-
-}
-public initializeGame(){
-
-}
-
-public void getGameStatus(){
-        return gameStatus;
-}
-public void setGameStatus(gameStatus){
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList <PairOfCards> commonCards, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
+        this.players = players;
+        this.decks = decks;
+        this.commonCards = commonCards;
+        this.commonObjectives = commonObjectives;
+        this.currentPlayer = currentPlayer;
         this.gameStatus = gameStatus;
-}
+    }
 
-public AddObjectiveScore(){
+    /**
+     * getter method for the PlayGround's players
+     *
+     * @return players
+     */
+    public HashMap<Player,PlayArea> getPlayers(){
+        return players;
+    }
 
-}
-
-public void getCommonOjective(){
-        return CommonObjectives;
-}
-
-public string Winner(){
-        if(CurrentPlayer)
-        return CurrentPlayer
-}
-
-public void setCurrentPlayer(CurrentPlayer){
-        this.CurrentPlayer = CurrentPlayer;
-}
-
-public string getCurrentPlayer(){
-        return CurrentPlayer;
-}
-
-
+    /**
+     * getter method for the PlayGround's decks
+     *
+     * @return decks
+     */
     public static ArrayList<Deck> getDecks() {
-        return Decks;
+        return decks;
+    }
+
+    /**
+     * getter method for the PlayGround's commonCards
+     *
+     * @return commonCards
+     */
+    public ArrayList<PairOfCards> getCommonCards() {
+        return commonCards;
+    }
+
+    /**
+     * getter method for the PlayGround's commonObjectives
+     *
+     * @return commonObjectives
+     */
+    public ArrayList<ObjectiveCard> getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    /**
+     * getter method for the PlayGround's commonObjectives
+     *
+     * @return currentPlayer
+     */
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
+
+    /**
+     * getter method for the PlayGround's gameStatus
+     *
+     * @return gameStatus
+     */
+    public GameStatus getGameStatus(){
+        return gameStatus;
+    }
+
+    /**
+     * currentPlayer setter Method
+     *
+     * @param currentPlayer
+     */
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    /**
+     * gameStatus setter Method
+     *
+     * @param gameStatus
+     */
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public HashMap<Player, PlayArea> addPlayer(HashMap<Player, PlayArea> players, Player player, PlayArea playarea){
+        players.put(player, playarea);
+        return players;
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public boolean CheckUniqueNickNames(){
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public ArrayList<PairOfCards> addCommonCard(Card card){
+        commonCards.add(card);
+        return commonCards;
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public void initializeGame(){
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public void addObjectiveScore(){
+    }
+
+    /**
+     * ....
+     *
+     *
+     */
+    public Player Winner(){
     }
 }

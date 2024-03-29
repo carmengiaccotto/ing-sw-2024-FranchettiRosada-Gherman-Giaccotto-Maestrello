@@ -1,30 +1,14 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-import it.polimi.ingsw.model.Pair;
+package it.polimi.ingsw.model;
 
-public class Card {
-    private Pair sides;
-    private int idCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Colors;
 
-    public PairOfCards(Pair side, int idCard) {
-        this.sides = sides;
-        this.idCard = idCard;
-    }
+public abstract class Card {
 
-    public Pair getSides(){
-        return sides;
-    }
+    private Colors color;
 
-    public static PlayCard chooseSide(Side side) {
-        PlayCard card;
-        return card;
-    }
+    public void play(){
 
-    public int getId(){
-        return idCard;
-    }
-
-    public void setId(int idCard) {
-        this.idCard = idCard;
     }
 }
+
 
