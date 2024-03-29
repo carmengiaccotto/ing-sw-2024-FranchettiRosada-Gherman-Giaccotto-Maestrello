@@ -130,6 +130,23 @@ public class PlayArea {
 
 
 
+    public void CoverCorners(SideOfCard PlacedCard, int row, int column){
+        for (Corner corner : SideOfCard.getCorners()){
+            int RowToCheck = corner.getPosition().getFirst().VerticalPositioning(row);
+            int ColumnToCheck= corner.getPosition().getSecond().HorizontalPositioning(column);
+            int CornerRow=corner.getPosition().getFirst();
+            int CornerColumn=corner.getPosition().getSecond();
+
+            if (getCard(RowToCheck, ColumnToCheck)!=null){
+                Corner TargetCorner=getCard(RowToCheck,ColumnToCheck).getCornerInPosition(1-CornerRow, 1-CornerColumn);
+                TargetCorner.isCovered()=true;
+                changeNumSymbol(TargetCorner.getSymbol(), -1);
+
+            }
+
+
+        }
+    }
 
 
 

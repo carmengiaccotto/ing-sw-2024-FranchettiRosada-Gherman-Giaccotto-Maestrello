@@ -47,7 +47,7 @@
           "points": 3,
           "CentralCardColor": "RED",
           "NEIGHBORS": {
-            "TOP": "RED",
+            "UP": "RED",
             "BOTTOM RIGHT": "GREEN"
 
           }
@@ -57,7 +57,7 @@
           "points": 3,
           "CentralCardColor": "GREEN",
           "NEIGHBORS": {
-            "TOP": "GREEN",
+            "UP": "GREEN",
             "BOTTOM LEFT": "PURPLE"
 
           }
@@ -68,7 +68,7 @@
           "CentralCardColor": "BLUE",
           "NEIGHBORS": {
             "TOP RIGHT": "RED",
-            "BOTTOM": "BLUE"
+            "DOWN": "BLUE"
           }
         },
         {
@@ -77,7 +77,7 @@
           "CentralCardColor": "PURPLE",
           "NEIGHBORS": {
             "TOP lEFT": "BLUE",
-            "BOTTOM": "PURPLE"
+            "DOWN": "PURPLE"
 
           }
         }
