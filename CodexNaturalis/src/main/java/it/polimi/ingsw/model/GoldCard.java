@@ -2,7 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Corner[][];
 import java.util.HashMap;
 
-public class GoldCard extends PlayCard{
+public class GoldCard extends SideOfCard {
     private HashMap<Symbol, Integer> requirement;
     private int point;
 

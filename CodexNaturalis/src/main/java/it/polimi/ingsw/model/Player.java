@@ -1,7 +1,5 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Card;
-
 import java.awt.*;
 import java.util.ArrayList;
 
