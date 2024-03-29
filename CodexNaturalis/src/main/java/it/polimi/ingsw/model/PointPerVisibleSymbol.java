@@ -1,22 +1,20 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-import it.polimi.ingsw.model.Corner[][];
-
 
 import java.util.HashMap;
 
 public class PointPerVisibleSymbol extends GoldCard{
-    private Symbol symbol;
+    private final Symbol goldGoal;
 
-    public PointPerVisibleSymbol(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color, HashMap<Symbol, Integer> requirement, int point, Symbol symbol) {
-        super(symbols, corners, isInConfiguration, color, requirement, point);
-        this.symbol = symbol;
+    public PointPerVisibleSymbol(HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
+        super(requirement, point);
+        this.goldGoal = goldGoal;
     }
 
-    public int increasePoints(int point, Symbol symbol){
-       return PlayArea.getNumSymbols(symbol) * point;
+    public int increasePoints(int point, Symbol goldGoal){
+       return PlayArea.getNumSymbols(goldGoal) * point;
     }
 
     public Symbol getGoldGoal(){
-        return symbol;
+        return goldGoal;
     }
 }

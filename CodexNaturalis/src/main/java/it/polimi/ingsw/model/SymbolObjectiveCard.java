@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-import it.polimi.ingsw.model.ObjectiveCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectiveCard;
 import java.util.HashMap;
 import java.util.Map;
 
