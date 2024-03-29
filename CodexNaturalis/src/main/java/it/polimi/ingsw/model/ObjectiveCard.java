@@ -18,7 +18,7 @@ public class ObjectiveCard {
     }
 
     public int getPoints(int numberOfGoals, ObjectivePoints n) {
-        return numberOfGoals * n.getvalue();
+        return numberOfGoals * n.getValue();
 
     }
 
