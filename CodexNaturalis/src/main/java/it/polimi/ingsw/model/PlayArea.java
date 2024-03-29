@@ -86,6 +86,53 @@ public class PlayArea {
 
     }
 
+/**Method that we are using to check if we are trying to access a column that does not exist
+ * @return exists boolean
+ * @param column the column whose existence we want to check*/
+    public boolean columnExists(int column) {
+        return CardsOnArea.length > 0 && column >= 0 && column < CardsOnArea[0].length;
+    }
+
+
+
+
+
+
+
+
+    /**Method that we are using to check if we are trying to access a row that does not exist
+     * @return exists boolean
+     * @param row the row whose existence we want to check*/
+    public boolean rowExists(int row) {
+        return row >= 0 && row < CardsOnArea.length;
+    }
+
+
+
+
+
+
+
+    public void CoverCorners(int row, int column){
+        for( int i=row-1; i<=row+1; i++){
+            if (rowExists(i)){
+                for (int j = column - 1; j <= column + 1; j++){
+                    if(columnExists(column)){
+                        if (i!=row || j!=column){
+                            if (getCard(i,j)!=null){
+                                // implementazione copertura angoli
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
 
 
 
@@ -99,15 +146,11 @@ public class PlayArea {
     * row and column are the coordinates where we want the card to be placed
     * It is a dynamic matrix, so we might need to add a new row and/or a new column.*/
     public void AddCardOnArea(Card newCard, int row, int column){
-        if(row < CardsOnArea.length && column<CardsOnArea[0].length && row>=0 && column>=0){
+        if(rowExists(row) && columnExists((column))){
             if(CardsOnArea[row][column]==null){
-                //To add another if case, that checks that the Corner is free
-                //if (CardToCover.checkCornerToCover)
-                /*also check that the card does not cover two corners of the same card:
-                * get the position of the card the angle belongs to, and check that
-                * Parameters row and column are not == to the ones of the card*/
-                CardsOnArea[row][column]=newCard;
+                    CardsOnArea[row][column]=newCard;
             }
+
             else{
                 throw new IllegalStateException("The card cannot be placed here, as there is already another Card placed");
             }
@@ -133,7 +176,7 @@ public class PlayArea {
                 }
             }
             else{
-                if((row < 0|| row == CardsOnArea.length) && column>0 &&column<CardsOnArea[0].length ){
+                if((row < 0|| row == CardsOnArea.length) && columnExists(column) ){
                     Card[][] TemporaryPlayArea = new Card[CardsOnArea.length + 1][CardsOnArea[0].length];
                     if(row<0){
                         for (int i = 0; i < CardsOnArea.length; i++) {
@@ -159,7 +202,7 @@ public class PlayArea {
 
                     }
 
-                } else if ((column < 0|| column == CardsOnArea[0].length) && row>0 && row<CardsOnArea.length ) {
+                } else if ((column < 0|| column == CardsOnArea[0].length) && rowExists(row) ) {
                     Card[][] TemporaryPlayArea = new Card[CardsOnArea.length][CardsOnArea[0].length+1];
                     if(column<0){
                         for (int i = 0; i < CardsOnArea.length; i++) {
@@ -212,6 +255,12 @@ public class PlayArea {
 
         return symbols.get(symbol);
     }
+
+
+
+
+
+
 
 
 

@@ -33,6 +33,16 @@ public class PlayCard extends Card{
         //to revise
     }
 
+
+    /** @author Denisa Minodora Gherman
+     * Mehod to get a specific corner of the PlayCard
+     * @return corner in the i,j position
+     * @param i row
+     * @param j */
+    public Corner getCorner(int i, int j){
+        return corners[i][j];
+    }
+
     public boolean resetConfig(){
         isInConfiguration = false;
         return isInConfiguration;

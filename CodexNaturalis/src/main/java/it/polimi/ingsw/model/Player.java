@@ -84,12 +84,10 @@ public class Player {
      * to the chosen one*/
 
     public String chooseNickName(String chosenNickName){
-        Boolean AvailableNickName= true;
+        boolean AvailableNickName= true;
         ArrayList<Player>OtherPlayers=new ArrayList<>();
-        while(AvailableNickName==true) {
-            for (Player player : OtherPlayers) {
-                AvailableNickName=!(player.getNickname().equals(chosenNickName));
-            }
+        while(AvailableNickName) {
+            for (Player player : OtherPlayers) AvailableNickName = !(player.getNickname().equals(chosenNickName));
 
 
         }
