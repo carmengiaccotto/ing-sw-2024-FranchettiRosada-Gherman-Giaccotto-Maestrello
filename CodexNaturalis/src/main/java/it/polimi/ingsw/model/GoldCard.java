@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GoldCard extends SideOfCard {
-    private HashMap<Symbol, Integer> requirement;
-    private int point;
+    private final HashMap<Symbol, Integer> requirement;
+    private final int point;
 
-    public GoldCard(HashMap<Symbol, Integer> requirement, int point) {
+    public GoldCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color, HashMap<Symbol, Integer> requirement, int point) {
+        super(symbols, corners, isInConfiguration, color);
         this.requirement = requirement;
         this.point = point;
     }

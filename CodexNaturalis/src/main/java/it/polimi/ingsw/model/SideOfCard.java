@@ -1,5 +1,5 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-import it.polimi.ingsw.model.Corner[][];
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Corner;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ import java.util.HashMap;
         private boolean isInConfiguration;
         private Colors color;
 
-        public PlayCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color) {
+        public SideOfCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color) {
             this.symbols = symbols;
             this.corners = corners;
             this.isInConfiguration = isInConfiguration;
