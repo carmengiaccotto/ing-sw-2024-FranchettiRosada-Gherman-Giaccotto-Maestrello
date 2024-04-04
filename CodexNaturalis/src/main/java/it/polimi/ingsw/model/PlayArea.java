@@ -2,8 +2,15 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.Map;
 /**@author Denisa Minodora Gherman
-* Class that implements the PlayArea of the single Player. It is built as a Matrix whose Type is Card:
-* The player has already chosen the side they want to play the Card on*/
+* Class that implements the PlayArea of the single Player. It is built as a Matrix whose Type is SideOfCard:
+ * HOW DOES THE PLACING OF THE CARD WORK?
+ * The Player has already chosen the side of the card they want to play, so we are going to place that one.
+ * The player will have to choose the Corner they want to cover. The information about the card the corner belongs to is also goimg to be transmitted.
+ * Using the Position enumeration and its methods, we are given the position the chosen card has to be placed in. The matrix is a dynamic one, so first we check that it
+ * is big enough to contain the card. If the result is positive, we just check that the place is not already taken. If the matruix is not big enough, we create a new one with
+ * the right dimensions and shift everything (when needed) and place the card in the cright position.
+ * Checking that the surrounding corners are not hidden or already covered, is going to be implemented by the controller, before calling the AddCardOnArea method.
+ * Once the card is Placed, we set the Covered attribute of the Corners that our new card is covering to true.*/
 public class PlayArea {
     /**Number of occurrences of each symbol on the PlayArea. Needed for objective Cards and for goldCards requirement to be placed*/
     private static Map<Symbol, Integer > symbols;
@@ -75,13 +82,14 @@ public class PlayArea {
 
 
 
-    /**Initializes the Playarea to a 3x3 Matrix, so that, at the second round, we have space to place the
-     * second card without modifying the matrix. In also populates the map and sets all the counts to zero*/
+    /**Initializes the Playarea to a 1x1 Matrix, even if we already know we are going to need to allocate a new One,
+     *  so that the second round is not a "special" round, but it is coherent with the rest of the game functioning
+     *  It also populates the map and sets all the counts to zero*/
     public void initializePlayArea(){
         for (Symbol symbol : Symbol.values()) {//
             symbols.put(symbol, 0);
         }
-        CardsOnArea=new SideOfCard[1][1];//do we initialize at 3x3 or 1x1?
+        CardsOnArea=new SideOfCard[1][1];
 
     }
 
@@ -112,24 +120,14 @@ public class PlayArea {
 
 
 
-    public void CoverCorners(int row, int column){
-        for( int i=row-1; i<=row+1; i++){
-            if (rowExists(i)){
-                for (int j = column - 1; j <= column + 1; j++){
-                    if(columnExists(column)){
-                        if (i!=row || j!=column){
-                            if (getCard(i,j)!=null){
-                                // implementazione copertura angoli
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
 
-
+/**Method to set the Covered Attribute to true on the corners that the Newly placed Card Covers
+ * @param PlacedCard is the card that has just been placed. We need it to get the list of its corners
+ * @param row
+ * @param column
+ * row, column: position of the newly placed card on the PlayArea.
+ */
     public void CoverCorners(SideOfCard PlacedCard, int row, int column){
         for (Corner corner : SideOfCard.getCorners()){
             int RowToCheck = corner.getPosition().getFirst().VerticalPositioning(row);
@@ -147,7 +145,6 @@ public class PlayArea {
 
         }
     }
-
 
 
 

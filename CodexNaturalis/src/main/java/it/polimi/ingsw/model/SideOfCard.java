@@ -20,7 +20,7 @@ import java.util.HashMap;
             return symbols;
         }
 
-        public Corner[][] getCorners(){
+        public static Corner[][] getCorners(){
             return corners;
         }
 

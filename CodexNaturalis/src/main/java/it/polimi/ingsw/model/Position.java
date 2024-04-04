@@ -37,3 +37,8 @@ public enum Position {
     }
 
 }
+/*For the Card, the constructor is going to need to be implemented similar to this:
+* corners[0][0] = new Corner(Position.TOP, Position.LEFT);
+        corners[0][1] = new Corner(Position.TOP, Position.RIGHT);
+        corners[1][0] = new Corner(Position.BOTTOM, Position.LEFT);
+        corners[1][1] = new Corner(Position.BOTTOM, Position.RIGHT);*/
