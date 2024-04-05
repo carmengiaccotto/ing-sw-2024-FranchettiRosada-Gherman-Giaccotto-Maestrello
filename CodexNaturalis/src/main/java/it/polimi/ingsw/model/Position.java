@@ -1,40 +1,55 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 public enum Position {
-    TOP{
-        public int VerticalPositioning(int row){
-            return row-1;
-        }
+    TOP(0){
 
     },
-    BOTTOM{
-        public int VerticalPositioning(int row){
-            return row+1;
-        }
+    BOTTOM(1){
     },
-    LEFT{
-        public int HorizontalPositioning(int Column){
-            return Column-1;
-        }
+    LEFT(0){
     },
 
-    RIGHT{
-        public int HorizontalPositioning(int Column){
-            return Column+1;
-        }
+    RIGHT(1){
     },
 
-    UP{
-        public int VerticalPositioning(int row){
-            return row-2;
-        }
+    UP(2){
     },
 
-    DOWN{
-        public int VerticalPositioning(int row){
-            return row+2;
-        }
+    DOWN(2){
+    };
+    private final int index;
+    Position(int index) {
+        this.index = index;
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public static int HorizontalPositioning(int Column, Position LeftRight){
+        if(LeftRight==RIGHT)
+            return Column+1;
+        else if(LeftRight==LEFT)
+            return Column-1;
+        else
+            return Column;
+    }
+
+    public static  int VerticalPositioning(int row, Position UpDown){
+        if(UpDown==TOP)
+            return row-1;
+        else if (UpDown==BOTTOM)
+            return row+1;
+        else if (UpDown==UP)
+            return row-2;
+        else if (UpDown==DOWN)
+            return row+2;
+        else
+            return row;
+
+
+    }
+
 
 }
 /*For the Card, the constructor is going to need to be implemented similar to this:

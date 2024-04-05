@@ -1,8 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import java.awt.*;
-import java.util.ArrayList;
 import it.polimi.ingsw.model.Card;
+
+import java.util.ArrayList;
 
 
 /**@author Denisa Minodora Gherman
@@ -11,13 +11,13 @@ public class Player {
     /*Every Player has its own playArea.*/
     private PlayArea playArea;
     private String nickname;
-    private static Color pawnColor;
+    private static Colors pawnColor;
     private int score;
     private ArrayList<Card> cardsInHand;
     private int round;
 
 
-    public Player(String nickname, Color pawnColor) {
+    public Player(String nickname, Colors pawnColor) {
         this.playArea = new PlayArea();
         this.nickname = nickname;
         this.pawnColor = pawnColor;
@@ -110,7 +110,7 @@ public class Player {
 
 
 
-    public static Color getPawnColor() {
+    public static Colors getPawnColor() {
         return pawnColor;
     }
 
@@ -120,7 +120,7 @@ public class Player {
      *
      * @param pawnColor the type is the enumeration Color
      */
-    public void setPawnColor(Color pawnColor) {
+    public void setPawnColor(Colors pawnColor) {
         this.pawnColor = pawnColor;
     }
 
@@ -131,13 +131,13 @@ public class Player {
      * @return colorList the list of colors the player can still choose from
      */
 
-    public ArrayList<Color> DisplayAvailablePawnColors() {
-        ArrayList<Color> colorsList = new ArrayList<Color>();
-        ArrayList<Color> colorsArray = new ArrayList<Color>();//verificare questa parte per iterare sui componenti di una enum
-        for (Color color : colorsArray) {
-            colorsList.add(Color.decode(String.valueOf(color)));
+    public ArrayList<Colors> DisplayAvailablePawnColors() {
+        ArrayList<Colors> colorsList = new ArrayList<Colors>();
+        ArrayList<Colors> colorsArray = new ArrayList<Colors>();//verificare questa parte per iterare sui componenti di una enum
+        for (Colors color : colorsArray) {
+            colorsList.add(color);
         }
-        for (Color color : colorsList) {/*creating a list of the possible colors a Player can choose from*/
+        for (Colors color : colorsList) {/*creating a list of the possible colors a Player can choose from*/
             for (Player player : PlayGround.getListOfPlayers()) {
                 if (Player.getPawnColor() != null) {
                     if (Player.getPawnColor().equals(color)) {
@@ -158,15 +158,15 @@ public class Player {
  * @return temporaryColor the chosen color
  * @throws RuntimeException if the player did not choose any of the available colors
  */
-public Color ChoosePawnColor(Color chosenColor){
-    ArrayList<Color> AvailableColors = new ArrayList<Color>();
+public Colors ChoosePawnColor(Colors chosenColor){
+    ArrayList<Colors> AvailableColors = new ArrayList<Colors>();
     AvailableColors=DisplayAvailablePawnColors();
     Boolean colorChoiceOk=false;
     int i=0;
-    Color temporaryColor= null;
+    Colors temporaryColor= null;
     while(colorChoiceOk==false && i<=4){
         i++;
-        for (Color color: AvailableColors){
+        for (Colors color: AvailableColors){
             colorChoiceOk= (chosenColor.equals(color));
             temporaryColor=color;
 

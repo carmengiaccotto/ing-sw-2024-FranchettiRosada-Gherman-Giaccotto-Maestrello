@@ -1,4 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Corner;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 import java.util.Map;
 /**@author Denisa Minodora Gherman
@@ -129,20 +131,25 @@ public class PlayArea {
  * row, column: position of the newly placed card on the PlayArea.
  */
     public void CoverCorners(SideOfCard PlacedCard, int row, int column){
-        for (Corner corner : SideOfCard.getCorners()){
-            int RowToCheck = corner.getPosition().getFirst().VerticalPositioning(row);
-            int ColumnToCheck= corner.getPosition().getSecond().HorizontalPositioning(column);
-            int CornerRow=corner.getPosition().getFirst();
-            int CornerColumn=corner.getPosition().getSecond();
+        for (Corner[] corners : SideOfCard.getCorners()){
+            for(Corner corner: corners) {
+                Position cornerVerticalPosition = (Position) corner.getPosition().getFirst();
+                Position cornerHorizontalPosition = (Position) corner.getPosition().getSecond();
+                int RowToCheck = Position.VerticalPositioning(row,cornerVerticalPosition);
+                int ColumnToCheck = Position.HorizontalPositioning(column, cornerHorizontalPosition);
+                Position Indexrow = (Position) corner.getPosition().getFirst();
+                Position IndexCol = (Position) corner.getPosition().getSecond();
+                int CornerRow = Indexrow.getIndex();
+                int CornerColumn = IndexCol.getIndex();
 
-            if (getCard(RowToCheck, ColumnToCheck)!=null){
-                Corner TargetCorner=getCard(RowToCheck,ColumnToCheck).getCornerInPosition(1-CornerRow, 1-CornerColumn);
-                TargetCorner.isCovered()=true;
-                changeNumSymbol(TargetCorner.getSymbol(), -1);
+                if (getCard(RowToCheck, ColumnToCheck) != null) {
+                    Corner TargetCorner = getCard(RowToCheck, ColumnToCheck).getCorner(1 - CornerRow, 1 - CornerColumn);
+                    TargetCorner.isCovered() = true; //SERVE METODO COVERCORNER IN CORNER
+                    changeNumSymbol(TargetCorner.getSymbol(), -1);
+
+                }
 
             }
-
-
         }
     }
 

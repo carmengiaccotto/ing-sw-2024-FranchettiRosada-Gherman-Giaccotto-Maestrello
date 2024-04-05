@@ -15,7 +15,7 @@ public class PlayGround {
     private GameStatus gameStatus;
 
 
-    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList <Card> commonCards, ArrayList<PairOfCards> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<Card> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
         this.players = players;
         this.decks = decks;
         this.commonCards = commonCards;

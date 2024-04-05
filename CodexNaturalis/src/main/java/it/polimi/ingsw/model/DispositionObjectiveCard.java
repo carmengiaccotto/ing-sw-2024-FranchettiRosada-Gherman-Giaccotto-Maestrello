@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.SideOfCard;
+
 /** @author Carmen Giaccotto
  * This subclass represents a specific type of Objective Card which goal is to have certains cards' dispositions on the Player's PlayArea.
  */
-public class DispositionObjectiveCard extends ObjectiveCard {
+public class DispositionObjectiveCard extends it.polimi.ingsw.model.ObjectiveCard {
 
         private final SideOfCard[][] disposition;
 
