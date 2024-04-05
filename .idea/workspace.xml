@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_24,_13_35_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_03_24__13_35__Changes_.xml" beforeDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DispositionObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DispositionObjectiveCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +76,13 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -216,23 +223,7 @@
       <option name="project" value="LOCAL" />
       <updated>1711725500344</updated>
     </task>
-    <task id="LOCAL-00017" summary="Position Enum">
-      <option name="closed" value="true" />
-      <created>1711727651117</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1711727651117</updated>
-    </task>
-    <task id="LOCAL-00018" summary="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options">
-      <option name="closed" value="true" />
-      <created>1711731506159</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1711731506159</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,8 +280,6 @@
     <MESSAGE value="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction" />
     <MESSAGE value="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)" />
     <MESSAGE value="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players" />
-    <MESSAGE value="Position Enum" />
-    <MESSAGE value="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options" />
-    <option name="LAST_COMMIT_MESSAGE" value="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options" />
+    <option name="LAST_COMMIT_MESSAGE" value="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players" />
   </component>
 </project>

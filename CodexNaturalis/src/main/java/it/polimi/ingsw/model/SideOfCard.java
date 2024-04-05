@@ -1,19 +1,16 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Corner;
 
 import java.util.HashMap;
 
     public class SideOfCard {
-        private HashMap<Symbol, Integer> symbols;
-        Corner[][] corners;
+        private final HashMap<Symbol, Integer> symbols;
+        static Corner[][] corners;
         private boolean isInConfiguration;
-        private Colors color;
 
-        public SideOfCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color) {
+        public SideOfCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration) {
             this.symbols = symbols;
-            this.corners = corners;
+            SideOfCard.corners = corners;
             this.isInConfiguration = isInConfiguration;
-            this.color = color;
         }
 
         public HashMap<Symbol, Integer> getSymbols(){
@@ -29,7 +26,7 @@ import java.util.HashMap;
         }
 
         public boolean isInConfig(){
-            //to revise
+            return isInConfiguration;
         }
 
 
@@ -42,8 +39,7 @@ import java.util.HashMap;
             return corners[i][j];
         }
 
-        public boolean resetConfig(){
+        public void resetConfig(){
             isInConfiguration = false;
-            return isInConfiguration;
         }
     }

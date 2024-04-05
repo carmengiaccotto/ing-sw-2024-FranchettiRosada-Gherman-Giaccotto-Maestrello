@@ -1,8 +1,5 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-
 import java.util.HashMap;
-
-import  it.polimi.ingsw.model.Corner[][];
 
 public class InitialCard extends SideOfCard {
 
@@ -10,7 +7,7 @@ public class InitialCard extends SideOfCard {
         super(symbols, corners, isInConfiguration, color);
     }
 
-    public void play(){
+    public void playInitialCard(){  //to revise
 
     }
 }

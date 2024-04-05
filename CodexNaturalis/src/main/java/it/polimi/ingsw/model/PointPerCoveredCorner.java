@@ -10,7 +10,7 @@ public class PointPerCoveredCorner extends GoldCard{
         this.coveredCorners = coveredCorners;
     }
 
-    public int findCoveredCorners(){
+    public int findCoveredCorners(){  //to revise
         for (Corner[] corner : corners) {
             for (Corner value : corner) {
                 if (value.coverOtherCorner) {

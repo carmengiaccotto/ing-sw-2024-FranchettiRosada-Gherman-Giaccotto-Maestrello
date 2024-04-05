@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
-    public class DispositionObjectiveCard extends ObjectiveCard {
+public class DispositionObjectiveCard extends ObjectiveCard {
 
-        private SideOfCard[][] disposition;
+        private final SideOfCard[][] disposition;
 
         public DispositionObjectiveCard(ObjectivePoints points, SideOfCard[][] disposition) {
             super(points);
