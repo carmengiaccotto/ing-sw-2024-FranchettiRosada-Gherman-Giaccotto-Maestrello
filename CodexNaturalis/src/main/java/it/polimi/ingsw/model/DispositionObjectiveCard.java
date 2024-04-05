@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+/** @author Carmen Giaccotto
+ * This subclass represents a specific type of Objective Card which goal is to have certains cards' dispositions on the Player's PlayArea.
+ */
 public class DispositionObjectiveCard extends ObjectiveCard {
 
         private final SideOfCard[][] disposition;
@@ -28,8 +31,17 @@ public class DispositionObjectiveCard extends ObjectiveCard {
 
             return numberOfDispositions;
 
-        }
+        } //javaDoc missing
 
+    /**
+     * Method that checks if a given submatrix exists at the specified position within a larger matrix.
+     *
+     * @param matrix the larger matrix in which to search for the submatrix
+     * @param submatrix the submatrix to search for
+     * @param row the starting row index in the larger matrix
+     * @param col the starting column index in the larger matrix
+     * @return {@code true} if the submatrix is found at the specified position, {@code false} otherwise
+     */
         private static boolean isSubmatrixAtPosition(SideOfCard[][] matrix, SideOfCard[][] submatrix, int row, int col) {
             int p = submatrix.length;
             int q = submatrix[0].length;
@@ -45,6 +57,11 @@ public class DispositionObjectiveCard extends ObjectiveCard {
 
         }
 
+        /**
+         * getter method for the ObjectiveCard's goal
+         *
+         * @return goal
+         */
         public SideOfCard[][] getDisposition(){
             return disposition;
 
