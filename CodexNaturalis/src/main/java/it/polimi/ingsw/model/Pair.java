@@ -1,11 +1,28 @@
 package it.polimi.ingsw.model;
 
-public class Pair {
-    private Object first;
-    private Object second;
+public class Pair<T, U> {
+    private T first;
+    private U second;
 
-    public Pair(){
-        first  = new Object();
-        second = new Object();
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
     }
+
+    public void setFirst(T first) {
+        this.first = first;
+    }
+
+    public void setSecond(U second) {
+        this.second = second;
+    }
+
+    public T getFirst() {
+        return first;
+    }
+
+    public U getSecond() {
+        return second;
+    }
+
 }

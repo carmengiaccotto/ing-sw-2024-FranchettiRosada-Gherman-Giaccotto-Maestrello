@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.ObjectiveCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.SideOfCard;

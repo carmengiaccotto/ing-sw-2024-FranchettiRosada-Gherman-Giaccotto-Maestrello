@@ -7,14 +7,14 @@ public class Corner {
 
     private Pair position;
     private Symbol symbol;
-    private boolean isHidden;
-    private boolean isCovered;
+    private boolean hidden;
+    private boolean covered;
 
-    public Corner(Pair position, Symbol symbol, boolean isHidden, boolean isCovered) {
+    public Corner(Pair position, Symbol symbol, boolean hidden, boolean covered) {
         this.position = position;
         this.symbol = symbol;
-        this.isHidden = isHidden;
-        this.isCovered = isCovered;
+        this.hidden = hidden;
+        this.covered = covered;
     }
 
     public void setSymbol(Symbol symbol) {
@@ -22,17 +22,16 @@ public class Corner {
     }
 
     public boolean isHidden(){
-
+        return hidden;
     }
 
     public boolean isCovered(){
-
+        return covered;
     }
 
     public Pair getPosition(){
        return position;
     }
-
 
 }
 

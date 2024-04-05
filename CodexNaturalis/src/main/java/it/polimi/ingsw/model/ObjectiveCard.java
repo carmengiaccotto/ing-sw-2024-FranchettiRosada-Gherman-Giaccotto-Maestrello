@@ -1,4 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package it.polimi.ingsw.model;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
 
 public class ObjectiveCard {
     private final ObjectivePoints points;
@@ -11,8 +13,7 @@ public class ObjectiveCard {
 
     }
 
-    public void Check(){  //to revise
-
+    public void Check(){
     }
 
     public int getPoints(int numberOfGoals, ObjectivePoints n) {
