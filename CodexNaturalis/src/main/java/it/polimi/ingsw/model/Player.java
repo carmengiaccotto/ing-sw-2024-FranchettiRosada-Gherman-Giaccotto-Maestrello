@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Player {
     /*Every Player has its own playArea.*/
     private PlayArea playArea;
-    private String nickname;
+    private static String nickname;
     private static Colors pawnColor;
     private int score;
     private ArrayList<Card> cardsInHand;
@@ -32,7 +32,7 @@ public class Player {
      * @return PlayaArea
      */
     public PlayArea getPlayArea() {
-        return playArea;
+        return this.playArea;
     }
 
 
@@ -52,7 +52,7 @@ public class Player {
      * @return string NickName
      */
 
-    public String getNickname() {
+    public static String getNickname() {
         return nickname;
     }
 
@@ -63,6 +63,7 @@ public class Player {
      * @param nickname
      */
     public void setNickname(String nickname) {
+
         this.nickname = nickname;
     }
 
@@ -72,7 +73,6 @@ public class Player {
      *
      * @return Color
      */
-
 
 
 
@@ -95,7 +95,8 @@ public class Player {
             return chosenNickName;
         }
         else{
-            return null; //What do we return in this case?
+            chosenNickName=null;
+            throw new IllegalArgumentException("Please choose a valid Nickname");
         }
 
 
