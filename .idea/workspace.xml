@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods">
-      <change beforePath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
@@ -340,7 +339,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712402929575</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method">
+      <option name="closed" value="true" />
+      <created>1712564638788</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1712564638788</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,6 +408,7 @@
     <MESSAGE value="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options" />
     <MESSAGE value="Modified PlayArea CoverCorners Method and Position VerticalPositioning and HorizontalPositioning methods; Added index to Position enum. Started creating tests for Player Class" />
     <MESSAGE value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
+    <MESSAGE value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
   </component>
 </project>

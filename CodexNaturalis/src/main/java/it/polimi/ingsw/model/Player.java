@@ -18,13 +18,13 @@ public class Player {
     private int round;
 
 
-    public Player(String nickname, Colors pawnColor) {
+    public Player(String nickname, Colors pawnColor, int Score, int Round) {
         this.playArea = new PlayArea();
         this.nickname = nickname;
         this.pawnColor = pawnColor;
-        this.score = 0;
+        this.score = Score;
         this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
-        this.round = 0;
+        this.round = Round;
     }
 
     /**
@@ -153,26 +153,16 @@ public class Player {
 public Colors ChoosePawnColor(Colors chosenColor){
     ArrayList<Colors> AvailableColors = new ArrayList<Colors>();
     AvailableColors=DisplayAvailablePawnColors();
-    Boolean colorChoiceOk=false;
-    int i=0;
-    Colors temporaryColor= null;
-    while(colorChoiceOk==false && i<=4){
-        i++;
-        for (Colors color: AvailableColors){
-            colorChoiceOk= (chosenColor.equals(color));
-            temporaryColor=color;
+    Colors temporaryColor=null;
 
-        }
-    }
-    if (colorChoiceOk==false) {
+    if (DisplayAvailablePawnColors().contains(chosenColor))
+        temporaryColor=chosenColor;
+    if (temporaryColor==null)
         throw new RuntimeException("Sorry, this color is already taken. Please pick a new one");
-    }
     else{
-        setPawnColor(temporaryColor);
-        return temporaryColor;
+       setPawnColor(temporaryColor);
+       return temporaryColor;
     }
-
-
 
 }
 
@@ -214,6 +204,14 @@ public Colors ChoosePawnColor(Colors chosenColor){
      */
     public int getRound() {
         return round;
+    }
+
+
+
+/** Substitute for Round Setter Method: we never need to set the round to a specific value, we just
+ * need to increase it by one once the player has played*/
+    public void IncreaseRound(){
+        this.round+=1;
     }
 
 
