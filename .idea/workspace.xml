@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,39 +48,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Player.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
-    "JUnit.PlayerTest.executor": "Run",
-    "JUnit.PlayerTest.testGetNickname.executor": "Coverage",
-    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/denis/Downloads/gson-2.8.8.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main.java.it.polimi.ingsw&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Downloads/gson-2.8.8.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
@@ -168,6 +168,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -178,6 +185,7 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
+      <workItem from="1712592656522" duration="171000" />
     </task>
     <task id="LOCAL-00001" summary="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc">
       <option name="closed" value="true" />
@@ -339,15 +347,7 @@
       <option name="project" value="LOCAL" />
       <updated>1712402929575</updated>
     </task>
-    <task id="LOCAL-00021" summary="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method">
-      <option name="closed" value="true" />
-      <created>1712564638788</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1712564638788</updated>
-    </task>
-    <option name="localTasksCounter" value="22" />
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +408,6 @@
     <MESSAGE value="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options" />
     <MESSAGE value="Modified PlayArea CoverCorners Method and Position VerticalPositioning and HorizontalPositioning methods; Added index to Position enum. Started creating tests for Player Class" />
     <MESSAGE value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
-    <MESSAGE value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
   </component>
 </project>
