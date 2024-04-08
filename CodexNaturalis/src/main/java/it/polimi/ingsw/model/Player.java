@@ -3,6 +3,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 import it.polimi.ingsw.model.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**@author Denisa Minodora Gherman
@@ -68,11 +69,7 @@ public class Player {
     }
 
 
-    /**
-     * pawnColor getter method
-     *
-     * @return Color
-     */
+
 
 
 
@@ -110,7 +107,11 @@ public class Player {
 
 
 
-
+    /**
+     * pawnColor getter method
+     *
+     * @return Color
+     */
     public static Colors getPawnColor() {
         return pawnColor;
     }
@@ -129,27 +130,17 @@ public class Player {
     /**
      * Method to give the player the pawnColors that have not been already taken by other players
      *
-     * @return colorList the list of colors the player can still choose from
+     * @return AvailableColors the list of colors the player can still choose from
      */
 
     public ArrayList<Colors> DisplayAvailablePawnColors() {
-        ArrayList<Colors> colorsList = new ArrayList<Colors>();
-        ArrayList<Colors> colorsArray = new ArrayList<Colors>();//verificare questa parte per iterare sui componenti di una enum
-        for (Colors color : colorsArray) {
-            colorsList.add(color);
-        }
-        for (Colors color : colorsList) {/*creating a list of the possible colors a Player can choose from*/
-            for (Player player : PlayGround.getListOfPlayers()) {
-                if (Player.getPawnColor() != null) {
-                    if (Player.getPawnColor().equals(color)) {
-                        colorsList.remove(color);
-                    }
+        ArrayList<Colors> AvailableColors= new ArrayList<Colors>();
+        Collections.addAll(AvailableColors, Colors.values());
+            for (Player player : PlayGround.getListOfPlayers())
+                if (player.getPawnColor() != null) {
+                    AvailableColors.remove(player.getPawnColor());
                 }
-
-
-            }
-        }
-        return colorsList;
+        return AvailableColors;
     }
 /**
  * Method to allow the player to choose its own pawn Color between thw ones that have not already been
