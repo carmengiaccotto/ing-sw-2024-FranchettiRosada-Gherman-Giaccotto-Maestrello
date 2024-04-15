@@ -23,10 +23,11 @@ public class PlayerTest {
         // Assert
         assertNotNull(player);
         assertEquals(expectedNickname, player.getNickname());
-        assertEquals(expectedPawnColor, player.getPawnColor());
+        assertEquals(Colors.RED, player.getPawnColor());
         assertEquals(0, player.getScore());
         assertEquals(0, player.getCardsInHand().size());
-        assertEquals(0, player.getRound());
+        assertEquals(0,
+                player.getRound());
         assertNotNull(player.getPlayArea());
     }
 
@@ -56,7 +57,7 @@ public class PlayerTest {
         String actualNickname = player.getNickname();
 
         // Assert
-        assertEquals(expectedNickname, actualNickname); // Verifica che il nickname restituito sia uguale a quello di aspettativa
+        assertEquals(expectedNickname, actualNickname);
     }
 
     @Test
@@ -94,13 +95,12 @@ public class PlayerTest {
 
     @Test
     public void testChooseNickNameWithOtherPlayers() {
-        ArrayList<Player> otherPlayers = new ArrayList<>();
-        otherPlayers.add(new Player("Nickname1", null, 0, 0));
-        otherPlayers.add(new Player("Nickname2", null, 0, 0));
-        otherPlayers.add(new Player("Nickname3", null, 0, 0));
+        PlayGround.getListOfPlayers().add(new Player("Nickname1", null, 0, 0));
+        PlayGround.getListOfPlayers().add(new Player("Nickname2", null, 0, 0));
+        PlayGround.getListOfPlayers().add(new Player("Nickname3", null, 0, 0));
         Player TestPlayer = new Player(null, null, 0, 0);
         String ChosenNickname = "chosenNickName";
-        assertEquals("chosenNickName", TestPlayer.getNickname());
+        assertEquals(ChosenNickname, TestPlayer.getNickname());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -135,7 +135,7 @@ public class PlayerTest {
         Player testPlayer=new Player(null, null, 0, 0);
         ArrayList<Player> testPlayerList= PlayGround.getListOfPlayers();
         testPlayerList.clear();
-        ArrayList<Colors> expected= new ArrayList<Colors>();
+        ArrayList<Colors> expected= new ArrayList<>();
         Collections.addAll(expected, Colors.values());
         assertEquals(expected,testPlayer.DisplayAvailablePawnColors() );
 
@@ -148,7 +148,7 @@ public class PlayerTest {
         PlayGround.getListOfPlayers().add(player1);
         Player player2= new Player ("user2", Colors.GREEN, 0, 0);
         PlayGround.getListOfPlayers().add(player2);
-        ArrayList<Colors> expected= new ArrayList<Colors>();
+        ArrayList<Colors> expected= new ArrayList<>();
         expected.add(Colors.PURPLE);
         expected.add(Colors.BLUE);
         assertEquals(expected, testPlayer.DisplayAvailablePawnColors());
@@ -191,7 +191,7 @@ public class PlayerTest {
         PlayGround.getListOfPlayers().add(player2);
         Player player3= new Player ("user3", null,0,0);
         PlayGround.getListOfPlayers().add(player3);
-        ArrayList<Colors> expected= new ArrayList<Colors>();
+        ArrayList<Colors> expected= new ArrayList<>();
         Collections.addAll(expected, Colors.values());
         assertEquals(expected,testPlayer.DisplayAvailablePawnColors());
 
@@ -218,7 +218,6 @@ public class PlayerTest {
         PlayGround.getListOfPlayers().add(player1);
         Player player2= new Player ("user2", Colors.RED,0,0);
         PlayGround.getListOfPlayers().add(player2);
-        Colors testChosenColor=Colors.RED;
         Player testPlayer= new Player("testPlayer", null,0,0);
         assertThrows(RuntimeException.class, () -> testPlayer.ChoosePawnColor(Colors.RED));
 
@@ -275,6 +274,9 @@ public class PlayerTest {
         testPlayer.IncreaseRound();
         assertEquals(5,testPlayer.getRound());
     }
+
+
+
 
 
 

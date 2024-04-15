@@ -11,15 +11,15 @@ import java.util.Collections;
 public class Player {
     /*Every Player has its own playArea.*/
     private PlayArea playArea;
-    private static String nickname;
-    private static Colors pawnColor;
+    private String nickname;
+    private  Colors pawnColor;
     private int score;
     private ArrayList<Card> cardsInHand;
     private int round;
 
 
     public Player(String nickname, Colors pawnColor, int Score, int Round) {
-        this.playArea = new PlayArea();
+        this.playArea = new PlayArea(null);
         this.nickname = nickname;
         this.pawnColor = pawnColor;
         this.score = Score;
@@ -37,23 +37,15 @@ public class Player {
     }
 
 
-    /**
-     * playArea setter Method
-     *
-     * @param playArea
-     */
-    public void setPlayArea(PlayArea playArea) {
-        this.playArea = playArea;
-    }
 
 
     /**
      * getter method for the Player's Nickname
      *
-     * @return string NickName
+     * @return string NickName How the player wants to be called in the game
      */
 
-    public static String getNickname() {
+    public String getNickname() {
         return nickname;
     }
 
@@ -61,7 +53,7 @@ public class Player {
     /**
      * Nickname setter Method
      *
-     * @param nickname
+     * @param nickname  How the player wants to be called in the game
      */
     public void setNickname(String nickname) {
 
@@ -80,23 +72,16 @@ public class Player {
      * to the chosen one*/
 
     public String chooseNickName(String chosenNickName){
-        boolean AvailableNickName= true;
-        ArrayList<Player>OtherPlayers=new ArrayList<>();
-        while(AvailableNickName) {
-            for (Player player : OtherPlayers) AvailableNickName = !(player.getNickname().equals(chosenNickName));
-
-
+        ArrayList <String> AlreadyTakenNicknames=new ArrayList<>();
+        for (Player player: PlayGround.getListOfPlayers())
+            AlreadyTakenNicknames.add(player.getNickname());
+        if (AlreadyTakenNicknames.contains(chosenNickName)) {
+            throw new IllegalArgumentException("Please choose a valid Nickname");
         }
-        if (AvailableNickName){
+        else {
             setNickname(chosenNickName);
             return chosenNickName;
         }
-        else{
-            chosenNickName=null;
-            throw new IllegalArgumentException("Please choose a valid Nickname");
-        }
-
-
     }
 
 
@@ -112,7 +97,7 @@ public class Player {
      *
      * @return Color
      */
-    public static Colors getPawnColor() {
+    public Colors getPawnColor() {
         return pawnColor;
     }
 
@@ -134,7 +119,7 @@ public class Player {
      */
 
     public ArrayList<Colors> DisplayAvailablePawnColors() {
-        ArrayList<Colors> AvailableColors= new ArrayList<Colors>();
+        ArrayList<Colors> AvailableColors= new ArrayList<>();
         Collections.addAll(AvailableColors, Colors.values());
             for (Player player : PlayGround.getListOfPlayers())
                 if (player.getPawnColor() != null) {
@@ -151,8 +136,6 @@ public class Player {
  * @throws RuntimeException if the player did not choose any of the available colors
  */
 public Colors ChoosePawnColor(Colors chosenColor){
-    ArrayList<Colors> AvailableColors = new ArrayList<Colors>();
-    AvailableColors=DisplayAvailablePawnColors();
     Colors temporaryColor=null;
 
     if (DisplayAvailablePawnColors().contains(chosenColor))
@@ -246,7 +229,7 @@ public Colors ChoosePawnColor(Colors chosenColor){
      *             A new card of the same type needs to be drawn. We get the type of the drawn Card, and we use it as TypeOfDeck to
      *             search for
      */
-    public void drawCardFromPlayground(Card card) {
+    /*public void drawCardFromPlayground(Card card) {
         cardsInHand.add(card);
         PlayGround.getCommonCards().remove(card);
         String cardType = card.getClass().getSimpleName();
@@ -255,22 +238,16 @@ public Colors ChoosePawnColor(Colors chosenColor){
                 PlayGround.getCommonCards().add(deck.DrawCard());
 
         }
-    }
+    }Method to adjust with new Logic*/
 
 
 
 
-    /*public Card ChooseSide(PairOfCards DoubleSidedCard, Sides side) {// modifiable
-        Card cardToPlay = DoubleSidedCard.setSide(side); //the player chooses the side of the card they want to play
-        //card is the class that represents the chosen side of the card that the player decided to play
-        return cardToPlay;
-    }*/
-    //This method is probably going to be implemented in PairOfCards class
 
 
     /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
-     * @param cardToPlay
-     * @param sideToPlay
+     * @param cardToPlay card with both sides that the player wants to play
+     * @param sideToPlay side of the card that the Player wants to play
      * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
     public SideOfCard ChooseCardToPlay(Card cardToPlay , Side sideToPlay) {

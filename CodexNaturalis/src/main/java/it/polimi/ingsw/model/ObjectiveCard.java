@@ -1,6 +1,4 @@
-package it.polimi.ingsw.model;
-
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 /** @author Carmen Giaccotto
  * Class that represents the Objective Cards of the game.
@@ -12,6 +10,7 @@ public class ObjectiveCard {
     public ObjectiveCard(ObjectivePoints points) {
         this.points = points;
     }
+
 
     public void play(){ //to revise + javadoc
 

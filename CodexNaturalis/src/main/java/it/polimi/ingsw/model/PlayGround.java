@@ -2,7 +2,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.ObjectiveCard;
 import it.polimi.ingsw.model.Card;
-import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;

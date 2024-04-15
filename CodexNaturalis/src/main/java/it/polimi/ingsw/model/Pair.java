@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 /** @author Carmen Giaccotto
  * Class that represents a generic pair of two objects.

@@ -1,14 +1,19 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.Card;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
 /**@author Denisa Gherman
 * This is the class that implements the generic deck of cards*/
 public class Deck {
-    /* We are going to need it to create the decks of the different type of cards */
-    private String TypeOfDeck;
     private ArrayList<Card> Cards;
 
 
@@ -16,40 +21,41 @@ public class Deck {
 
 
     /**Class Constructor*/
-    public Deck(String TypeOfDeck) {
+    public Deck() {
         Cards = new ArrayList<>();
-        initializeDeck(TypeOfDeck);
         shuffle();
     }
 
 
 
 
-    /**TypeOfDeck attribute getter*/
-    public String getTypeOfDeck() {
-        return TypeOfDeck;
-    }
-
-
-
-
-
-
-    /**TypeOfDeck attribute setter*/
-    public void setTypeOfDeck(String typeOfDeck) {
-        TypeOfDeck = typeOfDeck;
-    }
 
 
 
 
 
     /** This is the method that creates the deck with all the cards
-    * @param TypeOfDeck*/
-    public void initializeDeck(String TypeOfDeck){
-        //Initialize Deck with Json File
+    **/
+    public void initializeDeck(Class<?> TypeOfDeck) throws IOException {
+            String pathToJson = Jsonpath(TypeOfDeck);
+            List<? extends Card> carte = ReadCardsFromJSON(pathToJson, TypeOfDeck);
+            // Aggiungi le carte al mazzo o esegui altre operazioni necessarie
+            // Esempio: mazzo.addAll(carte);
+
     }
 
+    private String Jsonpath(Class<?> typeOfDeck) {
+        return "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + typeOfDeck.getSimpleName() + ".json";
+    }
+
+
+    private List<? extends Card> ReadCardsFromJSON(String pathToJson, Class<?> typeOfDeck) throws IOException {
+        Gson gson = new Gson();
+        try (FileReader fileReader = new FileReader(pathToJson)) {
+            Type TypeOfDeck = TypeToken.getParameterized(List.class, typeOfDeck).getType();
+            return gson.fromJson(fileReader, TypeOfDeck);
+        }
+    }
 
 
 
@@ -108,7 +114,7 @@ public class Deck {
     * It also removes the Drawn Card from the deck, which is still the last one*/
     public Card DrawCard(){
         if (Cards.isEmpty()) {
-            System.out.println("The deck is empty.");
+            System.out.println("The deck is empty.");//Throw exception here
             return null;
         }
         else{

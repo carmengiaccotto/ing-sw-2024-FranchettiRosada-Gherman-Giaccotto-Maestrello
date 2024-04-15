@@ -2,66 +2,160 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.HashMap;
 
-    /** @author Alessia Franchetti-Rosada
-     * Class that represents a side of a card that can be front or back.
-     */
-    public class SideOfCard {
-        private final HashMap<Symbol, Integer> symbols;
-        static Corner[][] corners;
-        private boolean isInConfiguration;
 
-        public SideOfCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration) {
-            this.symbols = symbols;
-            SideOfCard.corners = corners;
-            this.isInConfiguration = isInConfiguration;
-        }
+/** Class that represents the Card that has already been placed on the PlayArea*/
 
-        /**
-         * getter method for the SideOfCard's symbols
-         *
-         * @return symbols
-         */
-        public HashMap<Symbol, Integer> getSymbols(){
-            return symbols;
-        }
+public class SideOfCard {
+    /**Matrix of corners */ //Does it make sense to keep it as a matrix or do we just make a list?
+    private Corner[][] corners;
 
-        /**
-         * getter method for the SideOfCard's corners
-         *
-         * @return corners
-         */
-        public static Corner[][] getCorners(){
-            return corners;
-        }
-
-        public void play(){        //to revise + javadoc
-
-        }
-
-        /**
-         * A boolean method that returns true if a specific card is used in a configuration of a objective card, or false otherwise.
-         *
-         * @return true if the specific card is used in the configuration of a objective card, false otherwise.
-         */
-        public boolean isInConfig(){
-            return isInConfiguration;
-        }
+    private final Colors color;
 
 
-        /** @author Denisa Minodora Gherman
-         * Mehod to get a specific corner of the PlayCard
-         * @return corner in the i,j position
-         * @param i row
-         * @param j */
-        public Corner getCorner(int i, int j){
-            return corners[i][j];
-        }
+    /**Map of Symbols of the card. They can be placed in the corner or in the middle*/
+    private final HashMap<Symbol, Integer> symbols;
 
-        /**
-         * This method resets the value of the parameter isInConfiguration to false,
-         * after finding all dispositions in the play area of a specific objective card.
-         */
-        public void resetConfig(){
-            isInConfiguration = false;
-        }
+
+    /**This attribute is going to be used when we search for the configuration: a card cannot be counted twice when searching for a specific configuration
+     * so the card can be taken into consideration only if this attribute is set to false*/
+    private boolean InConfiguration;
+
+
+    /**Row and Column occupied by the card in the PlayArea*/
+    private Pair<Integer, Integer> positionOnArea;
+
+
+
+
+
+
+    /**Class Constructor
+     * No card is in a configuration until DispositionObjectiveCard starts searching, so we initialize it to false
+     * Uses SetCornerPosition to associate the position of the corner in the Card with the position of the corner in Corner Class,
+     * declared as a CornerPosition type*/
+    public SideOfCard( HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, Colors color) {
+        this.symbols = symbols;
+        this.color=color;
+        this.positionOnArea = positionOnArea;
+        SetCornersPosition();
+        SetCornersPosition();
+        for(Corner[] cornerRow: getCorners())
+            for(Corner corner :cornerRow)
+                corner.setParentCard(this);
+        InConfiguration=false;
     }
+
+
+
+
+
+
+
+    /**setter method for PositionOnArea
+     * @param positionOnArea the pair of int represent row and column where the player placed the card*/
+    public void setPositionOnArea(Pair<Integer, Integer> positionOnArea) {
+        this.positionOnArea = positionOnArea;
+    }
+
+
+
+
+
+    /**Corners getter method
+     * @return corners matrix of corners*/
+    public Corner[][] getCorners() {
+        return corners;
+    }
+
+
+
+
+    /**Getter method for the Corner in a specific position
+     * @param position CornerPosition type
+     * @return corner that has the specified position
+     * @throws IllegalArgumentException if we try to access a corner that does not exist on the card */
+    public Corner getCornerInPosition(CornerPosition position){
+        for (Corner[] row : corners) {
+            for (Corner corner : row) {
+                if (corner.getPosition().equals(position)) {
+                    return corner;
+                }
+            }
+        }
+        throw new IllegalArgumentException("There is no corner in that position");
+    }
+
+
+
+
+    /**Method tha links the CornerPosition on the card to the attribute in the Corner class.*/
+    public void SetCornersPosition(){
+        corners[0][0].setPosition(CornerPosition.TOPLEFT);
+        corners[0][1].setPosition((CornerPosition.TOPRIGHT));
+        corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
+        corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
+    }
+
+
+
+
+
+    /**Method to get the card that is in a specific CornerPosition compared to the current one
+     * @param position the position we want to get
+     * @return card the card in the given position*/
+    public SideOfCard getNeighbourCard(CornerPosition position){
+        return getCornerInPosition(position).getNextCorner().getParentCard();
+    }
+
+
+
+
+
+    /**Method to get the card that is in a specific UpDownPosition compared to the current one
+     * Overload method
+     * @param position the position we want to get
+     * @return card the card in the given position*/
+    public SideOfCard getNeighbourCard(UpDownPosition position){
+        for (CornerPosition corner: position.getCornersToCheck()){
+            if(getCornerInPosition(corner).getNextCorner()!=null){
+                SideOfCard CurrentCard=getCornerInPosition(corner).getNextCorner().getParentCard();
+                CornerPosition currentPosition=getCornerInPosition(corner).getNextCorner().getPosition();
+                Corner currentCorner=CurrentCard.getCornerInPosition(currentPosition.TransitionCard());
+                if (currentCorner.getNextCorner()!=null)
+                    return currentCorner.getNextCorner().getParentCard();
+
+            }
+        }
+        return null;
+
+    }
+
+
+
+
+    /**Getter method for PositionOnArea
+     * @return positionOnArea PairOfInteger: first represents row, second represents column*/
+    public Pair<Integer, Integer> getPositionOnArea() {
+        return positionOnArea;
+    }
+
+
+
+    /**getter method for symbols
+     * @return symbols a map that contains the symbol the card has in its corners or in the middle */
+    public HashMap<Symbol, Integer> getSymbols() {
+        return symbols;
+    }
+
+    public Colors getColor() {
+        return color;
+    }
+
+    public boolean isInConfiguration() {
+        return InConfiguration;
+    }
+
+    public void setInConfiguration(boolean inConfiguration) {
+        InConfiguration = inConfiguration;
+    }
+}

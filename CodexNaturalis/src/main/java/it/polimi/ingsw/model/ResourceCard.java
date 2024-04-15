@@ -1,4 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+import it.polimi.ingsw.model.Pair;
+
 import java.util.HashMap;
 
 
@@ -7,10 +9,11 @@ import java.util.HashMap;
 public class ResourceCard extends SideOfCard {
     private final boolean point;
 
-    public ResourceCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, boolean point) {
-        super(symbols, corners, isInConfiguration);
-        this.point = point;
+    public ResourceCard(HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, Colors color, boolean point) {
+        super(symbols, positionOnArea, color);
+        this.point=point;
     }
+
 
     /**
      * getter method for the ResourceCard's point

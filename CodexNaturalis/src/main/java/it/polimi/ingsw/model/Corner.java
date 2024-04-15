@@ -1,66 +1,65 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Pair;
-
-/** @author Carmen Giaccotto
- * Class that represents a corner on a play card.
- */
-
 public class Corner {
 
-    private Pair position;
     private Symbol symbol;
-    private boolean hidden;
+
+    private CornerPosition position;
     private boolean covered;
+    private boolean hidden;
+    private Corner nextCorner;
+    private SideOfCard parentCard;
 
-    public Corner(Pair position, Symbol symbol, boolean hidden, boolean covered) {
-        this.position = position;
+
+    public Corner(Symbol symbol, boolean covered, boolean hidden, Corner nextCorner){
+
+
         this.symbol = symbol;
-        this.hidden = hidden;
         this.covered = covered;
+        this.hidden = hidden;
+        this.nextCorner = nextCorner;
     }
 
-    /**
-     * Corner's symbol setter Method
-     *
-     * @param symbol
-     */
-    public void setSymbol(Symbol symbol) {
-        this.symbol = symbol;
-    }
 
-    /**
-     * Checks if the corner is hidden.
-     *
-     * @return true if the corner is hidden, false otherwise
-     */
-    public boolean isHidden(){
-        return hidden;
-    }
-
-    /**
-     * Checks if the corner is covered by another card.
-     *
-     * @return true if the corner is covered, false otherwise
-     */
-    public boolean isCovered(){
+    public boolean isCovered() {
         return covered;
     }
 
-    /**
-     * getter method for the corner's position inside a card.
-     *
-     * @return position
-     */
-    public Pair getPosition(){
-       return position;
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public Corner getNextCorner() {
+        return nextCorner;
     }
 
     public Symbol getSymbol() {
         return symbol;
     }
+
+    public void setCovered() {
+        covered = true;
+    }
+
+    public void setNextCorner(Corner nextCorner) {
+        this.nextCorner = nextCorner;
+    }
+
+
+
+    public SideOfCard getParentCard() {
+        return parentCard;
+    }
+
+    public void setParentCard(SideOfCard parentCard) {
+        this.parentCard = parentCard;
+    }
+
+    public CornerPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(CornerPosition position) {
+        this.position = position;
+    }
 }
-
-
-
-

@@ -15,8 +15,8 @@ public class PointPerVisibleSymbol extends GoldCard{
         this.goldGoal = goldGoal;
     }
 
-    public int increasePoints(int point, Symbol goldGoal){
-       return PlayArea.getNumSymbols(goldGoal) * point;
+    public int increasePoints(Player CurrentPlayer,int point, Symbol goldGoal){
+       return CurrentPlayer.getPlayArea().getNumSymbols(goldGoal) * point;
     }
     //to revise + javadoc
 

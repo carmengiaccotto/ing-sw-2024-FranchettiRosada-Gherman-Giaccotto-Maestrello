@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.ObjectivePoints;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,7 @@ import java.util.Map;
  * This subclass represents a specific type of Objective Card which goal is to have certains symbols on the Player's PlayArea.
  * It extends the base ObjetiveCards class and provides additional customization.
  */
-public class SymbolObjectiveCard extends ObjectiveCard {
+public class SymbolObjectiveCard extends it.polimi.ingsw.model.ObjectiveCard {
 
     private final HashMap<Symbol, Integer> goal;
 
