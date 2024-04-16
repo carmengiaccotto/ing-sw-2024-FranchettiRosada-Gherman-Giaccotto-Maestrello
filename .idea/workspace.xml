@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Colors.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CardColors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DispositionObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DispositionObjectiveCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/UpDownPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/UpDownPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/UpDownPositionTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
         <option value="Enum" />
       </list>
     </option>
@@ -388,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713268596866</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum">
+      <option name="closed" value="true" />
+      <created>1713270604937</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1713270604937</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,6 +460,7 @@
     <MESSAGE value="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class" />
     <MESSAGE value="Adjusted Error in PlayerTest regarding PlayArea constructor" />
     <MESSAGE value="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours" />
-    <option name="LAST_COMMIT_MESSAGE" value="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours" />
+    <MESSAGE value="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum" />
+    <option name="LAST_COMMIT_MESSAGE" value="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum" />
   </component>
 </project>
