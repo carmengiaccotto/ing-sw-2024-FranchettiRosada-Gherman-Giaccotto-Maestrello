@@ -1,7 +1,12 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.EdgePositions.cornersToCheck;
+
 /**This class represents the playArea. Each player has its own*/
 public class PlayArea {
     /**A map that contains all the symbols that are visible on the playArea. It is going to be used for
@@ -149,12 +154,31 @@ public class PlayArea {
      * @param CornerToCover corner the player wants to place the card on*/
 
     public void AddCardOnArea(SideOfCard NewCard, Corner CornerToCover){
-        EdgePositions.IsEdgeCase(CornerToCover,NewCard,cardsOnArea);
+        IsEdgeCase(CornerToCover,NewCard,cardsOnArea);
         SideOfCard CoveredCard=CornerToCover.getParentCard();
         NewCard.setPositionOnArea(CornerToCover.getPosition().PositionNewCard(CoveredCard));
         checkNeighbours(NewCard);
         AddSymbolsToArea(NewCard);
     }
+
+
+    public void IsEdgeCase(Corner cornerToCover, SideOfCard CardToCover, List<List<SideOfCard>> cardsOnArea){
+        for (EdgePositions.EdgeCases key : cornersToCheck.keySet()) {
+            if (key.isEdgePosition(CardToCover, cardsOnArea)) {
+                ArrayList<CornerPosition> value = cornersToCheck.get(key);
+                for (CornerPosition corner : value) {
+                    if (cornerToCover.getPosition().equals(corner)) {
+                        key.ExpandArea(cardsOnArea);
+
+                    }
+                }
+
+            }
+        }
+    }
+
+
+
 
     public List<List<SideOfCard>> getCardsOnArea() {
         return cardsOnArea;

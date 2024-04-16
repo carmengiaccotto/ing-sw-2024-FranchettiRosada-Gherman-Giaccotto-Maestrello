@@ -1,0 +1,147 @@
+package CodexNaturalis.src.test.java.it.polimi.ingsw;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class EdgePositionsTest {
+
+
+    /**ExpandArea Tests*/
+
+
+    @Test
+    void testExpandArea_RowZero() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        EdgePositions.EdgeCases.RowZero.ExpandArea(cardsOnArea);
+        Assertions.assertEquals(1, cardsOnArea.size());
+    }
+
+    @Test
+    void testExpandArea_ColumnZero() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        EdgePositions.EdgeCases.ColumnZero.ExpandArea(cardsOnArea);
+        Assertions.assertEquals(1, cardsOnArea.getFirst().size());
+    }
+
+
+    @Test
+    void testExpandArea_RowMax() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            List<SideOfCard> row = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
+                row.add(new SideOfCard(null,positionOnArea , null));
+            }
+            cardsOnArea.add(row);
+        }
+
+        EdgePositions.EdgeCases.RowMax.ExpandArea(cardsOnArea);
+
+
+        Assertions.assertEquals(4, cardsOnArea.size());
+        Assertions.assertEquals(3, cardsOnArea.get(3).size());
+    }
+
+    @Test
+    void testExpandArea_ColumnMax() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            List<SideOfCard> row = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
+                row.add(new SideOfCard(null, positionOnArea, null));
+            }
+            cardsOnArea.add(row);
+        }
+
+        EdgePositions.EdgeCases.ColumnMax.ExpandArea(cardsOnArea);
+
+        for (List<SideOfCard> row : cardsOnArea) {
+            Assertions.assertNull(row.get(3));
+        }
+    }
+
+
+
+
+
+    /**IsEdgePosition Tests*/
+
+    @Test
+    void testIsEdgePosition_RowZero() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        SideOfCard card = new SideOfCard(null, null, Colors.RED);
+        card.setPositionOnArea(new Pair<>(0, 0));
+        Assertions.assertTrue(EdgePositions.EdgeCases.RowZero.isEdgePosition(card, cardsOnArea));
+    }
+
+    @Test
+    void testIsEdgePosition_ColumnZero() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        SideOfCard card = new SideOfCard(null, null, Colors.RED);
+        card.setPositionOnArea(new Pair<>(0, 0));
+        Assertions.assertTrue(EdgePositions.EdgeCases.ColumnZero.isEdgePosition(card, cardsOnArea));
+    }
+
+
+    @Test
+    void testIsEdgePosition_RowMax() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            List<SideOfCard> row = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
+                row.add(new SideOfCard(null, positionOnArea, null));
+            }
+            cardsOnArea.add(row);
+        }
+
+        SideOfCard card = new SideOfCard(null,new Pair<>((cardsOnArea.size() - 1), 1), null);
+
+        Assertions.assertTrue(EdgePositions.EdgeCases.RowMax.isEdgePosition(card, cardsOnArea));
+
+    }
+
+
+    @Test
+    void testIsEdgePosition_ColumnMax() {
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            List<SideOfCard> row = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
+                row.add(new SideOfCard(null, positionOnArea, null));
+            }
+            cardsOnArea.add(row);
+        }
+
+        SideOfCard card = new SideOfCard(null,new Pair<>(1, (cardsOnArea.getFirst().size() - 1)), null);
+
+        Assertions.assertTrue(EdgePositions.EdgeCases.ColumnMax.isEdgePosition(card, cardsOnArea));
+
+    }
+
+
+
+
+
+
+
+/**Class Constructor Test*/
+
+    @Test
+    void testConstructFullEdgeCases() {
+        Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.RowZero));
+        Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.RowMax));
+        Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.ColumnZero));
+        Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.ColumnMax));
+    }
+
+
+
+}
