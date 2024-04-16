@@ -35,7 +35,7 @@ class EdgePositionsTest {
             List<SideOfCard> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
-                SideOfCard testCard=new SideOfCard(null, null);
+                SideOfCard testCard=new SideOfCard(null, null, new Corner[2][2]);
                 testCard.setPositionOnArea(positionOnArea);
                 row.add(testCard);
             }
@@ -56,7 +56,7 @@ class EdgePositionsTest {
             List<SideOfCard> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
-                SideOfCard testCard=new SideOfCard(null, null);
+                SideOfCard testCard=new SideOfCard(null, null, new Corner[2][2]);
                 testCard.setPositionOnArea(positionOnArea);
                 row.add(testCard);
             }
@@ -79,7 +79,7 @@ class EdgePositionsTest {
     @Test
     void testIsEdgePosition_RowZero() {
         List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
-        SideOfCard card = new SideOfCard(null, CardColors.RED);
+        SideOfCard card = new SideOfCard(null, CardColors.RED, null);
         card.setPositionOnArea(new Pair<>(0, 0));
         Assertions.assertTrue(EdgePositions.EdgeCases.RowZero.isEdgePosition(card, cardsOnArea));
     }
@@ -87,7 +87,7 @@ class EdgePositionsTest {
     @Test
     void testIsEdgePosition_ColumnZero() {
         List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
-        SideOfCard card = new SideOfCard(null, CardColors.RED);
+        SideOfCard card = new SideOfCard(null, CardColors.RED, new Corner[2][2]);
         card.setPositionOnArea(new Pair<>(0, 0));
         Assertions.assertTrue(EdgePositions.EdgeCases.ColumnZero.isEdgePosition(card, cardsOnArea));
     }
@@ -100,14 +100,14 @@ class EdgePositionsTest {
             List<SideOfCard> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
-                SideOfCard testCard=new SideOfCard(null, null);
+                SideOfCard testCard=new SideOfCard(null, null, new Corner[2][2]);
                 testCard.setPositionOnArea(positionOnArea);
                 row.add(testCard);
             }
             cardsOnArea.add(row);
         }
         Pair<Integer, Integer> pos=new Pair<>((cardsOnArea.size() - 1), 1);
-        SideOfCard card = new SideOfCard(null, null);
+        SideOfCard card = new SideOfCard(null, null, new Corner[2][2]);
         card.setPositionOnArea(pos);
 
         Assertions.assertTrue(EdgePositions.EdgeCases.RowMax.isEdgePosition(card, cardsOnArea));
@@ -122,14 +122,14 @@ class EdgePositionsTest {
             List<SideOfCard> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 Pair<Integer, Integer> positionOnArea= new Pair<>(i,j);
-                SideOfCard testCard=new SideOfCard(null, null);
+                SideOfCard testCard=new SideOfCard(null, null, new Corner[2][2]);
                 testCard.setPositionOnArea(positionOnArea);
                 row.add(testCard);
             }
             cardsOnArea.add(row);
         }
         Pair<Integer, Integer> pos=new Pair<>(1, (cardsOnArea.getFirst().size() - 1));
-        SideOfCard card = new SideOfCard(null, null);
+        SideOfCard card = new SideOfCard(null, null, new Corner[2][2]);
         card.setPositionOnArea(pos);
 
         Assertions.assertTrue(EdgePositions.EdgeCases.ColumnMax.isEdgePosition(card, cardsOnArea));
