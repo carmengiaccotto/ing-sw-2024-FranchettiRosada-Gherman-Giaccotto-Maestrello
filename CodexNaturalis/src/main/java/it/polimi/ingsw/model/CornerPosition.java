@@ -7,8 +7,8 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
             public CornerPosition CoverCorners(){
                 return BOTTOMRIGHT;
             }
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
-                return temporaryCentralCard.getCornerInPosition((CornerPosition) positionToCheck).getNextCorner().getParentCard();
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
             }
 
 
@@ -29,8 +29,8 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
                         currentCard.getPositionOnArea().getSecond()-1);
             }
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
-                return temporaryCentralCard.getCornerInPosition((CornerPosition) positionToCheck).getNextCorner().getParentCard();
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
             }
 
         },
@@ -45,8 +45,8 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
             }
 
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
-                return temporaryCentralCard.getCornerInPosition((CornerPosition) positionToCheck).getNextCorner().getParentCard();
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
             }
         },
 
@@ -60,8 +60,8 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
                         currentCard.getPositionOnArea().getSecond()+1);
             }
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
-                return temporaryCentralCard.getCornerInPosition((CornerPosition) positionToCheck).getNextCorner().getParentCard();
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
             }
         },
         ;
