@@ -36,7 +36,7 @@ public class PlayerTest {
     public void testGetPlayArea() {
         // Arrange
         Player player = new Player("TestPlayer", Colors.RED, 0, 0);
-        PlayArea expectedPlayArea = new PlayArea();
+        PlayArea expectedPlayArea = new PlayArea(null);
 
         // Act
         PlayArea actualPlayArea = player.getPlayArea();
