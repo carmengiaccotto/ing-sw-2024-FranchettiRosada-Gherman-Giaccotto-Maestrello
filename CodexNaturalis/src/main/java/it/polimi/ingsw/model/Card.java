@@ -1,8 +1,5 @@
-package it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Colors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Side;
 import java.util.Optional;
 
 /** @author Carmen Giaccotto
@@ -15,9 +12,9 @@ public class Card {
 
     private int idCard;
 
-    private  Optional<Colors> color;
+    private  Optional<CardColors> color;
 
-    public Card(Pair<SideOfCard, SideOfCard> sides, int idCard, Optional<Colors> color) {
+    public Card(Pair<SideOfCard, SideOfCard> sides, int idCard, Optional<CardColors> color) {
         this.sides = sides;
         this.idCard = idCard;
         this.color = color;

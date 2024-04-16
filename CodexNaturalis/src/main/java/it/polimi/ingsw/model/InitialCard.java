@@ -5,7 +5,7 @@ import java.util.HashMap;
  * This subclass represents the Initial Cards and extends the SideOfCard class*/
 public class InitialCard extends SideOfCard {
 
-    public InitialCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, Colors color) {
+    public InitialCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, CardColors color) {
         super(symbols, corners, isInConfiguration, color);
     }
 

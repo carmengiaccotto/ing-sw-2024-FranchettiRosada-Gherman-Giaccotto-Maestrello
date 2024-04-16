@@ -1,9 +1,6 @@
 package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Colors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,14 +13,14 @@ public class PlayerTest {
     public void testPlayerConstructor() {
         // Arrange
         String expectedNickname = "TestPlayer";
-        Colors expectedPawnColor = Colors.RED;
+        PawnColor expectedPawnColor = PawnColor.RED;
         // Act
         Player player = new Player(expectedNickname, expectedPawnColor, 0, 0);
 
         // Assert
         assertNotNull(player);
         assertEquals(expectedNickname, player.getNickname());
-        assertEquals(Colors.RED, player.getPawnColor());
+        assertEquals(PawnColor.RED, player.getPawnColor());
         assertEquals(0, player.getScore());
         assertEquals(0, player.getCardsInHand().size());
         assertEquals(0,
@@ -35,7 +32,7 @@ public class PlayerTest {
     @Test
     public void testGetPlayArea() {
         // Arrange
-        Player player = new Player("TestPlayer", Colors.RED, 0, 0);
+        Player player = new Player("TestPlayer", PawnColor.RED, 0, 0);
         PlayArea expectedPlayArea = new PlayArea(null);
 
         // Act
@@ -51,7 +48,7 @@ public class PlayerTest {
     public void testGetNickname() {
         // Arrange
         String expectedNickname = "TestPlayer";
-        Player player = new Player(expectedNickname, Colors.RED, 0, 0);
+        Player player = new Player(expectedNickname, PawnColor.RED, 0, 0);
 
         // Act
         String actualNickname = player.getNickname();
@@ -63,7 +60,7 @@ public class PlayerTest {
     @Test
     public void testSetNickname() {
         String nickname = "OldNickname";
-        Player TestPlayer = new Player(nickname, Colors.PURPLE, 0, 0);
+        Player TestPlayer = new Player(nickname, PawnColor.YELLOW, 0, 0);
 
         String newNickName = "NewNickName";
         TestPlayer.setNickname(newNickName);
@@ -114,7 +111,7 @@ public class PlayerTest {
     @Test
     public void testGetPawnColor() {
         String testNickname = "Nickname";
-        Colors testColor = Colors.RED;
+        PawnColor testColor = PawnColor.RED;
         Player testPlayer = new Player(testNickname, testColor, 0, 0);
         assertEquals(testColor, testPlayer.getPawnColor());
     }
@@ -122,7 +119,7 @@ public class PlayerTest {
     @Test
     public void testSetPawnColor() {
         Player testPlayer = new Player(null, null, 0, 0);
-        Colors testColor = Colors.RED;
+        PawnColor testColor = PawnColor.RED;
         testPlayer.setPawnColor(testColor);
         assertEquals(testColor, testPlayer.getPawnColor());
     }
@@ -135,8 +132,8 @@ public class PlayerTest {
         Player testPlayer=new Player(null, null, 0, 0);
         ArrayList<Player> testPlayerList= PlayGround.getListOfPlayers();
         testPlayerList.clear();
-        ArrayList<Colors> expected= new ArrayList<>();
-        Collections.addAll(expected, Colors.values());
+        ArrayList<PawnColor> expected= new ArrayList<>();
+        Collections.addAll(expected, PawnColor.values());
         assertEquals(expected,testPlayer.DisplayAvailablePawnColors() );
 
     }
@@ -144,38 +141,38 @@ public class PlayerTest {
     @Test
     public void TestDisplayAvailablePawnColorsMoreThanOneColorAvailable(){
         Player testPlayer=new Player(null, null, 0, 0);
-        Player player1= new Player ("user1", Colors.RED, 0, 0);
+        Player player1= new Player ("user1", PawnColor.RED, 0, 0);
         PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", Colors.GREEN, 0, 0);
+        Player player2= new Player ("user2", PawnColor.GREEN, 0, 0);
         PlayGround.getListOfPlayers().add(player2);
-        ArrayList<Colors> expected= new ArrayList<>();
-        expected.add(Colors.PURPLE);
-        expected.add(Colors.BLUE);
+        ArrayList<PawnColor> expected= new ArrayList<>();
+        expected.add(PawnColor.YELLOW);
+        expected.add(PawnColor.BLUE);
         assertEquals(expected, testPlayer.DisplayAvailablePawnColors());
 
     }
     @Test
     public void TestDisplayAvailablePawnColorsOneColorAvailable(){
         Player testPlayer=new Player(null, null,0, 0);
-        Player player1= new Player ("user1", Colors.RED,0,0);
+        Player player1= new Player ("user1", PawnColor.RED,0,0);
         PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", Colors.GREEN,0,0);
+        Player player2= new Player ("user2", PawnColor.GREEN,0,0);
         PlayGround.getListOfPlayers().add(player2);
-        Player player3= new Player ("user3", Colors.BLUE,0,0);
+        Player player3= new Player ("user3", PawnColor.BLUE,0,0);
         PlayGround.getListOfPlayers().add(player3);
-        assertEquals(Colors.PURPLE, testPlayer.DisplayAvailablePawnColors());
+        assertEquals(PawnColor.YELLOW, testPlayer.DisplayAvailablePawnColors());
 
     }
     @Test
     public void TestDisplayAvailablePawnColorsNoColorsAvailable(){
         Player testPlayer=new Player(null, null,0,0);
-        Player player1= new Player ("user1", Colors.RED,0,0);
+        Player player1= new Player ("user1", PawnColor.RED,0,0);
         PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", Colors.GREEN,0,0);
+        Player player2= new Player ("user2", PawnColor.GREEN,0,0);
         PlayGround.getListOfPlayers().add(player2);
-        Player player3= new Player ("user3", Colors.BLUE,0,0);
+        Player player3= new Player ("user3", PawnColor.BLUE,0,0);
         PlayGround.getListOfPlayers().add(player3);
-        Player player4= new Player ("user3", Colors.PURPLE,0,0);
+        Player player4= new Player ("user3", PawnColor.YELLOW,0,0);
         PlayGround.getListOfPlayers().add(player4);
         assertNull(testPlayer.DisplayAvailablePawnColors());
 
@@ -191,20 +188,20 @@ public class PlayerTest {
         PlayGround.getListOfPlayers().add(player2);
         Player player3= new Player ("user3", null,0,0);
         PlayGround.getListOfPlayers().add(player3);
-        ArrayList<Colors> expected= new ArrayList<>();
-        Collections.addAll(expected, Colors.values());
+        ArrayList<PawnColor> expected= new ArrayList<>();
+        Collections.addAll(expected, PawnColor.values());
         assertEquals(expected,testPlayer.DisplayAvailablePawnColors());
 
     }
 
     @Test
     public void TestChoosePawnColorValidColor(){
-        Player player1= new Player ("user1", Colors.PURPLE,0,0);
+        Player player1= new Player ("user1", PawnColor.YELLOW,0,0);
         PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", Colors.RED,0,0);
+        Player player2= new Player ("user2", PawnColor.RED,0,0);
         PlayGround.getListOfPlayers().add(player2);
-        Colors testChosenColor=Colors.BLUE;
-        Colors expected=Colors.BLUE;
+        PawnColor testChosenColor=PawnColor.BLUE;
+        PawnColor expected=PawnColor.BLUE;
         Player testPlayer= new Player("testPlayer", null,0,0);
         assertEquals(expected, testPlayer.ChoosePawnColor(testChosenColor));
         assertEquals(expected,
@@ -214,12 +211,12 @@ public class PlayerTest {
 
     @Test
     public void TestChoosePawnColorNotAvailableColor(){
-        Player player1= new Player ("user1", Colors.PURPLE,0,0);
+        Player player1= new Player ("user1", PawnColor.YELLOW,0,0);
         PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", Colors.RED,0,0);
+        Player player2= new Player ("user2", PawnColor.RED,0,0);
         PlayGround.getListOfPlayers().add(player2);
         Player testPlayer= new Player("testPlayer", null,0,0);
-        assertThrows(RuntimeException.class, () -> testPlayer.ChoosePawnColor(Colors.RED));
+        assertThrows(RuntimeException.class, () -> testPlayer.ChoosePawnColor(PawnColor.RED));
 
     }
 
@@ -232,14 +229,14 @@ public class PlayerTest {
 
     @Test
     public void TestGetScore(){
-        Player testPlayer=new Player("user1", Colors.RED, 2, 0);
+        Player testPlayer=new Player("user1", PawnColor.RED, 2, 0);
         assertEquals(2,testPlayer.getScore());
     }
 
 
     @Test
     public void TestSetScore(){
-        Player testPlayer=new Player("user1", Colors.RED, 0, 0);
+        Player testPlayer=new Player("user1", PawnColor.RED, 0, 0);
         int scoreToSet=5;
         testPlayer.setScore(scoreToSet);
         assertEquals(scoreToSet,testPlayer.getScore());
@@ -247,7 +244,7 @@ public class PlayerTest {
 
     @Test
     public void TestIncreaseScoreFirst(){
-        Player testPlayer=new Player("user1", Colors.RED, 0, 0);
+        Player testPlayer=new Player("user1", PawnColor.RED, 0, 0);
         int points=2;
         testPlayer.increaseScore(points);
         assertEquals(2,testPlayer.getScore());
@@ -255,7 +252,7 @@ public class PlayerTest {
 
     @Test
     public void TestIncreaseScoreSecond(){
-        Player testPlayer=new Player("user1", Colors.RED, 5, 0);
+        Player testPlayer=new Player("user1", PawnColor.RED, 5, 0);
         int points=7;
         testPlayer.increaseScore(points);
         assertEquals(12,testPlayer.getScore());
@@ -264,13 +261,13 @@ public class PlayerTest {
     @Test
 
     public void TestGetRound(){
-        Player testPlayer=new Player("user1", Colors.RED, 2, 4);
+        Player testPlayer=new Player("user1", PawnColor.RED, 2, 4);
         assertEquals(4,testPlayer.getRound());
 
     }
     @Test
     public void TestIncreaseRound(){
-        Player testPlayer=new Player("user1", Colors.RED, 0, 4);
+        Player testPlayer=new Player("user1", PawnColor.RED, 0, 4);
         testPlayer.IncreaseRound();
         assertEquals(5,testPlayer.getRound());
     }

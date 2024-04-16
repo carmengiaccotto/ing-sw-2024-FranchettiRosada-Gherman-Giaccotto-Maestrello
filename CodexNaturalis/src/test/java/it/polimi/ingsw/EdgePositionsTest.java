@@ -75,7 +75,7 @@ class EdgePositionsTest {
     @Test
     void testIsEdgePosition_RowZero() {
         List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
-        SideOfCard card = new SideOfCard(null, null, Colors.RED);
+        SideOfCard card = new SideOfCard(null, null, CardColors.RED);
         card.setPositionOnArea(new Pair<>(0, 0));
         Assertions.assertTrue(EdgePositions.EdgeCases.RowZero.isEdgePosition(card, cardsOnArea));
     }
@@ -83,7 +83,7 @@ class EdgePositionsTest {
     @Test
     void testIsEdgePosition_ColumnZero() {
         List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
-        SideOfCard card = new SideOfCard(null, null, Colors.RED);
+        SideOfCard card = new SideOfCard(null, null, CardColors.RED);
         card.setPositionOnArea(new Pair<>(0, 0));
         Assertions.assertTrue(EdgePositions.EdgeCases.ColumnZero.isEdgePosition(card, cardsOnArea));
     }

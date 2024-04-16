@@ -9,7 +9,7 @@ public class SideOfCard {
     /**Matrix of corners */ //Does it make sense to keep it as a matrix or do we just make a list?
     private Corner[][] corners;
 
-    private final Colors color;
+    private final CardColors color;
 
 
     /**Map of Symbols of the card. They can be placed in the corner or in the middle*/
@@ -33,7 +33,7 @@ public class SideOfCard {
      * No card is in a configuration until DispositionObjectiveCard starts searching, so we initialize it to false
      * Uses SetCornerPosition to associate the position of the corner in the Card with the position of the corner in Corner Class,
      * declared as a CornerPosition type*/
-    public SideOfCard( HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, Colors color) {
+    public SideOfCard(HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, CardColors color) {
         this.symbols = symbols;
         this.color=color;
         this.positionOnArea = positionOnArea;
@@ -43,6 +43,32 @@ public class SideOfCard {
             for(Corner corner :cornerRow)
                 corner.setParentCard(this);
         InConfiguration=false;
+    }
+
+
+
+    /**Getter method for symbols Attribute
+     * @return symbols a map that contains the symbol the card has in its corners or in the middle */
+    public HashMap<Symbol, Integer> getSymbols() {
+        return symbols;
+    }
+
+
+
+
+
+    /**Getter Method for color Attribute
+     * @return color the Color of the Card. Needed for DispositionCheck*/
+    public CardColors getColor() {
+        return color;
+    }
+
+    public boolean isInConfiguration() {
+        return InConfiguration;
+    }
+
+    public void setInConfiguration(boolean inConfiguration) {
+        InConfiguration = inConfiguration;
     }
 
 
@@ -134,21 +160,5 @@ public class SideOfCard {
 
 
 
-    /**getter method for symbols
-     * @return symbols a map that contains the symbol the card has in its corners or in the middle */
-    public HashMap<Symbol, Integer> getSymbols() {
-        return symbols;
-    }
 
-    public Colors getColor() {
-        return color;
-    }
-
-    public boolean isInConfiguration() {
-        return InConfiguration;
-    }
-
-    public void setInConfiguration(boolean inConfiguration) {
-        InConfiguration = inConfiguration;
-    }
 }

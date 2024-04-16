@@ -7,7 +7,7 @@ import java.util.Map;
  * This subclass represents a specific type of Objective Card which goal is to have certains symbols on the Player's PlayArea.
  * It extends the base ObjetiveCards class and provides additional customization.
  */
-public class SymbolObjectiveCard extends it.polimi.ingsw.model.ObjectiveCard {
+public class SymbolObjectiveCard extends ObjectiveCard {
 
     private final HashMap<Symbol, Integer> goal;
 

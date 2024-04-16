@@ -1,7 +1,5 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Card;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,13 +10,13 @@ public class Player {
     /*Every Player has its own playArea.*/
     private PlayArea playArea;
     private String nickname;
-    private  Colors pawnColor;
+    private  PawnColor pawnColor;
     private int score;
     private ArrayList<Card> cardsInHand;
     private int round;
 
 
-    public Player(String nickname, Colors pawnColor, int Score, int Round) {
+    public Player(String nickname, PawnColor pawnColor, int Score, int Round) {
         this.playArea = new PlayArea(null);
         this.nickname = nickname;
         this.pawnColor = pawnColor;
@@ -97,7 +95,7 @@ public class Player {
      *
      * @return Color
      */
-    public Colors getPawnColor() {
+    public PawnColor getPawnColor() {
         return pawnColor;
     }
 
@@ -107,7 +105,7 @@ public class Player {
      *
      * @param pawnColor the type is the enumeration Color
      */
-    public void setPawnColor(Colors pawnColor) {
+    public void setPawnColor(PawnColor pawnColor) {
         this.pawnColor = pawnColor;
     }
 
@@ -118,9 +116,9 @@ public class Player {
      * @return AvailableColors the list of colors the player can still choose from
      */
 
-    public ArrayList<Colors> DisplayAvailablePawnColors() {
-        ArrayList<Colors> AvailableColors= new ArrayList<>();
-        Collections.addAll(AvailableColors, Colors.values());
+    public ArrayList<PawnColor> DisplayAvailablePawnColors() {
+        ArrayList<PawnColor> AvailableColors= new ArrayList<>();
+        Collections.addAll(AvailableColors,PawnColor.values());
             for (Player player : PlayGround.getListOfPlayers())
                 if (player.getPawnColor() != null) {
                     AvailableColors.remove(player.getPawnColor());
@@ -135,8 +133,8 @@ public class Player {
  * @return temporaryColor the chosen color
  * @throws RuntimeException if the player did not choose any of the available colors
  */
-public Colors ChoosePawnColor(Colors chosenColor){
-    Colors temporaryColor=null;
+public PawnColor ChoosePawnColor(PawnColor chosenColor){
+    PawnColor temporaryColor=null;
 
     if (DisplayAvailablePawnColors().contains(chosenColor))
         temporaryColor=chosenColor;
