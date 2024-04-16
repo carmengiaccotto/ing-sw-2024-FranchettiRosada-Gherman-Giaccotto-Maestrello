@@ -15,13 +15,16 @@ public class PointPerCoveredCorner extends GoldCard{
     }
 
 
-    //to revise + javadoc
-    public int findCoveredCorners(){  //to revise
-        for (Corner[] corner : corners) {
-            for (Corner value : corner) {
-                if (value.coverOtherCorner) {
-                    coveredCorners++;
-                }
+    /**@author Denisa Minodora Gherman
+     * Method used to get the number of corners the card covers when it is placed.
+     * @return coveredCorners obtained by checking which one of the corners of the current card has nextCorner!=null at
+     * nextCorner is set when placing the Card on the area and checking the neighbours*/
+    public int findCoveredCorners(){
+        int coveredCorners=0;
+        for(Corner[] cornerRow: this.getCorners() ){
+            for (Corner corner: cornerRow){
+                if (corner.getNextCorner()!=null)
+                    coveredCorners+=1;
             }
         }
         return coveredCorners;
