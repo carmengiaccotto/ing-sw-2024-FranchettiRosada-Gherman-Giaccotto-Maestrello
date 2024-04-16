@@ -98,12 +98,12 @@ public class SideOfCard {
 
 
 
-
-
     /**Method to get the card that is in a specific CornerPosition compared to the current one
      * @param position the position we want to get
+     * @param playArea PlayArea we are currently checking. We do not use it here,
+     *                   but need to put the parameter for DispositionCheck purpose
      * @return card the card in the given position*/
-    public SideOfCard getNeighbourCard(CornerPosition position){
+    public SideOfCard getNeighbourCard(CornerPosition position, PlayArea playArea){
         return getCornerInPosition(position).getNextCorner().getParentCard();
     }
 
@@ -114,23 +114,16 @@ public class SideOfCard {
     /**Method to get the card that is in a specific UpDownPosition compared to the current one
      * Overload method
      * @param position the position we want to get
+     * @param playArea PlayArea we are currently checking.
      * @return card the card in the given position*/
-    public SideOfCard getNeighbourCard(UpDownPosition position){
-        for (CornerPosition corner: position.getCornersToCheck()){
-            if(getCornerInPosition(corner).getNextCorner()!=null){
-                SideOfCard CurrentCard=getCornerInPosition(corner).getNextCorner().getParentCard();
-                CornerPosition currentPosition=getCornerInPosition(corner).getNextCorner().getPosition();
-                Corner currentCorner=CurrentCard.getCornerInPosition(currentPosition.TransitionCard());
-                if (currentCorner.getNextCorner()!=null)
-                    return currentCorner.getNextCorner().getParentCard();
+    public SideOfCard getNeighbourCard(UpDownPosition position, PlayArea playArea) {
+        Pair<Integer, Integer> coordinatesToCheck=position.PositionToCheck(this);
+        int rowToCheck=coordinatesToCheck.getFirst();
+        int columnToCheck=coordinatesToCheck.getSecond();
+        return playArea.getCardInPosition(rowToCheck,columnToCheck);
 
-            }
-        }
-        return null;
 
     }
-
-
 
 
     /**Getter method for PositionOnArea

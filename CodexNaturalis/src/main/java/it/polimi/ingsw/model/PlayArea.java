@@ -102,7 +102,7 @@ public class PlayArea {
      * Update the symbols map: if the covered corner contained a symbol, now it is not visible on the map anymore
      * @param newCard the card that has just been placed: this method is called after the card has been added to the PlayArea
      * */
-    public void checkNeighbours(SideOfCard newCard){
+    public void checkCloseNeighbours(SideOfCard newCard){
         for (Corner[] Rowcorner: newCard.getCorners()){
             for(Corner corner:Rowcorner){
                 int rowToCheck=corner.getPosition().PositionNewCard(newCard).getFirst();
@@ -157,9 +157,12 @@ public class PlayArea {
         IsEdgeCase(CornerToCover,NewCard,cardsOnArea);
         SideOfCard CoveredCard=CornerToCover.getParentCard();
         NewCard.setPositionOnArea(CornerToCover.getPosition().PositionNewCard(CoveredCard));
-        checkNeighbours(NewCard);
+        checkCloseNeighbours(NewCard);
         AddSymbolsToArea(NewCard);
     }
+    
+
+
 
 
     public void IsEdgeCase(Corner cornerToCover, SideOfCard CardToCover, List<List<SideOfCard>> cardsOnArea){
