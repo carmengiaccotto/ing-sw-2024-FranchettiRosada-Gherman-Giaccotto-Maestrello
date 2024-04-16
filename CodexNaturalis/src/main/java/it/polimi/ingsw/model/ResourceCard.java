@@ -8,9 +8,11 @@ import java.util.HashMap;
 public class ResourceCard extends SideOfCard {
     private final boolean point;
 
-    public ResourceCard(HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, CardColors color, boolean point) {
-        super(symbols, positionOnArea, color);
+
+    public ResourceCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, boolean point) {
+        super(symbols, color, corners);
         this.point=point;
+
     }
 
 

@@ -2,7 +2,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Card;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class Deck {
     **/
     public void initializeDeck(Class<?> TypeOfDeck) throws IOException {
             String pathToJson = Jsonpath(TypeOfDeck);
-            List<? extends Card> carte = ReadCardsFromJSON(pathToJson, TypeOfDeck);
+            List<? extends Card> carte = readCardsFromJSON(pathToJson, TypeOfDeck);
             // Aggiungi le carte al mazzo o esegui altre operazioni necessarie
             // Esempio: mazzo.addAll(carte);
 
@@ -49,11 +48,17 @@ public class Deck {
     }
 
 
-    private List<? extends Card> ReadCardsFromJSON(String pathToJson, Class<?> typeOfDeck) throws IOException {
+    private List<? extends Card> readCardsFromJSON(String pathToJson, Class<?> typeOfDeck) throws IOException {
         Gson gson = new Gson();
         try (FileReader fileReader = new FileReader(pathToJson)) {
-            Type TypeOfDeck = TypeToken.getParameterized(List.class, typeOfDeck).getType();
-            return gson.fromJson(fileReader, TypeOfDeck);
+            Type typeOfList = new TypeToken<List<? extends Card>>(){}.getType();
+            List<? extends Card> cards = gson.fromJson(fileReader, typeOfList);
+            List<Card> initializedCards = new ArrayList<>();
+            for (Card card : cards) {
+                //initializeCardFields(card);
+                initializedCards.add(card);
+            }
+            return initializedCards;
         }
     }
 

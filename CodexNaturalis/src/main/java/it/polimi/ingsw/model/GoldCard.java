@@ -9,11 +9,12 @@ public class GoldCard extends SideOfCard {
     private final HashMap<Symbol, Integer> requirement;
     private final int point;
 
-    public GoldCard(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, HashMap<Symbol, Integer> requirement, int point) {
-        super(symbols, corners, isInConfiguration);
-        this.requirement = requirement;
-        this.point = point;
+    public GoldCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners,HashMap<Symbol, Integer> requirement,int point ) {
+        super(symbols, color, corners);
+        this.requirement=requirement;
+        this.point=point;
     }
+
 
     public void play(){        //to revise + javadoc
 

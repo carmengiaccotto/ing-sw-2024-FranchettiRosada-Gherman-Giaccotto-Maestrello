@@ -6,18 +6,16 @@ public class Corner {
 
     private CornerPosition position;
     private boolean covered;
-    private boolean hidden;
+    private final boolean hidden;
     private Corner nextCorner;
     private SideOfCard parentCard;
 
 
-    public Corner(Symbol symbol, boolean covered, boolean hidden, Corner nextCorner){
-
-
+    public Corner(Symbol symbol, boolean hidden){
         this.symbol = symbol;
-        this.covered = covered;
+        covered=false;
         this.hidden = hidden;
-        this.nextCorner = nextCorner;
+        nextCorner=null;
     }
 
 

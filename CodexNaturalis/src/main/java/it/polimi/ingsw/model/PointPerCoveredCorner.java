@@ -8,12 +8,12 @@ import java.util.HashMap;
  * tailored to this particular type of Gold Card.
  */
 public class PointPerCoveredCorner extends GoldCard{
-    private int coveredCorners = 0;
+    private int coveredCorners;
 
-    public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, HashMap<Symbol, Integer> requirement, int point, int coveredCorners) {
-        super(symbols, corners, isInConfiguration, requirement, point);
-        this.coveredCorners = coveredCorners;
+    public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
+        super(symbols, color, corners, requirement, point);
     }
+
 
     //to revise + javadoc
     public int findCoveredCorners(){  //to revise

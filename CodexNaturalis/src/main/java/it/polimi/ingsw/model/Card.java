@@ -8,14 +8,16 @@ import java.util.Optional;
  */
 public class Card {
 
-    private final Pair<SideOfCard, SideOfCard> sides;
+    private final SideOfCard Front;
+    private final SideOfCard Back;
 
     private int idCard;
 
-    private  Optional<CardColors> color;
+    private final  Optional<CardColors> color;
 
-    public Card(Pair<SideOfCard, SideOfCard> sides, int idCard, Optional<CardColors> color) {
-        this.sides = sides;
+    public Card( SideOfCard front, SideOfCard back, int idCard, Optional<CardColors> color) {
+        Front = front;
+        Back = back;
         this.idCard = idCard;
         this.color = color;
     }
@@ -43,9 +45,6 @@ public class Card {
      *
      * @return a Pair containing the two sides of the card, front and back.
      */
-    public Pair<SideOfCard, SideOfCard> getSides() {
-        return sides;
-    }
 
     /**
      * Method that allows to choose the side of the card to play.
@@ -54,12 +53,15 @@ public class Card {
      * @return the chosen side of the card
      */
     public SideOfCard chooseSide(Side sideToPlay){
-        if (sideToPlay == Side.FRONT) return sides.getFirst();
+        if (sideToPlay == Side.FRONT) return Front;
         else{
-            return sides.getSecond();
+            return Back;
         }
     }
 
+    public Optional<CardColors> getColor() {
+        return color;
+    }
 }
 
 

@@ -10,10 +10,11 @@ import java.util.HashMap;
 public class PointPerVisibleSymbol extends GoldCard{
     private final Symbol goldGoal;
 
-    public PointPerVisibleSymbol(HashMap<Symbol, Integer> symbols, Corner[][] corners, boolean isInConfiguration, HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
-        super(symbols, corners, isInConfiguration, requirement, point);
-        this.goldGoal = goldGoal;
+    public PointPerVisibleSymbol(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
+        super(symbols, color, corners, requirement, point);
+        this.goldGoal=goldGoal;
     }
+
 
     public int increasePoints(Player CurrentPlayer,int point, Symbol goldGoal){
        return CurrentPlayer.getPlayArea().getNumSymbols(goldGoal) * point;

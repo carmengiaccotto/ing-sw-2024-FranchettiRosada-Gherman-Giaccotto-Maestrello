@@ -1,7 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.ObjectiveCard;
-import it.polimi.ingsw.model.Card;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +74,7 @@ public class PlayGround {
      *
      * @return commonCards
      */
-    public static ArrayList<Card> getCommonCards() {
+    public ArrayList<Card> getCommonCards() {
         return commonCards;
     }
 

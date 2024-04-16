@@ -33,12 +33,11 @@ public class SideOfCard {
      * No card is in a configuration until DispositionObjectiveCard starts searching, so we initialize it to false
      * Uses SetCornerPosition to associate the position of the corner in the Card with the position of the corner in Corner Class,
      * declared as a CornerPosition type*/
-    public SideOfCard(HashMap<Symbol, Integer> symbols, Pair<Integer, Integer> positionOnArea, CardColors color) {
+    public SideOfCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners) {
         this.symbols = symbols;
         this.color=color;
-        this.positionOnArea = positionOnArea;
-        SetCornersPosition();
-        SetCornersPosition();
+        this.positionOnArea = null;
+        this.corners=SetCornersPosition();
         for(Corner[] cornerRow: getCorners())
             for(Corner corner :cornerRow)
                 corner.setParentCard(this);
@@ -115,11 +114,13 @@ public class SideOfCard {
 
 
     /**Method tha links the CornerPosition on the card to the attribute in the Corner class.*/
-    public void SetCornersPosition(){
+    public Corner[][] SetCornersPosition(){
+        Corner[][] corners=new Corner[2][2];
         corners[0][0].setPosition(CornerPosition.TOPLEFT);
         corners[0][1].setPosition((CornerPosition.TOPRIGHT));
         corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
         corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
+        return corners;
     }
 
 
