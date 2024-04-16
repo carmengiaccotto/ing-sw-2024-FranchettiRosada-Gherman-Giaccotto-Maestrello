@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Adjusted class Constructors according to new SideOfCard logic">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="findCoveredCornersMethod and its Javadoc">
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -405,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713294268028</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="findCoveredCornersMethod and its Javadoc">
+      <option name="closed" value="true" />
+      <created>1713299435485</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713299435485</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,7 +456,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc" />
     <MESSAGE value="Player and Class both have setter and getter methods done, plus a first version of other methods. Missing to add comments for javaDoc Documentation." />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" />
@@ -474,6 +480,7 @@
     <MESSAGE value="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum" />
     <MESSAGE value="Implemented method to look for Dispositions on the PlayArea in DispositionObjectiveCard Class. Added PositionInterface to use method getNeighbourCards in overload between CornerPosition and UpDownPosition during the search for dispositions. For the same reason, moved getNeighbourCard as a method in the enums.TESTS FOR UpDownEnum NEED TO BE CHANGED" />
     <MESSAGE value="Adjusted class Constructors according to new SideOfCard logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusted class Constructors according to new SideOfCard logic" />
+    <MESSAGE value="findCoveredCornersMethod and its Javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="findCoveredCornersMethod and its Javadoc" />
   </component>
 </project>

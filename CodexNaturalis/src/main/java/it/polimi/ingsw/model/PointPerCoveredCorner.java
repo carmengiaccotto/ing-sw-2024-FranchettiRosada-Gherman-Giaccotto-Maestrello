@@ -8,7 +8,6 @@ import java.util.HashMap;
  * tailored to this particular type of Gold Card.
  */
 public class PointPerCoveredCorner extends GoldCard{
-    private int coveredCorners;
 
     public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
         super(symbols, color, corners, requirement, point);
@@ -30,9 +29,13 @@ public class PointPerCoveredCorner extends GoldCard{
         return coveredCorners;
     }
 
-    //to revise + javadoc
-    public int increasePoints(int point, int coveredCorners){
-        return coveredCorners * point;
+   /**Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints
+    * and the corners the card covers
+    * @param point default points
+    * @return int the points that are to be added to the Player's score
+    **/
+    public int increasePoints(int point){
+        return findCoveredCorners() * point;
     }
 
 }
