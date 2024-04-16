@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="findCoveredCornersMethod and its Javadoc">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="EdgePositionsTest updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -421,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713299801572</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="EdgePositionsTest updated">
+      <option name="closed" value="true" />
+      <created>1713300691672</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1713300691672</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -465,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Player and Class both have setter and getter methods done, plus a first version of other methods. Missing to add comments for javaDoc Documentation." />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java" />
     <MESSAGE value="Solved the problem for Player And PlayArea Classes, and translated the comments in English" />
@@ -490,6 +498,7 @@
     <MESSAGE value="Implemented method to look for Dispositions on the PlayArea in DispositionObjectiveCard Class. Added PositionInterface to use method getNeighbourCards in overload between CornerPosition and UpDownPosition during the search for dispositions. For the same reason, moved getNeighbourCard as a method in the enums.TESTS FOR UpDownEnum NEED TO BE CHANGED" />
     <MESSAGE value="Adjusted class Constructors according to new SideOfCard logic" />
     <MESSAGE value="findCoveredCornersMethod and its Javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="findCoveredCornersMethod and its Javadoc" />
+    <MESSAGE value="EdgePositionsTest updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="EdgePositionsTest updated" />
   </component>
 </project>

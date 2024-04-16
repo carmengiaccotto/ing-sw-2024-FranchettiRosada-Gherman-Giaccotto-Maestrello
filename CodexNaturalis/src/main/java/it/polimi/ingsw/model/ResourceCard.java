@@ -10,7 +10,7 @@ public class ResourceCard extends SideOfCard {
 
 
     public ResourceCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, boolean point) {
-        super(symbols, color, corners);
+        super(symbols, null, corners);
         this.point=point;
 
     }
