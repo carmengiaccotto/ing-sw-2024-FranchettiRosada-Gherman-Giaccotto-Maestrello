@@ -1,5 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 
 /** @author Alessia Franchetti-Rosada
@@ -11,6 +13,11 @@ public class PointPerCoveredCorner extends GoldCard{
 
     public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
         super(symbols, color, corners, requirement, point);
+    }
+
+    public PointPerCoveredCorner mapFromJson(JsonObject jsonObject){
+        GoldCard card= super.mapFromJson(jsonObject);
+        return new PointPerCoveredCorner(card.getSymbols(), card.getColor(), card.getCorners(), card.getRequirement(), card.getPoints());
     }
 
 
