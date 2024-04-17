@@ -32,7 +32,7 @@ public class SymbolObjectiveCard extends ObjectiveCard {
         return new SymbolObjectiveCard(getIdCard(),card.getPoints(), goal);
     }
 
-    public int Check(Map<Symbol, Integer> symbols) {
+    public int CheckGoals(Map<Symbol, Integer> symbols) {
         int numberOfGoals = 0;
         boolean ok = true;
         Map<Symbol, Integer> tmp = new HashMap<>(symbols);

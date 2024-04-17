@@ -28,6 +28,10 @@ public class ObjectiveCard extends Card {
         return new ObjectiveCard(card.getIdCard(),this.points);
     }
 
+    public int CheckGoals(){
+        return 0;
+    }
+
 
     /**
      * method that is used to calculate the total points that an Objective card gives to the player.

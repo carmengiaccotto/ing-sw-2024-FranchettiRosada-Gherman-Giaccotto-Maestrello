@@ -55,7 +55,7 @@ public class DispositionObjectiveCard extends ObjectiveCard {
  *              -tempConfig: Contains all the Cards that might be in a configuration; Parameter for resetConfig method
  *              -TemporaryCentralCard: The card we are currently considering as the central one in the configuration
  *              */
-    public int CheckFoundDisposition(PlayArea playArea){
+    public int CheckGoals(PlayArea playArea){
         int NumberOfDispositions=0;
         List<List<SideOfCard>> Area= playArea.getCardsOnArea();
         ArrayList<SideOfCard> tempConfig=new ArrayList<>();
