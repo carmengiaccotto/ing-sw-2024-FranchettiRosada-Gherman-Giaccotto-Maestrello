@@ -27,16 +27,16 @@ public class PlayCard extends Card{
     public PlayCard mapFromJson(JsonObject jsonObject) {
         Card Card = super.mapFromJson(jsonObject);
 
-        if (this.getClass().equals(ObjectiveCard.class) || this.getClass().equals(InitialCard.class))
+        if ( this.getClass().equals(InitialCard.class))
             this.color=null;
         else
             this.color = CardColors.valueOf(jsonObject.get("color").getAsString());
 
         JsonObject frontObject = jsonObject.getAsJsonObject("front");
-        this.Front = Front.buildFromJson(frontObject);
+        this.Front = Front.mapFromJson(frontObject);
 
         JsonObject backObject = jsonObject.getAsJsonObject("back");
-        this.Back = Back.buildFromJson(backObject);
+        this.Back = Back.mapFromJson(backObject);
         return new PlayCard(Card.getIdCard(),this.Front,this.Back,this.color);
     }
 

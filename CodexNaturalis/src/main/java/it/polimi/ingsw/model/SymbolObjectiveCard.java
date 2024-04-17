@@ -1,5 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +14,22 @@ public class SymbolObjectiveCard extends ObjectiveCard {
 
     private final HashMap<Symbol, Integer> goal;
 
-    public SymbolObjectiveCard(ObjectivePoints points, HashMap<Symbol, Integer> goal) {
-        super(points);
+    public SymbolObjectiveCard(int id,ObjectivePoints points, HashMap<Symbol, Integer> goal) {
+        super(id,points);
         this.goal = goal;
+    }
+
+
+
+    public SymbolObjectiveCard mapFromJson(JsonObject jsonObject){
+        ObjectiveCard card=super.mapFromJson(jsonObject);
+        JsonObject requiredSymbols = jsonObject.getAsJsonObject("RequiredSymbols");
+        for (Map.Entry<String, JsonElement> entry : requiredSymbols.entrySet()) {
+            Symbol symbol = Symbol.valueOf(entry.getKey());
+            int quantity = entry.getValue().getAsInt();
+            goal.put(symbol, quantity);
+        }
+        return new SymbolObjectiveCard(getIdCard(),card.getPoints(), goal);
     }
 
     public int Check(Map<Symbol, Integer> symbols) {

@@ -14,6 +14,10 @@ public class ObjectiveCard extends Card {
         this.points = points;
     }
 
+    public ObjectivePoints getPoints(){
+        return points;
+    }
+
     public ObjectiveCard mapFromJson(JsonObject jsonObject){
         Card card = super.mapFromJson(jsonObject);
         int pointsFromJson= jsonObject.get("points").getAsInt();
@@ -33,12 +37,11 @@ public class ObjectiveCard extends Card {
 
     /**
      * method that is used to calculate the total points that an Objective card gives to the player.
-     * @param numberOfGoals
-     * @param n
+     *
      * @return numberOfGoals * n.getValue()
      */
-    public int getPoints(int numberOfGoals, ObjectivePoints n) {
-        return numberOfGoals * n.getValue();
+    public int CalculatePoints(int numberOfGoals) {
+        return numberOfGoals * points.getValue();
 
     }
 

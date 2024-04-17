@@ -17,8 +17,8 @@ public class ResourceCard extends SideOfCard {
 
     }
 
-    public ResourceCard buildFromJson(JsonObject jsonObject) {
-        SideOfCard sideOfCard = super.buildFromJson(jsonObject);
+    public ResourceCard mapFromJson(JsonObject jsonObject) {
+        SideOfCard sideOfCard = super.mapFromJson(jsonObject);
         this.point=jsonObject.get("point").getAsBoolean();
         return new ResourceCard(sideOfCard.getSymbols(), sideOfCard.getColor(), sideOfCard.getCorners(),this.point );
     }

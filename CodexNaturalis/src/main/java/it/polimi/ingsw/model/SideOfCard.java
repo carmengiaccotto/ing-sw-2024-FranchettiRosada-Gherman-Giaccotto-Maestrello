@@ -50,7 +50,7 @@ public class SideOfCard {
 
 
 
-    public SideOfCard buildFromJson(JsonObject jsonObject){
+    public SideOfCard mapFromJson(JsonObject jsonObject){
         HashMap<Symbol, Integer> symbols = new HashMap<>();
         JsonObject symbolsObject = jsonObject.getAsJsonObject("symbols");
         for (Symbol symbol : Symbol.values()) {
