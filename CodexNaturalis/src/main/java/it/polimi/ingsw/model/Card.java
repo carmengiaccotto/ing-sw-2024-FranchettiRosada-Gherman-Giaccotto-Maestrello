@@ -1,15 +1,20 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import com.google.gson.JsonObject;
-
+/**Physical Card*/
 public class Card {
+    /**JSON Card ID*/
     private int idCard;
 
     /**Class Constructor*/
-    protected Card(int idCard) {
+    public Card(int idCard) {
         this.idCard = idCard;
     }
 
+
+    /**JSON  Card Constructor
+     * @param jsonObject  JSON
+     * @return Card with JSON card ID */
     public Card mapFromJson(JsonObject jsonObject){
         this.idCard = jsonObject.get("id").getAsInt();
         return new Card(idCard );

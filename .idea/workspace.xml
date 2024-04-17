@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests">
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectiveCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectiveCardTest.java" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Tests and Javadoc">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Card.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -492,7 +493,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713384743234</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="ObjectiveCard Tests">
+      <option name="closed" value="true" />
+      <created>1713384856579</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1713384856579</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Tests and Javadoc">
+      <option name="closed" value="true" />
+      <created>1713385039137</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1713385039137</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +553,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)" />
     <MESSAGE value="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players" />
     <MESSAGE value="Position Enum" />
     <MESSAGE value="CoverCorners() method in playArea. Updated Json File, including teh UP and Down options" />
@@ -559,8 +575,9 @@
     <MESSAGE value="Modified Hierarchy by adding new Class Card, that is Parent Class to both PlayCard and Objective Card. Json constructor to ObjectiveCard class" />
     <MESSAGE value="JSon cards" />
     <MESSAGE value="DispositionObjectiveCard Json" />
-    <MESSAGE value="ObjectiveCard Tests" />
     <MESSAGE value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
+    <MESSAGE value="ObjectiveCard Tests" />
+    <MESSAGE value="Tests and Javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tests and Javadoc" />
   </component>
 </project>
