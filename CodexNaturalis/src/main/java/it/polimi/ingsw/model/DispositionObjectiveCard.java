@@ -1,5 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +15,35 @@ public class DispositionObjectiveCard extends ObjectiveCard {
 
 
 
-    public DispositionObjectiveCard(ObjectivePoints points, List<SideOfCard> disposition) {
-        super(points);
+    public DispositionObjectiveCard(int id,ObjectivePoints points, CardColors CentralCardColor, Map<Position, CardColors> Neighbors) {
+        super(id,points);
+        this.CentralCardColor=CentralCardColor;
+        this.Neighbors=Neighbors;
     }
+
+    public DispositionObjectiveCard mapFromJson(JsonObject jsonObject){
+        ObjectiveCard card=super.mapFromJson(jsonObject);
+        CentralCardColor = CardColors.valueOf(jsonObject.get("CentralCardColor").getAsString());
+        JsonObject neighbors = jsonObject.getAsJsonObject("NEIGHBORS");
+        for (Map.Entry<String, JsonElement> entry : neighbors.entrySet()) {
+            Position position=null;
+            for (CornerPosition corner: CornerPosition.values()){
+                if (entry.getKey().toUpperCase().equals(corner.toString())) {
+                    position = CornerPosition.valueOf(entry.getKey());
+                }
+            }
+            for (UpDownPosition pos: UpDownPosition.values()){
+                if (entry.getKey().toUpperCase().equals(pos.toString())) {
+                    position = UpDownPosition.valueOf(entry.getKey());
+                }
+            }
+            CardColors neighborColor=CardColors.valueOf(entry.getValue().toString());
+            Neighbors.put(position,neighborColor);
+        }
+        return new DispositionObjectiveCard(card.getIdCard(),card.getPoints(),CentralCardColor,Neighbors);
+
+        }
+
 
 
 
