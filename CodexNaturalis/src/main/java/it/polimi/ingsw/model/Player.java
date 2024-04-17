@@ -1,6 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 
 /**@author Denisa Minodora Gherman
@@ -142,26 +143,30 @@ public class Player {
     }
 
 
-    /**
-     * When the player placed their card on the PlayArea, they have to draw a new one.
-     * If they decided to draw from deck, they have to choose if they want a Gold Card or a Resource Card
-     *
-     * @param deck the deck they want to draw from
-     *             There are going to be two instances of deck, GoldDeck and ResourceDeck.
-     */
-    public void drawCardFromDeck(Deck deck) {
-        cardsInHand.add(deck.DrawCard());
+
+
+
+
+    /**General DrawCard Method.
+     * @param deckOrCommon this list is going to be the list of cards form a Deck if the player wants to draw a card from a Deck,
+     *                      or the list of CommonCards on the PlayGround if the Player wants to draw a card from the PlayGround
+     * @param drawnCard PlayCard: if the player draws a card from a deck, drawnCard is going to be set to deck.getLastCard(),
+     *                  else, the player can choose a card from the list, as long as the card belongs to the list
+     * @throws NoSuchElementException if the player is trying to draw a card that is not between the available ones. Used especially for CommonCards
+     * @throws IllegalStateException if the list is empty. Used especially if the player wants to draw from an empty deck*/
+    public void DrawCardFrom(ArrayList<PlayCard> deckOrCommon, PlayCard drawnCard){
+        if(!deckOrCommon.isEmpty()) {
+            if (deckOrCommon.contains(drawnCard)) {
+                cardsInHand.add(drawnCard);
+                deckOrCommon.remove(drawnCard);
+            } else
+                throw new NoSuchElementException("This card is not between the options");
+        }
+        else throw new IllegalStateException("No cards Left");
+
     }
 
 
-    /*/**
-     * Used If the Players wants to draw a Card from the common Cards on the playGround
-     *
-     * @param card PairOfCards type
-     *             Once the player added the card to their hand, it has to be removed from the playground
-     *             A new card of the same type needs to be drawn. We get the type of the drawn Card, and we use it as TypeOfDeck to
-     *             search for
-     */
 
 
 
