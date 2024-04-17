@@ -2,11 +2,11 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 public class Corner {
 
-    private final Symbol symbol;
+    private  Symbol symbol;
 
     private CornerPosition position;
     private boolean covered;
-    private final boolean hidden;
+    private boolean hidden;
     private Corner nextCorner;
     private SideOfCard parentCard;
 
@@ -17,6 +17,7 @@ public class Corner {
         this.hidden = hidden;
         nextCorner=null;
     }
+
 
     /**Getter method for Covered attribute. To be used by controller checks
      * @return covered true if the card is covered*/

@@ -1,5 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 
 
@@ -9,7 +12,7 @@ public class SideOfCard {
     /**Matrix of corners */ //Does it make sense to keep it as a matrix or do we just make a list?
     private Corner[][] corners;
 
-    private final CardColors color;
+    private CardColors color;
 
 
     /**Map of Symbols of the card. They can be placed in the corner or in the middle*/
@@ -42,6 +45,28 @@ public class SideOfCard {
             for(Corner corner :cornerRow)
                 corner.setParentCard(this);
         InConfiguration=false;
+    }
+
+
+
+
+    public SideOfCard buildFromJson(JsonObject jsonObject){
+        HashMap<Symbol, Integer> symbols = new HashMap<>();
+        JsonObject symbolsObject = jsonObject.getAsJsonObject("symbols");
+        for (Symbol symbol : Symbol.values()) {
+            JsonElement symbolValue = symbolsObject.get(symbol.name());
+            if (symbolValue != null) {
+                symbols.put(symbol, symbolValue.getAsInt());
+            }
+        }
+        this.color=CardColors.valueOf(jsonObject.get("color").getAsString());
+        Corner[][] corners = new Corner[2][2];
+        corners[0][0]= CornerFactory.createCornerFromJson(jsonObject.get("corner1").getAsString());
+        corners[0][1]=CornerFactory.createCornerFromJson(jsonObject.get("corner2").getAsString());
+        corners[1][0]=CornerFactory.createCornerFromJson(jsonObject.get("corner3").getAsString());
+        corners[1][1]=CornerFactory.createCornerFromJson(jsonObject.get("corner4").getAsString());
+        return new SideOfCard(symbols, color, corners);
+
     }
 
 

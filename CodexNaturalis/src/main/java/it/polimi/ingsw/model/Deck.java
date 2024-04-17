@@ -1,14 +1,13 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**@author Denisa Gherman
 * This is the class that implements the generic deck of cards*/
@@ -20,47 +19,41 @@ public class Deck {
 
 
     /**Class Constructor*/
-    public Deck() {
+    public Deck(ArrayList<Card> cards) {
         Cards = new ArrayList<>();
-        shuffle();
     }
 
+    public Deck createDeckFromJson(Class<? extends Card> DeckType) {
+        try {
+            Gson gson = new Gson();
+            String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + DeckType.getSimpleName() + ".json";
+            JsonObject jsonObject = gson.fromJson(new FileReader(filePath), JsonObject.class);
+            JsonArray jsonArray = jsonObject.getAsJsonArray(DeckType.getSimpleName());
 
-
-
-
-
-
-
-
-    /** This is the method that creates the deck with all the cards
-    **/
-    public void initializeDeck(Class<?> TypeOfDeck) throws IOException {
-            String pathToJson = Jsonpath(TypeOfDeck);
-            List<? extends Card> carte = readCardsFromJSON(pathToJson, TypeOfDeck);
-            // Aggiungi le carte al mazzo o esegui altre operazioni necessarie
-            // Esempio: mazzo.addAll(carte);
-
-    }
-
-    private String Jsonpath(Class<?> typeOfDeck) {
-        return "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + typeOfDeck.getSimpleName() + ".json";
-    }
-
-
-    private List<? extends Card> readCardsFromJSON(String pathToJson, Class<?> typeOfDeck) throws IOException {
-        Gson gson = new Gson();
-        try (FileReader fileReader = new FileReader(pathToJson)) {
-            Type typeOfList = new TypeToken<List<? extends Card>>(){}.getType();
-            List<? extends Card> cards = gson.fromJson(fileReader, typeOfList);
-            List<Card> initializedCards = new ArrayList<>();
-            for (Card card : cards) {
-                //initializeCardFields(card);
-                initializedCards.add(card);
+            ArrayList<Card> cards = new ArrayList<>();
+            for (JsonElement jsonElement : jsonArray) {
+                Card card = gson.fromJson(jsonElement, DeckType);
+                cards.add(card);
             }
-            return initializedCards;
+            return new Deck(cards);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
+
+
+
+
+
+
+
+
+
+
+    /*private String Jsonpath(Class<? extends Card> typeOfDeck) {
+        return "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + typeOfDeck.getSimpleName() + ".json";
+    }*/
+
 
 
 
@@ -98,25 +91,12 @@ public class Deck {
     }
 
 
-
-
-
-
-   /**Shuffles the cards of the Deck. Uses Collection library*/
-    public void shuffle(){
-        Collections.shuffle(Cards);
-    }
-
-
-
-
-
     /**Method that allows to draw a card from the Deck.
-    * If the deck is empty:
-    * @return null
-    * else
-    * @return PairOfCards using getLastCard() method
-    * It also removes the Drawn Card from the deck, which is still the last one*/
+     * If the deck is empty:
+     * @return null
+     * else
+     * @return PairOfCards using getLastCard() method
+     * It also removes the Drawn Card from the deck, which is still the last one*/
     public Card DrawCard(){
         if (Cards.isEmpty()) {
             System.out.println("The deck is empty.");//Throw exception here
@@ -129,5 +109,10 @@ public class Deck {
 
         }
     }
+
+
+
+
+
 
     }

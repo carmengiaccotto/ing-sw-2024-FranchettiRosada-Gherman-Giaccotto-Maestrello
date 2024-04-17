@@ -1,13 +1,15 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /** @author Alessia Franchetti-Rosada
  * This subclass represents the Gold Cards and extends the SideOfCard class*/
 public class GoldCard extends SideOfCard {
-    private final HashMap<Symbol, Integer> requirement;
-    private final int point;
+    private HashMap<Symbol, Integer> requirement;
+    private int point;
 
     public GoldCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners,HashMap<Symbol, Integer> requirement,int point ) {
         super(symbols, color, corners);
@@ -16,9 +18,19 @@ public class GoldCard extends SideOfCard {
     }
 
 
-    public void play(){        //to revise + javadoc
-
+    public GoldCard buildFromJson(JsonObject jsonObject) {
+        SideOfCard sideOfCard = super.buildFromJson(jsonObject);
+        this.point=jsonObject.get("point").getAsInt();
+        JsonObject requirementJson = jsonObject.getAsJsonObject("requirement");
+        HashMap<Symbol, Integer> requirementMap = new HashMap<>();
+        for (String key : requirementJson.keySet()) {
+            Symbol symbol = Symbol.valueOf(key);
+            int value = requirementJson.get(key).getAsInt();
+            requirementMap.put(symbol, value);
+        }
+        return new GoldCard(sideOfCard.getSymbols(), sideOfCard.getColor(), sideOfCard.getCorners(), requirementMap,this.point);
     }
+
 
     /**
      * getter method for the GoldCard's point
