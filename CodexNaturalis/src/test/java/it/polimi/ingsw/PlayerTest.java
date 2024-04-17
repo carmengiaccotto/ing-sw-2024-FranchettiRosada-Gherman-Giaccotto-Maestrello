@@ -1,12 +1,12 @@
 package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Player;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class PlayerTest {
     @Test
@@ -68,44 +68,9 @@ public class PlayerTest {
     }
 
 
-    @Test
-    public void testChooseNickNameAvailable() {
-        String chosenNickname = "TestNickName";
-        Player testPlayer = new Player(null, null, 0, 0);
 
-        assertEquals(chosenNickname, testPlayer.chooseNickName("chosenNickName"));
-    }
 
-    @Test
-    public void testChooseNickNameUnavailable() {
-        Player TestPlayer = new Player(null, null, 0, 0);
-        TestPlayer.chooseNickName("usedNickName");
-        assertNull(TestPlayer.chooseNickName("usedNickName"));
 
-    }
-
-    @Test
-    public void testChooseNickNameFirstPlayer() {
-        Player TestPlayer = new Player(null, null, 0, 0);
-        assertEquals("chosenNickName", TestPlayer.chooseNickName("chosenNickName"));
-    }
-
-    @Test
-    public void testChooseNickNameWithOtherPlayers() {
-        PlayGround.getListOfPlayers().add(new Player("Nickname1", null, 0, 0));
-        PlayGround.getListOfPlayers().add(new Player("Nickname2", null, 0, 0));
-        PlayGround.getListOfPlayers().add(new Player("Nickname3", null, 0, 0));
-        Player TestPlayer = new Player(null, null, 0, 0);
-        String ChosenNickname = "chosenNickName";
-        assertEquals(ChosenNickname, TestPlayer.getNickname());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testChooseNickNameNull() {
-        Player player = new Player(null, null, 0, 0);
-        player.chooseNickName(null);
-
-    }
 
 
     @Test
@@ -127,105 +92,7 @@ public class PlayerTest {
 
 
 
-    @Test
-    public void TestDisplayAvailablePawnColorsFirstPlayerChoosing() {
-        Player testPlayer=new Player(null, null, 0, 0);
-        ArrayList<Player> testPlayerList= PlayGround.getListOfPlayers();
-        testPlayerList.clear();
-        ArrayList<PawnColor> expected= new ArrayList<>();
-        Collections.addAll(expected, PawnColor.values());
-        assertEquals(expected,testPlayer.DisplayAvailablePawnColors() );
 
-    }
-
-    @Test
-    public void TestDisplayAvailablePawnColorsMoreThanOneColorAvailable(){
-        Player testPlayer=new Player(null, null, 0, 0);
-        Player player1= new Player ("user1", PawnColor.RED, 0, 0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", PawnColor.GREEN, 0, 0);
-        PlayGround.getListOfPlayers().add(player2);
-        ArrayList<PawnColor> expected= new ArrayList<>();
-        expected.add(PawnColor.YELLOW);
-        expected.add(PawnColor.BLUE);
-        assertEquals(expected, testPlayer.DisplayAvailablePawnColors());
-
-    }
-    @Test
-    public void TestDisplayAvailablePawnColorsOneColorAvailable(){
-        Player testPlayer=new Player(null, null,0, 0);
-        Player player1= new Player ("user1", PawnColor.RED,0,0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", PawnColor.GREEN,0,0);
-        PlayGround.getListOfPlayers().add(player2);
-        Player player3= new Player ("user3", PawnColor.BLUE,0,0);
-        PlayGround.getListOfPlayers().add(player3);
-        assertEquals(PawnColor.YELLOW, testPlayer.DisplayAvailablePawnColors());
-
-    }
-    @Test
-    public void TestDisplayAvailablePawnColorsNoColorsAvailable(){
-        Player testPlayer=new Player(null, null,0,0);
-        Player player1= new Player ("user1", PawnColor.RED,0,0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", PawnColor.GREEN,0,0);
-        PlayGround.getListOfPlayers().add(player2);
-        Player player3= new Player ("user3", PawnColor.BLUE,0,0);
-        PlayGround.getListOfPlayers().add(player3);
-        Player player4= new Player ("user3", PawnColor.YELLOW,0,0);
-        PlayGround.getListOfPlayers().add(player4);
-        assertNull(testPlayer.DisplayAvailablePawnColors());
-
-    }
-
-    @Test
-
-    public void TestDisplayAvailablePawnColorsNoPlayerMadeAChoice(){
-        Player testPlayer=new Player(null, null,0,0);
-        Player player1= new Player ("user1", null,0,0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", null,0,0);
-        PlayGround.getListOfPlayers().add(player2);
-        Player player3= new Player ("user3", null,0,0);
-        PlayGround.getListOfPlayers().add(player3);
-        ArrayList<PawnColor> expected= new ArrayList<>();
-        Collections.addAll(expected, PawnColor.values());
-        assertEquals(expected,testPlayer.DisplayAvailablePawnColors());
-
-    }
-
-    @Test
-    public void TestChoosePawnColorValidColor(){
-        Player player1= new Player ("user1", PawnColor.YELLOW,0,0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", PawnColor.RED,0,0);
-        PlayGround.getListOfPlayers().add(player2);
-        PawnColor testChosenColor=PawnColor.BLUE;
-        PawnColor expected=PawnColor.BLUE;
-        Player testPlayer= new Player("testPlayer", null,0,0);
-        assertEquals(expected, testPlayer.ChoosePawnColor(testChosenColor));
-        assertEquals(expected,
-                testPlayer.getPawnColor());
-
-    }
-
-    @Test
-    public void TestChoosePawnColorNotAvailableColor(){
-        Player player1= new Player ("user1", PawnColor.YELLOW,0,0);
-        PlayGround.getListOfPlayers().add(player1);
-        Player player2= new Player ("user2", PawnColor.RED,0,0);
-        PlayGround.getListOfPlayers().add(player2);
-        Player testPlayer= new Player("testPlayer", null,0,0);
-        assertThrows(RuntimeException.class, () -> testPlayer.ChoosePawnColor(PawnColor.RED));
-
-    }
-
-    @Test
-    public void TestChoosePawnColorNoChosenColor(){
-        PlayGround.getListOfPlayers().clear();
-        Player testPlayer= new Player ("user1", null,0,0);
-        assertThrows(RuntimeException.class, () -> testPlayer.ChoosePawnColor(null));
-    }
 
     @Test
     public void TestGetScore(){

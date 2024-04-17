@@ -1,43 +1,47 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**@author Denisa Gherman
 * This is the class that implements the generic deck of cards*/
 public class Deck {
-    private ArrayList<PlayCard> playCards;
+    private ArrayList<Card> deck;
 
 
 
 
 
     /**Class Constructor*/
-    public Deck(ArrayList<PlayCard> playCards) {
-        this.playCards = new ArrayList<>();
+    public Deck(ArrayList<Card> Cards) {
+        this.deck = Cards;
     }
 
-    public Deck createDeckFromJson(Class<? extends PlayCard> DeckType) {
-        try {
+    public Deck createDeckFromJson(Class<? extends Card> DeckType) throws IllegalArgumentException, IOException {
+        if (DeckType == null) {
+            throw new IllegalArgumentException("DeckType cannot be null");
+        }
+
+        String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + DeckType.getSimpleName() + ".json";
+        try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
-            String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + DeckType.getSimpleName() + ".json";
-            JsonObject jsonObject = gson.fromJson(new FileReader(filePath), JsonObject.class);
+            JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);
             JsonArray jsonArray = jsonObject.getAsJsonArray(DeckType.getSimpleName());
 
-            ArrayList<PlayCard> playCards = new ArrayList<>();
+            ArrayList<Card> deck= new ArrayList<>();
             for (JsonElement jsonElement : jsonArray) {
-                PlayCard playCard = gson.fromJson(jsonElement, DeckType);
-                playCards.add(playCard);
+                Card card= gson.fromJson(jsonElement, DeckType);
+                deck.add(card);
             }
-            return new Deck(playCards);
+            return new Deck(deck);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("File not found: " + filePath, e);
+        } catch (JsonParseException e) {
+            throw new IllegalArgumentException("Invalid JSON format in file: " + filePath, e);
         }
     }
 
@@ -60,16 +64,16 @@ public class Deck {
 
     /**Returns the Cards that are currently contained in the Deck
     * @return ArrayList<PairOfCards>*/
-    public ArrayList<PlayCard> getCards() {
-        return playCards;
+    public ArrayList<Card> getCards() {
+        return deck;
     }
 
 
 
-    /**@returns Cards.size() the size of the deck we are considering*/
+    /**@return Cards.size() the size of the deck we are considering*/
     public int getSize(){
 
-        return playCards.size();
+        return deck.size();
     }
 
 
@@ -80,9 +84,9 @@ public class Deck {
     /**Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
     The player is later going to choose which side they want to play with
     * @return PairOfCards the card that is on top of the Deck*/
-    public PlayCard getLastCard(){
-        if (!playCards.isEmpty()) {
-            return playCards.get(getSize()-1);
+    public Card getLastCard(){
+        if (!deck.isEmpty()) {
+            return deck.get(getSize()-1);
         } else {
             System.out.println("The Deck is Empty");
             return null;
@@ -92,19 +96,17 @@ public class Deck {
 
 
     /**Method that allows to draw a card from the Deck.
-     * If the deck is empty:
-     * @return null
-     * else
-     * @return PairOfCards using getLastCard() method
+     *
+     * @return null If the deck is empty,  else return PairOfCards using getLastCard() method
      * It also removes the Drawn Card from the deck, which is still the last one*/
-    public PlayCard DrawCard(){
-        if (playCards.isEmpty()) {
+    public Card DrawCard(){
+        if (deck.isEmpty()) {
             System.out.println("The deck is empty.");//Throw exception here
             return null;
         }
         else{
-            PlayCard drawnPlayCard = getLastCard();
-            playCards.remove(getSize()-1);
+           Card drawnPlayCard = getLastCard();
+            deck.remove(getSize()-1);
             return drawnPlayCard;
 
         }

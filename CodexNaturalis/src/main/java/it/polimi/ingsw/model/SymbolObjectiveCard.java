@@ -14,7 +14,7 @@ public class SymbolObjectiveCard extends ObjectiveCard {
 
     private final HashMap<Symbol, Integer> goal;
 
-    public SymbolObjectiveCard(int id,ObjectivePoints points, HashMap<Symbol, Integer> goal) {
+    public SymbolObjectiveCard(int id, ObjectivePoints points, HashMap<Symbol, Integer> goal) {
         super(id,points);
         this.goal = goal;
     }

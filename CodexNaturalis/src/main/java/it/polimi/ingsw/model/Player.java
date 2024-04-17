@@ -1,18 +1,17 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**@author Denisa Minodora Gherman
 * Class that represents the Player of the game which coincides with the client*/
 public class Player {
     /*Every Player has its own playArea.*/
-    private PlayArea playArea;
+    private final PlayArea playArea;
     private String nickname;
     private  PawnColor pawnColor;
     private int score;
-    private ArrayList<PlayCard> cardsInHand;
+    private ArrayList<Card> cardsInHand;
     private int round;
 
 
@@ -62,34 +61,6 @@ public class Player {
 
 
 
-
-
-    /** String that allows the player to set their nickname , that has to be different from other players' ones
-     * @param chosenNickName the nickname the user wants to have
-     * @return chosenNickname if there are no players with the same nickname, we can set the player's nickname
-     * to the chosen one*/
-
-    public String chooseNickName(String chosenNickName){
-        ArrayList <String> AlreadyTakenNicknames=new ArrayList<>();
-        for (Player player: PlayGround.getListOfPlayers())
-            AlreadyTakenNicknames.add(player.getNickname());
-        if (AlreadyTakenNicknames.contains(chosenNickName)) {
-            throw new IllegalArgumentException("Please choose a valid Nickname");
-        }
-        else {
-            setNickname(chosenNickName);
-            return chosenNickName;
-        }
-    }
-
-
-
-
-
-
-
-
-
     /**
      * pawnColor getter method
      *
@@ -110,42 +81,6 @@ public class Player {
     }
 
 
-    /**
-     * Method to give the player the pawnColors that have not been already taken by other players
-     *
-     * @return AvailableColors the list of colors the player can still choose from
-     */
-
-    public ArrayList<PawnColor> DisplayAvailablePawnColors() {
-        ArrayList<PawnColor> AvailableColors= new ArrayList<>();
-        Collections.addAll(AvailableColors,PawnColor.values());
-            for (Player player : PlayGround.getListOfPlayers())
-                if (player.getPawnColor() != null) {
-                    AvailableColors.remove(player.getPawnColor());
-                }
-        return AvailableColors;
-    }
-/**
- * Method to allow the player to choose its own pawn Color between thw ones that have not already been
- * by other players.
- *
- * @param chosenColor the color that the user wants to use
- * @return temporaryColor the chosen color
- * @throws RuntimeException if the player did not choose any of the available colors
- */
-public PawnColor ChoosePawnColor(PawnColor chosenColor){
-    PawnColor temporaryColor=null;
-
-    if (DisplayAvailablePawnColors().contains(chosenColor))
-        temporaryColor=chosenColor;
-    if (temporaryColor==null)
-        throw new RuntimeException("Sorry, this color is already taken. Please pick a new one");
-    else{
-       setPawnColor(temporaryColor);
-       return temporaryColor;
-    }
-
-}
 
 
     /**
@@ -202,7 +137,7 @@ public PawnColor ChoosePawnColor(PawnColor chosenColor){
      *
      * @return ArrayList<PairOfCards> cards that the player can currently play with
      */
-    public ArrayList<PlayCard> getCardsInHand() {
+    public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
     }
 
@@ -219,7 +154,7 @@ public PawnColor ChoosePawnColor(PawnColor chosenColor){
     }
 
 
-    /**
+    /*/**
      * Used If the Players wants to draw a Card from the common Cards on the playGround
      *
      * @param card PairOfCards type
@@ -227,16 +162,6 @@ public PawnColor ChoosePawnColor(PawnColor chosenColor){
      *             A new card of the same type needs to be drawn. We get the type of the drawn Card, and we use it as TypeOfDeck to
      *             search for
      */
-    /*public void drawCardFromPlayground(Card card) {
-        cardsInHand.add(card);
-        PlayGround.getCommonCards().remove(card);
-        String cardType = card.getClass().getSimpleName();
-        for (Deck deck : PlayGround.getDecks()) {
-            if (deck.getTypeOfDeck().equals(cardType))
-                PlayGround.getCommonCards().add(deck.DrawCard());
-
-        }
-    }Method to adjust with new Logic*/
 
 
 
