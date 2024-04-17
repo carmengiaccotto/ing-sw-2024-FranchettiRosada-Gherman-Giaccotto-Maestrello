@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added some javadoc">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DispositionObjectiveCard Json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -476,13 +477,13 @@
       <option name="project" value="LOCAL" />
       <updated>1713342361344</updated>
     </task>
-    <task id="LOCAL-00038" summary="Added some javadoc">
+    <task id="LOCAL-00038" summary="DispositionObjectiveCard Json">
       <option name="closed" value="true" />
-      <created>1713345491264</created>
+      <created>1713345140457</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1713345491264</updated>
+      <updated>1713345140458</updated>
     </task>
     <option name="localTasksCounter" value="39" />
     <servers />
@@ -552,7 +553,7 @@
     <MESSAGE value="JSON cards constructors. &#10;Card Class Json, SideOfCard Class Jaon, CornerFactory class, ResourceCard Json, GoldCard Json" />
     <MESSAGE value="Modified Hierarchy by adding new Class Card, that is Parent Class to both PlayCard and Objective Card. Json constructor to ObjectiveCard class" />
     <MESSAGE value="JSon cards" />
-    <MESSAGE value="Added some javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some javadoc" />
+    <MESSAGE value="DispositionObjectiveCard Json" />
+    <option name="LAST_COMMIT_MESSAGE" value="DispositionObjectiveCard Json" />
   </component>
 </project>

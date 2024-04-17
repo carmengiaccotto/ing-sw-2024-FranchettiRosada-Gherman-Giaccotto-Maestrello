@@ -19,6 +19,7 @@ public class ObjectiveCard extends Card {
         return points;
     }
 
+    /***/
     public ObjectiveCard mapFromJson(JsonObject jsonObject){
         Card card = super.mapFromJson(jsonObject);
         int pointsFromJson= jsonObject.get("points").getAsInt();
