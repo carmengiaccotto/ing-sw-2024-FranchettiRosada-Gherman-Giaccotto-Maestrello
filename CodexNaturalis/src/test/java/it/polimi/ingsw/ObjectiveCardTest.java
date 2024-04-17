@@ -12,9 +12,9 @@ public class ObjectiveCardTest {
     @Test
     public void testObjectiveCardConstructor() {
         ObjectivePoints points = ObjectivePoints.TWO;
-        ObjectiveCard objectiveCard = new ObjectiveCard(3, points);
+        ObjectiveCard objectiveCard = new ObjectiveCard(2, points);
         assertNotNull(objectiveCard);
-        Assertions.assertEquals(3, objectiveCard.getIdCard());
+        Assertions.assertEquals(2, objectiveCard.getIdCard());
         Assertions.assertEquals(points, objectiveCard.getPoints());
     }
 

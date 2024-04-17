@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DispositionObjectiveCard Json">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests">
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectiveCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectiveCardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -485,7 +484,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713345140458</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests">
+      <option name="closed" value="true" />
+      <created>1713384743234</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1713384743234</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,8 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="chooseNickName method for player, that sets the nickname only if there are no other players with the same one" />
-    <MESSAGE value="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction" />
     <MESSAGE value="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)" />
     <MESSAGE value="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players" />
     <MESSAGE value="Position Enum" />
@@ -554,6 +559,8 @@
     <MESSAGE value="Modified Hierarchy by adding new Class Card, that is Parent Class to both PlayCard and Objective Card. Json constructor to ObjectiveCard class" />
     <MESSAGE value="JSon cards" />
     <MESSAGE value="DispositionObjectiveCard Json" />
-    <option name="LAST_COMMIT_MESSAGE" value="DispositionObjectiveCard Json" />
+    <MESSAGE value="ObjectiveCard Tests" />
+    <MESSAGE value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
   </component>
 </project>
