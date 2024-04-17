@@ -11,7 +11,7 @@ public class PlayGround {
 
     private static HashMap<Player, PlayArea> players;
     private static ArrayList<Deck> decks;
-    private ArrayList<Card> commonCards;
+    private ArrayList<PlayCard> commonPlayCards;
     private ArrayList<ObjectiveCard> commonObjectives;
     private Player currentPlayer;
     private GameStatus gameStatus;
@@ -21,16 +21,16 @@ public class PlayGround {
      *
      * @param players
      * @param decks
-     * @param commonCards
-     * @param commonCards
+     * @param commonPlayCards
+     * @param commonPlayCards
      * @param commonObjectives
      * @param currentPlayer
      * @param gameStatus
      */
-    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<Card> commonCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
+    public PlayGround(HashMap<Player, PlayArea> players, ArrayList<Deck> decks, ArrayList<PlayCard> commonPlayCards, ArrayList<ObjectiveCard> commonObjectives, Player currentPlayer, GameStatus gameStatus) {
         this.players = players;
         this.decks = decks;
-        this.commonCards = commonCards;
+        this.commonPlayCards = commonPlayCards;
         this.commonObjectives = commonObjectives;
         this.currentPlayer = currentPlayer;
         this.gameStatus = gameStatus;
@@ -74,8 +74,8 @@ public class PlayGround {
      *
      * @return commonCards
      */
-    public ArrayList<Card> getCommonCards() {
-        return commonCards;
+    public ArrayList<PlayCard> getCommonCards() {
+        return commonPlayCards;
     }
 
     /**
@@ -154,12 +154,12 @@ public class PlayGround {
     /**
      * Method to replace a common card when the one on the table has been taken.
      *
-     * @param card
+     * @param playCard
      * @return ArrayList<Card>
      */
-    public ArrayList<Card> addCommonCard(Card card) {
-        commonCards.add(card);
-        return commonCards;
+    public ArrayList<PlayCard> addCommonCard(PlayCard playCard) {
+        commonPlayCards.add(playCard);
+        return commonPlayCards;
     }
 
     /**
@@ -168,7 +168,7 @@ public class PlayGround {
      */
     public void initializeGame() {
         decks = new ArrayList<Deck>();
-        commonCards = new ArrayList<Card>();
+        commonPlayCards = new ArrayList<PlayCard>();
         commonObjectives = new ArrayList<ObjectiveCard>();
 
         //initialize decks with the cards from the Json file
@@ -178,8 +178,8 @@ public class PlayGround {
         for(int i = 0; i <= decks.size(); i++){
             decks.get(i).shuffle();
         }
-        commonCards.get(0) = decks.get(0).getLastCard();
-        commonCards.get(1) = decks.get(0).getLastCard();
+        commonPlayCards.get(0) = decks.get(0).getLastCard();
+        commonPlayCards.get(1) = decks.get(0).getLastCard();
         commonObjectives.get(1) = decks.get(1).getLastCard();
 
     } //to revise

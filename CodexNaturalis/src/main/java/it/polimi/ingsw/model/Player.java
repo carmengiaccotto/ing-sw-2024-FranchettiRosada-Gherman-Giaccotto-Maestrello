@@ -12,7 +12,7 @@ public class Player {
     private String nickname;
     private  PawnColor pawnColor;
     private int score;
-    private ArrayList<Card> cardsInHand;
+    private ArrayList<PlayCard> cardsInHand;
     private int round;
 
 
@@ -202,7 +202,7 @@ public PawnColor ChoosePawnColor(PawnColor chosenColor){
      *
      * @return ArrayList<PairOfCards> cards that the player can currently play with
      */
-    public ArrayList<Card> getCardsInHand() {
+    public ArrayList<PlayCard> getCardsInHand() {
         return cardsInHand;
     }
 
@@ -244,13 +244,13 @@ public PawnColor ChoosePawnColor(PawnColor chosenColor){
 
 
     /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
-     * @param cardToPlay card with both sides that the player wants to play
+     * @param playCardToPlay card with both sides that the player wants to play
      * @param sideToPlay side of the card that the Player wants to play
      * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
-    public SideOfCard ChooseCardToPlay(Card cardToPlay , Side sideToPlay) {
-        cardsInHand.remove(cardToPlay);
-        return cardToPlay.chooseSide(sideToPlay);
+    public SideOfCard ChooseCardToPlay(PlayCard playCardToPlay, Side sideToPlay) {
+        cardsInHand.remove(playCardToPlay);
+        return playCardToPlay.chooseSide(sideToPlay);
     }
 
 

@@ -12,30 +12,30 @@ import java.util.ArrayList;
 /**@author Denisa Gherman
 * This is the class that implements the generic deck of cards*/
 public class Deck {
-    private ArrayList<Card> Cards;
+    private ArrayList<PlayCard> playCards;
 
 
 
 
 
     /**Class Constructor*/
-    public Deck(ArrayList<Card> cards) {
-        Cards = new ArrayList<>();
+    public Deck(ArrayList<PlayCard> playCards) {
+        this.playCards = new ArrayList<>();
     }
 
-    public Deck createDeckFromJson(Class<? extends Card> DeckType) {
+    public Deck createDeckFromJson(Class<? extends PlayCard> DeckType) {
         try {
             Gson gson = new Gson();
             String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + DeckType.getSimpleName() + ".json";
             JsonObject jsonObject = gson.fromJson(new FileReader(filePath), JsonObject.class);
             JsonArray jsonArray = jsonObject.getAsJsonArray(DeckType.getSimpleName());
 
-            ArrayList<Card> cards = new ArrayList<>();
+            ArrayList<PlayCard> playCards = new ArrayList<>();
             for (JsonElement jsonElement : jsonArray) {
-                Card card = gson.fromJson(jsonElement, DeckType);
-                cards.add(card);
+                PlayCard playCard = gson.fromJson(jsonElement, DeckType);
+                playCards.add(playCard);
             }
-            return new Deck(cards);
+            return new Deck(playCards);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -60,8 +60,8 @@ public class Deck {
 
     /**Returns the Cards that are currently contained in the Deck
     * @return ArrayList<PairOfCards>*/
-    public ArrayList<Card> getCards() {
-        return Cards;
+    public ArrayList<PlayCard> getCards() {
+        return playCards;
     }
 
 
@@ -69,7 +69,7 @@ public class Deck {
     /**@returns Cards.size() the size of the deck we are considering*/
     public int getSize(){
 
-        return Cards.size();
+        return playCards.size();
     }
 
 
@@ -80,9 +80,9 @@ public class Deck {
     /**Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
     The player is later going to choose which side they want to play with
     * @return PairOfCards the card that is on top of the Deck*/
-    public Card getLastCard(){
-        if (!Cards.isEmpty()) {
-            return Cards.get(getSize()-1);
+    public PlayCard getLastCard(){
+        if (!playCards.isEmpty()) {
+            return playCards.get(getSize()-1);
         } else {
             System.out.println("The Deck is Empty");
             return null;
@@ -97,15 +97,15 @@ public class Deck {
      * else
      * @return PairOfCards using getLastCard() method
      * It also removes the Drawn Card from the deck, which is still the last one*/
-    public Card DrawCard(){
-        if (Cards.isEmpty()) {
+    public PlayCard DrawCard(){
+        if (playCards.isEmpty()) {
             System.out.println("The deck is empty.");//Throw exception here
             return null;
         }
         else{
-            Card drawnCard = getLastCard();
-            Cards.remove(getSize()-1);
-            return drawnCard;
+            PlayCard drawnPlayCard = getLastCard();
+            playCards.remove(getSize()-1);
+            return drawnPlayCard;
 
         }
     }
