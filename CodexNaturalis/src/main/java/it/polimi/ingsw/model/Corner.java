@@ -11,6 +11,9 @@ public class Corner {
     private SideOfCard parentCard;
 
 
+    /**
+     * Class Constructor
+     */
     public Corner(Symbol symbol, boolean hidden){
         this.symbol = symbol;
         covered=false;

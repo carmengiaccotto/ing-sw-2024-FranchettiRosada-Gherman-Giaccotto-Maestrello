@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 public class ObjectiveCard extends Card {
     private ObjectivePoints points;
 
+    /**Class Constructor*/
     public ObjectiveCard(int id,ObjectivePoints points) {
         super(id);
         this.points = points;
@@ -27,13 +28,6 @@ public class ObjectiveCard extends Card {
         return new ObjectiveCard(card.getIdCard(),this.points);
     }
 
-
-    public void play(){ //to revise + javadoc
-
-    }
-
-    public void Check(){ //to revise + javadoc
-    }
 
     /**
      * method that is used to calculate the total points that an Objective card gives to the player.

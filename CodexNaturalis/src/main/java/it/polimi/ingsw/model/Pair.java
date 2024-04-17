@@ -11,6 +11,7 @@ public class Pair<T, U> {
     private T first;
     private U second;
 
+    /**Class Constructor*/
     public Pair(T first, U second) {
         this.first = first;
         this.second = second;
