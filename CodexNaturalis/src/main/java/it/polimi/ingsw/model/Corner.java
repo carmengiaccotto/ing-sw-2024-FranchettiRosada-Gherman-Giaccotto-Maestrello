@@ -15,10 +15,16 @@ public class Corner {
      * Class Constructor
      */
     public Corner(Symbol symbol, boolean hidden){
-        this.symbol = symbol;
         covered=false;
-        this.hidden = hidden;
         nextCorner=null;
+        if (hidden && symbol!=null) {
+            throw new IllegalArgumentException("You can not have a symbol in a hidden corner");
+        }
+        else {
+            this.symbol = symbol;
+            this.hidden = hidden;
+        }
+
     }
 
 
