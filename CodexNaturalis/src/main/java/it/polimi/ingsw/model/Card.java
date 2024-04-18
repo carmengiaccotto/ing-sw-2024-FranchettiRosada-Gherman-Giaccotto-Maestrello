@@ -8,7 +8,10 @@ public class Card {
 
     /**Class Constructor*/
     public Card(int idCard) {
-        this.idCard = idCard;
+        if(idCard <0)
+            throw new IllegalArgumentException("ID cannot be negative");
+        else
+            this.idCard = idCard;
     }
 
 
@@ -20,13 +23,13 @@ public class Card {
         return new Card(idCard );
     }
 
-    /**Getter method for Card's Id.
+    /**Getter method for Card's ID.
      * @return idCard*/
     public int getIdCard() {
         return idCard;
     }
 
-    /**Setter method for Card's Id.
+    /**Setter method for Card's ID.
      * @param idCard assigned to every play Card*/
     public void setIdCard(int idCard) {
         this.idCard = idCard;
