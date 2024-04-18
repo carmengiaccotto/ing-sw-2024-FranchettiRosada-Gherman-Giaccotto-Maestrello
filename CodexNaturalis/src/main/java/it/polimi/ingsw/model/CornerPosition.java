@@ -1,7 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-
+/**CornerPosition Enum*/
     public enum CornerPosition implements Position {
+        /**Corner in position [0][0] on the corners matrix in SideOfCard*/
         TOPLEFT{
 
             public CornerPosition CoverCorners(){
@@ -19,6 +20,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 
         },
+        /**Corner in position [1][0] on the corners matrix in SideOfCard*/
         BOTTOMLEFT{
             public CornerPosition CoverCorners(){
                 return TOPRIGHT;
@@ -34,6 +36,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
             }
 
         },
+    /**Corner in position [0][1] on the corners matrix in SideOfCard*/
         TOPRIGHT{
 
             public CornerPosition CoverCorners(){
@@ -49,6 +52,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
                 return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
             }
         },
+    /**Corner in position [1][1] on the corners matrix in SideOfCard*/
 
         BOTTOMRIGHT{
             public CornerPosition CoverCorners(){
@@ -67,17 +71,21 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
         ;
 
 
+
+        /**CoverCorners method:
+         *  A card can not cover any corner of any other card, but only a specific one, else the move is not valid
+         * @return CornerPosition only corner on the card that can be covered by the current one without violating
+         * the rules of the game*/
         public CornerPosition CoverCorners(){
             return null;
         }
+
+        /**Method that individuates the position of the newly placed card on the area
+         * @param currentCard card that is already o the playArea, and is having a corner covered
+         * @return coordinates of the newly placed card*/
         public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
             return null;
         }
-
-
-
-
-
 
 
 

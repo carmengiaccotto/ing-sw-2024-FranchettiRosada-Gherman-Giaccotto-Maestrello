@@ -7,8 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**@author Denisa Gherman
-* This is the class that implements the generic deck of cards*/
+/**This is the class that implements the generic deck of cards*/
 public class Deck {
     private final ArrayList<Card> deck;
 
@@ -21,7 +20,12 @@ public class Deck {
         this.deck = Cards;
     }
 
-    public Deck createDeckFromJson(Class<? extends Card> DeckType) throws IllegalArgumentException, IOException {
+
+    /**JSON General Deck Constructor
+     * @param DeckType class of cards we want to punt in the Deck
+     * @return deck arrayList od cards on the desired type
+     * JSON Card files and Card Classes have the sam name, so we use DeckType.getSimpleName() to build the Json path*/
+    public ArrayList<Card> createDeckFromJson(Class<? extends Card> DeckType) throws IllegalArgumentException, IOException {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
@@ -37,7 +41,7 @@ public class Deck {
                 Card card= gson.fromJson(jsonElement, DeckType);
                 deck.add(card);
             }
-            return new Deck(deck);
+            return deck;
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException("File not found: " + filePath, e);
         } catch (JsonParseException e) {

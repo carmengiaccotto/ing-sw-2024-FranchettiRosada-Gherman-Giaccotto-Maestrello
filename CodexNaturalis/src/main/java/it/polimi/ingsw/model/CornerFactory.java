@@ -1,7 +1,9 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
-
+/**Support Class for Json corners construction*/
 public class CornerFactory{
-
+    /**Json corner constructor, has to be a static method to construct corners in SideOfCard
+     * @param corner can be Corner1, Corner2, Corner3, Corner4 in Json file
+     * @return corner */
     public static Corner createCornerFromJson(String corner) {
         for(Symbol symbols: Symbol.values()){
             if (corner.equals(symbols.toString().toUpperCase())) {
