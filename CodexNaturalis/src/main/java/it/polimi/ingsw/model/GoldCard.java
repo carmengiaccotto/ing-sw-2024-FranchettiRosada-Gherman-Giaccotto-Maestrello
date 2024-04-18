@@ -8,15 +8,15 @@ import java.util.Map;
 /** @author Alessia Franchetti-Rosada
  * This subclass represents the Gold Cards and extends the SideOfCard class*/
 public class GoldCard extends SideOfCard {
-    private HashMap<Symbol, Integer> requirement;
+    private final HashMap<Symbol, Integer> requirement;
     private int point;
 
+    /**Class Constructor*/
     public GoldCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners,HashMap<Symbol, Integer> requirement,int point ) {
         super(symbols, color, corners);
         this.requirement=requirement;
         this.point=point;
     }
-
 
     public GoldCard mapFromJson(JsonObject jsonObject) {
         SideOfCard sideOfCard = super.mapFromJson(jsonObject);
@@ -31,7 +31,6 @@ public class GoldCard extends SideOfCard {
         return new GoldCard(sideOfCard.getSymbols(), sideOfCard.getColor(), sideOfCard.getCorners(), requirementMap,this.point);
     }
 
-
     /**
      * getter method for the GoldCard's point
      *
@@ -42,8 +41,8 @@ public class GoldCard extends SideOfCard {
     }
 
 
-    public void increasePoints(){
-        //TO REVISE + javadoc
+    public int increasePoints(int point){
+        return point;
     }
 
     /**

@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public class PointPerCoveredCorner extends GoldCard{
 
+    /**Class Constructor*/
     public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
         super(symbols, color, corners, requirement, point);
     }
@@ -21,8 +22,7 @@ public class PointPerCoveredCorner extends GoldCard{
     }
 
 
-    /**@author Denisa Minodora Gherman
-     * Method used to get the number of corners the card covers when it is placed.
+    /**Method used to get the number of corners the card covers when it is placed.
      * @return coveredCorners obtained by checking which one of the corners of the current card has nextCorner!=null at
      * nextCorner is set when placing the Card on the area and checking the neighbours*/
     public int findCoveredCorners(){

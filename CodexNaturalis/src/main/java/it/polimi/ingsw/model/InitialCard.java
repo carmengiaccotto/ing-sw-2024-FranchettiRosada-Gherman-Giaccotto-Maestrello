@@ -7,13 +7,13 @@ import java.util.HashMap;
  * This subclass represents the Initial Cards and extends the SideOfCard class*/
 public  class InitialCard extends SideOfCard {
 
-
+    /**Class Constructor*/
     public InitialCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners) {
         super(symbols, color, corners);
     }
+
     public InitialCard mapFromJson(JsonObject jsonObject){
        SideOfCard side= super.mapFromJson(jsonObject);
        return new InitialCard(side.getSymbols(),side.getColor(), side.getCorners());
     }
-
 }

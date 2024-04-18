@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ResourceCard extends SideOfCard {
     private boolean point;
 
-
+    /**Class Constructor*/
     public ResourceCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, boolean point) {
         super(symbols, null, corners);
         this.point=point;

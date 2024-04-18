@@ -6,8 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/** @author Carmen Giaccotto
- * This subclass represents a specific type of Objective Card which goal is to have certains symbols on the Player's PlayArea.
+/**This subclass represents a specific type of Objective Card which goal is to have certains symbols on the Player's PlayArea.
  * It extends the base ObjetiveCards class and provides additional customization.
  */
 public class SymbolObjectiveCard extends ObjectiveCard {

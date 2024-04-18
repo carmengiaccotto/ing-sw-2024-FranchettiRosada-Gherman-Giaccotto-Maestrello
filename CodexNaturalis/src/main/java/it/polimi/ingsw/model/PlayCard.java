@@ -72,7 +72,6 @@ public class PlayCard extends Card{
         return color;
     }
 
-
     public SideOfCard getFront(){
         return Front;
     }
