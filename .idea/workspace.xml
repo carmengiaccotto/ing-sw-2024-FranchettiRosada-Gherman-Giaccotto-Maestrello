@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Side Of Card modified Constructor">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added Exceptions to Corner Constructor, and Corner Constructor Tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Corner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,9 +56,16 @@
     "Application.Player.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.CardTest.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
     "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
     "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
     "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
+    "JUnit.CornerTest.testIsCovered.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
     "JUnit.ObjectivePointsTest.executor": "Run",
     "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
     "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
@@ -104,8 +114,8 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CornerTest.testCornerConstructorHiddenWithSymbol">
-    <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue">
+    <configuration name="CornerFactoryTest.testCreateCornerFromInvalidValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -114,13 +124,62 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" />
+      <option name="METHOD_NAME" value="testCreateCornerFromInvalidValue" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CornerTest.testCornerConstructorHiddenWithSymbol" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CornerFactoryTest.testCreateCornerFromValidSymbol" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" />
+      <option name="METHOD_NAME" value="testCreateCornerFromValidSymbol" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CornerFactoryTest.testCreateEmptyCorner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" />
+      <option name="METHOD_NAME" value="testCreateEmptyCorner" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CornerFactoryTest.testCreateHiddenCorner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" />
+      <option name="METHOD_NAME" value="testCreateHiddenCorner" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CornerTest.testIsCovered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -130,55 +189,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
       <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerTest" />
-      <option name="METHOD_NAME" value="testCornerConstructorHiddenWithSymbol" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CornerTest.testCornerConstructorHiddenWithoutSymbol" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerTest" />
-      <option name="METHOD_NAME" value="testCornerConstructorHiddenWithoutSymbol" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CornerTest.testCornerConstructorValidInput" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerTest" />
-      <option name="METHOD_NAME" value="testCornerConstructorValidInput" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ObjectivePointsTest.testEnumValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ObjectivePointsTest" />
-      <option name="METHOD_NAME" value="testEnumValues" />
+      <option name="METHOD_NAME" value="testIsCovered" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -186,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CornerTest.testCornerConstructorHiddenWithSymbol" />
-        <item itemvalue="JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol" />
-        <item itemvalue="JUnit.CornerTest.testCornerConstructorValidInput" />
-        <item itemvalue="JUnit.CardTest" />
-        <item itemvalue="JUnit.ObjectivePointsTest.testEnumValues" />
+        <item itemvalue="JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue" />
+        <item itemvalue="JUnit.CornerFactoryTest.testCreateEmptyCorner" />
+        <item itemvalue="JUnit.CornerFactoryTest.testCreateHiddenCorner" />
+        <item itemvalue="JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol" />
+        <item itemvalue="JUnit.CornerTest.testIsCovered" />
       </list>
     </recent_temporary>
   </component>
@@ -573,7 +584,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713443355174</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Added Exceptions to Corner Constructor, and Corner Constructor Tests">
+      <option name="closed" value="true" />
+      <created>1713452351748</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1713452351748</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +636,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
     <MESSAGE value="Modified classes and enumeration for new Logic. DispositionObjectiveCard method to be finished. everything has to be reviewed" />
     <MESSAGE value="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class" />
     <MESSAGE value="Adjusted Error in PlayerTest regarding PlayArea constructor" />
@@ -642,7 +660,23 @@
     <MESSAGE value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
     <MESSAGE value="Card exceptions and card Test" />
     <MESSAGE value="Side Of Card modified Constructor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Side Of Card modified Constructor" />
+    <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java</url>
+          <line>35</line>
+          <properties class="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" method="testCreateEmptyCorner">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

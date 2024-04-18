@@ -9,5 +9,4 @@ public enum Symbol {
     QUILL,
     INKWELL,
     MANUSCRIPT,
-    EMPTY
 }

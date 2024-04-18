@@ -1,5 +1,8 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+
+
+/**Corner Class: Describes the elements of the matrix that compose the SideOfCard*/
 public class Corner {
 
     private  Symbol symbol;
@@ -11,9 +14,7 @@ public class Corner {
     private SideOfCard parentCard;
 
 
-    /**
-     * Class Constructor
-     */
+    /**Class Constructor*/
     public Corner(Symbol symbol, boolean hidden){
         covered=false;
         nextCorner=null;

@@ -20,9 +20,7 @@ class CornerTest {
 
     @Test
     public void testCornerConstructorHiddenWithoutSymbol() {
-        Symbol symbol = null;
-        boolean hidden = true;
-        Corner corner = new Corner(symbol, hidden);
+        Corner corner = new Corner(null,true);
 
         assertNull(corner.getSymbol());
         Assertions.assertTrue(corner.isHidden());
@@ -36,6 +34,20 @@ class CornerTest {
         boolean hidden = true;
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Corner(symbol, hidden));
     }
+
+
+    @Test
+    public void testIsCoveredDefaultFalse(){
+        Corner corner= new Corner(Symbol.MANUSCRIPT, false);
+        Assertions. assertFalse(corner.isCovered());
+    }
+    @Test
+    public void testIsCoveredSetCovered(){
+        Corner corner= new Corner(Symbol.MANUSCRIPT, false);
+        corner.setCovered();
+        Assertions. assertTrue(corner.isCovered());
+    }
+
 
 
 
