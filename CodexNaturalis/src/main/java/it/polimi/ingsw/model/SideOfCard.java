@@ -10,7 +10,7 @@ import java.util.HashMap;
  * Class that represents the Card that has already been placed on the PlayArea*/
 
 public class SideOfCard {
-    /**Matrix of corners */ //Does it make sense to keep it as a matrix or do we just make a list?
+    /**Matrix of corners */
     private Corner[][] corners;
 
     private CardColors color;
@@ -41,7 +41,11 @@ public class SideOfCard {
         this.symbols = symbols;
         this.color=color;
         this.positionOnArea = null;
-        this.corners=SetCornersPosition();
+        this.corners=corners;
+        corners[0][0].setPosition(CornerPosition.TOPLEFT);
+        corners[0][1].setPosition((CornerPosition.TOPRIGHT));
+        corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
+        corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
         for(Corner[] cornerRow: getCorners())
             for(Corner corner :cornerRow)
                 corner.setParentCard(this);
@@ -135,28 +139,6 @@ public class SideOfCard {
         }
         throw new IllegalArgumentException("There is no corner in that position");
     }
-
-
-
-
-    /**Method tha links the CornerPosition on the card to the attribute in the Corner class.*/
-    public Corner[][] SetCornersPosition(){
-        Corner[][] corners=new Corner[2][2];
-        corners[0][0].setPosition(CornerPosition.TOPLEFT);
-        corners[0][1].setPosition((CornerPosition.TOPRIGHT));
-        corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
-        corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
-        return corners;
-    }
-
-
-
-
-
-
-
-
-
 
 
 

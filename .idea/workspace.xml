@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DrawCardFrom method, created to support future Controller methods +Javadoc">
-      <change beforePath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Card exceptions and card Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerVisibleSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerVisibleSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,44 +48,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.CardTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
-    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Player.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CardTest.executor": "Run",
+    "JUnit.ObjectivePointsTest.executor": "Run",
+    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
+    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
+    "JUnit.PlayerTest.executor": "Run",
+    "JUnit.PlayerTest.testGetNickname.executor": "Run",
+    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
+    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
+    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
@@ -561,7 +553,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713398035107</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Card exceptions and card Test">
+      <option name="closed" value="true" />
+      <created>1713399253452</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1713399253452</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,7 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modified PlayArea CoverCorners Method and Position VerticalPositioning and HorizontalPositioning methods; Added index to Position enum. Started creating tests for Player Class" />
     <MESSAGE value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
     <MESSAGE value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
     <MESSAGE value="Modified classes and enumeration for new Logic. DispositionObjectiveCard method to be finished. everything has to be reviewed" />
@@ -630,6 +629,12 @@
     <MESSAGE value="Card Class Complete with JavaDoc and Test" />
     <MESSAGE value="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code" />
     <MESSAGE value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
+    <MESSAGE value="Card exceptions and card Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Card exceptions and card Test" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
+    </SUITE>
   </component>
 </project>
