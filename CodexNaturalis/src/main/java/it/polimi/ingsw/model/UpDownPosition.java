@@ -7,7 +7,7 @@ public enum UpDownPosition implements Position {
         @Override
         public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
             Pair<Integer, Integer> currentPosition=temporaryCentralCard.getPositionOnArea();
-            Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()-1, currentPosition.getSecond());
+            Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()-2, currentPosition.getSecond());
             int rowToCheck=coordinatesToCheck.getFirst();
             int columnToCheck=coordinatesToCheck.getSecond();
             return playArea.getCardInPosition(rowToCheck,columnToCheck);
@@ -20,7 +20,7 @@ public enum UpDownPosition implements Position {
         @Override
         public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
             Pair<Integer, Integer> currentPosition=temporaryCentralCard.getPositionOnArea();
-            Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()+1, currentPosition.getSecond());
+            Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()+2, currentPosition.getSecond());
             int rowToCheck=coordinatesToCheck.getFirst();
             int columnToCheck=coordinatesToCheck.getSecond();
             return playArea.getCardInPosition(rowToCheck,columnToCheck);

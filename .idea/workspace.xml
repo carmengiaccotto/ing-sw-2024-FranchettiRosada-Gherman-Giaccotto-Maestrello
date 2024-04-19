@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Renamed JSON for ParseInt purpose, added Javadocs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerPosition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCards.json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCards.json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/UpDownPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/UpDownPosition.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -601,7 +597,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713462539365</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Renamed JSON for ParseInt purpose, added Javadocs">
+      <option name="closed" value="true" />
+      <created>1713482489124</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1713482489124</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -645,7 +649,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class" />
     <MESSAGE value="Adjusted Error in PlayerTest regarding PlayArea constructor" />
     <MESSAGE value="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours" />
     <MESSAGE value="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum" />
@@ -670,7 +673,8 @@
     <MESSAGE value="Side Of Card modified Constructor" />
     <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
     <MESSAGE value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
+    <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed JSON for ParseInt purpose, added Javadocs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
