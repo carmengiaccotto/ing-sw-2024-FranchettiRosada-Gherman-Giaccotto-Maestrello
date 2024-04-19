@@ -44,8 +44,6 @@ class CornerFactoryTest {
     @Test
     public void testCreateCornerFromInvalidValue() {
         String invalidValue = "FLOWER";
-
-        // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
             CornerFactory.createCornerFromJson(invalidValue);
         });

@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
-/**@author Denisa Minodora Gherman
-* Class that represents the Player of the game which coincides with the client*/
+/** Class that represents the Player of the game which coincides with the client*/
 public class Player {
     /*Every Player has its own playArea.*/
-    private final PlayArea playArea;
+    private  PlayArea playArea;
     private String nickname;
     private  PawnColor pawnColor;
     private int score;
-    private ArrayList<Card> cardsInHand;
+    private final ArrayList<PlayCard> cardsInHand;
     private int round;
 
 
@@ -82,7 +81,13 @@ public class Player {
     }
 
 
-
+    /**
+     * Setter Method for PlayArea Attribute
+     * @param playArea player's PlayArea
+     * */
+    public void setPlayArea(PlayArea playArea) {
+        this.playArea = playArea;
+    }
 
     /**
      * Score getter Method
@@ -138,13 +143,17 @@ public class Player {
      *
      * @return ArrayList<PairOfCards> cards that the player can currently play with
      */
-    public ArrayList<Card> getCardsInHand() {
+    public ArrayList<PlayCard> getCardsInHand() {
         return cardsInHand;
     }
 
 
+    /**Substitute of setter method for CardsInHand
+     * @param card to add to player's hand*/
+    public void addCardToHand (PlayCard card){
+        cardsInHand.add(card);
 
-
+    }
 
 
     /**General DrawCard Method.
@@ -157,7 +166,7 @@ public class Player {
     public void DrawCardFrom(ArrayList<PlayCard> deckOrCommon, PlayCard drawnCard){
         if(!deckOrCommon.isEmpty()) {
             if (deckOrCommon.contains(drawnCard)) {
-                cardsInHand.add(drawnCard);
+                addCardToHand(drawnCard);
                 deckOrCommon.remove(drawnCard);
             } else
                 throw new NoSuchElementException("This card is not between the options");
@@ -165,12 +174,6 @@ public class Player {
         else throw new IllegalStateException("No cards Left");
 
     }
-
-
-
-
-
-
 
 
     /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card

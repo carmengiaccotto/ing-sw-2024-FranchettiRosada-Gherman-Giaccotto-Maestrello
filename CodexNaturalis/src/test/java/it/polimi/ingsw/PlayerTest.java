@@ -1,23 +1,21 @@
 package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerTest {
     @Test
     public void testPlayerConstructor() {
-        // Arrange
         String expectedNickname = "TestPlayer";
         PawnColor expectedPawnColor = PawnColor.RED;
-        // Act
         Player player = new Player(expectedNickname, expectedPawnColor, 0, 0);
-
-        // Assert
         assertNotNull(player);
         assertEquals(expectedNickname, player.getNickname());
         assertEquals(PawnColor.RED, player.getPawnColor());
@@ -30,15 +28,11 @@ public class PlayerTest {
 
 
     @Test
-    public void testGetPlayArea() {
-        // Arrange
+    public void testGetPlayAreaSetPlayArea() {
         Player player = new Player("TestPlayer", PawnColor.RED, 0, 0);
         PlayArea expectedPlayArea = new PlayArea(null);
-
-        // Act
+        player.setPlayArea(expectedPlayArea);
         PlayArea actualPlayArea = player.getPlayArea();
-
-        // Assert
         assertNotNull(actualPlayArea);
         assertEquals(expectedPlayArea, actualPlayArea);
     }
@@ -46,14 +40,9 @@ public class PlayerTest {
 
     @Test
     public void testGetNickname() {
-        // Arrange
         String expectedNickname = "TestPlayer";
         Player player = new Player(expectedNickname, PawnColor.RED, 0, 0);
-
-        // Act
         String actualNickname = player.getNickname();
-
-        // Assert
         assertEquals(expectedNickname, actualNickname);
     }
 
@@ -61,7 +50,6 @@ public class PlayerTest {
     public void testSetNickname() {
         String nickname = "OldNickname";
         Player TestPlayer = new Player(nickname, PawnColor.YELLOW, 0, 0);
-
         String newNickName = "NewNickName";
         TestPlayer.setNickname(newNickName);
         assertEquals(newNickName, TestPlayer.getNickname());
@@ -88,11 +76,6 @@ public class PlayerTest {
         testPlayer.setPawnColor(testColor);
         assertEquals(testColor, testPlayer.getPawnColor());
     }
-
-
-
-
-
 
     @Test
     public void TestGetScore(){
@@ -140,15 +123,74 @@ public class PlayerTest {
     }
 
 
+    @Test
+    public void testGetCardsInHandAddCardsToHand() {
+        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
+        PlayCard card1 = new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
+                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
+        PlayCard card2 = new PlayCard(4, new SideOfCard(null, CardColors.PURPLE, null),
+                new SideOfCard(null, CardColors.PURPLE, new Corner[2][2]), CardColors.PURPLE);
+        testPlayer.addCardToHand(card1);
+        testPlayer.addCardToHand(card2);
+        ArrayList<PlayCard> cardsInHand = testPlayer.getCardsInHand();
+        assertEquals(2, cardsInHand.size());
+        assertTrue(cardsInHand.contains(card1));
+        assertTrue(cardsInHand.contains(card2));
+
+    }
+
+    @Test
+    public void testChooseCardToPlay_RemovesCardFromHand() {
+        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
+        PlayCard card = new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
+                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
+        testPlayer.addCardToHand(card);
+        int initialHandSize = testPlayer.getCardsInHand().size();
+        testPlayer.ChooseCardToPlay(card, Side.FRONT);
+
+        assertEquals(initialHandSize - 1, testPlayer.getCardsInHand().size());
+        Assertions.assertFalse(testPlayer.getCardsInHand().contains(card));
+    }
+
+    @Test
+    public void testDrawCardFrom_DrawsCardFromDeck() {
+        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
+        ArrayList<PlayCard>testDeck = new ArrayList<>();
+        testDeck.add(new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
+                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));
+        int initialDeckSize = testDeck.size();
+        PlayCard drawnCard = testDeck.getFirst();
+
+        testPlayer.DrawCardFrom(testDeck, drawnCard);
+
+        assertEquals(initialDeckSize - 1, testDeck.size());
+        assertTrue(testPlayer.getCardsInHand().contains(drawnCard));
+    }
 
 
+    @Test
+    public void testDrawCardFrom_ThrowsIllegalStateException() {
+        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
+        ArrayList<PlayCard> emptyDeck = new ArrayList<>();
+        assertThrows(IllegalStateException.class, () -> {
+            testPlayer.DrawCardFrom(emptyDeck, new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
+                    new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));;
+        });
+    }
 
-
-
-
-
-
-
+    @Test
+    public void testDrawCardFrom_ThrowsNoSuchElementException() {
+        // Setup
+        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
+        ArrayList<PlayCard> testDeck = new ArrayList<>();
+        testDeck.add(new PlayCard(7, new SideOfCard(null, CardColors.BLUE, null),
+                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));
+        PlayCard Card= new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
+                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
+        assertThrows(NoSuchElementException.class, () -> {
+            testPlayer.DrawCardFrom(testDeck, Card);
+        });
+    }
 
 
 

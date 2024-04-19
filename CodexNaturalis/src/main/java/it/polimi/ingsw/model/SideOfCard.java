@@ -42,13 +42,16 @@ public class SideOfCard {
         this.color=color;
         this.positionOnArea = null;
         this.corners=corners;
-        corners[0][0].setPosition(CornerPosition.TOPLEFT);
-        corners[0][1].setPosition((CornerPosition.TOPRIGHT));
-        corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
-        corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
-        for(Corner[] cornerRow: getCorners())
-            for(Corner corner :cornerRow)
-                corner.setParentCard(this);
+        if (corners!=null) {
+            if (corners[0][0] != null) corners[0][0].setPosition(CornerPosition.TOPLEFT);
+            if (corners[0][1] != null) corners[0][1].setPosition(CornerPosition.TOPRIGHT);
+            if (corners[1][0] != null) corners[1][0].setPosition(CornerPosition.BOTTOMLEFT);
+            if (corners[1][1] != null) corners[1][1].setPosition(CornerPosition.BOTTOMRIGHT);
+
+            for (Corner[] cornerRow : getCorners())
+                for (Corner corner : cornerRow)
+                    if(corner!=null) corner.setParentCard(this);
+        }
         InConfiguration=false;
     }
 
