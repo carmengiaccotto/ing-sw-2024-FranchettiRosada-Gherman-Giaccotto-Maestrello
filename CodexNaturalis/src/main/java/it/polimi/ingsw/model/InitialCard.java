@@ -3,8 +3,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
-/** @author Alessia Franchetti-Rosada
- * This subclass represents the Initial Cards and extends the SideOfCard class*/
+/** This subclass represents the Initial Cards and extends the SideOfCard class*/
 public  class InitialCard extends SideOfCard {
 
     /**Class Constructor*/

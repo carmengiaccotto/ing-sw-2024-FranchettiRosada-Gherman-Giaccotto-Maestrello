@@ -1,7 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-/** @author Carmen Giaccotto
- * Class that represents a generic pair of two objects.
+/** Class that represents a generic pair of two objects.
  *
  * @param <T> the type of the first element in the pair
  * @param <U> the type of the second element in the pair

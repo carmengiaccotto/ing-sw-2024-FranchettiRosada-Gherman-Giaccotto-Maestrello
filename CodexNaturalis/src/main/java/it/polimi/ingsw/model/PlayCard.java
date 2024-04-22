@@ -2,8 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import com.google.gson.JsonObject;
 
-/** @author Carmen Giaccotto
- * Class that represents a play Card of the game. Each card is a Pair of sideOfCard,
+/** Class that represents a play Card of the game. Each card is a Pair of sideOfCard,
  * where the first element is the front and the second element is the back.
  */
 public class PlayCard extends Card{

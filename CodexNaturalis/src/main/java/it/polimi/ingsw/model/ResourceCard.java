@@ -5,8 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-/** @author Alessia Franchetti-Rosada
- * This subclass represents the Resource Cards and extends the SideOfCard class*/
+/** This subclass represents the Resource Cards and extends the SideOfCard class*/
 public class ResourceCard extends SideOfCard {
     private boolean point;
 

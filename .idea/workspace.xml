@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified UpDownPosition">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DrawCardFrom method, created to support future Controller methods +Javadoc">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_31__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_32__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_13_40__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GoldCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/InitialCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ObjectiveCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Pair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerCoveredCorner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerVisibleSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PointPerVisibleSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/ResourceCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SideOfCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/SymbolObjectiveCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +33,8 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
         <option value="JUnit5 Test Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -51,61 +60,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Player.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CardTest.executor": "Coverage",
-    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
-    "JUnit.CornerTest.executor": "Coverage",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
-    "JUnit.CornerTest.testIsCovered.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
-    "JUnit.ObjectivePointsTest.executor": "Run",
-    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
-    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
-    "JUnit.PlayerTest.executor": "Coverage",
-    "JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor": "Coverage",
-    "JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor": "Run",
-    "JUnit.PlayerTest.testGetCardsInHand.executor": "Run",
-    "JUnit.PlayerTest.testGetNickname.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
-    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CardTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
+    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
@@ -121,8 +113,8 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException">
-    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CardTest">
+    <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -131,13 +123,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.testDrawCardFrom_DrawsCardFromDeck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ObjectivePointsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -146,14 +138,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
-      <option name="METHOD_NAME" value="testDrawCardFrom_DrawsCardFromDeck" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ObjectivePointsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObjectivePointsTest.testEnumValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ObjectivePointsTest" />
+      <option name="METHOD_NAME" value="testEnumValues" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.testDrawCardFrom_ThrowsIllegalStateException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.testGetNickname" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -163,13 +170,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
       <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
-      <option name="METHOD_NAME" value="testDrawCardFrom_ThrowsIllegalStateException" />
+      <option name="METHOD_NAME" value="testGetNickname" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerTest.testPlayerConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -179,23 +186,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
       <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
-      <option name="METHOD_NAME" value="testDrawCardFrom_ThrowsNoSuchElementException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest.testGetPlayAreaSetPlayArea" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
-      <option name="METHOD_NAME" value="testGetPlayAreaSetPlayArea" />
+      <option name="METHOD_NAME" value="testPlayerConstructor" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -203,13 +194,20 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException" />
-        <item itemvalue="JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException" />
-        <item itemvalue="JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck" />
-        <item itemvalue="JUnit.PlayerTest.testGetPlayAreaSetPlayArea" />
-        <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="JUnit.CardTest" />
+        <item itemvalue="JUnit.ObjectivePointsTest.testEnumValues" />
+        <item itemvalue="JUnit.ObjectivePointsTest" />
+        <item itemvalue="JUnit.PlayerTest.testGetNickname" />
+        <item itemvalue="JUnit.PlayerTest.testPlayerConstructor" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -221,6 +219,15 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
+      <workItem from="1713778945437" duration="855000" />
+    </task>
+    <task id="LOCAL-00001" summary="Classi Player e Deck hanno tutti i metodi getter e Setter e una prima stesura degli altri. In deck, il metodo costruttore va popolato con le enum Json delle carte. Tra stasera e domani metto anche i commenti per la javaDoc">
+      <option name="closed" value="true" />
+      <created>1711303603220</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711303603220</updated>
     </task>
     <task id="LOCAL-00002" summary="Player and Class both have setter and getter methods done, plus a first version of other methods. Missing to add comments for javaDoc Documentation.">
       <option name="closed" value="true" />
@@ -566,55 +573,7 @@
       <option name="project" value="LOCAL" />
       <updated>1713398035107</updated>
     </task>
-    <task id="LOCAL-00045" summary="Card exceptions and card Test">
-      <option name="closed" value="true" />
-      <created>1713399253452</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1713399253452</updated>
-    </task>
-    <task id="LOCAL-00046" summary="Side Of Card modified Constructor">
-      <option name="closed" value="true" />
-      <created>1713443355174</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1713443355174</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Added Exceptions to Corner Constructor, and Corner Constructor Tests">
-      <option name="closed" value="true" />
-      <created>1713452351748</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1713452351748</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test">
-      <option name="closed" value="true" />
-      <created>1713462539365</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1713462539365</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Renamed JSON for ParseInt purpose, added Javadocs">
-      <option name="closed" value="true" />
-      <created>1713482489124</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1713482489124</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Modified UpDownPosition">
-      <option name="closed" value="true" />
-      <created>1713516233271</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1713516233272</updated>
-    </task>
-    <option name="localTasksCounter" value="51" />
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -658,6 +617,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Modified PlayArea CoverCorners Method and Position VerticalPositioning and HorizontalPositioning methods; Added index to Position enum. Started creating tests for Player Class" />
+    <MESSAGE value="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods" />
+    <MESSAGE value="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method" />
+    <MESSAGE value="Modified classes and enumeration for new Logic. DispositionObjectiveCard method to be finished. everything has to be reviewed" />
+    <MESSAGE value="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class" />
+    <MESSAGE value="Adjusted Error in PlayerTest regarding PlayArea constructor" />
     <MESSAGE value="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours" />
     <MESSAGE value="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum" />
     <MESSAGE value="Implemented method to look for Dispositions on the PlayArea in DispositionObjectiveCard Class. Added PositionInterface to use method getNeighbourCards in overload between CornerPosition and UpDownPosition during the search for dispositions. For the same reason, moved getNeighbourCard as a method in the enums.TESTS FOR UpDownEnum NEED TO BE CHANGED" />
@@ -677,41 +642,6 @@
     <MESSAGE value="Card Class Complete with JavaDoc and Test" />
     <MESSAGE value="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code" />
     <MESSAGE value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
-    <MESSAGE value="Card exceptions and card Test" />
-    <MESSAGE value="Side Of Card modified Constructor" />
-    <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
-    <MESSAGE value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
-    <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
-    <MESSAGE value="Modified UpDownPosition" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified UpDownPosition" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java</url>
-          <line>35</line>
-          <properties class="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerFactoryTest" method="testCreateEmptyCorner">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerTest.ic" NAME="CornerTest Coverage Results" MODIFIED="1713565369444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713565401412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
+    <option name="LAST_COMMIT_MESSAGE" value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
   </component>
 </project>

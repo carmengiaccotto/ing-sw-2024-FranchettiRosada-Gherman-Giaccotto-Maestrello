@@ -5,8 +5,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/** @author Alessia Franchetti-Rosada
- * This subclass represents the Gold Cards and extends the SideOfCard class*/
+/** This subclass represents the Gold Cards and extends the SideOfCard class*/
 public class GoldCard extends SideOfCard {
     private final HashMap<Symbol, Integer> requirement;
     private int point;

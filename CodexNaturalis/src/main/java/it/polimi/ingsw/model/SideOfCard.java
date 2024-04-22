@@ -6,8 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-/** @author Alessia Franchetti-Rosada
- * Class that represents the Card that has already been placed on the PlayArea*/
+/** Class that represents the Card that has already been placed on the PlayArea*/
 
 public class SideOfCard {
     /**Matrix of corners */

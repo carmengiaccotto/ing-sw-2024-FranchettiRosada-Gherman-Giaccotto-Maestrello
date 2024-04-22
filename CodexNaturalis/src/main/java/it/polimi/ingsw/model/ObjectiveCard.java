@@ -2,8 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import com.google.gson.JsonObject;
 
-/** @author Carmen Giaccotto
- * Class that represents the Objective Cards of the game.
+/** Class that represents the Objective Cards of the game.
  */
 
 public class ObjectiveCard extends Card {
@@ -43,7 +42,4 @@ public class ObjectiveCard extends Card {
         return numberOfGoals * points.getValue();
 
     }
-
-
-
 }

@@ -2,8 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import java.util.HashMap;
 
-/** @author Alessia Franchetti-Rosada
- * This subclass represents a specific type of Gold Card that awards points for each goal present in the play area.
+/** This subclass represents a specific type of Gold Card that awards points for each goal present in the play area.
  * It extends the base GoldCard class and provides additional customization
  * tailored to this particular type of Gold Card.
  */
