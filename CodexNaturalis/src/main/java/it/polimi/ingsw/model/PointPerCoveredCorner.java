@@ -4,7 +4,8 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
-/** This subclass represents a specific type of Gold Card that awards points for each corner covered by this card.
+/** @author Alessia Franchetti-Rosada
+ * This subclass represents a specific type of Gold Card that awards points for each corner covered by this card.
  * It extends the base GoldCard class and provides additional customization
  * tailored to this particular type of Gold Card.
  */
@@ -40,9 +41,9 @@ public class PointPerCoveredCorner extends GoldCard{
     * @param point default points
     * @return int the points that are to be added to the Player's score
     **/
-   public int increasePoints(int point){
-       return findCoveredCorners() * point;
-   }
+    public int increasePoints(int point){
+        return findCoveredCorners() * point;
+    }
 
 }
 

@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 /** Class that represents the Player of the game which coincides with the client*/
 public class Player {
-    /*Every Player has its own playArea.*/
+    /**Every Player has its own playArea.*/
     private  PlayArea playArea;
     private String nickname;
     private  PawnColor pawnColor;

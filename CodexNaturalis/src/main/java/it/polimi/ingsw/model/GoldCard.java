@@ -40,9 +40,6 @@ public class GoldCard extends SideOfCard {
     }
 
 
-    public int increasePoints(int point){
-        return point;
-    }
 
     /**
      * This method checks whether the requirement of the Gold Card is met by the player's play area.
@@ -52,18 +49,23 @@ public class GoldCard extends SideOfCard {
      * @return true if the requirement is met, false otherwise
      */
     public boolean checkRequirement(Map<Symbol, Integer> symbols){
-        boolean ok = true;
-
             for (Symbol key : requirement.keySet()) {
-                if (symbols.containsKey(key)) {
-                    if (symbols.get(key) < requirement.get(key)) {
-                        return ok = false;
-                    }
-                }else{
-                    return ok = false;
+                if (!symbols.containsKey(key))
+                    return false;
+                else{
+                    if(symbols.get(key)<requirement.get(key))
+                        return false;
                 }
             }
-        return ok;
+        return true;
+    }
+
+    /**Method to calculate the points that the placing of the card gives
+     * Override in PointPerCoveredCorner and PointPerVisibleSymbol classes
+     * @param point points to be added
+     * @return int points to add to Player's score*/
+    public int increasePoints (int point){
+        return this.point;
     }
 
 

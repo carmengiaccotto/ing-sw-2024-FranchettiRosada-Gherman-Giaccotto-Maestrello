@@ -41,20 +41,6 @@ public class PlayCard extends Card{
 
 
     /**
-     * getter method for the card's ID.
-     *
-     * @return idCard
-     */
-
-
-    /**
-     * Card's ID setter Method
-     *
-     * @param idCard ID is set in JSON file
-     */
-
-
-    /**
      * Method that allows to choose the side of the card to play.
      *
      * @param sideToPlay the side of the card to play (either {@code Side.FRONT} or {@code Side.BACK})

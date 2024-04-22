@@ -1,9 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 /**EdgePositions Class:
@@ -45,7 +42,12 @@ public class EdgePositions {
         RowMax{
             @Override
             public void ExpandArea(List<List<SideOfCard>> cardsOnArea){
-                cardsOnArea.add(new ArrayList<>());
+                List<SideOfCard> newRow = new ArrayList<>();
+                int size = cardsOnArea.get(0).size();
+                for (int i = 0; i < size; i++) {
+                    newRow.add(null);
+                }
+                cardsOnArea.add(newRow);
             }
             @Override
             public boolean isEdgePosition(SideOfCard cardToCover, List<List<SideOfCard>> cardsOnArea){
@@ -103,19 +105,16 @@ public class EdgePositions {
 
     /**Class Constructor
      * Method that constructs the "Full Edge Cases"*/
-    public EdgePositions(){
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.RowZero, new ArrayList<>())).add(CornerPosition.TOPLEFT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.RowZero, new ArrayList<>())).add(CornerPosition.TOPRIGHT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.RowMax, new ArrayList<>())).add(CornerPosition.BOTTOMLEFT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.RowMax, new ArrayList<>())).add(CornerPosition.BOTTOMRIGHT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.ColumnZero, new ArrayList<>())).add(CornerPosition.BOTTOMLEFT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.ColumnZero, new ArrayList<>())).add(CornerPosition.TOPLEFT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.ColumnMax, new ArrayList<>())).add(CornerPosition.BOTTOMRIGHT);
-        Objects.requireNonNull(cornersToCheck.put(EdgeCases.ColumnMax, new ArrayList<>())).add(CornerPosition.TOPRIGHT);
+
+    public EdgePositions() {
+        cornersToCheck= new HashMap<>();
+        for (EdgeCases edgeCase: EdgeCases.values()){
+            cornersToCheck.put(edgeCase, new ArrayList<>());
+        }
+        cornersToCheck.get(EdgeCases.RowZero).addAll(Arrays.asList(CornerPosition.TOPLEFT, CornerPosition.TOPRIGHT));
+        cornersToCheck.get(EdgeCases.RowMax).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.BOTTOMRIGHT));
+        cornersToCheck.get(EdgeCases.ColumnZero).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.TOPLEFT));
+        cornersToCheck.get(EdgeCases.ColumnMax).addAll(Arrays.asList(CornerPosition.BOTTOMRIGHT, CornerPosition.TOPRIGHT));
+
     }
-
-
-
-
-
 }
