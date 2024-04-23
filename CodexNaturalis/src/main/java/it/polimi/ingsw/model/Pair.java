@@ -1,5 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
+import java.util.Objects;
+
 /** Class that represents a generic pair of two objects.
  *
  * @param <T> the type of the first element in the pair
@@ -50,6 +52,21 @@ public class Pair<T, U> {
      */
     public U getSecond() {
         return second;
+    }
+
+
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Pair<?, ?> pair = (Pair<?, ?>) obj;
+        return Objects.equals(first, pair.first) &&
+                Objects.equals(second, pair.second);
     }
 
 }

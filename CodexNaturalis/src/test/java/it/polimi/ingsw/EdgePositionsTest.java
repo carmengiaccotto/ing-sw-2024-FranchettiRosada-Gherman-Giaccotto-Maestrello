@@ -147,7 +147,6 @@ class EdgePositionsTest {
     @Test
     void testConstructFullEdgeCases() {
         EdgePositions edgePositions = new EdgePositions();
-
         Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.RowZero));
         Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.RowMax));
         Assertions.assertNotNull(EdgePositions.cornersToCheck.get(EdgePositions.EdgeCases.ColumnZero));
