@@ -1,5 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -11,7 +13,7 @@ public class GoldCard extends SideOfCard {
     private int point;
 
     /**Class Constructor*/
-    public GoldCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners,HashMap<Symbol, Integer> requirement,int point ) {
+    public GoldCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point ) {
         super(symbols, color, corners);
         this.requirement=requirement;
         this.point=point;

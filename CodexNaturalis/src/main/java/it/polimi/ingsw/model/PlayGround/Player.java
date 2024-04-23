@@ -1,4 +1,10 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -7,9 +13,9 @@ import java.util.NoSuchElementException;
 /** Class that represents the Player of the game which coincides with the client*/
 public class Player {
     /**Every Player has its own playArea.*/
-    private  PlayArea playArea;
+    private PlayArea playArea;
     private String nickname;
-    private  PawnColor pawnColor;
+    private PawnColor pawnColor;
     private int score;
     private final ArrayList<PlayCard> cardsInHand;
     private int round;

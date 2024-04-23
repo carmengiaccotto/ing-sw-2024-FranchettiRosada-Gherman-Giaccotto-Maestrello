@@ -1,4 +1,8 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 import java.util.HashMap;
 
@@ -6,7 +10,7 @@ import java.util.HashMap;
  * It extends the base GoldCard class and provides additional customization
  * tailored to this particular type of Gold Card.
  */
-public class PointPerVisibleSymbol extends GoldCard{
+public class PointPerVisibleSymbol extends GoldCard {
     private final Symbol goldGoal;
 
     /**Class Constructor*/

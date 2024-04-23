@@ -1,5 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Card;
 import com.google.gson.*;
 
 import java.io.FileNotFoundException;

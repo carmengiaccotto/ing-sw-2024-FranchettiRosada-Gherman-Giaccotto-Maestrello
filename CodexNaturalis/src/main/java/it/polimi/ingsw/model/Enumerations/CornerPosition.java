@@ -1,4 +1,9 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 /**CornerPosition Enum*/
     public enum CornerPosition implements Position {

@@ -1,6 +1,13 @@
 package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

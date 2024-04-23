@@ -1,11 +1,14 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 
 /**Corner Class: Describes the elements of the matrix that compose the SideOfCard*/
 public class Corner {
 
-    private  Symbol symbol;
+    private Symbol symbol;
 
     private CornerPosition position;
     private boolean covered;

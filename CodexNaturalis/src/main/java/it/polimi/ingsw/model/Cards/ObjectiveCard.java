@@ -1,5 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
 import com.google.gson.JsonObject;
 
 /** Class that represents the Objective Cards of the game.

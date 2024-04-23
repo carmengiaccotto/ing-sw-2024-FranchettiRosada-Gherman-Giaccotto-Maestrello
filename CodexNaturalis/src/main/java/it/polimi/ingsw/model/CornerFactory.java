@@ -1,4 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
+
 /**Support Class for Json corners construction*/
 public class CornerFactory{
     /**Json corner constructor, has to be a static method to construct corners in SideOfCard

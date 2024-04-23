@@ -1,13 +1,15 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import com.google.gson.JsonObject;
 
 /** Class that represents a play Card of the game. Each card is a Pair of sideOfCard,
  * where the first element is the front and the second element is the back.
  */
-public class PlayCard extends Card{
+public class PlayCard extends Card {
 
-    private  SideOfCard Front;
+    private SideOfCard Front;
     private  SideOfCard Back;
 
 

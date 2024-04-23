@@ -1,4 +1,9 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 /**Enumeration used for the Dispositions*/
 public enum UpDownPosition implements Position {

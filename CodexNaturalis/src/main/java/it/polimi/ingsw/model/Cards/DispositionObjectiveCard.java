@@ -1,5 +1,11 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,7 +21,7 @@ public class DispositionObjectiveCard extends ObjectiveCard {
 
 
 
-    public DispositionObjectiveCard(int id,ObjectivePoints points, CardColors CentralCardColor, Map<Position, CardColors> Neighbors) {
+    public DispositionObjectiveCard(int id, ObjectivePoints points, CardColors CentralCardColor, Map<Position, CardColors> Neighbors) {
         super(id,points);
         this.CentralCardColor=CentralCardColor;
         this.Neighbors=Neighbors;

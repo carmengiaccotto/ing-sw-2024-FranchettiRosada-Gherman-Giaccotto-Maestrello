@@ -1,11 +1,17 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.EdgePositions;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.EdgePositions.cornersToCheck;
+import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.EdgePositions.cornersToCheck;
 
 /**This class represents the playArea. Each player has its own*/
 public class PlayArea {

@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations;
 /**Objective Cards can give either 2 or 3 points. */
 public enum ObjectivePoints {
     TWO(2),

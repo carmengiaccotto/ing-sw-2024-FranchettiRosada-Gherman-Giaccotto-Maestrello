@@ -1,6 +1,6 @@
 package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Corner;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

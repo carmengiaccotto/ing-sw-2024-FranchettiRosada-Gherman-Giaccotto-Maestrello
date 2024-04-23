@@ -1,5 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import java.util.HashMap;
  * It extends the base GoldCard class and provides additional customization
  * tailored to this particular type of Gold Card.
  */
-public class PointPerCoveredCorner extends GoldCard{
+public class PointPerCoveredCorner extends GoldCard {
 
     /**Class Constructor*/
     public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
