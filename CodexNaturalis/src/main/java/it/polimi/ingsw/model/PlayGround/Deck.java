@@ -31,7 +31,7 @@ public class Deck {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
 
-        String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/" + DeckType.getSimpleName() + ".json";
+        String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonFiles" + DeckType.getSimpleName() + ".json";
         try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);

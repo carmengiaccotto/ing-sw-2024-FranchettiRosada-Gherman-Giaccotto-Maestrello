@@ -1,10 +1,10 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -18,6 +18,7 @@ public class Player {
     private PawnColor pawnColor;
     private int score;
     private final ArrayList<PlayCard> cardsInHand;
+    private ObjectiveCard personalObjectiveCard;
     private int round;
 
 
@@ -28,6 +29,7 @@ public class Player {
         this.score = Score;
         this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
         this.round = Round;
+        this.personalObjectiveCard=null;
     }
 
     /**
@@ -193,6 +195,21 @@ public class Player {
     }
 
 
+
+    /**Getter method for personalObjectiveCard attribute
+     * @return ObjectiveCard */
+    public ObjectiveCard getPersonalObjectiveCard() {
+        return personalObjectiveCard;
+    }
+
+
+    /**Setter method for personalObjectiveCard attribute
+     * @param PersonalObjectiveCard  the Objective that the player has to reach in order
+     *                                 to gain more points; It can not be seen by other players,
+     *                                 and it is different from Player to Player*/
+    public void setPersonalObjectiveCard(ObjectiveCard PersonalObjectiveCard) {
+        this.personalObjectiveCard = PersonalObjectiveCard;
+    }
 }
 
 
