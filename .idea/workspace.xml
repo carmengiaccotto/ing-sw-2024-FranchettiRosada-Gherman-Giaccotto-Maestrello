@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="getNeighborCard method modified. CornerPosition Test, all test passed">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="UpDownPosition Test">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_31__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_32__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_13_40__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +54,9 @@
   "keyToString": {
     "Application.Player.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
+    "JUnit.CardColorsTest.testEquality.executor": "Run",
+    "JUnit.CardColorsTest.testSwitchStatement.executor": "Run",
     "JUnit.CardTest.executor": "Coverage",
     "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
     "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
@@ -126,8 +132,8 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UpDownPositionTest.TestGetNeighbourCard">
-    <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CardColorsTest.testStringRepresentation">
+    <configuration name="CardColorsTest.testDefinedValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -136,44 +142,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CornerPositionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerPositionTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CornerPositionTest.testGetNeighbourCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerPositionTest" />
-      <option name="METHOD_NAME" value="testGetNeighbourCard" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
+      <option name="METHOD_NAME" value="testDefinedValues" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CornerPositionTest.testPositionNewCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardColorsTest.testEquality" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -182,8 +158,40 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CornerPositionTest" />
-      <option name="METHOD_NAME" value="testPositionNewCard" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
+      <option name="METHOD_NAME" value="testEquality" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardColorsTest.testStringRepresentation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
+      <option name="METHOD_NAME" value="testStringRepresentation" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardColorsTest.testSwitchStatement" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
+      <option name="METHOD_NAME" value="testSwitchStatement" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -207,11 +215,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CardColorsTest.testStringRepresentation" />
+        <item itemvalue="JUnit.CardColorsTest.testSwitchStatement" />
+        <item itemvalue="JUnit.CardColorsTest.testEquality" />
+        <item itemvalue="JUnit.CardColorsTest.testDefinedValues" />
         <item itemvalue="JUnit.UpDownPositionTest.TestGetNeighbourCard" />
-        <item itemvalue="JUnit.CornerPositionTest" />
-        <item itemvalue="JUnit.CornerPositionTest.testGetNeighbourCard" />
-        <item itemvalue="JUnit.CardTest" />
-        <item itemvalue="JUnit.CornerPositionTest.testPositionNewCard" />
       </list>
     </recent_temporary>
   </component>
@@ -225,14 +233,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00007" summary="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java">
-      <option name="closed" value="true" />
-      <created>1711408583477</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1711408583477</updated>
     </task>
     <task id="LOCAL-00008" summary="Solved the problem for Player And PlayArea Classes, and translated the comments in English">
       <option name="closed" value="true" />
@@ -618,7 +618,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714237145280</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="UpDownPosition Test">
+      <option name="closed" value="true" />
+      <created>1714240855063</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1714240855064</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -662,7 +670,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="EdgePositionsTest updated" />
     <MESSAGE value="Updated JavaDoc to get rid of some warnings. Instead f Optional Color in card, modified constructor in resourceCard and set color to null" />
     <MESSAGE value="Corner Complete JavaDoc" />
     <MESSAGE value="solved warnings in CornerPosition" />
@@ -687,7 +694,8 @@
     <MESSAGE value="Packages" />
     <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
     <MESSAGE value="getNeighborCard method modified. CornerPosition Test, all test passed" />
-    <option name="LAST_COMMIT_MESSAGE" value="getNeighborCard method modified. CornerPosition Test, all test passed" />
+    <MESSAGE value="UpDownPosition Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="UpDownPosition Test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
