@@ -5,5 +5,5 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
 
 public interface Position {
 
-    SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea);
+    SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea);
 }

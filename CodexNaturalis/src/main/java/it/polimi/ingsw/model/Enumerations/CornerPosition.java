@@ -13,8 +13,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
             public CornerPosition CoverCorners(){
                 return BOTTOMRIGHT;
             }
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
-                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea) {
+                return temporaryCentralCard.getCornerInPosition((CornerPosition) this).getNextCorner().getParentCard();
             }
 
 
@@ -36,8 +36,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
                         currentCard.getPositionOnArea().getSecond()-1);
             }
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
-                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea) {
+                return temporaryCentralCard.getCornerInPosition((CornerPosition) this).getNextCorner().getParentCard();
             }
 
         },
@@ -53,8 +53,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
             }
 
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
-                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard,  PlayArea playArea) {
+                return temporaryCentralCard.getCornerInPosition((CornerPosition) this).getNextCorner().getParentCard();
             }
         },
     /**Corner in position [1][1] on the corners matrix in SideOfCard*/
@@ -69,8 +69,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
                         currentCard.getPositionOnArea().getSecond()+1);
             }
 
-            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
-                return super.getNeighbourCard(temporaryCentralCard, positionToCheck, playArea);
+            public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard,  PlayArea playArea) {
+                return temporaryCentralCard.getCornerInPosition((CornerPosition) this).getNextCorner().getParentCard();
             }
         },
         ;
@@ -95,12 +95,11 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 
         /**Method to get the card that is in a specific CornerPosition compared to the current one
-         * @param positionToCheck the position we want to get
          * @param playArea PlayArea we are currently checking. We do not use it here,
          *                   but need to put the parameter for DispositionCheck purpose
          * @return card the card in the given position*/
-        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
-            return temporaryCentralCard.getCornerInPosition((CornerPosition) positionToCheck).getNextCorner().getParentCard();
+        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard,  PlayArea playArea){
+            return null;
         }
 
     }

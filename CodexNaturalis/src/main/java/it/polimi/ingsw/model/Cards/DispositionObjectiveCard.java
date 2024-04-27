@@ -72,7 +72,7 @@ public class DispositionObjectiveCard extends ObjectiveCard {
                     if (playArea.getCardInPosition(i, j).getColor().equals(getCentralCardColor())) {//checks if the current card has the same color as the central card of the disposition we are searching for
                         tempConfig.add(TemporaryCentralCard);//adding the card to the list of cards that are part of the configuration
                         for(Position currentPosition: Neighbors.keySet()){ //checking the Neighbours of the card that are indicated in the ObjectiveDisposition
-                            SideOfCard cardToCheck=currentPosition.getNeighbourCard(TemporaryCentralCard,currentPosition,playArea);//we get the card that is the desired neighbour
+                            SideOfCard cardToCheck=currentPosition.getNeighbourCard(TemporaryCentralCard,playArea);//we get the card that is the desired neighbour
                             if(cardToCheck.getColor().equals(Neighbors.get(currentPosition))){//we check if the color is the wanted one
                                 tempConfig.add(cardToCheck);//we add the card to the list of card that make the desired configuration
                             }

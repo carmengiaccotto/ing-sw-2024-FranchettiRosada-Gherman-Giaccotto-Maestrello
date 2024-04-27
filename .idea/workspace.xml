@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Packages">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added personalObjectiveCard attribute with getter and setter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/DispositionObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/DispositionObjectiveCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Enumerations/CornerPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Enumerations/CornerPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Enumerations/UpDownPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Enumerations/UpDownPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Position.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,65 +51,65 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.CardTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateEmptyCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateHiddenCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.TestCoverCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.TestPositionNewCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.testGetNeighbourCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.testPositionNewCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorValidInput.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCovered.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCoveredFalse.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCoveredTrue.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetCardsInHand.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
-    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Player.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CardTest.executor": "Coverage",
+    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
+    "JUnit.CornerPositionTest.TestCoverCorner.executor": "Run",
+    "JUnit.CornerPositionTest.TestPositionNewCard.executor": "Run",
+    "JUnit.CornerPositionTest.testGetNeighbourCard.executor": "Run",
+    "JUnit.CornerPositionTest.testPositionNewCard.executor": "Run",
+    "JUnit.CornerTest.executor": "Coverage",
+    "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
+    "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
+    "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
+    "JUnit.CornerTest.testIsCovered.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
+    "JUnit.ObjectivePointsTest.executor": "Run",
+    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
+    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
+    "JUnit.PlayerTest.executor": "Coverage",
+    "JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor": "Coverage",
+    "JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor": "Run",
+    "JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor": "Run",
+    "JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor": "Run",
+    "JUnit.PlayerTest.testGetCardsInHand.executor": "Run",
+    "JUnit.PlayerTest.testGetNickname.executor": "Run",
+    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
+    "JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor": "Run",
+    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
+    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
@@ -126,7 +128,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CardTest">
+  <component name="RunManager" selected="JUnit.CornerPositionTest.testGetNeighbourCard">
     <configuration name="CardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
@@ -208,8 +210,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CardTest" />
         <item itemvalue="JUnit.CornerPositionTest.testGetNeighbourCard" />
+        <item itemvalue="JUnit.CardTest" />
         <item itemvalue="JUnit.CornerPositionTest.testPositionNewCard" />
         <item itemvalue="JUnit.CornerPositionTest.TestPositionNewCard" />
         <item itemvalue="JUnit.CornerPositionTest.TestCoverCorner" />
@@ -226,14 +228,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00005" summary="Player and Class both have setter and getter methods done, plus a first version of other methods. Missing to add comments for javaDoc Documentation.">
-      <option name="closed" value="true" />
-      <created>1711305394937</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1711305394937</updated>
     </task>
     <task id="LOCAL-00006" summary="Merge branch 'main' of https://github.com/carmengiaccotto/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PairOfCards.java&#10;#&#9;CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayArea.java">
       <option name="closed" value="true" />
@@ -619,7 +613,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713866312540</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Added personalObjectiveCard attribute with getter and setter">
+      <option name="closed" value="true" />
+      <created>1714231896075</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1714231896076</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,7 +665,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adjusted class Constructors according to new SideOfCard logic" />
     <MESSAGE value="findCoveredCornersMethod and its Javadoc" />
     <MESSAGE value="EdgePositionsTest updated" />
     <MESSAGE value="Updated JavaDoc to get rid of some warnings. Instead f Optional Color in card, modified constructor in resourceCard and set color to null" />
@@ -688,7 +689,8 @@
     <MESSAGE value="EdgePosition Class modified. All tests passed. &#10;Other classes minor changes" />
     <MESSAGE value="EdgePositionsTest and Pair Class overrided functions" />
     <MESSAGE value="Packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Packages" />
+    <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added personalObjectiveCard attribute with getter and setter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

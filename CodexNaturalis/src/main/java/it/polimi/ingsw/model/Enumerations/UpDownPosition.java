@@ -10,7 +10,7 @@ public enum UpDownPosition implements Position {
     UP{
 
         @Override
-        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea){
+        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea){
             Pair<Integer, Integer> currentPosition=temporaryCentralCard.getPositionOnArea();
             Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()-2, currentPosition.getSecond());
             int rowToCheck=coordinatesToCheck.getFirst();
@@ -23,7 +23,7 @@ public enum UpDownPosition implements Position {
     },
     DOWN{
         @Override
-        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+        public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea) {
             Pair<Integer, Integer> currentPosition=temporaryCentralCard.getPositionOnArea();
             Pair<Integer, Integer> coordinatesToCheck=new Pair<>(currentPosition.getFirst()+2, currentPosition.getSecond());
             int rowToCheck=coordinatesToCheck.getFirst();
@@ -39,10 +39,9 @@ public enum UpDownPosition implements Position {
 
     /**Method to get the card that is in a specific UpDownPosition compared to the current one
      * Overload method
-     * @param positionToCheck the position we want to get
      * @param playArea PlayArea we are currently checking.
      * @return card the card in the given position*/
-    public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, Position positionToCheck, PlayArea playArea) {
+    public SideOfCard getNeighbourCard(SideOfCard temporaryCentralCard, PlayArea playArea) {
             return temporaryCentralCard;
 
 
