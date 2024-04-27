@@ -34,10 +34,12 @@ public class PlayCard extends Card {
             this.color = CardColors.valueOf(jsonObject.get("color").getAsString());
 
         JsonObject frontObject = jsonObject.getAsJsonObject("front");
-        this.Front = Front.mapFromJson(frontObject);
+        SideOfCard front=new SideOfCard(null,null,null);
+        this.Front =front.mapSideFromJson(frontObject);
 
         JsonObject backObject = jsonObject.getAsJsonObject("back");
-        this.Back = Back.mapFromJson(backObject);
+        SideOfCard back= new SideOfCard(null,null,null);
+        this.Back = back.mapSideFromJson(backObject);
         return new PlayCard(Card.getIdCard(),this.Front,this.Back,this.color);
     }
 

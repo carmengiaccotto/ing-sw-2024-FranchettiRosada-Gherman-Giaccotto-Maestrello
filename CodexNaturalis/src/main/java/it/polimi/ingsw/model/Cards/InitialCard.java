@@ -1,20 +1,22 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-
 /** This subclass represents the Initial Cards and extends the SideOfCard class*/
-public  class InitialCard extends SideOfCard {
+public  class InitialCard extends PlayCard {
+
+    public InitialCard(int id, SideOfCard front, SideOfCard back, CardColors color) {
+        super(id, front, back, color);
+    }
 
     /**Class Constructor*/
-    public InitialCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners) {
-        super(symbols, color, corners);
-    }
+
 
     public InitialCard mapFromJson(JsonObject jsonObject){
-       SideOfCard side= super.mapFromJson(jsonObject);
-       return new InitialCard(side.getSymbols(),side.getColor(), side.getCorners());
+        InitialCard initialCard = (InitialCard) super.mapFromJson(jsonObject);
+        return initialCard;
     }
+
+
 }

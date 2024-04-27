@@ -20,7 +20,7 @@ public class GoldCard extends SideOfCard {
     }
 
     public GoldCard mapFromJson(JsonObject jsonObject) {
-        SideOfCard sideOfCard = super.mapFromJson(jsonObject);
+        SideOfCard sideOfCard = super.mapSideFromJson(jsonObject);
         this.point=jsonObject.get("point").getAsInt();
         JsonObject requirementJson = jsonObject.getAsJsonObject("requirement");
         HashMap<Symbol, Integer> requirementMap = new HashMap<>();

@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Side enum Test">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="ObjectivePoints Tests. Enum Tests finished">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_31__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_32__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_13_40__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectivePointsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ObjectivePointsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/GoldCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/InitialCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PlayCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/ResourceCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SideOfCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +80,8 @@
     "JUnit.CornerTest.testIsCovered.executor": "Run",
     "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
     "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
-    "JUnit.ObjectivePointsTest.executor": "Run",
+    "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
+    "JUnit.ObjectivePointsTest.executor": "Coverage",
     "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
     "JUnit.PawnColorTest.executor": "Coverage",
     "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
@@ -135,7 +141,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ObjectivePointsTest">
+  <component name="RunManager" selected="JUnit.InitialCardTest.testMapFromJson">
     <configuration name="CardColorsTest.testStringRepresentation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
@@ -152,7 +158,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardColorsTest.testSwitchStatement" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InitialCardTest.testMapFromJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -161,8 +167,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
-      <option name="METHOD_NAME" value="testSwitchStatement" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.InitialCardTest" />
+      <option name="METHOD_NAME" value="testMapFromJson" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -215,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
         <item itemvalue="JUnit.ObjectivePointsTest" />
         <item itemvalue="JUnit.SideTest" />
         <item itemvalue="JUnit.PawnColorTest" />
         <item itemvalue="JUnit.CardColorsTest.testStringRepresentation" />
-        <item itemvalue="JUnit.CardColorsTest.testSwitchStatement" />
       </list>
     </recent_temporary>
   </component>
@@ -233,14 +239,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00011" summary="DisplayAvailableColors function useful for choosePawnColor()">
-      <option name="closed" value="true" />
-      <created>1711552107730</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1711552107730</updated>
     </task>
     <task id="LOCAL-00012" summary="getListOfPlayers() method in Playground class">
       <option name="closed" value="true" />
@@ -626,7 +624,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714242066471</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="ObjectivePoints Tests. Enum Tests finished">
+      <option name="closed" value="true" />
+      <created>1714242287628</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1714242287628</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +676,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="JSON cards constructors. &#10;Card Class Json, SideOfCard Class Jaon, CornerFactory class, ResourceCard Json, GoldCard Json" />
     <MESSAGE value="Modified Hierarchy by adding new Class Card, that is Parent Class to both PlayCard and Objective Card. Json constructor to ObjectiveCard class" />
     <MESSAGE value="JSon cards" />
     <MESSAGE value="DispositionObjectiveCard Json" />
@@ -695,7 +700,8 @@
     <MESSAGE value="CardColorsTest" />
     <MESSAGE value="PawnColorTest all tests passed" />
     <MESSAGE value="Side enum Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Side enum Test" />
+    <MESSAGE value="ObjectivePoints Tests. Enum Tests finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="ObjectivePoints Tests. Enum Tests finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -717,6 +723,9 @@
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerTest.ic" NAME="CornerTest Coverage Results" MODIFIED="1713565369444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

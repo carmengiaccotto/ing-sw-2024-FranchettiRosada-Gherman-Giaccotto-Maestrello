@@ -1,13 +1,15 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CornerFactory;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /** @author Alessia Franchetti-Rosada
@@ -62,16 +64,23 @@ public class SideOfCard {
 
 
 
-    public SideOfCard mapFromJson(JsonObject jsonObject){
+    public SideOfCard mapSideFromJson(JsonObject jsonObject){
         HashMap<Symbol, Integer> symbols = new HashMap<>();
         JsonObject symbolsObject = jsonObject.getAsJsonObject("symbols");
-        for (Symbol symbol : Symbol.values()) {
-            JsonElement symbolValue = symbolsObject.get(symbol.name());
-            if (symbolValue != null) {
-                symbols.put(symbol, symbolValue.getAsInt());
+        if (symbolsObject != null && symbolsObject.isJsonObject()) {
+            for (Map.Entry<String, JsonElement> entry : symbolsObject.entrySet()) {
+                String symbolName = entry.getKey();
+                int symbolValue = entry.getValue().getAsInt();
+                Symbol symbol = Symbol.valueOf(symbolName);
+                symbols.put(symbol, symbolValue);
             }
         }
-        this.color=CardColors.valueOf(jsonObject.get("color").getAsString());
+        else
+            symbols=null;
+
+        JsonElement Jsoncolor = jsonObject.get("color");
+        if( !Jsoncolor.isJsonNull())
+            this.color=CardColors.valueOf(jsonObject.get("color").getAsString());
         Corner[][] corners = new Corner[2][2];
         corners[0][0]= CornerFactory.createCornerFromJson(jsonObject.get("corner1").getAsString());
         corners[0][1]=CornerFactory.createCornerFromJson(jsonObject.get("corner2").getAsString());
