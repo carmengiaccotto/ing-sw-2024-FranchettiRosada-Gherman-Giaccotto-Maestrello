@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="UpDownPosition Test">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="CardColorsTest">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_31__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_11_32__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_04_2024_13_40__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PawnColorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PawnColorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +56,7 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
     "JUnit.CardColorsTest.testEquality.executor": "Run",
+    "JUnit.CardColorsTest.testStringRepresentation.executor": "Run",
     "JUnit.CardColorsTest.testSwitchStatement.executor": "Run",
     "JUnit.CardTest.executor": "Coverage",
     "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
@@ -132,7 +133,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CardColorsTest.testStringRepresentation">
+  <component name="RunManager" selected="JUnit.PawnColorTest">
     <configuration name="CardColorsTest.testDefinedValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
@@ -197,7 +198,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UpDownPositionTest.TestGetNeighbourCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PawnColorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -206,20 +207,19 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.UpDownPositionTest" />
-      <option name="METHOD_NAME" value="TestGetNeighbourCard" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PawnColorTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PawnColorTest" />
         <item itemvalue="JUnit.CardColorsTest.testStringRepresentation" />
         <item itemvalue="JUnit.CardColorsTest.testSwitchStatement" />
         <item itemvalue="JUnit.CardColorsTest.testEquality" />
         <item itemvalue="JUnit.CardColorsTest.testDefinedValues" />
-        <item itemvalue="JUnit.UpDownPositionTest.TestGetNeighbourCard" />
       </list>
     </recent_temporary>
   </component>
@@ -233,14 +233,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00008" summary="Solved the problem for Player And PlayArea Classes, and translated the comments in English">
-      <option name="closed" value="true" />
-      <created>1711408708615</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1711408708615</updated>
     </task>
     <task id="LOCAL-00009" summary="Solved the problem for Player And PlayArea Classes, modified PlayArea, added Javadoc comments for Deck">
       <option name="closed" value="true" />
@@ -626,7 +618,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714240855064</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="CardColorsTest">
+      <option name="closed" value="true" />
+      <created>1714241422733</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1714241422733</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +670,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated JavaDoc to get rid of some warnings. Instead f Optional Color in card, modified constructor in resourceCard and set color to null" />
     <MESSAGE value="Corner Complete JavaDoc" />
     <MESSAGE value="solved warnings in CornerPosition" />
     <MESSAGE value="JSON cards constructors. &#10;Card Class Json, SideOfCard Class Jaon, CornerFactory class, ResourceCard Json, GoldCard Json" />
@@ -695,7 +694,8 @@
     <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
     <MESSAGE value="getNeighborCard method modified. CornerPosition Test, all test passed" />
     <MESSAGE value="UpDownPosition Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="UpDownPosition Test" />
+    <MESSAGE value="CardColorsTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="CardColorsTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
