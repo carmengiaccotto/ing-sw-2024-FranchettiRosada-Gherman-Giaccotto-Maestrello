@@ -5,6 +5,9 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatu
 
 import java.util.List;
 
+/** Exceptions need to be added. Methods to manage connection and
+ * disconnection of a Player need to be added.  */
+
 public class GameController implements Runnable {
 
     private Playground model;
@@ -43,9 +46,21 @@ public class GameController implements Runnable {
 
     }
 
+    private void extractPlayerCard(){
+
+    }
 
 
-    private void extractFirstPlayer() {
+    private void extractOrderPlayers() {
+
+    }
+
+    private void AvalaibleColors(){
+
+    }
+
+    /** Method to be called by the first Player that enter in the lobby*/
+    private void chooseNumOfPlayers(){
 
     }
 
@@ -56,6 +71,7 @@ public class GameController implements Runnable {
 
     }
 
+
     public void executePlayerTurn() {
     }
 
@@ -64,6 +80,14 @@ public class GameController implements Runnable {
         return model.getGameId();
     }
 
+    public void initializeGame(){
+
+    }
+
+    /** Method that checks for each turn if a player reached 20 points*/
+    public void checkPoints(){
+
+    }
 
     public void FinalizeGame(){
 
