@@ -6,16 +6,31 @@ import com.google.gson.JsonObject;
 /** This subclass represents the Initial Cards and extends the SideOfCard class*/
 public  class InitialCard extends PlayCard {
 
+
+
+
+    /**Class Constructor*/
     public InitialCard(int id, SideOfCard front, SideOfCard back, CardColors color) {
         super(id, front, back, color);
     }
 
-    /**Class Constructor*/
+
+
 
 
     public InitialCard mapFromJson(JsonObject jsonObject){
-        InitialCard initialCard = (InitialCard) super.mapFromJson(jsonObject);
-        return initialCard;
+        super.mapFromJson(jsonObject);
+        JsonObject frontObject = jsonObject.getAsJsonObject("front");
+        if (frontObject != null) {
+            this.getFront().mapSideFromJson(frontObject);
+        }
+
+        JsonObject backObject = jsonObject.getAsJsonObject("back");
+        if (backObject != null) {
+            this.getBack().mapSideFromJson(backObject);
+        }
+
+        return this;
     }
 
 
