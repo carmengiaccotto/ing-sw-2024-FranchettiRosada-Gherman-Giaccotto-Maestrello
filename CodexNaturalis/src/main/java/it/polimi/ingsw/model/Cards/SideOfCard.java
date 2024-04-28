@@ -43,9 +43,8 @@ public class SideOfCard {
      * No card is in a configuration until DispositionObjectiveCard starts searching, so we initialize it to false
      * Uses SetCornerPosition to associate the position of the corner in the Card with the position of the corner in Corner Class,
      * declared as a CornerPosition type*/
-    public SideOfCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners) {
+    public SideOfCard(HashMap<Symbol, Integer> symbols, Corner[][] corners) {
         this.symbols = symbols;
-        this.color=color;
         this.positionOnArea = null;
         this.corners=corners;
         if (corners!=null) {
@@ -106,7 +105,7 @@ public class SideOfCard {
         if (corner4Element != null && !corner4Element.isJsonNull()) {
             corners[1][1] = CornerFactory.createCornerFromJson(corner4Element.getAsString());
         }
-        return new SideOfCard(symbols, color, corners);
+        return new SideOfCard(symbols, corners);
 
     }
 
@@ -126,6 +125,12 @@ public class SideOfCard {
      * @return color the Color of the Card. Needed for DispositionCheck*/
     public CardColors getColor() {
         return color;
+    }
+
+    /**Setter Method for Color Attribute
+     * @param color the color of the card*/
+    public void setColor(CardColors color){
+        this.color=color;
     }
 
     public boolean isInConfiguration() {
