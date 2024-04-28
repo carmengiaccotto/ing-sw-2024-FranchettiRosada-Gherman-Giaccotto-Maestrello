@@ -14,10 +14,13 @@ public class PointPerVisibleSymbol extends GoldCard {
     private final Symbol goldGoal;
 
     /**Class Constructor*/
-    public PointPerVisibleSymbol(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
-        super(symbols, color, corners, requirement, point);
+    public PointPerVisibleSymbol(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
+        super(id, front, back, color, requirement, point);
         this.goldGoal=goldGoal;
     }
+
+
+
 
 
     /**Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints of the card

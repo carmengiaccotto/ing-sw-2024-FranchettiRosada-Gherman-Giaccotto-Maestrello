@@ -2,7 +2,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
@@ -13,15 +12,14 @@ import java.util.HashMap;
  */
 public class PointPerCoveredCorner extends GoldCard {
 
+
     /**Class Constructor*/
-    public PointPerCoveredCorner(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, HashMap<Symbol, Integer> requirement, int point) {
-        super(symbols, color, corners, requirement, point);
+    public PointPerCoveredCorner(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point) {
+        super(id, front, back, color, requirement, point);
     }
 
-    public PointPerCoveredCorner mapFromJson(JsonObject jsonObject){
-        GoldCard card= super.mapFromJson(jsonObject);
-        return new PointPerCoveredCorner(card.getSymbols(), card.getColor(), card.getCorners(), card.getRequirement(), card.getPoints());
-    }
+
+
 
 
     /**Method used to get the number of corners the card covers when it is placed.
@@ -29,7 +27,7 @@ public class PointPerCoveredCorner extends GoldCard {
      * nextCorner is set when placing the Card on the area and checking the neighbours*/
     public int findCoveredCorners(){
         int coveredCorners=0;
-        for(Corner[] cornerRow: this.getCorners() ){
+        for(Corner[] cornerRow: this.getFront().getCorners() ){
             for (Corner corner: cornerRow){
                 if (corner.getNextCorner()!=null)
                     coveredCorners+=1;
