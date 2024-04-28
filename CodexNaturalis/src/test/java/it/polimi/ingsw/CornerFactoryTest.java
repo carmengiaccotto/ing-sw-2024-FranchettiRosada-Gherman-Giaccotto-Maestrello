@@ -2,7 +2,7 @@ package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CornerFactory;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Symbol;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,6 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Symbol;
 
 /**Support Class for Json corners construction*/
 public class CornerFactory {

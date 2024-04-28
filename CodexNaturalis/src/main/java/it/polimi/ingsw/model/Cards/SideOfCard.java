@@ -4,7 +4,7 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CornerFactory;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Symbol;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

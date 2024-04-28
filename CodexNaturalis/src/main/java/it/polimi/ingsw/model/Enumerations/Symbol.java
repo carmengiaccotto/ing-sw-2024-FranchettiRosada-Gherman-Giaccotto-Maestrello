@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations;
 
 public enum Symbol {
 

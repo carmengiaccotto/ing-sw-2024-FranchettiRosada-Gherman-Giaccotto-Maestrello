@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="PlayCard Tests">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="ObjectivePoints Tests. Enum Tests finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/GoldCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/GoldCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/InitialCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/InitialCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PointPerCoveredCorner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PointPerCoveredCorner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PointPerVisibleSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/PointPerVisibleSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/ResourceCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/ResourceCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerPositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerPositionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/EdgePositionsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/UpDownPositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/UpDownPositionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SideOfCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SymbolObjectiveCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Cards/SymbolObjectiveCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/CornerFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Enumerations/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerFactoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CornerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,79 +60,74 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Player.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
-    "JUnit.CardColorsTest.testEquality.executor": "Run",
-    "JUnit.CardColorsTest.testStringRepresentation.executor": "Run",
-    "JUnit.CardColorsTest.testSwitchStatement.executor": "Run",
-    "JUnit.CardTest.executor": "Coverage",
-    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
-    "JUnit.CornerPositionTest.TestCoverCorner.executor": "Run",
-    "JUnit.CornerPositionTest.TestPositionNewCard.executor": "Run",
-    "JUnit.CornerPositionTest.executor": "Coverage",
-    "JUnit.CornerPositionTest.testGetNeighbourCard.executor": "Run",
-    "JUnit.CornerPositionTest.testPositionNewCard.executor": "Run",
-    "JUnit.CornerTest.executor": "Coverage",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
-    "JUnit.CornerTest.testIsCovered.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
-    "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
-    "JUnit.ObjectivePointsTest.executor": "Coverage",
-    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
-    "JUnit.PawnColorTest.executor": "Coverage",
-    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
-    "JUnit.PlayerTest.executor": "Coverage",
-    "JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor": "Coverage",
-    "JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor": "Run",
-    "JUnit.PlayerTest.testGetCardsInHand.executor": "Run",
-    "JUnit.PlayerTest.testGetNickname.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
-    "JUnit.ResourceCardTest.executor": "Run",
-    "JUnit.ResourceCardTest.testGetPointFront.executor": "Run",
-    "JUnit.ResourceCardTest.testGetPointInvalidSide.executor": "Run",
-    "JUnit.ResourceCardTest.testMapFromJson.executor": "Run",
-    "JUnit.ResourceCardTest.testResourceCardConstructor.executor": "Run",
-    "JUnit.SideTest.executor": "Run",
-    "JUnit.UpDownPositionTest.TestGetNeighbourCard.executor": "Run",
-    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.testRunning",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CardColorsTest.testDefinedValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testEquality.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testStringRepresentation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testSwitchStatement.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateEmptyCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateHiddenCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.TestCoverCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.TestPositionNewCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerPositionTest.testGetNeighbourCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.testPositionNewCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorValidInput.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCovered.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCoveredFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCoveredTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InitialCardTest.testMapFromJson.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PawnColorTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetCardsInHand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SideTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpDownPositionTest.TestGetNeighbourCard.executor&quot;: &quot;Run&quot;,
+    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
@@ -145,8 +146,8 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ResourceCardTest">
-    <configuration name="ResourceCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.InitialCardTest.testMapFromJson">
+    <configuration name="CardColorsTest.testStringRepresentation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -155,29 +156,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ResourceCardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ResourceCardTest.testGetPointFront" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ResourceCardTest" />
-      <option name="METHOD_NAME" value="testGetPointFront" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
+      <option name="METHOD_NAME" value="testStringRepresentation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResourceCardTest.testGetPointInvalidSide" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InitialCardTest.testMapFromJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -186,30 +172,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ResourceCardTest" />
-      <option name="METHOD_NAME" value="testGetPointInvalidSide" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ResourceCardTest.testMapFromJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ResourceCardTest" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.InitialCardTest" />
       <option name="METHOD_NAME" value="testMapFromJson" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResourceCardTest.testResourceCardConstructor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ObjectivePointsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
@@ -218,20 +188,49 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ResourceCardTest" />
-      <option name="METHOD_NAME" value="testResourceCardConstructor" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.ObjectivePointsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PawnColorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PawnColorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SideTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.SideTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ResourceCardTest" />
-        <item itemvalue="JUnit.ResourceCardTest.testGetPointInvalidSide" />
-        <item itemvalue="JUnit.ResourceCardTest.testGetPointFront" />
-        <item itemvalue="JUnit.ResourceCardTest.testResourceCardConstructor" />
-        <item itemvalue="JUnit.ResourceCardTest.testMapFromJson" />
+        <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
+        <item itemvalue="JUnit.ObjectivePointsTest" />
+        <item itemvalue="JUnit.SideTest" />
+        <item itemvalue="JUnit.PawnColorTest" />
+        <item itemvalue="JUnit.CardColorsTest.testStringRepresentation" />
       </list>
     </recent_temporary>
   </component>
@@ -245,6 +244,22 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
+    </task>
+    <task id="LOCAL-00012" summary="getListOfPlayers() method in Playground class">
+      <option name="closed" value="true" />
+      <created>1711552951248</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711552951248</updated>
+    </task>
+    <task id="LOCAL-00013" summary="chooseNickName method for player, that sets the nickname only if there are no other players with the same one">
+      <option name="closed" value="true" />
+      <created>1711555017481</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711555017481</updated>
     </task>
     <task id="LOCAL-00014" summary="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction">
       <option name="closed" value="true" />
@@ -622,23 +637,7 @@
       <option name="project" value="LOCAL" />
       <updated>1714242287628</updated>
     </task>
-    <task id="LOCAL-00061" summary="Modified JsonMap">
-      <option name="closed" value="true" />
-      <created>1714247037981</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1714247037981</updated>
-    </task>
-    <task id="LOCAL-00062" summary="PlayCard Tests">
-      <option name="closed" value="true" />
-      <created>1714321855612</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1714321855612</updated>
-    </task>
-    <option name="localTasksCounter" value="63" />
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,6 +681,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Modified Hierarchy by adding new Class Card, that is Parent Class to both PlayCard and Objective Card. Json constructor to ObjectiveCard class" />
+    <MESSAGE value="JSon cards" />
     <MESSAGE value="DispositionObjectiveCard Json" />
     <MESSAGE value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
     <MESSAGE value="ObjectiveCard Tests" />
@@ -705,9 +706,7 @@
     <MESSAGE value="PawnColorTest all tests passed" />
     <MESSAGE value="Side enum Test" />
     <MESSAGE value="ObjectivePoints Tests. Enum Tests finished" />
-    <MESSAGE value="Modified JsonMap" />
-    <MESSAGE value="PlayCard Tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="PlayCard Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="ObjectivePoints Tests. Enum Tests finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -725,25 +724,25 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerTest.ic" NAME="CornerTest Coverage Results" MODIFIED="1713565369444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerPositionTest.ic" NAME="CornerPositionTest Coverage Results" MODIFIED="1714237315059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713978378356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PawnColorTest.ic" NAME="PawnColorTest Coverage Results" MODIFIED="1714241781945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
   </component>

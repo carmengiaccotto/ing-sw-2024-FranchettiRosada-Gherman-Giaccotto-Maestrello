@@ -1,16 +1,24 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /** Exceptions need to be added. Methods to manage connection and
  * disconnection of a Player need to be added.  */
 
 public class GameController implements Runnable {
 
-    private Playground model;
+    private GameModel model;
+    private final Random random = new Random();
 
     @Override
     public void run() {
@@ -21,9 +29,14 @@ public class GameController implements Runnable {
     public void addPlayerToLobby(Player p) throws MaxNumPlayersReached {
     }
 
-    /** Check if the nickname is valid and unique*/
-    public void checkUniqueNickname(){
-
+    /** Check if the nickname is unique*/
+    public boolean checkUniqueNickname(String name){
+        for (Player p : getPlayers()){
+            if (name.equals(p.getNickname())){
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Return a list containing all the current players of the game (Online and Offline)*/
@@ -40,26 +53,50 @@ public class GameController implements Runnable {
     }
 
     private void extractCommonObjectiveCards() {
-    }
+        while(model.getCommonObjectiveCards().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getObjectiveCardsDeck().size()-1);
+            ObjectiveCard c = getObjectiveCardsDeck().get(cardExtracted);
+            model.addCommonObjectiveCard(c);
+            model.removeCardFromDeck(c, getObjectiveCardsDeck());
+            }
+        }
+
 
     private void extractCommonPlaygroundCards() {
-
+        while(model.getCommonPlaygroundGoldCards.size() < 2 ){
+            int cardExtracted = random.nextInt(model.getGoldCardsDeck().size()-1);
+            GoldCard c = getGoldCardsDeck().get(cardExtracted);
+            model.addCommonPlaygroundGoldCard(c);
+            model.removeCardFromDeck(c, getGoldCardsDeck());
+        }
+        while(model.getCommonPlaygroundResourceCards.size() < 2 ){
+            int cardExtracted = random.nextInt(model.getResourceCardsDeck().size()-1);
+            ResourceCard c = getResourceCardsDeck().get(cardExtracted);
+            model.addCommonPlaygroundResourceCard(c);
+            model.removeCardFromDeck(c, getResourceCardsDeck());
+        }
     }
+
 
     private void extractPlayerCard(){
 
     }
 
+    public List<PawnColor> AvailableColors(){
 
-    private void extractOrderPlayers() {
+        List<PawnColor> colors = getPlayers().stream().map(Player::getPawnColor).toList();
 
+        List<PawnColor> available = new ArrayList<>();
+
+        for (PawnColor color: PawnColor.values()){
+            if(!colors.contains(color)){
+                available.add(color);
+            }
+        }
+        return available;
     }
 
-    private void AvalaibleColors(){
-
-    }
-
-    /** Method to be called by the first Player that enter in the lobby*/
+    /** Method to be called by the first Player present in the lobby*/
     private void chooseNumOfPlayers(){
 
     }
@@ -84,16 +121,40 @@ public class GameController implements Runnable {
 
     }
 
-    /** Method that checks for each turn if a player reached 20 points*/
-    public void checkPoints(){
-
+    /** Method that checks for each turn if a player got 20 points*/
+    public boolean scoreMaxReached(){
+        for(Player p: getPlayers()){
+            if(p.getScore() >= 20){
+              return true;
+            }
+        }
+        return false;
     }
 
     public void FinalizeGame(){
 
     }
 
-    public void decreeWinner(){
+    public String decreeWinner(){
+
+        List<Player> winners = new ArrayList<>();
+        int score = Integer.MIN_VALUE;
+
+        for(Player p : getPlayers()){
+            if(p.getScore() > score){
+                score = p.getScore();
+                winners.clear();
+                winners.add(p);
+            }else if(p.getScore() == score){
+                winners.add(p);
+            }
+        }
+
+        if (winners.size() == 1) {
+            return "The winners is" + winners.get(0).getNickname();
+        } else {
+            return "Tie between the following players: " + winners.stream().map(Player::getNickname).collect(Collectors.joining(", "));
+        }
 
     }
 
@@ -104,6 +165,10 @@ public class GameController implements Runnable {
      */
     public GameStatus getStatus() {
         return model.getStatus();
+    }
+
+    public void setStatus(GameStatus status) {
+        model.setStatus(status);
     }
 
 }
