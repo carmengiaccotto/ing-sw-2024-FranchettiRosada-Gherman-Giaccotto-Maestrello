@@ -17,8 +17,8 @@ public class Deck {
 
 
     /**Class Constructor*/
-    public Deck(ArrayList<Card> Cards) {
-        this.deck = Cards;
+    public Deck(Class<? extends Card> DeckType) throws IOException {
+        this.deck = createDeckFromJson(DeckType);
     }
 
 
