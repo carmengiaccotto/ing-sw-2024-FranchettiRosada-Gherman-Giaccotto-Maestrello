@@ -1,11 +1,10 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.GoldCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Deck;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
 import java.util.ArrayList;
@@ -87,10 +86,20 @@ public class GameController implements Runnable {
 
 
     private void extractPlayerHandCards(){
+        Deck goldCardDeck = model.getGoldCardDeck();
+        ArrayList<GoldCard> goldCards = (ArrayList<GoldCard>) goldCardDeck.getCards();
+        Deck resourceCardDec=model.getResourceCardDeck();
+        ArrayList<ResourceCard> resourceCards= (ArrayList<ResourceCard>) resourceCardDec.getCards();
         for (Player p: getPlayers()){
-            p.DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
-            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
-            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+            GoldCard lastGoldCard=goldCards.getLast();
+            p.getCardsInHand().add(lastGoldCard);
+            p.getCardsInHand().remove(lastGoldCard);
+            for(int i=1; i<=2; i++){
+                ResourceCard lastResourceCard=resourceCards.getLast();
+                p.getCardsInHand().add(lastResourceCard);
+                p.getCardsInHand().remove(lastResourceCard);
+            }
+
         }
     }
 

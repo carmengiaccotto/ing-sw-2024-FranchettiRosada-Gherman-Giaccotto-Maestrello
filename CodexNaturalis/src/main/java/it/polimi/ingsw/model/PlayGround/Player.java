@@ -7,7 +7,6 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 
 /** Class that represents the Player of the game which coincides with the client*/
@@ -163,26 +162,6 @@ public class Player {
      * @param card to add to player's hand*/
     public void addCardToHand (PlayCard card){
         cardsInHand.add(card);
-
-    }
-
-
-    /**General DrawCard Method.
-     * @param deckOrCommon this list is going to be the list of cards form a Deck if the player wants to draw a card from a Deck,
-     *                      or the list of CommonCards on the PlayGround if the Player wants to draw a card from the PlayGround
-     * @param drawnCard PlayCard: if the player draws a card from a deck, drawnCard is going to be set to deck.getLastCard(),
-     *                  else, the player can choose a card from the list, as long as the card belongs to the list
-     * @throws NoSuchElementException if the player is trying to draw a card that is not between the available ones. Used especially for CommonCards
-     * @throws IllegalStateException if the list is empty. Used especially if the player wants to draw from an empty deck*/
-    public void DrawCardFrom(ArrayList<PlayCard> deckOrCommon, PlayCard drawnCard){
-        if(!deckOrCommon.isEmpty()) {
-            if (deckOrCommon.contains(drawnCard)) {
-                addCardToHand(drawnCard);
-                deckOrCommon.remove(drawnCard);
-            } else
-                throw new NoSuchElementException("This card is not between the options");
-        }
-        else throw new IllegalStateException("No cards Left");
 
     }
 

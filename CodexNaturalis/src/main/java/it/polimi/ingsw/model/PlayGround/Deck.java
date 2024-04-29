@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**This is the class that implements the generic deck of cards*/
 public class Deck {
-    private final ArrayList<Card> deck;
+    private final ArrayList<? extends Card> deck;
 
 
 
@@ -22,11 +22,12 @@ public class Deck {
 
 
 
+
     
 
     /**Returns the Cards that are currently contained in the Deck
-    * @return ArrayList<PairOfCards>*/
-    public ArrayList<Card> getCards() {
+    * @return ArrayList<CardClass>*/
+    public ArrayList<? extends Card> getCards() {
         return deck;
     }
 
@@ -43,18 +44,20 @@ public class Deck {
 
 
 
-    /**Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
-    The player is later going to choose which side they want to play with
-    * @return PairOfCards the card that is on top of the Deck*/
-    public Card getLastCard() {
-        if (!deck.isEmpty()) {
-            return deck.get(getSize() - 1);
-        } else {
-            System.out.println("The Deck is Empty");
-            return null;
-        }
-
-    }
+//    /**
+//     * Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
+//     * The player is later going to choose which side they want to play with
+//     *
+//     * @return PairOfCards the card that is on top of the Deck
+//     */
+//    public <? extends Card> getLastCard() {
+//        if (!deck.isEmpty()) {
+//            return deck.get(deck.size() - 1);
+//        } else {
+//            System.out.println("The Deck is Empty");
+//            return null;
+//        }
+//    }
 
 
 
