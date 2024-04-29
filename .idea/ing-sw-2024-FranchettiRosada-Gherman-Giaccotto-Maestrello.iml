@@ -44,5 +44,6 @@
     </orderEntry>
     <orderEntry type="library" name="google.code.gson" level="project" />
     <orderEntry type="library" name="google.code.gson" level="project" />
+    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>
