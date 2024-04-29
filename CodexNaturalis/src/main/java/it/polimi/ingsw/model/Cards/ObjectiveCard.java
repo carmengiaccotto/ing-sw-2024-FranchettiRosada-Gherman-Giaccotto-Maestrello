@@ -1,7 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import com.google.gson.JsonObject;
 
 /** Class that represents the Objective Cards of the game.
  */
@@ -19,15 +18,6 @@ public class ObjectiveCard extends Card {
         return points;
     }
 
-    /***/
-    public ObjectiveCard mapFromJson(JsonObject jsonObject){
-        Card card = super.mapFromJson(jsonObject);
-        int pointsFromJson= jsonObject.get("points").getAsInt();
-        for(ObjectivePoints points: ObjectivePoints.values())
-            if(pointsFromJson==points.getValue())
-                this.points =points;
-        return new ObjectiveCard(card.getIdCard(),this.points);
-    }
 
     public int CheckGoals(){
         return 0;

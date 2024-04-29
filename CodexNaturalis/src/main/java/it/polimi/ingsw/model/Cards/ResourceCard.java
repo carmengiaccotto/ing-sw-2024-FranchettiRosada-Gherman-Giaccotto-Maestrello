@@ -1,36 +1,32 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-import com.google.gson.JsonObject;
-
-import java.util.HashMap;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 
 
 /** This subclass represents the Resource Cards and extends the SideOfCard class*/
-public class ResourceCard extends SideOfCard {
+public class ResourceCard extends PlayCard {
     private boolean point;
 
     /**Class Constructor*/
-    public ResourceCard(HashMap<Symbol, Integer> symbols, CardColors color, Corner[][] corners, boolean point) {
-        super(symbols, null, corners);
+    public ResourceCard(int id, SideOfCard front, SideOfCard back, CardColors color, boolean point) {
+        super(id, front, back, color);
         this.point=point;
-
     }
 
-    public ResourceCard mapFromJson(JsonObject jsonObject) {
-        SideOfCard sideOfCard = super.mapSideFromJson(jsonObject);
-        this.point=jsonObject.get("point").getAsBoolean();
-        return new ResourceCard(sideOfCard.getSymbols(), sideOfCard.getColor(), sideOfCard.getCorners(),this.point );
-    }
+
+
+
 
 
     /**
      * getter method for the ResourceCard's point
      *
-     * @return point
+     * @return point if the card has been played on the Front Side, false otherwise
      */
-    public boolean getPoint(){
-        return point;
+    public boolean getPoint(Side chosenSide){
+        if(chosenSide.equals(Side.FRONT))
+            return this.point;
+        else return false;
     }
 }

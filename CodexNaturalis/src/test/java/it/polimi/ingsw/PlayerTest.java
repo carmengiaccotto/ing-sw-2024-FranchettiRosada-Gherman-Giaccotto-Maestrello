@@ -133,10 +133,10 @@ public class PlayerTest {
     @Test
     public void testGetCardsInHandAddCardsToHand() {
         Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
-        PlayCard card1 = new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
-                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
-        PlayCard card2 = new PlayCard(4, new SideOfCard(null, CardColors.PURPLE, null),
-                new SideOfCard(null, CardColors.PURPLE, new Corner[2][2]), CardColors.PURPLE);
+        PlayCard card1 = new PlayCard(3, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE);
+        PlayCard card2 = new PlayCard(4, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.PURPLE);
         testPlayer.addCardToHand(card1);
         testPlayer.addCardToHand(card2);
         ArrayList<PlayCard> cardsInHand = testPlayer.getCardsInHand();
@@ -149,8 +149,8 @@ public class PlayerTest {
     @Test
     public void testChooseCardToPlay_RemovesCardFromHand() {
         Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
-        PlayCard card = new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
-                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
+        PlayCard card = new PlayCard(3, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE);
         testPlayer.addCardToHand(card);
         int initialHandSize = testPlayer.getCardsInHand().size();
         testPlayer.ChooseCardToPlay(card, Side.FRONT);
@@ -163,8 +163,8 @@ public class PlayerTest {
     public void testDrawCardFrom_DrawsCardFromDeck() {
         Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
         ArrayList<PlayCard>testDeck = new ArrayList<>();
-        testDeck.add(new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
-                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));
+        testDeck.add(new PlayCard(3, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));
         int initialDeckSize = testDeck.size();
         PlayCard drawnCard = testDeck.getFirst();
 
@@ -180,8 +180,8 @@ public class PlayerTest {
         Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
         ArrayList<PlayCard> emptyDeck = new ArrayList<>();
         assertThrows(IllegalStateException.class, () -> {
-            testPlayer.DrawCardFrom(emptyDeck, new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
-                    new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));;
+            testPlayer.DrawCardFrom(emptyDeck, new PlayCard(3, new SideOfCard(null, null),
+                    new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));;
         });
     }
 
@@ -190,10 +190,10 @@ public class PlayerTest {
         // Setup
         Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
         ArrayList<PlayCard> testDeck = new ArrayList<>();
-        testDeck.add(new PlayCard(7, new SideOfCard(null, CardColors.BLUE, null),
-                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE));
-        PlayCard Card= new PlayCard(3, new SideOfCard(null, CardColors.BLUE, null),
-                new SideOfCard(null, CardColors.BLUE, new Corner[2][2]), CardColors.BLUE);
+        testDeck.add(new PlayCard(7, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));
+        PlayCard Card= new PlayCard(3, new SideOfCard(null, null),
+                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE);
         assertThrows(NoSuchElementException.class, () -> {
             testPlayer.DrawCardFrom(testDeck, Card);
         });

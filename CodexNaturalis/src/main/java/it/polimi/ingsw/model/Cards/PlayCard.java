@@ -2,8 +2,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 /** Class that represents a play Card of the game. Each card is a Pair of sideOfCard,
  * where the first element is the front and the second element is the back.
@@ -27,30 +25,6 @@ public class PlayCard extends Card {
         if(back!=null)
             back.setColor(color);
         this.color = color;
-    }
-
-
-    public PlayCard mapFromJson(JsonObject jsonObject) {
-        Card Card = super.mapFromJson(jsonObject);
-
-        if ( this.getClass().equals(InitialCard.class))
-            this.color=null;
-        else{
-            JsonElement jsonColorElement = jsonObject.get("color");
-            if (jsonColorElement != null && !jsonColorElement.isJsonNull()) {
-                this.color = CardColors.valueOf(jsonColorElement.getAsString());
-            }
-        }
-
-
-        JsonObject frontObject = jsonObject.getAsJsonObject("front");
-        SideOfCard front=new SideOfCard(null, null);
-        this.Front =front.mapSideFromJson(frontObject);
-
-        JsonObject backObject = jsonObject.getAsJsonObject("back");
-        SideOfCard back= new SideOfCard(null, null);
-        this.Back = back.mapSideFromJson(backObject);
-        return new PlayCard(Card.getIdCard(),this.Front,this.Back,this.color);
     }
 
 

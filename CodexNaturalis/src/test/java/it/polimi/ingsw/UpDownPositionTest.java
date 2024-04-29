@@ -2,7 +2,6 @@ package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
@@ -35,17 +34,17 @@ class UpDownPositionTest {
     public static void CreateTestPlayArea(){
         List<List<SideOfCard>> cardsOnArea= new ArrayList<>();
         List<SideOfCard> row1 = new ArrayList<>();
-        SideOfCard card1= new SideOfCard(null, CardColors.BLUE,generateCorners());
+        SideOfCard card1= new SideOfCard(null, generateCorners());
         card1.setPositionOnArea(new Pair<>(0, 0));
         row1.add(card1);
         cardsOnArea.add(row1);
         List<SideOfCard> row2 = new ArrayList<>();
-        SideOfCard card2= new SideOfCard(null,CardColors.GREEN,generateCorners());
+        SideOfCard card2= new SideOfCard(null, generateCorners());
         card2.setPositionOnArea(new Pair<>(1, 0));
         row2.add(card2);
         cardsOnArea.add(row2);
         List<SideOfCard> row3 = new ArrayList<>();
-        SideOfCard card3= new SideOfCard(null,CardColors.RED,generateCorners());
+        SideOfCard card3= new SideOfCard(null, generateCorners());
         card3.setPositionOnArea(new Pair<>(2, 0));
         row3.add(card3);
         cardsOnArea.add(row3);

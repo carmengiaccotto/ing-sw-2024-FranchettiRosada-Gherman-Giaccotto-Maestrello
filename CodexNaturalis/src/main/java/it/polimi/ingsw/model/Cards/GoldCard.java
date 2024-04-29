@@ -3,7 +3,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,49 +12,16 @@ public class GoldCard extends PlayCard {
     private final HashMap<Symbol, Integer> requirement;
     private int point;
 
-    private boolean typeOfGoal;
 
+    /**Class Constructor*/
     public GoldCard(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point) {
         super(id, front, back, color);
         this.requirement= requirement;
         this.point=point;
     }
 
-    /**Class Constructor*/
 
 
-    public GoldCard mapFromJson(JsonObject jsonObject) {
-        PlayCard playcard = super.mapFromJson(jsonObject);
-        JsonObject FrontCard = jsonObject.getAsJsonObject("front");
-        this.point=FrontCard.get("point").getAsInt();
-        JsonObject requirementJson = FrontCard.getAsJsonObject("requirement");
-        HashMap<Symbol, Integer> requirementMap = new HashMap<>();
-        for (String key : requirementJson.keySet()) {
-            Symbol symbol = Symbol.valueOf(key);
-            int value = requirementJson.get(key).getAsInt();
-            requirementMap.put(symbol, value);
-        }
-        this.typeOfGoal=FrontCard.get("coveredCorners").getAsBoolean();
-        if(typeOfGoal)
-            return new PointPerCoveredCorner(playcard.getIdCard(), playcard.getFront(), playcard.getBack(), playcard.getColor(), requirementMap,this.point);
-        else {
-            JsonObject JsonGoal = FrontCard.getAsJsonObject("goal");
-            HashMap<Symbol, Integer> GoalMap = new HashMap<>();
-            for (String key : JsonGoal.keySet()) {
-                Symbol symbol = Symbol.valueOf(key);
-                int value = JsonGoal.get(key).getAsInt();
-                GoalMap.put(symbol, value);
-            }
-            Symbol goalSymbol=null;
-            for (Symbol symbol: GoalMap.keySet()){
-                if( GoalMap.get(symbol)==1)
-                    goalSymbol=symbol;
-
-            }
-
-            return new PointPerVisibleSymbol(playcard.getIdCard(), playcard.getFront(), playcard.getBack(), playcard.getColor(),requirementMap,this.point, goalSymbol);
-        }
-    }
 
     /**
      * getter method for the GoldCard's point

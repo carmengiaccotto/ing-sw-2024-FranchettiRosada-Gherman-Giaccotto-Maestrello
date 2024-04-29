@@ -2,7 +2,6 @@ package CodexNaturalis.src.test.java.it.polimi.ingsw;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
@@ -44,7 +43,7 @@ class CornerPositionTest {
 
     @Test
     public void TestPositionNewCard(){
-        SideOfCard testCard= new SideOfCard(null, CardColors.RED, null);
+        SideOfCard testCard= new SideOfCard(null, null);
         testCard.setPositionOnArea(new Pair<>(1,3));
         assertEquals(new Pair<>(0,2), CornerPosition.TOPLEFT.PositionNewCard(testCard));
         assertEquals(new Pair<>(0,4), CornerPosition.TOPRIGHT.PositionNewCard(testCard));
@@ -57,27 +56,27 @@ class CornerPositionTest {
     public static void CreateTestPlayArea(){
         List<List<SideOfCard>> cardsOnArea= new ArrayList<>();
         List<SideOfCard> row1 = new ArrayList<>();
-        SideOfCard card1= new SideOfCard(null,CardColors.BLUE,generateCorners(2,2));
+        SideOfCard card1= new SideOfCard(null, generateCorners(2,2));
         row1.add(card1);
-        SideOfCard card2= new SideOfCard(null,CardColors.GREEN,generateCorners(2,2));
+        SideOfCard card2= new SideOfCard(null, generateCorners(2,2));
         row1.add(card2);
-        SideOfCard card3= new SideOfCard(null,CardColors.RED,generateCorners(2,2));
+        SideOfCard card3= new SideOfCard(null, generateCorners(2,2));
         row1.add(card3);
         cardsOnArea.add(row1);
         List<SideOfCard> row2 = new ArrayList<>();
-        SideOfCard card4= new SideOfCard(null,CardColors.GREEN,generateCorners(2,2));
+        SideOfCard card4= new SideOfCard(null, generateCorners(2,2));
         row2.add(card4);
-        SideOfCard card5= new SideOfCard(null,CardColors.BLUE,generateCorners(2,2));
+        SideOfCard card5= new SideOfCard(null, generateCorners(2,2));
         row2.add(card5);
-        SideOfCard card6= new SideOfCard(null,CardColors.GREEN,generateCorners(2,2));
+        SideOfCard card6= new SideOfCard(null, generateCorners(2,2));
         row2.add(card6);
         cardsOnArea.add(row2);
         List<SideOfCard> row3 = new ArrayList<>();
-        SideOfCard card7= new SideOfCard(null,CardColors.RED,generateCorners(2,2));
+        SideOfCard card7= new SideOfCard(null, generateCorners(2,2));
         row3.add(card7);
-        SideOfCard card8= new SideOfCard(null,CardColors.BLUE,generateCorners(2,2));
+        SideOfCard card8= new SideOfCard(null, generateCorners(2,2));
         row3.add(card8);
-        SideOfCard card9= new SideOfCard(null,CardColors.PURPLE,generateCorners(2,2));
+        SideOfCard card9= new SideOfCard(null, generateCorners(2,2));
         row3.add(card9);
         cardsOnArea.add(row3);
         card5.getCornerInPosition(CornerPosition.TOPLEFT).setNextCorner(card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT));

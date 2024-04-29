@@ -1,15 +1,11 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CornerFactory;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Symbol;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 import java.util.HashMap;
-import java.util.Map;
 
 
 /** @author Alessia Franchetti-Rosada
@@ -61,53 +57,6 @@ public class SideOfCard {
     }
 
 
-
-
-    public SideOfCard mapSideFromJson(JsonObject jsonObject){
-        HashMap<Symbol, Integer> symbols = new HashMap<>();
-        JsonObject symbolsObject = jsonObject.getAsJsonObject("symbols");
-        if (symbolsObject != null) {
-            for (Map.Entry<String, JsonElement> entry : symbolsObject.entrySet()) {
-                String symbolName = entry.getKey();
-                JsonElement symbolValueElement = entry.getValue();
-                if (symbolValueElement != null && symbolValueElement.isJsonPrimitive()) {
-                    int symbolValue = symbolValueElement.getAsInt();
-                    Symbol symbol = Symbol.valueOf(symbolName.toUpperCase());
-                    symbols.put(symbol, symbolValue);
-                }
-            }
-        }
-        else
-            symbols = new HashMap<>();
-
-        JsonElement jsonColorElement = jsonObject.get("color");
-        if (jsonColorElement != null && !jsonColorElement.isJsonNull()) {
-            this.color = CardColors.valueOf(jsonColorElement.getAsString());
-        }
-        Corner[][] corners = new Corner[2][2];
-        JsonElement corner1Element = jsonObject.get("corner1");
-        JsonElement corner2Element = jsonObject.get("corner2");
-        JsonElement corner3Element = jsonObject.get("corner3");
-        JsonElement corner4Element = jsonObject.get("corner4");
-
-        if (corner1Element != null && !corner1Element.isJsonNull()) {
-            corners[0][0] = CornerFactory.createCornerFromJson(corner1Element.getAsString());
-        }
-
-        if (corner2Element != null && !corner2Element.isJsonNull()) {
-            corners[0][1] = CornerFactory.createCornerFromJson(corner2Element.getAsString());
-        }
-
-        if (corner3Element != null && !corner3Element.isJsonNull()) {
-            corners[1][0] = CornerFactory.createCornerFromJson(corner3Element.getAsString());
-        }
-
-        if (corner4Element != null && !corner4Element.isJsonNull()) {
-            corners[1][1] = CornerFactory.createCornerFromJson(corner4Element.getAsString());
-        }
-        return new SideOfCard(symbols, corners);
-
-    }
 
 
 

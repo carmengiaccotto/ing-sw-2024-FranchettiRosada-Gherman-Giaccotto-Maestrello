@@ -54,8 +54,8 @@ public class GameController implements Runnable {
     }
 
     private void extractCommonObjectiveCards() {
-        while(model.getCommonObjectives().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getObjectiveDeck().size()-1);
+        while(model.getCommonObjectiveCards().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getObjectiveCardsDeck().size()-1);
             ObjectiveCard c = getObjectiveCardsDeck().get(cardExtracted);
             model.addCommonObjectiveCard(c);
             model.removeCardFromDeck(c, getObjectiveCardsDeck());

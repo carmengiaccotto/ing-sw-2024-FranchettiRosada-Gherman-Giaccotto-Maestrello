@@ -1,13 +1,9 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +22,6 @@ public class DispositionObjectiveCard extends ObjectiveCard {
         this.CentralCardColor=CentralCardColor;
         this.Neighbors=Neighbors;
     }
-
-    public DispositionObjectiveCard mapFromJson(JsonObject jsonObject){
-        ObjectiveCard card=super.mapFromJson(jsonObject);
-        CentralCardColor = CardColors.valueOf(jsonObject.get("CentralCardColor").getAsString());
-        JsonObject neighbors = jsonObject.getAsJsonObject("NEIGHBORS");
-        for (Map.Entry<String, JsonElement> entry : neighbors.entrySet()) {
-            Position position=null;
-            for (CornerPosition corner: CornerPosition.values()){
-                if (entry.getKey().toUpperCase().equals(corner.toString())) {
-                    position = CornerPosition.valueOf(entry.getKey());
-                }
-            }
-            for (UpDownPosition pos: UpDownPosition.values()){
-                if (entry.getKey().toUpperCase().equals(pos.toString())) {
-                    position = UpDownPosition.valueOf(entry.getKey());
-                }
-            }
-            CardColors neighborColor=CardColors.valueOf(entry.getValue().toString());
-            Neighbors.put(position,neighborColor);
-        }
-        return new DispositionObjectiveCard(card.getIdCard(),card.getPoints(),CentralCardColor,Neighbors);
-
-        }
 
 
 
