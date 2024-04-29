@@ -1,13 +1,14 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.GoldCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -53,8 +54,8 @@ public class GameController implements Runnable {
     }
 
     private void extractCommonObjectiveCards() {
-        while(model.getCommonObjectiveCards().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getObjectiveCardsDeck().size()-1);
+        while(model.getCommonObjectives().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getObjectiveDeck().size()-1);
             ObjectiveCard c = getObjectiveCardsDeck().get(cardExtracted);
             model.addCommonObjectiveCard(c);
             model.removeCardFromDeck(c, getObjectiveCardsDeck());
