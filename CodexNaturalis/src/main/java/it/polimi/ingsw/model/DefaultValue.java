@@ -4,4 +4,5 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 public class DefaultValue {
     public final static int  minNumOfPlayer = 2;
     public final static int  NumOfCommonCards = 4;
+    public final static int  maxNumOfPlayer = 4;
 }

@@ -20,6 +20,8 @@ public class Player {
     private final ArrayList<PlayCard> cardsInHand;
     private ObjectiveCard personalObjectiveCard;
     private int round;
+    private boolean connected;
+    private boolean readyToStart;
 
 
     public Player(String nickname, PawnColor pawnColor, int Score, int Round) {
@@ -30,6 +32,8 @@ public class Player {
         this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
         this.round = Round;
         this.personalObjectiveCard=null;
+        connected = true;
+        readyToStart = false;
     }
 
     /**
@@ -208,6 +212,41 @@ public class Player {
      *                                 and it is different from Player to Player*/
     public void setPersonalObjectiveCard(ObjectiveCard PersonalObjectiveCard) {
         this.personalObjectiveCard = PersonalObjectiveCard;
+    }
+
+    /**
+     * @return the player's connection status
+     */
+    public boolean isConnected() {
+        return connected;
+    }
+
+    /**
+     * @param connected sets the player's connection status to the param
+     */
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    /**
+     * @return the player's readiness to start
+     */
+    public boolean getReadyToStart() {
+        return readyToStart;
+    }
+
+    /**
+     * Sets the player as ready to play
+     */
+    public void setReadyToStart() {
+        readyToStart = true;
+    }
+
+    /**
+     * Sets the player as not ready to play
+     */
+    public void setNotReadyToStart() {
+        readyToStart = false;
     }
 }
 
