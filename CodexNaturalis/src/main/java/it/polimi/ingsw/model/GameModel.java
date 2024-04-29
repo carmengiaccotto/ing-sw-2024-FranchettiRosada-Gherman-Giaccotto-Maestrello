@@ -159,6 +159,13 @@ public class GameModel {
         return null;
     }
 
+    public void addCommonCard(Card c){
+    }
+
+    public void removeCardFromDeck(Card card, Deck d){
+
+    }
+
     /**
      * @return the game id
      */

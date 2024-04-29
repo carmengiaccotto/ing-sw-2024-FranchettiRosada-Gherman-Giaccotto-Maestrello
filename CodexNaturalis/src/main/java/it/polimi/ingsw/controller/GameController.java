@@ -62,27 +62,27 @@ public class GameController implements GameControllerInterface, Runnable {
     }
 
     private void extractCommonObjectiveCards() {
-        while(model.getCommonObjectiveCards().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getObjectiveCardsDeck().size()-1);
-            ObjectiveCard c = getObjectiveCardsDeck().get(cardExtracted);
-            model.addCommonObjectiveCard(c);
-            model.removeCardFromDeck(c, getObjectiveCardsDeck());
+        while(model.getCommonObjectivesCards().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize()-1);
+            ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
+            model.addCommonCard(c);
+            model.removeCardFromDeck(c, model.getObjectiveCardDeck());
             }
         }
 
 
     private void extractCommonPlaygroundCards() {
-        while(model.getCommonPlaygroundGoldCards.size() < 2 ){
-            int cardExtracted = random.nextInt(model.getGoldCardsDeck().size()-1);
-            GoldCard c = getGoldCardsDeck().get(cardExtracted);
-            model.addCommonPlaygroundGoldCard(c);
-            model.removeCardFromDeck(c, getGoldCardsDeck());
+        while(model.getCommonGoldCards().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize()-1);
+            GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
+            model.addCommonCard(c);
+            model.removeCardFromDeck(c, model.getGoldCardDeck());
         }
-        while(model.getCommonPlaygroundResourceCards.size() < 2 ){
-            int cardExtracted = random.nextInt(model.getResourceCardsDeck().size()-1);
-            ResourceCard c = getResourceCardsDeck().get(cardExtracted);
-            model.addCommonPlaygroundResourceCard(c);
-            model.removeCardFromDeck(c, getResourceCardsDeck());
+        while(model.getCommonResourceCards().size() < 2 ){
+            int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize()-1);
+            ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
+            model.addCommonCard(c);
+            model.removeCardFromDeck(c, model.getResourceCardDeck());
         }
     }
 
