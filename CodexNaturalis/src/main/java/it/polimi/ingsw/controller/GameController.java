@@ -1,21 +1,23 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.GameControllerInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Deck;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.rmi.*;
 
 /** Exceptions need to be added. Methods to manage connection and
  * disconnection of a Player need to be added.  */
 
-public class GameController implements Runnable {
+public class GameController implements GameControllerInterface, Runnable {
 
     private GameModel model;
     private final Random random = new Random();
@@ -86,20 +88,10 @@ public class GameController implements Runnable {
 
 
     private void extractPlayerHandCards(){
-        Deck goldCardDeck = model.getGoldCardDeck();
-        ArrayList<GoldCard> goldCards = (ArrayList<GoldCard>) goldCardDeck.getCards();
-        Deck resourceCardDec=model.getResourceCardDeck();
-        ArrayList<ResourceCard> resourceCards= (ArrayList<ResourceCard>) resourceCardDec.getCards();
         for (Player p: getPlayers()){
-            GoldCard lastGoldCard=goldCards.getLast();
-            p.getCardsInHand().add(lastGoldCard);
-            p.getCardsInHand().remove(lastGoldCard);
-            for(int i=1; i<=2; i++){
-                ResourceCard lastResourceCard=resourceCards.getLast();
-                p.getCardsInHand().add(lastResourceCard);
-                p.getCardsInHand().remove(lastResourceCard);
-            }
-
+            p.DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
+            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
         }
     }
 
@@ -117,20 +109,45 @@ public class GameController implements Runnable {
         return available;
     }
 
-    /** Method to be called by the first Player present in the lobby*/
-    private void chooseNumOfPlayers(){
 
+    public synchronized void sentMessage(Message m) throws RemoteException {
+        model.sentMessage();
     }
 
-    public synchronized void sentMessage() {
+    private void addPersonalObjectiveCardPoints() {
+        for(Player p: getPlayers()){
+            if(p.getPersonalObjectiveCard() instanceof SymbolObjectiveCard){
+                SymbolObjectiveCard c = (SymbolObjectiveCard) p.getPersonalObjectiveCard();
+                int numOfGoals = c.CheckGoals(p.getPlayArea().getSymbols());
+                int points = c.calculatePoints(numOfGoals);
+                p.increaseScore(points);
+            }else{
+                DispositionObjectiveCard c = (DispositionObjectiveCard) p.getPersonalObjectiveCard();
+                int numOfGoals = c.CheckGoals(p.getPlayArea());
+                int points = c.calculatePoints(numOfGoals);
+                p.increaseScore(points);
+
+            }
+        }
     }
 
-    private void checkObjectivePoints() {
+    private void addCommonObjectiveCardsPoints() {
+        for(Player p: getPlayers()){
+            for(ObjectiveCard card: model.getCommonObjectivesCards()){
+                if(card instanceof SymbolObjectiveCard){
+                    SymbolObjectiveCard c = (SymbolObjectiveCard) card;
+                    int numOfGoals = c.CheckGoals(p.getPlayArea().getSymbols());
+                    int points = c.calculatePoints(numOfGoals);
+                    p.increaseScore(points);
+                }else{
+                    DispositionObjectiveCard c = (DispositionObjectiveCard) card;
+                    int numOfGoals = c.CheckGoals(p.getPlayArea());
+                    int points = c.calculatePoints(numOfGoals);
+                    p.increaseScore(points);
+                }
+            }
+        }
 
-    }
-
-
-    public void executePlayerTurn() {
     }
 
 
@@ -138,9 +155,6 @@ public class GameController implements Runnable {
         return model.getGameId();
     }
 
-    public void initializeGame(){
-
-    }
 
     /** Method that checks for each turn if a player got 20 points*/
     public boolean scoreMaxReached(){
@@ -152,8 +166,18 @@ public class GameController implements Runnable {
         return false;
     }
 
-    public void FinalizeGame(){
+    public void initializeGame(){
+        extractCommonPlaygroundCards();
+        extractCommonObjectiveCards();
+        extractPlayerHandCards();
+        setStatus(GameStatus.SET_UP);
+    }
 
+    public void FinalizeGame(){
+        addPersonalObjectiveCardPoints();
+        addCommonObjectiveCardsPoints();
+        decreeWinner();
+        setStatus(GameStatus.ENDED);
     }
 
     public String decreeWinner(){

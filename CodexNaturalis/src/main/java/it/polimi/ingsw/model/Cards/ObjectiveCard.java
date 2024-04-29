@@ -29,7 +29,7 @@ public class ObjectiveCard extends Card {
      *
      * @return numberOfGoals * n.getValue()
      */
-    public int CalculatePoints(int numberOfGoals) {
+    public int calculatePoints(int numberOfGoals) {
         return numberOfGoals * points.getValue();
 
     }

@@ -187,10 +187,9 @@ public class PlayArea {
         }
     }
 
-
-
-
-
+    public Map<Symbol, Integer> getSymbols() {
+        return symbols;
+    }
 
     public List<List<SideOfCard>> getCardsOnArea() {
         return cardsOnArea;

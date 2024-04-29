@@ -9,7 +9,6 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * GameModel class
@@ -82,8 +81,6 @@ public class GameModel {
         currentPlayer = null;
         chat = new Chat();
         status = GameStatus.WAIT;
-        numOfPlayers = 0;
-
     }
 
     /**
@@ -230,16 +227,6 @@ public class GameModel {
     }
 
     /**
-     * Method to draw card from deck for common card on table
-     */
-    public void drawCardForCardTable(){
-    }
-
-    /** Method to be called by the first Player present in the lobby*/
-    private void chooseNumOfPlayers(){
-    }
-
-    /**
      * Sets the game status
      *
      * @param status
@@ -247,67 +234,47 @@ public class GameModel {
     public void setStatus(GameStatus status) {
         //If I want to set the gameStatus to "RUNNING", there needs to be at least
         // DefaultValue.minNumberOfPlayers -> (2) in lobby
-        if (status.equals(GameStatus.RUNNING) && (!gameInitialized())
-        {
+        if (status.equals(GameStatus.RUNNING) &&
+                ((players.size() < DefaultValue.minNumOfPlayer
+                        || getNumOfCommonPlayCards() != DefaultValue.NumOfCommonCards
+                        || !doAllPlayersHaveGoalCard())
+                        || getCurrentPlayer() == null)) {
             throw new NotReadyToRunException();
         } else {
             this.status = status;
         }
-    }
-
-    /**
-     * Add a player to the game
-     * @param p
-     */
-    public void addPlayer(Player p) throws NotUniqueNickNamesExceptions, MaxPlayersInException {
-
-        if (checkUniqueNickName()) {
-            if (players.size() + 1 <= DefaultValue.maxNumOfPlayer) {
-                players.add(p);
-            } else {
-                throw new MaxPlayersInException();
-            }
-        } else {
-            throw new NotUniqueNickNamesExceptions();
+        if (status == GameStatus.ENDED) {
+            decreeWinner(); //Find winner
         }
-    }
-
-    /**
-     * Method to initialize game before it starts
-     */
-    //create new GameModel
-    //addPlayers
-    public void initializeGame(){
-        Collections.shuffle(GoldCardDeck.getCards());
-        Collections.shuffle(ResourceCardDeck.getCards());
-        Collections.shuffle(ObjectiveCardDeck.getCards());
-        Collections.shuffle(InitialCardDeck.getCards());
-
-
-
     }
 
     /**
      * @return true if every player in the game has a personal goal assigned
      */
-    public boolean doAllPlayersHaveObjectiveCard() {
-      for (Player p : players) {
-           if (p.getPersonalObjectiveCard() == null)
-               return false;
+    public boolean doAllPlayersHaveGoalCard() {
+        for (Player p : players) {
+            if (p.getPersonalObjectiveCard() == null)
+                return false;
         }
-      return true;
+        return true;
+    }
+
+    /**
+     * Calls the next turn
+     *
+     * @throws GameEndedException
+     */
+    public void nextTurn() throws GameEndedException {
+
     }
 
     /**
      * @return true if the player in turn is online
      */
-    private boolean isTheCurrentPlayerOnline(){
-        for (Player name: players){
-            if(name.equals(currentPlayer))
-                return name.isConnected();
-        }
-        return false;
+    private boolean isTheCurrentPlayerOnline() {
+
     }
+
 
     /**
      * Sends a message
@@ -316,26 +283,23 @@ public class GameModel {
      */
     public void sentMessage(Message m) {
 
+
     }
 
     /**
-     * @param nick removes this player from the game
+     * add a player to the game
+     *
      */
-    public void removePlayer(String nick) {
-        players.remove(players.stream().filter(x -> x.getNickname().equals(nick)).toList().get(0));
+    public void addPlayer(Player p) throws PlayerAlreadyInException, MaxPlayersInException {
 
-        if (this.status.equals(GameStatus.RUNNING) && players.stream().filter(Player::isConnected).toList().size() <= 1) {
-            //Not enough players to keep playing
-            this.setStatus(GameStatus.ENDED);
-        }
+
     }
 
     /**
      * @return true if there are enough players to start, and if every one of them is ready
      */
     public boolean arePlayersReadyToStartAndEnough() {
-        //If every player is ready, the game starts
-        return players.stream().filter(Player::getReadyToStart).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
+
     }
 
     /** Add a player to Game's lobby. The player will be asked to set a nickname */
@@ -346,12 +310,16 @@ public class GameModel {
     public void reconnectPlayer(Player p) throws  GameEndedException {
     }
 
+    /** Method to be called by the first Player present in the lobby*/
+    private void chooseNumOfPlayers(){
+
+    }
+
     public synchronized void sentMessage() {
     }
 
-    /**
-     *  @return true (1) if the game has initialized successfully, otherwise false (0)
-     */
-    public boolean gameInitialized(){
+    public void initializeGame(){
+
     }
+
 }
