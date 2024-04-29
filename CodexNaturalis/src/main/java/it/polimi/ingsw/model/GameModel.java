@@ -44,6 +44,8 @@ public class GameModel {
      */
     private Integer gameId;
 
+    private Integer numOfPlayers;
+
     /**
      * It contains the nickname of the current player that is playing
      */
@@ -110,10 +112,17 @@ public class GameModel {
     }
 
     /**
-     * @return the number of players
+     * @return the number of total players
      */
     public int getNumOfPlayers() {
         return players.size();
+    }
+
+    /**
+     * @return the number of players required by the game
+     */
+    public int getSpecificNumOfPlayers(){
+        return numOfPlayers;
     }
 
     /**

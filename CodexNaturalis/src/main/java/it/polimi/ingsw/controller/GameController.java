@@ -26,8 +26,15 @@ public class GameController implements Runnable {
 
     }
 
-    /** Add a player to Game's lobby. The player will be asked to set a nickname */
-    public void addPlayerToLobby(Player p) throws MaxNumPlayersReached {
+    /** Add a player to Game's lobby.*/
+    public void addPlayerToLobby(Player p) throws MaxNumPlayersException {
+
+            if (getPlayers().size() + 1 <= model.getSpecificNumOfPlayers()) {
+
+            } else {
+                throw new MaxNumPlayersException();
+            }
+
     }
 
     /** Check if the nickname is unique*/
@@ -79,8 +86,12 @@ public class GameController implements Runnable {
     }
 
 
-    private void extractPlayerCard(){
-
+    private void extractPlayerHandCards(){
+        for (Player p: getPlayers()){
+            p.DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
+            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+        }
     }
 
     public List<PawnColor> AvailableColors(){
