@@ -1,24 +1,23 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.GameControllerInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.*;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import java.rmi.*;
 
 /** Exceptions need to be added. Methods to manage connection and
  * disconnection of a Player need to be added.  */
 
-public class GameController implements GameControllerInterface, Runnable {
+public class GameController implements Runnable {
 
     private GameModel model;
     private final Random random = new Random();
@@ -32,7 +31,7 @@ public class GameController implements GameControllerInterface, Runnable {
     public void addPlayerToLobby(Player p) throws MaxNumPlayersException {
 
             if (getPlayers().size() + 1 <= model.getSpecificNumOfPlayers()) {
-
+                getPlayers().add(p);
             } else {
                 throw new MaxNumPlayersException();
             }
@@ -59,10 +58,10 @@ public class GameController implements GameControllerInterface, Runnable {
     }
 
     /** Reconnect a player to the Game unless the game is already over*/
-    public void reconnectPlayer(Player p) throws  GameEndedException {
+    public void reconnectPlayer(Player p) {
     }
 
-    private void extractCommonObjectiveCards() {
+    public void extractCommonObjectiveCards() {
         while(model.getCommonObjectivesCards().size() < 2 ){
             int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize()-1);
             ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
@@ -72,7 +71,7 @@ public class GameController implements GameControllerInterface, Runnable {
         }
 
 
-    private void extractCommonPlaygroundCards() {
+    public void extractCommonPlaygroundCards() {
         while(model.getCommonGoldCards().size() < 2 ){
             int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize()-1);
             GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
@@ -115,7 +114,7 @@ public class GameController implements GameControllerInterface, Runnable {
         model.sentMessage();
     }
 
-    private void addPersonalObjectiveCardPoints() {
+    public void addPersonalObjectiveCardPoints() {
         for(Player p: getPlayers()){
             if(p.getPersonalObjectiveCard() instanceof SymbolObjectiveCard){
                 SymbolObjectiveCard c = (SymbolObjectiveCard) p.getPersonalObjectiveCard();
@@ -132,7 +131,7 @@ public class GameController implements GameControllerInterface, Runnable {
         }
     }
 
-    private void addCommonObjectiveCardsPoints() {
+    public void addCommonObjectiveCardsPoints() {
         for(Player p: getPlayers()){
             for(ObjectiveCard card: model.getCommonObjectivesCards()){
                 if(card instanceof SymbolObjectiveCard){
