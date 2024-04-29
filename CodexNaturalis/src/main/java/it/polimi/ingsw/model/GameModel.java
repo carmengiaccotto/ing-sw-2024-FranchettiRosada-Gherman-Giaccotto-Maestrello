@@ -1,16 +1,13 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.InitialCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Deck;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.DefaultValue;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,20 +27,17 @@ public class GameModel {
     /**
      * It contains the two Deck
      */
-    private Deck GoldDeck;
-    private Deck PlayDeck;
-    private Deck ObjectiveDeck;
-
+    private Deck GoldCardDeck;
+    private Deck ResourceCardDeck;
+    private Deck ObjectiveCardDeck;
     private Deck InitialCardDeck;
 
-
-
     /**
-     * It contains the list of common play cards and objective card
+     * It contains the list of common resourceCards, goldCard objective card
      */
-
-    private ArrayList<PlayCard> commonPlayCards;
-    private ArrayList<ObjectiveCard> commonObjectives;
+    private ArrayList<PlayCard> commonResourceCards;
+    private ArrayList<GoldCard> commonGoldCards;
+    private ArrayList<ObjectiveCard> commonObjectivesCards;
 
     /**
      * It contains the id of the game
@@ -67,38 +61,31 @@ public class GameModel {
 
     /**
      * Constructor
-     *
-     * @param players
-     * @param commonPlayCards
-     * @param commonObjectives
-     * @param PlayDeck
-     * @param GoldDeck
-     * @param gameId
-     * @param chat
-     * @param status
-     * @param currentPlayer
-     *
      */
-    public GameModel(ArrayList<Player> players, ArrayList<PlayCard> commonPlayCards, ArrayList<ObjectiveCard> commonObjectives, Deck PlayDeck, Deck ObjectiveDeck, Deck GoldDeck, Deck InitialCardDeck, Integer gameId, Chat chat, String currentPlayer, GameStatus status) {
-        this.players = players;
-        this.commonPlayCards = commonPlayCards;
-        this.commonObjectives = commonObjectives;
-        this.PlayDeck = PlayDeck;
-        this.GoldDeck = GoldDeck;
+    public GameModel(Integer gameId) throws IOException {
+        players = new ArrayList<Player>();
+
+        GoldCardDeck = new Deck(GoldCard.class);
+        ResourceCardDeck = new Deck(ResourceCard.class);
+        ObjectiveCardDeck = new Deck(ObjectiveCard.class);
+        InitialCardDeck = new Deck(InitialCard.class);
+
+        commonResourceCards = null;
+        commonGoldCards = null;
+        commonObjectivesCards = null;
+
         this.gameId = gameId;
-        this.chat = chat;
-        this.currentPlayer = currentPlayer;
-        this.status = status;
-        this.ObjectiveDeck = ObjectiveDeck;
-        this.InitialCardDeck = InitialCardDeck;
+
+        currentPlayer = null;
+        chat = new Chat();
+        status = GameStatus.WAIT;
     }
 
-
     /**
-     * @return the GoldDeck
+     * @return the GoldCardDeck
      */
-    public Deck getGoldDeck() {
-        return GoldDeck;
+    public Deck getGoldCardDeck() {
+        return GoldCardDeck;
     }
 
     /**
@@ -109,17 +96,17 @@ public class GameModel {
     }
 
     /**
-     * @return the ObjectiveDeck
+     * @return the ObjectiveCardDeck
      */
-    public Deck getObjectiveDeck() {
-        return ObjectiveDeck;
+    public Deck getObjectiveCardDeck() {
+        return ObjectiveCardDeck;
     }
 
     /**
-     * @return the PlayDeck
+     * @return the ResourceCardDeck
      */
-    public Deck getPlayDeck() {
-        return PlayDeck;
+    public Deck getResourceCardDeck() {
+        return ResourceCardDeck;
     }
 
     /**
@@ -137,18 +124,18 @@ public class GameModel {
     }
 
     /**
-     * @return the number of common cards extracted
+     * @return the number of commonPlayCards extracted
      */
     public int getNumOfCommonPlayCards() {
-        return commonPlayCards.size();
+        return commonResourceCards.size();
     }
 
     /**
-     * @param i index of common play card
-     * @return common play card corresponding to said index
+     * @param i index of common resource card
+     * @return common resource card corresponding to said index
      */
-    public PlayCard getCommonPlayCards(int i) {
-        return commonPlayCards.get(i);
+    public PlayCard getCommonResourceCards(int i) {
+        return commonResourceCards.get(i);
     }
 
     /**
@@ -210,17 +197,24 @@ public class GameModel {
     }
 
     /**
-     * @return the common card extracted list
+     * @return the commonResourceCard extracted list
      */
-    public ArrayList<PlayCard> getCommonPlayCards() {
-        return commonPlayCards;
+    public ArrayList<PlayCard> getCommonResourceCards() {
+        return commonResourceCards;
     }
 
     /**
-     * @return the common card extracted list
+     * @return the commonObjectiveCard extracted list
      */
-    public ArrayList<ObjectiveCard> getCommonObjectives() {
-        return commonObjectives;
+    public ArrayList<ObjectiveCard> getCommonObjectivesCards() {
+        return commonObjectivesCards;
+    }
+
+    /**
+     * @return the commonGoldCard extracted list
+     */
+    public ArrayList<GoldCard> getCommonGoldCards() {
+        return commonGoldCards;
     }
 
     /**
@@ -239,27 +233,22 @@ public class GameModel {
             throw new NotReadyToRunException();
         } else {
             this.status = status;
-
+        }
         if (status == GameStatus.ENDED) {
-            decreeWinner();//Find winner
-            } else if (status == GameStatus.LAST_TURN) {
-
-            }
+            decreeWinner(); //Find winner
         }
     }
-
 
     /**
      * @return true if every player in the game has a personal goal assigned
      */
     public boolean doAllPlayersHaveGoalCard() {
         for (Player p : players) {
-            if (p.getPersonalObjectiveCard().equals(ObjectiveCard))
+            if (p.getPersonalObjectiveCard() == null)
                 return false;
         }
         return true;
     }
-
 
     /**
      * Calls the next turn
@@ -276,7 +265,6 @@ public class GameModel {
     private boolean isTheCurrentPlayerOnline() {
 
     }
-
 
 
     /**
@@ -298,15 +286,12 @@ public class GameModel {
 
     }
 
-
     /**
      * @return true if there are enough players to start, and if every one of them is ready
      */
     public boolean arePlayersReadyToStartAndEnough() {
 
     }
-
-
 
     /** Add a player to Game's lobby. The player will be asked to set a nickname */
     public void addPlayerToLobby(Player p) throws MaxNumPlayersReached {
