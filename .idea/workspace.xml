@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="GameController almost done.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameModel.java" afterDir="false" />
@@ -233,14 +233,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00015" summary="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)">
-      <option name="closed" value="true" />
-      <created>1711571014252</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1711571014252</updated>
     </task>
     <task id="LOCAL-00016" summary="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players">
       <option name="closed" value="true" />
@@ -626,7 +618,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714423742282</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated">
+      <option name="closed" value="true" />
+      <created>1714425433429</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1714425433429</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +670,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
     <MESSAGE value="ObjectiveCard Tests" />
     <MESSAGE value="Tests and Javadoc" />
     <MESSAGE value="Card Class Complete with JavaDoc and Test" />
@@ -695,7 +694,8 @@
     <MESSAGE value="Modified JsonMap" />
     <MESSAGE value="Modified methods in GameController" />
     <MESSAGE value="GameController almost done." />
-    <option name="LAST_COMMIT_MESSAGE" value="GameController almost done." />
+    <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

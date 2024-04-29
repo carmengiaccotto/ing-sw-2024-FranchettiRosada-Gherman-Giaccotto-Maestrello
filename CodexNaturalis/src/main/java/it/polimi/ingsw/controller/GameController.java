@@ -7,6 +7,7 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,13 +88,13 @@ public class GameController implements GameControllerInterface, Runnable {
     }
 
 
-    private void extractPlayerHandCards(){
+    /**private void extractPlayerHandCards(){
         for (Player p: getPlayers()){
             p.DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
             p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
             p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
         }
-    }
+    } */
 
     public List<PawnColor> AvailableColors(){
 
@@ -169,7 +170,7 @@ public class GameController implements GameControllerInterface, Runnable {
     public void initializeGame(){
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
-        extractPlayerHandCards();
+        /** extractPlayerHandCards(); */
         setStatus(GameStatus.SET_UP);
     }
 
