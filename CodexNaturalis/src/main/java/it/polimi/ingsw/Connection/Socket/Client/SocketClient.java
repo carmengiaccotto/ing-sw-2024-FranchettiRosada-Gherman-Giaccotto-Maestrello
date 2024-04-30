@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Client;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

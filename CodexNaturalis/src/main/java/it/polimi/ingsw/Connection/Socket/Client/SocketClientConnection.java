@@ -1,6 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Client.Socket;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.Client;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Client.ClientConnectionInterface;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.ClientConnectionInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Client.ClientToServerMessage;
 
 import java.io.IOException;

@@ -4,9 +4,7 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
@@ -61,7 +59,6 @@ public class GameController implements Runnable {
 
     /** Reconnect a player to the Game unless the game is already over*/
     public void reconnectPlayer(Player p) {
-
     }
 
     public void extractCommonObjectiveCards() {
@@ -114,7 +111,7 @@ public class GameController implements Runnable {
 
 
     public synchronized void sentMessage(Message m) throws RemoteException {
-        model.sentMessage(m);
+        model.sentMessage();
     }
 
     public void addPersonalObjectiveCardPoints() {
@@ -215,18 +212,8 @@ public class GameController implements Runnable {
         return model.getStatus();
     }
 
-    public void setStatus(GameStatus status) throws NotReadyToRunException {
+    public void setStatus(GameStatus status) {
         model.setStatus(status);
-    }
-
-    /**
-     * Calls the next turn
-     *
-     * @return
-     * @throws GameEndedException
-     */
-    public void nextTurn() throws GameEndedException {
-
     }
 
 }

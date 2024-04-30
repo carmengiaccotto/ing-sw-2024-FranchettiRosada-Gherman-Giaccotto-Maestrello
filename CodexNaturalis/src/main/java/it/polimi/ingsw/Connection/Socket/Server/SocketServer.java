@@ -1,4 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Server;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.Server;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Server.GameHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
