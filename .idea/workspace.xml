@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified GameModel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/ClientConnectionInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/ClientConnectionInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/Socket/SocketClientConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/Socket/SocketClientConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Chat/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Chat/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/Chat/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DefaultValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/DefaultValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/GameModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +25,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -102,7 +107,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main.java.it.polimi.ingsw&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -223,6 +228,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -233,6 +245,25 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
+      <workItem from="1714413865506" duration="23000" />
+      <workItem from="1714414177751" duration="24000" />
+      <workItem from="1714418332192" duration="353000" />
+    </task>
+    <task id="LOCAL-00014" summary="added method to player to be able to start the playing process, using method chooseSide of PairOfCards class+ some typo correction">
+      <option name="closed" value="true" />
+      <created>1711555953389</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1711555953389</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update on AddCardOnArea Method &amp;&amp; simple Syncronization between classes on PointPerVisibleSymbol (Added the name PlayArea.getNumSymbols to getNumSymbols to solve the error warning)">
+      <option name="closed" value="true" />
+      <created>1711571014252</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711571014252</updated>
     </task>
     <task id="LOCAL-00016" summary="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players">
       <option name="closed" value="true" />
@@ -602,31 +633,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714247037981</updated>
     </task>
-    <task id="LOCAL-00062" summary="Modified methods in GameController">
+    <task id="LOCAL-00062" summary="Modified GameModel">
       <option name="closed" value="true" />
-      <created>1714411143268</created>
+      <created>1714397329276</created>
       <option name="number" value="00062" />
       <option name="presentableId" value="LOCAL-00062" />
       <option name="project" value="LOCAL" />
-      <updated>1714411143268</updated>
+      <updated>1714397329284</updated>
     </task>
-    <task id="LOCAL-00063" summary="GameController almost done.">
-      <option name="closed" value="true" />
-      <created>1714423742282</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1714423742282</updated>
-    </task>
-    <task id="LOCAL-00064" summary="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated">
-      <option name="closed" value="true" />
-      <created>1714425433429</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1714425433429</updated>
-    </task>
-    <option name="localTasksCounter" value="65" />
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,6 +685,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="DispositionObjectiveCard Json" />
+    <MESSAGE value="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests" />
     <MESSAGE value="ObjectiveCard Tests" />
     <MESSAGE value="Tests and Javadoc" />
     <MESSAGE value="Card Class Complete with JavaDoc and Test" />
@@ -692,10 +709,8 @@
     <MESSAGE value="Side enum Test" />
     <MESSAGE value="ObjectivePoints Tests. Enum Tests finished" />
     <MESSAGE value="Modified JsonMap" />
-    <MESSAGE value="Modified methods in GameController" />
-    <MESSAGE value="GameController almost done." />
-    <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
+    <MESSAGE value="Modified GameModel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified GameModel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -713,25 +728,25 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerTest.ic" NAME="CornerTest Coverage Results" MODIFIED="1713565369444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerPositionTest.ic" NAME="CornerPositionTest Coverage Results" MODIFIED="1714237315059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713978378356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PawnColorTest.ic" NAME="PawnColorTest Coverage Results" MODIFIED="1714241781945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
   </component>

@@ -2,6 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.Client.Socket;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Client.ClientConnectionInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Client.ClientToServerMessage;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

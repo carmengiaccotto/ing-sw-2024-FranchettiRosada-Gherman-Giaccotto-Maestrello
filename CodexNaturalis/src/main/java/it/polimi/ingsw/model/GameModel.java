@@ -2,14 +2,17 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
 
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Chat;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Deck;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * GameModel class
@@ -26,7 +29,7 @@ public class GameModel {
     private ArrayList<Player> players;
 
     /**
-     * It contains the two Deck
+     * It contains Decks
      */
     private Deck GoldCardDeck;
     private Deck ResourceCardDeck;
@@ -34,7 +37,7 @@ public class GameModel {
     private Deck InitialCardDeck;
 
     /**
-     * It contains the list of common resourceCards, goldCard objective card
+     * It contains the list of common resourceCards, goldCard and objective card
      */
     private ArrayList<PlayCard> commonResourceCards;
     private ArrayList<GoldCard> commonGoldCards;
@@ -160,11 +163,28 @@ public class GameModel {
         return null;
     }
 
+    /**
+     * Add a card to GameModel
+     *
+     * @param c
+     */
     public void addCommonCard(Card c){
     }
 
+    /**
+     * Remove card from deck d
+     * @param card
+     * @param d
+     */
     public void removeCardFromDeck(Card card, Deck d){
+        Iterator<Card> cardIterator = d.iterator();
 
+        while(cardIterator.hasNext()){
+            Card nexCard = cardIterator.next();
+            if(nexCard.getIdCard() == (card.getIdCard())){
+                cardIterator.remove();
+            }
+        }
     }
 
     /**
@@ -239,7 +259,7 @@ public class GameModel {
      *
      * @param status
      */
-    public void setStatus(GameStatus status) {
+    public void setStatus(GameStatus status) throws NotReadyToRunException {
         //If I want to set the gameStatus to "RUNNING", there needs to be at least
         // DefaultValue.minNumberOfPlayers -> (2) in lobby
         if (status.equals(GameStatus.RUNNING) &&
@@ -250,9 +270,6 @@ public class GameModel {
             throw new NotReadyToRunException();
         } else {
             this.status = status;
-        }
-        if (status == GameStatus.ENDED) {
-            decreeWinner(); //Find winner
         }
     }
 
@@ -267,22 +284,46 @@ public class GameModel {
         return true;
     }
 
-    /**
-     * Calls the next turn
-     *
-     * @throws GameEndedException
-     */
-    public void nextTurn() throws GameEndedException {
-
-    }
 
     /**
      * @return true if the player in turn is online
      */
     private boolean isTheCurrentPlayerOnline() {
 
+        return players.stream().filter(x->x.equals(currentPlayer)).toList().get(0).isConnected();
     }
 
+
+    /**
+     * @return true if there are enough players to start, and if every one of them is ready
+     */
+    public boolean arePlayersReadyToStartAndEnough() {
+            //If every player is ready, the game starts
+            return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
+
+    }
+
+    /** Reconnect a player to the Game unless the game is already over*/
+
+    public void reconnectPlayer(Player p) throws  GameEndedException {
+            Player pIn = players.stream().filter(x -> x.equals(p)).toList().get(0);
+
+            if (!pIn.isConnected()) {
+                pIn.setConnected(true);
+
+                if (!isTheCurrentPlayerOnline()) {
+                    nextTurn();
+                }
+
+            } else {
+                System.out.println ("ERROR: Trying to reconnect a player not offline!");
+
+            }
+        }
+
+    /** Method to be called by the first Player present in the lobby*/
+    private void chooseNumOfPlayers(){
+    }
 
     /**
      * Sends a message
@@ -290,44 +331,10 @@ public class GameModel {
      * @param m message sent
      */
     public void sentMessage(Message m) {
-
-
+        if (players.stream().filter(x -> x.equals(m.getSender())).count() == 1) {
+            chat.addMessage(m);
+        }
     }
-
-    /**
-     * add a player to the game
-     *
-     */
-    public void addPlayer(Player p) throws PlayerAlreadyInException, MaxPlayersInException {
-
-
-    }
-
-    /**
-     * @return true if there are enough players to start, and if every one of them is ready
-     */
-    public boolean arePlayersReadyToStartAndEnough() {
-
-    }
-
-    /** Add a player to Game's lobby. The player will be asked to set a nickname */
-    public void addPlayerToLobby(Player p) throws MaxNumPlayersReached {
-    }
-
-    /** Reconnect a player to the Game unless the game is already over*/
-    public void reconnectPlayer(Player p) throws  GameEndedException {
-    }
-
-    /** Method to be called by the first Player present in the lobby*/
-    private void chooseNumOfPlayers(){
-
-    }
-
-    public synchronized void sentMessage() {
-    }
-
-    public void initializeGame(){
-
-    }
-
 }
+
+
