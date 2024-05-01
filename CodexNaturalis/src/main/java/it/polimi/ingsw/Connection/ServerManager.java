@@ -1,5 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI.RMIServer;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 
 import java.net.InetAddress;
