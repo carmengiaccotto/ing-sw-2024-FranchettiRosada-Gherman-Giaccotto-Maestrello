@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Game Connection Structure">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="ServerManager main">
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,14 +230,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00019" summary="Modified PlayArea CoverCorners Method and Position VerticalPositioning and HorizontalPositioning methods; Added index to Position enum. Started creating tests for Player Class">
-      <option name="closed" value="true" />
-      <created>1712348226692</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1712348226692</updated>
     </task>
     <task id="LOCAL-00020" summary="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods">
       <option name="closed" value="true" />
@@ -626,7 +615,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714569795193</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="ServerManager main">
+      <option name="closed" value="true" />
+      <created>1714581781162</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1714581781162</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +667,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code" />
     <MESSAGE value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
     <MESSAGE value="Card exceptions and card Test" />
     <MESSAGE value="Side Of Card modified Constructor" />
@@ -695,7 +691,8 @@
     <MESSAGE value="Client Interface and ConnectionType Choice" />
     <MESSAGE value="Player Changed Constructor and updated Test" />
     <MESSAGE value="Game Connection Structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Game Connection Structure" />
+    <MESSAGE value="ServerManager main" />
+    <option name="LAST_COMMIT_MESSAGE" value="ServerManager main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

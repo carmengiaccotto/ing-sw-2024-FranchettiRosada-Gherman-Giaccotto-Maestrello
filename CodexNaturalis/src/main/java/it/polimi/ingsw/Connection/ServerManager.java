@@ -7,13 +7,12 @@ import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 
 public class ServerManager {
-    private SocketServer socketServer;
-    private RMIServer rmiServer;
+    private final SocketServer socketServer;
+    private final RMIServer rmiServer;
 
-    private static GameController game;
     protected String serverIP;
 
-    protected ServerManager() throws RemoteException, UnknownHostException {
+    protected ServerManager() throws UnknownHostException {
         try {
             this.serverIP = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
@@ -23,8 +22,8 @@ public class ServerManager {
         }
         socketServer = new SocketServer(12345);
 
-        this.game=new GameController();
-        rmiServer = new RMIServer(this.game);
+        GameController game = new GameController();
+        rmiServer = new RMIServer(game);
 
     }
     public static void main(String[] args) throws UnknownHostException, RemoteException {
@@ -35,9 +34,6 @@ public class ServerManager {
 
     }
 
-    public String getServerIP() {
-        return serverIP;
-    }
 
     public void startSocketServer() {
         socketServer.startServer();
