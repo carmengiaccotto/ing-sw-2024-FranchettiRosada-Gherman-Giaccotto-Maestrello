@@ -9,13 +9,29 @@ import java.rmi.RemoteException;
 public class ServerManager {
     private SocketServer socketServer;
     private RMIServer rmiServer;
+
+    private static GameController game;
     protected String serverIP;
 
-    protected ServerManager(String serverIP) throws RemoteException, UnknownHostException {
-        this.serverIP= InetAddress.getLocalHost().getHostAddress();
+    protected ServerManager() throws RemoteException, UnknownHostException {
+        try {
+            this.serverIP = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+
+            System.err.println("Impossibile ottenere l'indirizzo IP locale: " + e.getMessage());
+            throw e;
+        }
         socketServer = new SocketServer(12345);
-        GameController gameServer = new GameController();
-        rmiServer = new RMIServer(gameServer);
+
+        this.game=new GameController();
+        rmiServer = new RMIServer(this.game);
+
+    }
+    public static void main(String[] args) throws UnknownHostException, RemoteException {
+        ServerManager manager=new ServerManager();
+        manager.startBothServers();
+
+
 
     }
 

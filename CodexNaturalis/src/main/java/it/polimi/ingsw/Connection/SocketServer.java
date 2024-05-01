@@ -14,7 +14,7 @@ public class SocketServer {
     public SocketServer(int port) {
         this.port = port;
     }
-
+//Implementazione temporanea presa dal codice di Margara, da adattare
     public void startServer() {
         final ExecutorService executor =  Executors.newCachedThreadPool();;
         ServerSocket serverSocket = null;
@@ -24,7 +24,7 @@ public class SocketServer {
             System.err.println(e.getMessage());
             return;
         }
-        System.out.println("Server ready");
+        System.out.println("SocketServer ready");
         while (true) {
             try {
                 final Socket socket = serverSocket.accept();
