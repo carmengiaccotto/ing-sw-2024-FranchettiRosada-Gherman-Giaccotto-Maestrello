@@ -23,16 +23,20 @@ public class Player {
     private boolean readyToStart;
 
 
-    public Player(String nickname, PawnColor pawnColor, int Score, int Round) {
+    public Player() {
         this.playArea = new PlayArea(null);
-        this.nickname = nickname;
-        this.pawnColor = pawnColor;
-        this.score = Score;
+        this.nickname = null;
+        this.pawnColor = null;
+        this.score = 0;
         this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
-        this.round = Round;
+        this.round = 0;
         this.personalObjectiveCard=null;
         connected = true;
         readyToStart = false;
+    }
+
+    public void setRound(int r){
+        this.round=r;
     }
 
     /**

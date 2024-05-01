@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Client Interface and ConnectionType Choice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/ClientConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Client/ClientConnectionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ClientConnectionInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ClientConnectionInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/Client/SocketClientConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/Client/SocketClientConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/PlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +123,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.Client" />
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -135,23 +140,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InitialCardTest.testMapFromJson">
-    <configuration name="CardColorsTest.testStringRepresentation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.CardColorsTest" />
-      <option name="METHOD_NAME" value="testStringRepresentation" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.PlayerTest">
     <configuration name="InitialCardTest.testMapFromJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
@@ -198,6 +187,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SideTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
@@ -215,11 +219,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
         <item itemvalue="JUnit.ObjectivePointsTest" />
         <item itemvalue="JUnit.SideTest" />
         <item itemvalue="JUnit.PawnColorTest" />
-        <item itemvalue="JUnit.CardColorsTest.testStringRepresentation" />
       </list>
     </recent_temporary>
   </component>
@@ -233,14 +237,6 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-    </task>
-    <task id="LOCAL-00016" summary="Json Objective Cards, Adjustments in PlayArea, Player and Deck classes to suit the new names of the Classes (Card and SideOfCard), added method to playground class to get a list with just the players">
-      <option name="closed" value="true" />
-      <created>1711725500344</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1711725500344</updated>
     </task>
     <task id="LOCAL-00017" summary="Position Enum">
       <option name="closed" value="true" />
@@ -626,7 +622,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714425433429</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Client Interface and ConnectionType Choice">
+      <option name="closed" value="true" />
+      <created>1714495627968</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1714495627968</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +674,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ObjectiveCard Tests" />
     <MESSAGE value="Tests and Javadoc" />
     <MESSAGE value="Card Class Complete with JavaDoc and Test" />
     <MESSAGE value="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code" />
@@ -695,7 +698,8 @@
     <MESSAGE value="Modified methods in GameController" />
     <MESSAGE value="GameController almost done." />
     <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
+    <MESSAGE value="Client Interface and ConnectionType Choice" />
+    <option name="LAST_COMMIT_MESSAGE" value="Client Interface and ConnectionType Choice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
