@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Client;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
 import java.util.Scanner;
 
@@ -40,15 +40,18 @@ public class Client {
 
     public ClientConnectionHandler StartConnection (int type){ // tipo della connessione. Viene restituita dalla View
         ClientConnectionHandler clientConnection=null;
+
         switch(type)
         {
             case 1:
-                //Implementazione avvio RMI
-                //ritorna un ConnectionHandler RMI
+                //avvio RMIServer
+                //creazione nuovo RMIClient
+
                 break;
             case 2:
-                //Implementazione avvio Socket
-                //ritorna un ConnectionHandler Socket
+                //Avvio nuovo Socket Server
+                //creazione nuovo SocketClient
+
 
 
         }

@@ -1,6 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Client.PlayerTurnStatus;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.ClientPack.PlayerTurnStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 
 import java.net.Socket;
