@@ -111,7 +111,7 @@ public class GameController implements Runnable {
 
 
     public synchronized void sentMessage(Message m) throws RemoteException {
-        model.sentMessage();
+        model.sentMessage(m);
     }
 
     public void addPersonalObjectiveCardPoints() {

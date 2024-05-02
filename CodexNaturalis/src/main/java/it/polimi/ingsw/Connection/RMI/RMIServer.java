@@ -91,4 +91,9 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
         return game;
 
     }
+
+    @Override
+    public GameControllerInterface leaveGame(String nickname, Integer id) throws RemoteException{
+
+    }
 }

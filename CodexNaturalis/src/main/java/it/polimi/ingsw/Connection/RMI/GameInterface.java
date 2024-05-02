@@ -15,4 +15,6 @@ public interface GameInterface extends Remote {
 
     GameControllerInterface disconnectPlayer(String nickname, Integer id) throws RemoteException;
 
+    GameControllerInterface leaveGame(String nickname, Integer id) throws RemoteException;
+
 }

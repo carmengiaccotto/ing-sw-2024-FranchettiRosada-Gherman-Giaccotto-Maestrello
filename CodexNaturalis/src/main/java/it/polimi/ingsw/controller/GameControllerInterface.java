@@ -1,5 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
@@ -18,6 +19,8 @@ public interface GameControllerInterface extends  Remote{
     void extractPlayerHandCards();
     List<PawnColor> AvailableColors();
     void addPersonalObjectiveCardPoints();
+    boolean isMyTurn(String nickname);
+    void sentMessage(Message m);
 
     void addCommonObjectiveCardsPoints();
     int getGameId();
