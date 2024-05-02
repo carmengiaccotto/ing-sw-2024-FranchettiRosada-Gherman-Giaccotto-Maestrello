@@ -4,10 +4,11 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatu
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.*;
+import java.rmi.Remote;
 
 import java.util.List;
 
-public interface GameControllerInterface {
+public interface GameControllerInterface extends  Remote{
      void addPlayerToLobby(Player p) throws MaxNumPlayersException;
      void SetPlayerPawnColorChoice(PawnColor chosenColor);
      boolean checkUniqueNickname(String name);
