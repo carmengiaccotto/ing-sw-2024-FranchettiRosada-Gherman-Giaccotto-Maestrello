@@ -6,8 +6,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

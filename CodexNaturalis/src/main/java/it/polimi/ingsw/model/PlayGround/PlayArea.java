@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.EdgePositions.cornersToCheck;
+import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.EdgePositions.cornersToCheck;
 
 /**This class represents the playArea. Each player has its own*/
 public class PlayArea {
