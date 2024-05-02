@@ -1,6 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.Player;
 
 import java.time.LocalTime;
 

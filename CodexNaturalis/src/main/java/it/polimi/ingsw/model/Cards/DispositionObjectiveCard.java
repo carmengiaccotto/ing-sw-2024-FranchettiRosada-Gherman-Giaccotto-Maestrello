@@ -2,7 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.PlayArea;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
 
 import java.util.ArrayList;

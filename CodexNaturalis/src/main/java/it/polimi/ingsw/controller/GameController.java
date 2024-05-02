@@ -5,8 +5,8 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.GameModel;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround.Player;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class GameController implements Runnable {
 
-    private GameModel model;
+    private PlayGround model;
     private final Random random = new Random();
 
     @Override

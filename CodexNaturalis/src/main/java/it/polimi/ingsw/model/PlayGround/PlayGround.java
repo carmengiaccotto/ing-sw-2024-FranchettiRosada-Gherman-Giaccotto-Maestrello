@@ -1,9 +1,10 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Chat;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.DefaultValue;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
@@ -21,7 +22,7 @@ import java.util.Iterator;
  * It also contains the current player that is playing
  */
 
-public class GameModel {
+public class PlayGround {
 
     /**
      * It contains the list of players
@@ -68,7 +69,7 @@ public class GameModel {
     /**
      * Constructor
      */
-    public GameModel(Integer gameId) throws IOException {
+    public PlayGround(Integer gameId) throws IOException {
         players = new ArrayList<Player>();
 
         GoldCardDeck = new Deck(GoldCard.class);
@@ -169,6 +170,17 @@ public class GameModel {
      * @param c
      */
     public void addCommonCard(Card c){
+
+        if(c instanceof GoldCard){
+            commonGoldCards.add((GoldCard) c);
+        }
+        else if(c instanceof ResourceCard) {
+            commonResourceCards.add((PlayCard) c);
+        }
+        else if( c instanceof ObjectiveCard){
+            commonObjectivesCards.add((ObjectiveCard) c);
+        }
+
     }
 
     /**
@@ -177,12 +189,48 @@ public class GameModel {
      * @param d
      */
     public void removeCardFromDeck(Card card, Deck d){
-        Iterator<Card> cardIterator = d.iterator();
 
-        while(cardIterator.hasNext()){
-            Card nexCard = cardIterator.next();
-            if(nexCard.getIdCard() == (card.getIdCard())){
-                cardIterator.remove();
+        if(card instanceof GoldCard){
+            Iterator<GoldCard> cardIterator = d.iterator();
+
+            while(cardIterator.hasNext()){
+                GoldCard nexCard = cardIterator.next();
+                if(nexCard.getIdCard() == (card.getIdCard())){
+                    cardIterator.remove();
+                }
+            }
+        }
+
+        if(card instanceof ResourceCard){
+            Iterator<ResourceCard> cardIterator = d.iterator();
+
+            while(cardIterator.hasNext()){
+                ResourceCard nexCard = cardIterator.next();
+                if(nexCard.getIdCard() == (card.getIdCard())){
+                    cardIterator.remove();
+                }
+            }
+        }
+
+        if(card instanceof InitialCard){
+            Iterator<InitialCard> cardIterator = d.iterator();
+
+            while(cardIterator.hasNext()){
+                InitialCard nexCard = cardIterator.next();
+                if(nexCard.getIdCard() == (card.getIdCard())){
+                    cardIterator.remove();
+                }
+            }
+        }
+
+        if(card instanceof ObjectiveCard{
+            Iterator<ObjectiveCard> cardIterator = d.iterator();
+
+            while(cardIterator.hasNext()){
+                ObjectiveCard nexCard = cardIterator.next();
+                if(nexCard.getIdCard() == (card.getIdCard())){
+                    cardIterator.remove();
+                }
             }
         }
     }
@@ -323,6 +371,8 @@ public class GameModel {
 
     /** Method to be called by the first Player present in the lobby*/
     private void chooseNumOfPlayers(){
+
+
     }
 
     /**
