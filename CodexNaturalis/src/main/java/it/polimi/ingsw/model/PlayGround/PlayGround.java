@@ -223,7 +223,7 @@ public class PlayGround {
             }
         }
 
-        if(card instanceof ObjectiveCard{
+        if(card instanceof ObjectiveCard){
             Iterator<ObjectiveCard> cardIterator = d.iterator();
 
             while(cardIterator.hasNext()){
@@ -346,9 +346,13 @@ public class PlayGround {
      * @return true if there are enough players to start, and if every one of them is ready
      */
     public boolean arePlayersReadyToStartAndEnough() {
-            //If every player is ready, the game starts
-            return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
+        // Controlla se il numero di giocatori è sufficiente
+        if (players.size() < DefaultValue.minNumOfPlayer) {
+            return false;
+        }
 
+        // Controlla se ogni giocatore è pronto
+        return players.stream().allMatch(Player::getReadyToStart);
     }
 
     /** Reconnect a player to the Game unless the game is already over*/

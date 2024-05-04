@@ -15,8 +15,6 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
 
     // Add draw method, place card
 
-    // add 'leave game' to the server
-
     GameInterface server;
 
     GameControllerInterface gameController = null;

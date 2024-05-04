@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Server;
+ package CodexNaturalis.src.main.java.it.polimi.ingsw.Server;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.View.VirtualView;
 
