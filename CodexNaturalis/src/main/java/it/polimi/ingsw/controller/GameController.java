@@ -21,11 +21,20 @@ import java.util.stream.Collectors;
 public class GameController implements Runnable {
 
     private PlayGround model;
+
+    private static GameController instance = null;
     private final Random random = new Random();
 
     @Override
     public void run() {
 
+    }
+
+    public static GameController getInstance() {
+        if (instance == null) {
+            instance = new GameController();
+        }
+        return instance;
     }
 
     /** Add a player to Game's lobby.*/

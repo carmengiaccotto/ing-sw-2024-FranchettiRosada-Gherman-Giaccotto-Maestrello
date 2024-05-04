@@ -8,11 +8,12 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.DefaultValue;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Deck;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * GameModel class
@@ -155,31 +156,31 @@ public class PlayGround {
      * @param nickname of the player to check
      * @return the player's card goal
      */
-    public ObjectiveCard getPlayerObjectiveCard(String nickname)  {
+    public ObjectiveCard getPlayerObjectiveCard(int nickname) {
         for (Player name: players){
-            if(name.getNickname().equals(nickname))
+            if(name.equals(nickname))
                 return name.getPersonalObjectiveCard();
         }
-        throw new IllegalArgumentException("The player doesn't exist");
+        return null;
     }
 
     /**
-     * Add a card to PlayGround
+     * Add a card to GameModel
      *
      * @param c
      */
     public void addCommonCard(Card c){
 
-        if (c instanceof GoldCard) {
+        if(c instanceof GoldCard){
             commonGoldCards.add((GoldCard) c);
-        } else if (c instanceof ResourceCard) {
-            commonResourceCards.add((ResourceCard) c);
-        } else if (c instanceof ObjectiveCard) {
-            commonObjectivesCards.add((ObjectiveCard) c);
-        } else {
-
-            throw new IllegalArgumentException("Unsupported card type");
         }
+        else if(c instanceof ResourceCard) {
+            commonResourceCards.add((PlayCard) c);
+        }
+        else if( c instanceof ObjectiveCard){
+            commonObjectivesCards.add((ObjectiveCard) c);
+        }
+
     }
 
     /**
@@ -190,39 +191,43 @@ public class PlayGround {
     public void removeCardFromDeck(Card card, Deck d){
 
         if(card instanceof GoldCard){
-            Iterator<GoldCard> cardIterator = (Iterator<GoldCard>) d.iterator();
+            Iterator<GoldCard> cardIterator = d.iterator();
+
             while(cardIterator.hasNext()){
-                GoldCard nexCard = (GoldCard) cardIterator.next();
+                GoldCard nexCard = cardIterator.next();
                 if(nexCard.getIdCard() == (card.getIdCard())){
                     cardIterator.remove();
                 }
             }
         }
 
-        else if(card instanceof ResourceCard){
-            Iterator<ResourceCard> cardIterator = (Iterator<ResourceCard>) d.iterator();
+        if(card instanceof ResourceCard){
+            Iterator<ResourceCard> cardIterator = d.iterator();
+
             while(cardIterator.hasNext()){
-                ResourceCard nexCard = (ResourceCard) cardIterator.next();
+                ResourceCard nexCard = cardIterator.next();
                 if(nexCard.getIdCard() == (card.getIdCard())){
                     cardIterator.remove();
                 }
             }
         }
 
-        else if(card instanceof InitialCard){
-            Iterator<InitialCard> cardIterator = (Iterator<InitialCard>) d.iterator();
+        if(card instanceof InitialCard){
+            Iterator<InitialCard> cardIterator = d.iterator();
+
             while(cardIterator.hasNext()){
-                InitialCard nexCard = (InitialCard) cardIterator.next();
+                InitialCard nexCard = cardIterator.next();
                 if(nexCard.getIdCard() == (card.getIdCard())){
                     cardIterator.remove();
                 }
             }
         }
 
-        else if(card instanceof ObjectiveCard){
-            Iterator<ObjectiveCard> cardIterator = (Iterator<ObjectiveCard>) d.iterator();
+        if(card instanceof ObjectiveCard{
+            Iterator<ObjectiveCard> cardIterator = d.iterator();
+
             while(cardIterator.hasNext()){
-                ObjectiveCard nexCard = (ObjectiveCard) cardIterator.next();
+                ObjectiveCard nexCard = cardIterator.next();
                 if(nexCard.getIdCard() == (card.getIdCard())){
                     cardIterator.remove();
                 }
@@ -238,7 +243,7 @@ public class PlayGround {
     }
 
     /**
-     * Set game id
+     * Sets the game id
      *
      * @param gameId new game id
      */
@@ -298,11 +303,13 @@ public class PlayGround {
     }
 
     /**
-     * Set the game status
+     * Sets the game status
      *
      * @param status
      */
     public void setStatus(GameStatus status) throws NotReadyToRunException {
+        //If I want to set the gameStatus to "RUNNING", there needs to be at least
+        // DefaultValue.minNumberOfPlayers -> (2) in lobby
         if (status.equals(GameStatus.RUNNING) &&
                 ((players.size() < DefaultValue.minNumOfPlayer
                         || getNumOfCommonPlayCards() != DefaultValue.NumOfCommonCards
@@ -335,14 +342,14 @@ public class PlayGround {
     }
 
 
-   // /**
-   //  * @return true if there are enough players to start, and if every one of them is ready
-   //  */
-   // public boolean arePlayersReadyToStartAndEnough() {
+    /**
+     * @return true if there are enough players to start, and if every one of them is ready
+     */
+    public boolean arePlayersReadyToStartAndEnough() {
             //If every player is ready, the game starts
-        //    return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
+            return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
 
-   // }
+    }
 
     /** Reconnect a player to the Game unless the game is already over*/
 
@@ -364,14 +371,8 @@ public class PlayGround {
 
     /** Method to be called by the first Player present in the lobby*/
     private void chooseNumOfPlayers(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter how many players you want to play with: ");
-        this.numOfPlayers = scan.nextInt();
-        if((numOfPlayers > 4) || (numOfPlayers <= 1)){
 
-            throw new IllegalArgumentException("Invalid number of players.");
 
-        }
     }
 
     /**
