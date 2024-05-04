@@ -5,9 +5,10 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.JsonDeckCr
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**This is the class that implements the generic deck of cards*/
-public class Deck {
+public class Deck implements Iterable{
     private final ArrayList<? extends Card> deck;
 
 
@@ -39,9 +40,10 @@ public class Deck {
         return deck.size();
     }
 
-
-
-
+    @Override
+    public Iterator<? extends Card> iterator() {
+        return deck.iterator();
+    }
 
 
 //    /**

@@ -5,6 +5,7 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
@@ -166,14 +167,14 @@ public class GameController implements Runnable {
         return false;
     }
 
-    public void initializeGame(){
+    public void initializeGame() throws NotReadyToRunException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
         /** extractPlayerHandCards(); */
         setStatus(GameStatus.SET_UP);
     }
 
-    public void FinalizeGame(){
+    public void FinalizeGame() throws NotReadyToRunException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
         decreeWinner();
@@ -212,7 +213,7 @@ public class GameController implements Runnable {
         return model.getStatus();
     }
 
-    public void setStatus(GameStatus status) {
+    public void setStatus(GameStatus status) throws NotReadyToRunException {
         model.setStatus(status);
     }
 
