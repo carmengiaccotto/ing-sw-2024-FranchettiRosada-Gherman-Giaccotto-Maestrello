@@ -9,12 +9,10 @@ public interface GameInterface extends Remote {
 
     GameControllerInterface createGame(String nickname) throws RemoteException;
 
-    GameControllerInterface joinSpecificGame(String nickname, Integer id) throws RemoteException;
+    GameControllerInterface joinExistingGame(String nickname) throws RemoteException;
 
-    GameControllerInterface reconnectPlayer(String nickname, Integer id) throws RemoteException;
+    GameControllerInterface reconnectPlayer(String nickname) throws RemoteException;
 
-    GameControllerInterface disconnectPlayer(String nickname, Integer id) throws RemoteException;
-
-    GameControllerInterface leaveGame(String nickname, Integer id) throws RemoteException;
+    GameControllerInterface disconnectPlayer(String nickname) throws RemoteException;
 
 }

@@ -4,11 +4,9 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
 
 import java.rmi.RemoteException;
-import java.rmi.server.RMIClientSocketFactory;
-import java.rmi.server.RMIServerSocketFactory;
-import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 
 public class RMIServer extends UnicastRemoteObject implements GameInterface {
@@ -19,18 +17,13 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
 
     private static Registry registry = null;
 
-    public RMIServer(GameInterface gameInt) throws RemoteException {
-        this.gameInt = gameInt;
-    }
-
-    public RMIServer(int port, GameInterface gameInt) throws RemoteException {
-        super(port);
-        this.gameInt = gameInt;
-    }
-
-    public RMIServer(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf, GameInterface gameInt) throws RemoteException {
-        super(port, csf, ssf);
-        this.gameInt = gameInt;
+    /**
+     * Constructor that creates a RMI Server
+     * @throws RemoteException
+     */
+    public RMIServer() throws RemoteException {
+        super(0);
+        GameController game = GameControllerInterface.getInstance();
     }
 
     public static RMIServer bind() {
@@ -69,15 +62,6 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
         return registry;
     }
 
-    /**
-     * Constructor that creates a RMI Server
-     * @throws RemoteException
-     */
-    public RMIServer() throws RemoteException {
-        super(0);
-        GameController game = GameControllerInterface.getInstance();
-    }
-
 
     @Override
     public GameControllerInterface createGame(String nickname) throws RemoteException {
@@ -93,23 +77,23 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
     }
 
     @Override
-    public GameControllerInterface joinSpecificGame(String nickname, Integer id) throws RemoteException {
-         GameControllerInterface game = serverObject.gameInt.joinSpecificGame(nickname, id);
+    public GameControllerInterface joinExistingGame(String nickname) throws RemoteException {
+         GameControllerInterface game = serverObject.gameInt.joinExistingGame(nickname);
         if (game != null) {
             try {
                 UnicastRemoteObject.exportObject(game, 0);
             }catch (RemoteException e){
             }
 
-            System.out.println("[RMI] " + nickname + " joined to specific game with id: " + id);
+            System.out.println("[RMI] " + nickname + " joined a game");
         }
         return game;
 
     }
 
     @Override
-    public GameControllerInterface reconnectPlayer(String nickname, Integer id) throws RemoteException {
-        GameControllerInterface game = serverObject.gameInt.reconnectPlayer(nickname, id);
+    public GameControllerInterface reconnectPlayer(String nickname) throws RemoteException {
+        GameControllerInterface game = serverObject.gameInt.reconnectPlayer(nickname);
 
         if (game != null) {
             try {
@@ -117,15 +101,15 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
             }catch (RemoteException e){
 
             }
-            System.out.println("[RMI] " + nickname + " reconnected to game with id: " + id);
+            System.out.println("[RMI] " + nickname + " reconnected to game");
         }
         return game;
 
     }
 
     @Override
-    public GameControllerInterface disconnectPlayer(String nickname, Integer id) throws RemoteException {
-        GameControllerInterface game = serverObject.gameInt.disconnectPlayer(nickname, id);
+    public GameControllerInterface disconnectPlayer(String nickname) throws RemoteException {
+        GameControllerInterface game = serverObject.gameInt.disconnectPlayer(nickname);
 
         if (game != null) {
             try {
@@ -139,10 +123,4 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
 
     }
 
-    @Override
-    public GameControllerInterface leaveGame(String nickname, Integer id) throws RemoteException{
-        serverObject.gameInt.leaveGame(nickname, id);
-
-        return null;
-    }
 }

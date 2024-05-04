@@ -8,12 +8,10 @@ public interface ClientMoves extends Remote {
 
     void connect() throws RemoteException;
 
-    boolean isPlayerTurn() throws RemoteException;
-
     void sendMessage(Message m) throws RemoteException;
 
-    void leave(String nickname, int id) throws RemoteException;
+    void leave(String nickname) throws RemoteException;
 
-    void disconnect(String nickname, int id) throws RemoteException;
+    void disconnect(String nickname) throws RemoteException;
 
 }
