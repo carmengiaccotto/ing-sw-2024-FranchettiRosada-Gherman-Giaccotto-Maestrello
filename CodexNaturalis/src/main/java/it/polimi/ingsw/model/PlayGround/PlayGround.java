@@ -191,7 +191,7 @@ public class PlayGround {
     public void removeCardFromDeck(Card card, Deck d){
 
         if(card instanceof GoldCard){
-            Iterator<GoldCard> cardIterator = d.iterator();
+            Iterator<GoldCard> cardIterator = (Iterator<GoldCard>) d.iterator();
 
             while(cardIterator.hasNext()){
                 GoldCard nexCard = cardIterator.next();
@@ -202,7 +202,7 @@ public class PlayGround {
         }
 
         if(card instanceof ResourceCard){
-            Iterator<ResourceCard> cardIterator = d.iterator();
+            Iterator<ResourceCard> cardIterator = (Iterator<ResourceCard>) d.iterator();
 
             while(cardIterator.hasNext()){
                 ResourceCard nexCard = cardIterator.next();
@@ -213,7 +213,7 @@ public class PlayGround {
         }
 
         if(card instanceof InitialCard){
-            Iterator<InitialCard> cardIterator = d.iterator();
+            Iterator<InitialCard> cardIterator = (Iterator<InitialCard>) d.iterator();
 
             while(cardIterator.hasNext()){
                 InitialCard nexCard = cardIterator.next();
@@ -223,8 +223,8 @@ public class PlayGround {
             }
         }
 
-        if(card instanceof ObjectiveCard{
-            Iterator<ObjectiveCard> cardIterator = d.iterator();
+        if(card instanceof ObjectiveCard){
+            Iterator<ObjectiveCard> cardIterator = (Iterator<ObjectiveCard>) d.iterator();
 
             while(cardIterator.hasNext()){
                 ObjectiveCard nexCard = cardIterator.next();
@@ -345,11 +345,11 @@ public class PlayGround {
     /**
      * @return true if there are enough players to start, and if every one of them is ready
      */
-    public boolean arePlayersReadyToStartAndEnough() {
+   // public boolean arePlayersReadyToStartAndEnough() {
             //If every player is ready, the game starts
-            return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
+        //    return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
 
-    }
+   // }
 
     /** Reconnect a player to the Game unless the game is already over*/
 
@@ -371,7 +371,6 @@ public class PlayGround {
 
     /** Method to be called by the first Player present in the lobby*/
     private void chooseNumOfPlayers(){
-
 
     }
 
