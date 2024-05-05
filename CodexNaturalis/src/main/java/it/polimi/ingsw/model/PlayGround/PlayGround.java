@@ -24,9 +24,14 @@ import java.util.Scanner;
 public class PlayGround {
 
     /**
-     * It contains the list of players
+     * It contains the list of all players, online and offline
      */
     private ArrayList<Player> players;
+
+    /**
+     * It contains the list of online players
+     */
+    private ArrayList<Player> onlinePlayers;
 
     /**
      * It contains Decks
@@ -70,6 +75,7 @@ public class PlayGround {
      */
     public PlayGround(Integer gameId) throws IOException {
         players = new ArrayList<Player>();
+        onlinePlayers = new ArrayList<Player>();
 
         GoldCardDeck = new Deck(GoldCard.class);
         ResourceCardDeck = new Deck(ResourceCard.class);
@@ -123,6 +129,13 @@ public class PlayGround {
     }
 
     /**
+     * @return the number of online players
+     */
+    public int getNumOfOnlinePlayers() {
+        return onlinePlayers.size();
+    }
+
+    /**
      * @return the number of players required by the game
      */
     public int getSpecificNumOfPlayers(){
@@ -134,6 +147,13 @@ public class PlayGround {
      */
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    /**
+     * @return online player's list
+     */
+    public ArrayList<Player> getOnlinePlayers() {
+        return onlinePlayers;
     }
 
     /**
@@ -323,7 +343,7 @@ public class PlayGround {
     /**
      * @return true if every player in the game has a personal goal assigned
      */
-    public boolean doAllPlayersHaveGoalCard() {
+    public boolean doAllPlayersHaveObjecvtiveCard() {
         for (Player p : players) {
             if (p.getPersonalObjectiveCard() == null)
                 return false;

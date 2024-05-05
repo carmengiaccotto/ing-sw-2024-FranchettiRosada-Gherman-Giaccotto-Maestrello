@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Update PlayGround class.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="RMI Server's methods implemented.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/CLI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +103,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main.java.it.polimi.ingsw&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -224,13 +221,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -241,7 +231,16 @@
       <updated>1710249980351</updated>
       <workItem from="1710249982281" duration="11000" />
       <workItem from="1711461796620" duration="2010000" />
-      <workItem from="1714895032447" duration="1402000" />
+      <workItem from="1714806568299" duration="1117000" />
+      <workItem from="1714835657888" duration="3748000" />
+    </task>
+    <task id="LOCAL-00020" summary="Added Exception in Player ChooseNickname, added tests for ChooseNickname methods">
+      <option name="closed" value="true" />
+      <created>1712402929575</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1712402929575</updated>
     </task>
     <task id="LOCAL-00021" summary="Modified DisplayAvailablePawnColor() method in Player class and added Tests for DisplayAvailablePawnColors() method">
       <option name="closed" value="true" />
@@ -627,15 +626,7 @@
       <option name="project" value="LOCAL" />
       <updated>1714581781162</updated>
     </task>
-    <task id="LOCAL-00069" summary="Create Package View. Renamed GameModel class to PlayGround and move it to its own package.">
-      <option name="closed" value="true" />
-      <created>1714633190801</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1714633190802</updated>
-    </task>
-    <option name="localTasksCounter" value="70" />
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -679,6 +670,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="DrawCardFrom method, created to support future Controller methods +Javadoc" />
     <MESSAGE value="Card exceptions and card Test" />
     <MESSAGE value="Side Of Card modified Constructor" />
     <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
@@ -703,8 +695,7 @@
     <MESSAGE value="Player Changed Constructor and updated Test" />
     <MESSAGE value="Game Connection Structure" />
     <MESSAGE value="ServerManager main" />
-    <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
-    <option name="LAST_COMMIT_MESSAGE" value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
+    <option name="LAST_COMMIT_MESSAGE" value="ServerManager main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
