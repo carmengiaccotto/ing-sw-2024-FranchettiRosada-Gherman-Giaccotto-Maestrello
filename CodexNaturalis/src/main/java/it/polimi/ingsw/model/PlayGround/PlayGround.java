@@ -13,11 +13,10 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * PlayGround class
- * PlayGround is the class that represents the GameModel, it contains all the information about the game.
- * It contains the list of players (online and offline) the list of common resource cards,
- * common Gold card and common Objectives, the four deck, the number of player, the game ID, the chat and the game status.
- * It also contains the current player that is playing.
+ * GameModel class
+ * GameModel is the class that represents the game, it contains all the information about the game, and it's based on MVC pattern
+ * It contains the list of players, the list of common play cards and common Objectives, the two deck, the game ID, the chat and the game status
+ * It also contains the current player that is playing
  */
 
 public class PlayGround {
@@ -356,9 +355,9 @@ public class PlayGround {
             onlinePlayers.add(p);
         }
         else {
-                System.out.println ("ERROR: Trying to reconnect a online player or a player not logged in the game");
-            }
+            System.out.println ("ERROR: Trying to reconnect a online player or a player not logged in the game");
         }
+    }
 
     /** Method to be called by the first Player present in the lobby*/
     private void chooseNumOfPlayers(){
@@ -379,8 +378,10 @@ public class PlayGround {
      */
 
     public void sentMessage(Message m) {
-            chat.addMessage(m);
+        chat.addMessage(m);
     }
 }
+
+
 
 

@@ -3,7 +3,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 
-import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -29,49 +28,40 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
 
     @Override
     public void connect() throws RemoteException {
-            boolean retry = false;
-            int attempt = 1;
-            int i;
+        boolean connected = false;
+        int attempt = 1;
 
-            do {
-                try {
-                    registry = LocateRegistry.getRegistry("127.0.0.1", 4321);
-                    gameController = (GameControllerInterface) registry.lookup("CodexNaturalis");
-
-                    System.out.println("Client RMI ready");
-                    retry = false;
-
-                } catch (Exception e) {
-                    if (!retry) {
-                        System.out.println("[ERROR] CONNECTING TO RMI SERVER: \n\tClient RMI exception: " + e + "\n");
+        while (!connected && attempt <= 4) {
+            try {
+                Thread connectionThread = new Thread(() -> {
+                    try {
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 4321);
+                        server = (GameInterface) registry.lookup("CodexNaturalis");
+                        System.out.println("Client ready");
+                    } catch (Exception e) {
+                        System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
                     }
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to RMI Server on port: '" + 4321 + "' with name: '" + "CodexNaturalis" + "'");
+                });
+                connectionThread.start();
+                connectionThread.join(1000);
 
-                    i = 0;
-                    while (i < 5) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        System.out.println(".");
-                        i++;
-                    }
-                    System.out.println("\n");
-
-                    if (attempt >= 5) {
+                if (server != null) {
+                    connected = true;
+                } else {
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 4321 + "' with name: '" + "CodexNaturalis" + "'");
+                    attempt++;
+                    if (attempt <= 4) {
+                        System.out.println("Retrying...");
+                        Thread.sleep(1000);
+                    } else {
                         System.out.println("Give up!");
-                        try {
-                            System.in.read();
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
                         System.exit(-1);
                     }
-                    retry = true;
-                    attempt++;
                 }
-            } while (retry);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
