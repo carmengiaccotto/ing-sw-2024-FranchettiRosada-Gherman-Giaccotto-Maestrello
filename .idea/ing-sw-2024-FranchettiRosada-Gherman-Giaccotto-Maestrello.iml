@@ -42,7 +42,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="google.code.gson" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit4">
@@ -70,6 +69,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="google.code.gson" level="project" />
     <orderEntry type="library" name="google.code.gson" level="project" />
   </component>
 </module>

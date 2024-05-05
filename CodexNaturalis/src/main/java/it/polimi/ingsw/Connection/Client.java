@@ -19,7 +19,7 @@ public class Client {
             serverIp="localhost";
         }
         while(InterfaceType!=1 && InterfaceType!=2){
-            System.out.println("Select InterfaceType: \n 1. TextUserInterface \n2. GraphicUserInterface");
+            System.out.println("Select InterfaceType: \n 1. TextUserInterface \n 2. GraphicUserInterface");
             try {
                 InterfaceType = scan.nextInt();
             }
@@ -29,7 +29,7 @@ public class Client {
         }
         switch (InterfaceType) {
             case 1:
-                // Inizializza la TUI
+                // Inizializza la GUI
                 break;
             case 2:
                 // Inizializza la GUI

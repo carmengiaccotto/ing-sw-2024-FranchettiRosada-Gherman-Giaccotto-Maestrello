@@ -8,23 +8,23 @@ import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 
 public class ServerManager {
-    private final SocketServer socketServer;
+   // private final SocketServer socketServer;
     private final RMIServer rmiServer;
 
     protected String serverIP;
 
-    protected ServerManager() throws UnknownHostException {
+    protected ServerManager() throws UnknownHostException, RemoteException {
         try {
             this.serverIP = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
 
-            System.err.println("Impossibile ottenere l'indirizzo IP locale: " + e.getMessage());
+            System.err.println("Impossible to obtain local IP address: " + e.getMessage());
             throw e;
         }
-        socketServer = new SocketServer(12345);
+        //socketServer = new SocketServer(12345);
 
         GameController game = new GameController();
-        rmiServer = new RMIServer(game);
+        rmiServer = new RMIServer();
 
     }
     public static void main(String[] args) throws UnknownHostException, RemoteException {
@@ -36,19 +36,17 @@ public class ServerManager {
     }
 
 
-    public void startSocketServer() {
-        socketServer.startServer();
-    }
+   // public void startSocketServer() {
+   //     socketServer.startServer();
+   // }
 
     public void startRMIServer() throws RemoteException {
-
-        rmiServer.startServer();
-        System.out.println("RMI Server pronto.");
+        rmiServer.bind();
     }
 
     public void startBothServers() {
         System.out.println("ServerAddress: "+serverIP);
-        startSocketServer();
+        //startSocketServer();
         try {
             startRMIServer();
         } catch (RemoteException e) {

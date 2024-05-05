@@ -223,7 +223,7 @@ public class GameController implements Runnable {
     }
 
     public void setStatus(GameStatus status) throws NotReadyToRunException {
-        model.setStatus(status);
+        //model.setStatus(status);
     }
 
 }
