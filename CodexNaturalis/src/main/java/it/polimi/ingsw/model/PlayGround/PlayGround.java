@@ -4,10 +4,8 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Chat;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.DefaultValue;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -323,22 +321,7 @@ public class PlayGround {
         return commonGoldCards;
     }
 
-    /**
-     * Set game status
-     *
-     * @param status
-     */
-    public void setStatus(GameStatus status) throws NotReadyToRunException {
-        if (status.equals(GameStatus.RUNNING) &&
-                ((players.size() < DefaultValue.minNumOfPlayer
-                        || getNumOfCommonPlayCards() != DefaultValue.NumOfCommonCards
-                        || !doAllPlayersHaveGoalCard())
-                        || getCurrentPlayer() == null)) {
-            throw new NotReadyToRunException();
-        } else {
-            this.status = status;
-        }
-    }
+
 
     /**
      * @return true if every player in the game has a personal goal assigned
@@ -357,16 +340,9 @@ public class PlayGround {
      */
     private boolean isTheCurrentPlayerOnline() {
 
-        return players.stream().filter(x->x.equals(currentPlayer)).toList().get(0).isConnected();
+        return onlinePlayers.contains(currentPlayer);
+
     }
-
-
-
-   // public boolean arePlayersReadyToStartAndEnough() {
-            //If every player is ready, the game starts
-        //    return players.stream().filter(Player::getReadyToStart()).count() == players.size() && players.size() >= DefaultValue.minNumOfPlayer;
-
-   // }
 
 
     /**
@@ -374,18 +350,12 @@ public class PlayGround {
      */
 
     public void reconnectPlayer(Player p) throws  GameEndedException {
-            Player pIn = players.stream().filter(x -> x.equals(p)).toList().get(0);
 
-            if (!pIn.isConnected()) {
-                pIn.setConnected(true);
-
-                if (!isTheCurrentPlayerOnline()) {
-                    nextTurn();
-                }
-
-            } else {
-                System.out.println ("ERROR: Trying to reconnect a player not offline!");
-
+        if(players.contains(p) && (!onlinePlayers.contains(p))){
+            onlinePlayers.add(p);
+        }
+        else {
+                System.out.println ("ERROR: Trying to reconnect a online player or a player not logged in the game");
             }
         }
 
@@ -406,10 +376,9 @@ public class PlayGround {
      *
      * @param m message sent
      */
+
     public void sentMessage(Message m) {
-        if (players.stream().filter(x -> x.equals(m.getSender())).count() == 1) {
             chat.addMessage(m);
-        }
     }
 }
 
