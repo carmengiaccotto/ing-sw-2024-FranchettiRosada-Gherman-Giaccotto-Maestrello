@@ -13,10 +13,11 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * GameModel class
- * GameModel is the class that represents the game, it contains all the information about the game, and it's based on MVC pattern
- * It contains the list of players, the list of common play cards and common Objectives, the two deck, the game ID, the chat and the game status
- * It also contains the current player that is playing
+ * PlayGround class
+ * PlayGround is the class that represents the GameModel, it contains all the information about the game.
+ * It contains the list of players (online and offline) the list of common resource cards,
+ * common Gold card and common Objectives, the four deck, the number of player, the game ID, the chat and the game status.
+ * It also contains the current player that is playing.
  */
 
 public class PlayGround {
