@@ -1,4 +1,4 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw;
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.PlayGroundTests;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
@@ -27,7 +27,7 @@ class EdgePositionsTest {
     void testExpandArea_ColumnZero() {
         List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
         EdgePositions.EdgeCases.ColumnZero.ExpandArea(cardsOnArea);
-        Assertions.assertEquals(1, cardsOnArea.getFirst().size());
+        Assertions.assertEquals(1, cardsOnArea.get(0).size());
     }
 
 

@@ -1,6 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
@@ -119,10 +119,10 @@ public class SideOfCard {
      * @param position CornerPosition type
      * @return corner that has the specified position
      * @throws IllegalArgumentException if we try to access a corner that does not exist on the card */
-    public Corner getCornerInPosition(CornerPosition position){
+    public Corner getCornerInPosition(CornerPosition position) {
         for (Corner[] row : corners) {
             for (Corner corner : row) {
-                if (corner.getPosition().equals(position)) {
+                if (corner != null && corner.getPosition().equals(position)) {
                     return corner;
                 }
             }

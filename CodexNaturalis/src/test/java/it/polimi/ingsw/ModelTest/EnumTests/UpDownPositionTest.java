@@ -1,4 +1,4 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw;
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.EnumTests;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
@@ -53,7 +53,8 @@ class UpDownPositionTest {
 
     @Test
     public void TestGetNeighbourCard(){
-        PlayArea testPlayArea=new PlayArea(cardsOnArea);
+        PlayArea testPlayArea=new PlayArea();
+        testPlayArea.setCardsOnArea(cardsOnArea);
 
         Assertions.assertEquals(cardsOnArea.get(0).getFirst(), UpDownPosition.UP.getNeighbourCard(cardsOnArea.get(2).getFirst(), testPlayArea));
         Assertions.assertEquals(cardsOnArea.get(2).getFirst(), UpDownPosition.DOWN.getNeighbourCard(cardsOnArea.get(0).getFirst(), testPlayArea));

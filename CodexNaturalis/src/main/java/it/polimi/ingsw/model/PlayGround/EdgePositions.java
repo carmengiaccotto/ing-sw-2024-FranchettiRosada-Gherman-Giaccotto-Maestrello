@@ -2,6 +2,7 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 
 import java.util.*;
 
@@ -19,7 +20,18 @@ public class EdgePositions {
         RowZero{
             @Override
             public void ExpandArea(List<List<SideOfCard>> cardsOnArea){
-                cardsOnArea.addFirst(new ArrayList<>());
+                ArrayList array=new ArrayList<>();
+                for(int i=0; i<cardsOnArea.get(0).size(); i++)
+                    array.add(null);
+                cardsOnArea.addFirst(array);
+                for(int i=0; i<cardsOnArea.size(); i++)
+                    for(int j=0; j<cardsOnArea.get(0).size(); j++) {
+                        if(cardsOnArea.get(i).get(j)!=null) {
+                            int row = cardsOnArea.get(i).get(j).getPositionOnArea().getFirst();
+                            int column = cardsOnArea.get(i).get(j).getPositionOnArea().getSecond();
+                            cardsOnArea.get(i).get(j).setPositionOnArea(new Pair<>(row+1, column ));
+                        }
+                    }
             }
 
             @Override
@@ -31,10 +43,22 @@ public class EdgePositions {
         },
         ColumnZero{
             @Override
-            public void ExpandArea(List<List<SideOfCard>> cardsOnArea){
-                for (List<SideOfCard> row : cardsOnArea) {
-                    row.addFirst(null);
+            public void ExpandArea(List<List<SideOfCard>> cardsOnArea) {
+                if (cardsOnArea.isEmpty()) {
+                    cardsOnArea.add(new ArrayList<>());
                 }
+
+                for (List<SideOfCard> row : cardsOnArea) {
+                    row.add(0, null);
+                }
+                for(int i=0; i<cardsOnArea.size(); i++)
+                    for(int j=0; j<cardsOnArea.get(0).size(); j++) {
+                        if(cardsOnArea.get(i).get(j)!=null) {
+                            int row = cardsOnArea.get(i).get(j).getPositionOnArea().getFirst();
+                            int column = cardsOnArea.get(i).get(j).getPositionOnArea().getSecond();
+                            cardsOnArea.get(i).get(j).setPositionOnArea(new Pair<>(row, column + 1));
+                        }
+                    }
             }
             @Override
             public boolean isEdgePosition(SideOfCard cardToCover, List<List<SideOfCard>> cardsOnArea){
@@ -110,14 +134,21 @@ public class EdgePositions {
      * Method that constructs the "Full Edge Cases"*/
 
     public EdgePositions() {
-        cornersToCheck= new HashMap<>();
-        for (EdgeCases edgeCase: EdgeCases.values()){
+        cornersToCheck = new HashMap<>();
+        for (EdgeCases edgeCase : EdgeCases.values()) {
             cornersToCheck.put(edgeCase, new ArrayList<>());
         }
-        cornersToCheck.get(EdgeCases.RowZero).addAll(Arrays.asList(CornerPosition.TOPLEFT, CornerPosition.TOPRIGHT));
-        cornersToCheck.get(EdgeCases.RowMax).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.BOTTOMRIGHT));
-        cornersToCheck.get(EdgeCases.ColumnZero).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.TOPLEFT));
-        cornersToCheck.get(EdgeCases.ColumnMax).addAll(Arrays.asList(CornerPosition.BOTTOMRIGHT, CornerPosition.TOPRIGHT));
 
+        // Check for null before adding elements
+        if (cornersToCheck.containsKey(EdgeCases.RowZero) && cornersToCheck.containsKey(EdgeCases.RowMax)) {
+            cornersToCheck.get(EdgeCases.RowZero).addAll(Arrays.asList(CornerPosition.TOPLEFT, CornerPosition.TOPRIGHT));
+            cornersToCheck.get(EdgeCases.RowMax).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.BOTTOMRIGHT));
+        }
+
+        // Check for null before adding elements
+        if (cornersToCheck.containsKey(EdgeCases.ColumnZero) && cornersToCheck.containsKey(EdgeCases.ColumnMax)) {
+            cornersToCheck.get(EdgeCases.ColumnZero).addAll(Arrays.asList(CornerPosition.BOTTOMLEFT, CornerPosition.TOPLEFT));
+            cornersToCheck.get(EdgeCases.ColumnMax).addAll(Arrays.asList(CornerPosition.BOTTOMRIGHT, CornerPosition.TOPRIGHT));
+        }
     }
 }

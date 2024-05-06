@@ -1,4 +1,4 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw;
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.JsonTests;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.CornerFactory;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CornerFactoryTest {
+class CornerFactoryTest { //Tests Run, all test passed
 
     @Test
     public void testCreateCornerFromValidSymbol() {

@@ -1,9 +1,9 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw;
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.PlayGroundTests;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
@@ -41,7 +41,7 @@ public class PlayerTest {
         Player player = new Player();
         player.setNickname("TestPlayer");
         player.setPawnColor(PawnColor.RED);
-        PlayArea expectedPlayArea = new PlayArea(null);
+        PlayArea expectedPlayArea = new PlayArea();
         player.setPlayArea(expectedPlayArea);
         PlayArea actualPlayArea = player.getPlayArea();
         assertNotNull(actualPlayArea);
@@ -120,7 +120,7 @@ public class PlayerTest {
         Player testPlayer=new Player();
         int points=7;
         testPlayer.increaseScore(points);
-        assertEquals(12,testPlayer.getScore());
+        assertEquals(7,testPlayer.getScore());
     }
 
     @Test

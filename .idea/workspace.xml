@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Update on Playground class and changed connect method in RMI client">
-      <change beforePath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Update PlayGround class.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/GameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/CardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/InitialCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/InitialCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ResourceCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ResourceCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/GenericServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,6 +241,14 @@
       <workItem from="1711461796620" duration="2010000" />
       <workItem from="1714895032447" duration="1402000" />
       <workItem from="1714927404784" duration="375000" />
+    </task>
+    <task id="LOCAL-00022" summary="Modified classes and enumeration for new Logic. DispositionObjectiveCard method to be finished. everything has to be reviewed">
+      <option name="closed" value="true" />
+      <created>1713204063616</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1713204063616</updated>
     </task>
     <task id="LOCAL-00023" summary="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class">
       <option name="closed" value="true" />
@@ -637,15 +634,7 @@
       <option name="project" value="LOCAL" />
       <updated>1714926703951</updated>
     </task>
-    <task id="LOCAL-00071" summary="Update on Playground class and changed connect method in RMI client">
-      <option name="closed" value="true" />
-      <created>1714932007441</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1714932007441</updated>
-    </task>
-    <option name="localTasksCounter" value="72" />
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,6 +678,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Side Of Card modified Constructor" />
     <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
     <MESSAGE value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
     <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
@@ -713,8 +703,7 @@
     <MESSAGE value="ServerManager main" />
     <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
     <MESSAGE value="Update PlayGround class." />
-    <MESSAGE value="Update on Playground class and changed connect method in RMI client" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update on Playground class and changed connect method in RMI client" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update PlayGround class." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

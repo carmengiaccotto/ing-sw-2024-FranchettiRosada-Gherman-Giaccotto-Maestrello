@@ -1,4 +1,4 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw;
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.EnumTests;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
@@ -88,7 +88,8 @@ class CornerPositionTest {
 
     @Test
     void testGetNeighbourCard() {
-        PlayArea testPlayArea=new PlayArea(cardsOnArea);
+        PlayArea testPlayArea=new PlayArea();
+        testPlayArea.setCardsOnArea(cardsOnArea);
         Assertions.assertEquals(cardsOnArea.get(2).get(2), CornerPosition.BOTTOMRIGHT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));
         Assertions.assertEquals(cardsOnArea.get(2).get(0), CornerPosition.BOTTOMLEFT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));
         Assertions.assertEquals(cardsOnArea.get(0).get(2), CornerPosition.TOPRIGHT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));

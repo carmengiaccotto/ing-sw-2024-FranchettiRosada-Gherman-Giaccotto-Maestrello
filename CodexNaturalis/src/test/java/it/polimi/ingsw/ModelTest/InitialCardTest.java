@@ -1,20 +1,6 @@
-//package CodexNaturalis.src.test.java.it.polimi.ingsw;
-//
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.InitialCard;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-//import com.google.gson.JsonObject;
-//import com.google.gson.JsonPrimitive;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//
-//class InitialCardTest {
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest;
+
+class InitialCardTest {
 //    @Test
 //    public void testMapFromJson() {
 //        JsonObject jsonObject = new JsonObject();
@@ -72,5 +58,5 @@
 //        Assertions.assertEquals(corners[1][0].getSymbol(), initialCard.getFront().getCornerInPosition(CornerPosition.BOTTOMRIGHT).getSymbol());
 //        Assertions.assertEquals(corners[1][0].isHidden(), initialCard.getFront().getCornerInPosition(CornerPosition.BOTTOMRIGHT).isHidden());
 //    }
-//
-//}
+
+}

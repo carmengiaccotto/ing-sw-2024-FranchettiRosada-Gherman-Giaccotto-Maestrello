@@ -11,7 +11,9 @@ import java.util.ArrayList;
 
 /** Class that represents the Player of the game which coincides with the client*/
 public class Player {
-    /**Every Player has its own playArea.*/
+    /**
+     * Every Player has its own playArea.
+     */
     private PlayArea playArea;
     private String nickname;
     private PawnColor pawnColor;
@@ -19,24 +21,20 @@ public class Player {
     private final ArrayList<PlayCard> cardsInHand;
     private ObjectiveCard personalObjectiveCard;
     private int round;
-    private boolean connected;
-    private boolean readyToStart;
 
 
     public Player() {
-        this.playArea = new PlayArea(null);
+        this.playArea = new PlayArea();
         this.nickname = null;
         this.pawnColor = null;
         this.score = 0;
         this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
         this.round = 0;
-        this.personalObjectiveCard=null;
-        connected = true;
-        readyToStart = false;
+        this.personalObjectiveCard = null;
     }
 
-    public void setRound(int r){
-        this.round=r;
+    public void setRound(int r) {
+        this.round = r;
     }
 
     /**
@@ -47,8 +45,6 @@ public class Player {
     public PlayArea getPlayArea() {
         return this.playArea;
     }
-
-
 
 
     /**
@@ -65,14 +61,12 @@ public class Player {
     /**
      * Nickname setter Method
      *
-     * @param nickname  How the player wants to be called in the game
+     * @param nickname How the player wants to be called in the game
      */
     public void setNickname(String nickname) {
 
         this.nickname = nickname;
     }
-
-
 
 
     /**
@@ -97,14 +91,16 @@ public class Player {
 
     /**
      * Setter Method for PlayArea Attribute
+     *
      * @param playArea player's PlayArea
-     * */
+     */
     public void setPlayArea(PlayArea playArea) {
         this.playArea = playArea;
     }
 
     /**
      * Score getter Method
+     *
      * @return int Score
      */
     public int getScore() {
@@ -143,11 +139,12 @@ public class Player {
     }
 
 
-
-/** Substitute for Round Setter Method: we never need to set the round to a specific value, we just
- * need to increase it by one once the player has played*/
-    public void IncreaseRound(){
-        this.round+=1;
+    /**
+     * Substitute for Round Setter Method: we never need to set the round to a specific value, we just
+     * need to increase it by one once the player has played
+     */
+    public void IncreaseRound() {
+        this.round += 1;
     }
 
 
@@ -162,75 +159,52 @@ public class Player {
     }
 
 
-    /**Substitute of setter method for CardsInHand
-     * @param card to add to player's hand*/
-    public void addCardToHand (PlayCard card){
+    /**
+     * Substitute of setter method for CardsInHand
+     *
+     * @param card to add to player's hand
+     */
+    public void addCardToHand(PlayCard card) {
         cardsInHand.add(card);
 
     }
 
 
-    /**In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
+    /**
+     * In this class the player plays pairOfCard; PairOfCard is going to implement the method in the previous comment to choose the side and assign it to Card
+     *
      * @param playCardToPlay card with both sides that the player wants to play
-     * @param sideToPlay side of the card that the Player wants to play
+     * @param sideToPlay     side of the card that the Player wants to play
      * @return chosenSide
-     * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played*/
+     * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played
+     */
     public SideOfCard ChooseCardToPlay(PlayCard playCardToPlay, Side sideToPlay) {
         cardsInHand.remove(playCardToPlay);
         return playCardToPlay.chooseSide(sideToPlay);
     }
 
 
-
-    /**Getter method for personalObjectiveCard attribute
-     * @return ObjectiveCard */
+    /**
+     * Getter method for personalObjectiveCard attribute
+     *
+     * @return ObjectiveCard
+     */
     public ObjectiveCard getPersonalObjectiveCard() {
         return personalObjectiveCard;
     }
 
 
-    /**Setter method for personalObjectiveCard attribute
-     * @param PersonalObjectiveCard  the Objective that the player has to reach in order
-     *                                 to gain more points; It can not be seen by other players,
-     *                                 and it is different from Player to Player*/
+    /**
+     * Setter method for personalObjectiveCard attribute
+     *
+     * @param PersonalObjectiveCard the Objective that the player has to reach in order
+     *                              to gain more points; It can not be seen by other players,
+     *                              and it is different from Player to Player
+     */
     public void setPersonalObjectiveCard(ObjectiveCard PersonalObjectiveCard) {
         this.personalObjectiveCard = PersonalObjectiveCard;
     }
 
-    /**
-     * @return the player's connection status
-     */
-    public boolean isConnected() {
-        return connected;
-    }
-
-    /**
-     * @param connected sets the player's connection status to the param
-     */
-    public void setConnected(boolean connected) {
-        this.connected = connected;
-    }
-
-    /**
-     * @return the player's readiness to start
-     */
-    public boolean getReadyToStart() {
-        return readyToStart;
-    }
-
-    /**
-     * Sets the player as ready to play
-     */
-    public void setReadyToStart() {
-        readyToStart = true;
-    }
-
-    /**
-     * Sets the player as not ready to play
-     */
-    public void setNotReadyToStart() {
-        readyToStart = false;
-    }
 }
 
 

@@ -3,14 +3,13 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.EdgePositions.cornersToCheck;
 
 /**This class represents the playArea. Each player has its own*/
 public class PlayArea {
@@ -25,23 +24,25 @@ public class PlayArea {
      * Dynamic matrix of SideOfCard. We are using SideOfCard, because, if the card is present here, is because the player has
      * already made a choice about what side they want to play
      */
-    private final List<List<SideOfCard>> cardsOnArea;
+    private List<List<SideOfCard>> cardsOnArea;
 
 
     /**
      * Class Constructor
-     *
-     * @param cardsOnArea it's going to be set to null, because when a new PlayArea is created, no card has been placed
-     *                    uses InitializeSymbolMap method to initialize symbols
+
      */
-    public PlayArea(List<List<SideOfCard>> cardsOnArea) {
-        this.cardsOnArea = cardsOnArea;
+    public PlayArea() {
+        cardsOnArea=new ArrayList<>();
         symbols = InitializeSymbolMap();
     }
 
 
     public int getNumSymbols(Symbol symbol) {
         return symbols.get(symbol);
+    }
+
+    public void setCardsOnArea(List<List<SideOfCard>> cards){
+        this.cardsOnArea=cards;
     }
 
 
@@ -62,8 +63,12 @@ public class PlayArea {
 
 
     public SideOfCard getCardInPosition(int i, int j) {
-        List<SideOfCard> internalList = getCardsOnArea().get(i);
-        return internalList.get(j);
+        if(i<cardsOnArea.size() && j< cardsOnArea.get(0).size()) {
+            List<SideOfCard> internalList = getCardsOnArea().get(i);
+            return internalList.get(j);
+        }
+        else
+            throw new ArrayIndexOutOfBoundsException("Invalid Position");
     }
 
 
@@ -101,22 +106,27 @@ public class PlayArea {
     public void checkCloseNeighbours(SideOfCard newCard) {
         for (Corner[] Rowcorner : newCard.getCorners()) {
             for (Corner corner : Rowcorner) {
-                int rowToCheck = corner.getPosition().PositionNewCard(newCard).getFirst();
-                int columnToCheck = corner.getPosition().PositionNewCard(newCard).getSecond();
-                if (rowExists(rowToCheck)) {
-                    List<SideOfCard> row = cardsOnArea.get(rowToCheck);
-                    if (columnExists(columnToCheck)) {
-                        if (row.get(columnToCheck) != null) {
+                Pair<Integer, Integer> newPosition = corner.getPosition().PositionNewCard(newCard);
+                if (newPosition != null) {
+                    int rowToCheck = newPosition.getFirst();
+                    int columnToCheck = newPosition.getSecond();
+                    if (rowExists(rowToCheck) && columnExists(columnToCheck)) {
+                        List<SideOfCard> row = cardsOnArea.get(rowToCheck);
+                        if (row != null) {
                             SideOfCard neighbourCard = row.get(columnToCheck);
-                            CornerPosition cornerToCover = corner.getPosition().CoverCorners();
-                            neighbourCard.getCornerInPosition(cornerToCover).setCovered();
-                            Symbol coveredSymbol = neighbourCard.getCornerInPosition(cornerToCover).getSymbol();
-                            symbols.put(coveredSymbol, symbols.get(coveredSymbol) - 1);
-                            neighbourCard.getCornerInPosition(cornerToCover).setNextCorner(corner);
-                            corner.setNextCorner(neighbourCard.getCornerInPosition(cornerToCover));
-
+                            if (neighbourCard != null) {
+                                CornerPosition cornerToCover = corner.getPosition().CoverCorners();
+                                if (neighbourCard.getCornerInPosition(cornerToCover) != null) {
+                                    neighbourCard.getCornerInPosition(cornerToCover).setCovered();
+                                    Symbol coveredSymbol = neighbourCard.getCornerInPosition(cornerToCover).getSymbol();
+                                    if (symbols.containsKey(coveredSymbol)) {
+                                        symbols.put(coveredSymbol, symbols.getOrDefault(coveredSymbol, 0) - 1);
+                                    }
+                                    neighbourCard.getCornerInPosition(cornerToCover).setNextCorner(corner);
+                                    corner.setNextCorner(neighbourCard.getCornerInPosition(cornerToCover));
+                                }
+                            }
                         }
-
                     }
                 }
             }
@@ -129,8 +139,10 @@ public class PlayArea {
     public void resetConfig() {
         for (List<SideOfCard> row :cardsOnArea)
             for (SideOfCard card : row) {
-                if (card.isInConfiguration())
-                    card.setInConfiguration(false);
+                if(card!=null) {
+                    if (card.isInConfiguration())
+                        card.setInConfiguration(false);
+                }
             }
     }
 
@@ -163,16 +175,29 @@ public class PlayArea {
      * @param CornerToCover corner the player wants to place the card on
      */
 
-    public void AddCardOnArea(SideOfCard NewCard, Corner CornerToCover) {
-        IsEdgeCase(CornerToCover, NewCard, cardsOnArea);
-        SideOfCard CoveredCard = CornerToCover.getParentCard();
+    public void AddCardOnArea(SideOfCard NewCard, Corner CornerToCover, SideOfCard CoveredCard) {
+        IsEdgeCase(CornerToCover, CoveredCard, cardsOnArea);
+
         NewCard.setPositionOnArea(CornerToCover.getPosition().PositionNewCard(CoveredCard));
+        int i= CornerToCover.getPosition().PositionNewCard(CoveredCard).getFirst();
+
+        int j=CornerToCover.getPosition().PositionNewCard(CoveredCard).getSecond();
+        List<SideOfCard> row = cardsOnArea.get(i);
+        row.set(j, NewCard);
         checkCloseNeighbours(NewCard);
         AddSymbolsToArea(NewCard);
     }
 
 
+
+    /**Method that verifies if the placement of the new card in the desired position is an edge case
+     * and the matrix needs to be Expanded
+     * @param cardsOnArea cards on the playArea
+     * @param CardToCover chosen By The Player
+     * @param cornerToCover  also chosen by the player*/
     public void IsEdgeCase(Corner cornerToCover, SideOfCard CardToCover, List<List<SideOfCard>> cardsOnArea) {
+        EdgePositions edgePositions=new EdgePositions();
+        Map <EdgePositions.EdgeCases, ArrayList<CornerPosition>> cornersToCheck=edgePositions.cornersToCheck;
         for (EdgePositions.EdgeCases key : cornersToCheck.keySet()) {
             if (key.isEdgePosition(CardToCover, cardsOnArea)) {
                 ArrayList<CornerPosition> value = cornersToCheck.get(key);
@@ -187,9 +212,14 @@ public class PlayArea {
         }
     }
 
+    /**Getter method for Symbols attribute
+     * @return  symbols  on the playArea*/
     public Map<Symbol, Integer> getSymbols() {
         return symbols;
     }
+
+    /**Getter method for cardsOnArea attribute
+     * @return cardsOnArea */
 
     public List<List<SideOfCard>> getCardsOnArea() {
         return cardsOnArea;

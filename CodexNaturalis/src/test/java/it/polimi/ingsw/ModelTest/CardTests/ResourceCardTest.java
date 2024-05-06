@@ -1,47 +1,37 @@
-//package CodexNaturalis.src.test.java.it.polimi.ingsw;
-//
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-//import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
-//import com.google.gson.JsonObject;
-//import com.google.gson.JsonPrimitive;
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//
-//class ResourceCardTest {
-//
-//    @Test
-//    public void testGetPointFront() {
-//        Side chosenSide = Side.FRONT;
-//        boolean frontPoint = true;
-//        ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
-//
-//        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
-//    }
-//
-//    @Test
-//    public void testGetPointBack() {
-//        // Dati di prova
-//        Side chosenSide = Side.BACK;
-//        boolean frontPoint = false;
-//        ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
-//
-//        // Assert
-//        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
-//    }
-//
-//
-//
+package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.CardTests;
+
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+class ResourceCardTest {
+
+    @Test
+    public void testGetPointFront() {
+        Side chosenSide = Side.FRONT;
+        boolean frontPoint = true;
+        ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
+
+        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
+    }
+
+    @Test
+    public void testGetPointBack() {
+        // Dati di prova
+        Side chosenSide = Side.BACK;
+        boolean frontPoint = false;
+        ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
+
+        // Assert
+        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
+    }
+
+
+
 //    @Test
 //    public void testResourceCardConstructor() {
 //        int id = 1;
@@ -155,11 +145,11 @@
 //        Assertions.assertEquals(Backcorners[1][0].isHidden(), resourceCard.getBack().getCornerInPosition(CornerPosition.BOTTOMLEFT).isHidden());
 //        Assertions.assertEquals(Backcorners[1][1].getSymbol(), resourceCard.getBack().getCornerInPosition(CornerPosition.BOTTOMRIGHT).getSymbol());
 //        Assertions.assertEquals(Backcorners[1][1].isHidden(), resourceCard.getBack().getCornerInPosition(CornerPosition.BOTTOMRIGHT).isHidden());
-//
+
 //}
-//
-//
-//
-//
-//
-//}
+
+
+
+
+
+}

@@ -1,7 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;

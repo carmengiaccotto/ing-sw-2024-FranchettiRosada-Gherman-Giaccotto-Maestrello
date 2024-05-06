@@ -1,11 +1,11 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
 
 import java.util.HashMap;
 
-/** @author Alessia Franchetti-Rosada
+/**
  * This subclass represents a specific type of Gold Card that awards points for each corner covered by this card.
  * It extends the base GoldCard class and provides additional customization
  * tailored to this particular type of Gold Card.
