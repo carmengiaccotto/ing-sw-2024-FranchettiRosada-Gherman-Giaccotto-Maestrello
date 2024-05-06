@@ -4,18 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Removed library.">
-      <change beforePath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Model Tests and solved problems.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ClientConnectionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/ClientMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/ClientMoves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/GameHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/LobbyMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +257,30 @@
       <workItem from="1711461796620" duration="2010000" />
       <workItem from="1714895032447" duration="1402000" />
       <workItem from="1714927404784" duration="375000" />
-      <workItem from="1715023041088" duration="11005000" />
+    </task>
+    <task id="LOCAL-00023" summary="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class">
+      <option name="closed" value="true" />
+      <created>1713266236294</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713266236294</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Adjusted Error in PlayerTest regarding PlayArea constructor">
+      <option name="closed" value="true" />
+      <created>1713266412018</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713266412018</updated>
+    </task>
+    <task id="LOCAL-00025" summary="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours">
+      <option name="closed" value="true" />
+      <created>1713268596866</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1713268596866</updated>
     </task>
     <task id="LOCAL-00026" summary="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum">
       <option name="closed" value="true" />
@@ -619,31 +650,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715012175922</updated>
     </task>
-    <task id="LOCAL-00072" summary="Added MainController class.">
-      <option name="closed" value="true" />
-      <created>1715020126585</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1715020126585</updated>
-    </task>
-    <task id="LOCAL-00073" summary="Delete enumeration.">
-      <option name="closed" value="true" />
-      <created>1715020262326</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1715020262326</updated>
-    </task>
-    <task id="LOCAL-00074" summary="Removed library.">
-      <option name="closed" value="true" />
-      <created>1715025555171</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1715025555171</updated>
-    </task>
-    <option name="localTasksCounter" value="75" />
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,6 +694,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
+    <MESSAGE value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
+    <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
     <MESSAGE value="Modified UpDownPosition" />
     <MESSAGE value="EdgePosition Class modified. All tests passed. &#10;Other classes minor changes" />
     <MESSAGE value="EdgePositionsTest and Pair Class overrided functions" />
@@ -709,10 +719,7 @@
     <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
     <MESSAGE value="Update PlayGround class." />
     <MESSAGE value="Model Tests and solved problems." />
-    <MESSAGE value="Added MainController class." />
-    <MESSAGE value="Delete enumeration." />
-    <MESSAGE value="Removed library." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed library." />
+    <option name="LAST_COMMIT_MESSAGE" value="Model Tests and solved problems." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
