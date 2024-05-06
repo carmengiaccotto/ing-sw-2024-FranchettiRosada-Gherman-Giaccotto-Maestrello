@@ -1,12 +1,11 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
-public class SocketClient implements ClientConnectionHandler{
-    @Override
+public class SocketClient{
+
     public void connect() {
 
     }
 
-    @Override
     public void disconnect() {
 
     }

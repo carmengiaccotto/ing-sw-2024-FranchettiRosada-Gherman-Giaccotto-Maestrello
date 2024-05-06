@@ -29,7 +29,7 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
         try {
             serverObject = new RMIServer();
             // Bind the remote object's stub in the registry
-            registry = LocateRegistry.createRegistry(4321);
+            registry = LocateRegistry.createRegistry(5321);
             getRegistry().rebind("CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {

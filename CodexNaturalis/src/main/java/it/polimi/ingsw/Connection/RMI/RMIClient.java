@@ -35,7 +35,7 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
             try {
                 Thread connectionThread = new Thread(() -> {
                     try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 4321);
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 5321);
                         server = (GameInterface) registry.lookup("CodexNaturalis");
                         System.out.println("Client ready");
                     } catch (Exception e) {
@@ -48,7 +48,7 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
                 if (server != null) {
                     connected = true;
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 4321 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 5321 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");
@@ -71,7 +71,7 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
 
     @Override
     public void leave(String nickname) throws RemoteException {
-        registry = LocateRegistry.getRegistry("127.0.0.1", 4321);
+        registry = LocateRegistry.getRegistry("127.0.0.1", 5321);
         try {
             server = (GameInterface) registry.lookup("CodexNaturalis");
         } catch (NotBoundException e) {
@@ -86,7 +86,7 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
 
     @Override
     public void disconnect(String nickname) throws RemoteException {
-        registry = LocateRegistry.getRegistry("127.0.0.1", 4321);
+        registry = LocateRegistry.getRegistry("127.0.0.1", 5321);
         try {
             server = (GameInterface) registry.lookup("CodexNaturalis");
         } catch (NotBoundException e) {

@@ -4,26 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Model Tests and solved problems.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Delete enumeration.">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/google_code_gson.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ClientConnectionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/ClientMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/ClientMoves.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/GameHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Server/LobbyMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/Game.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/SocketClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/GameInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameControllerInterface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/model/PlayGround/PlayGround.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +144,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerManager">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client" />
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
@@ -230,8 +219,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ServerManager" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.ServerManager" />
         <item itemvalue="JUnit.PlayerTest" />
         <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
         <item itemvalue="JUnit.ObjectivePointsTest" />
@@ -257,22 +246,7 @@
       <workItem from="1711461796620" duration="2010000" />
       <workItem from="1714895032447" duration="1402000" />
       <workItem from="1714927404784" duration="375000" />
-    </task>
-    <task id="LOCAL-00023" summary="Completed EdgePositions Class with Javadoc and override tags, moved IsEdgeCase method from EdgePositions to PlayArea, finished Tests for EdgePositions Class">
-      <option name="closed" value="true" />
-      <created>1713266236294</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1713266236294</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Adjusted Error in PlayerTest regarding PlayArea constructor">
-      <option name="closed" value="true" />
-      <created>1713266412018</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1713266412018</updated>
+      <workItem from="1715023041088" duration="2402000" />
     </task>
     <task id="LOCAL-00025" summary="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours">
       <option name="closed" value="true" />
@@ -650,7 +624,23 @@
       <option name="project" value="LOCAL" />
       <updated>1715012175922</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Added MainController class.">
+      <option name="closed" value="true" />
+      <created>1715020126585</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1715020126585</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Delete enumeration.">
+      <option name="closed" value="true" />
+      <created>1715020262326</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1715020262326</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,8 +684,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Exceptions to Corner Constructor, and Corner Constructor Tests" />
-    <MESSAGE value="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test" />
     <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
     <MESSAGE value="Modified UpDownPosition" />
     <MESSAGE value="EdgePosition Class modified. All tests passed. &#10;Other classes minor changes" />
@@ -719,7 +707,9 @@
     <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
     <MESSAGE value="Update PlayGround class." />
     <MESSAGE value="Model Tests and solved problems." />
-    <option name="LAST_COMMIT_MESSAGE" value="Model Tests and solved problems." />
+    <MESSAGE value="Added MainController class." />
+    <MESSAGE value="Delete enumeration." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete enumeration." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

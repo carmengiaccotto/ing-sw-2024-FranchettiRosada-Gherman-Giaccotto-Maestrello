@@ -1,7 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.*;
@@ -34,7 +33,5 @@ public interface GameControllerInterface extends  Remote{
     void initializeGame();
     void FinalizeGame();
     String decreeWinner();
-
-    GameStatus getStatus();
 
 }

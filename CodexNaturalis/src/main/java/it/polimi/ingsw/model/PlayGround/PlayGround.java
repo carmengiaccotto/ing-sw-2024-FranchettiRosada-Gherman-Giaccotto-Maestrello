@@ -4,7 +4,6 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Chat;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
 
 import java.io.IOException;
@@ -66,7 +65,6 @@ public class PlayGround {
     /**
      * It contains the status of the game
      */
-    private GameStatus status;
 
     /**
      * Constructor
@@ -88,7 +86,6 @@ public class PlayGround {
 
         currentPlayer = null;
         chat = new Chat();
-        status = GameStatus.WAIT;
         numOfPlayers = 0;
     }
 
@@ -298,12 +295,6 @@ public class PlayGround {
         return chat;
     }
 
-    /**
-     * @return the game status
-     */
-    public GameStatus getStatus() {
-        return status;
-    }
 
     /**
      * @return the commonResourceCard extracted list
