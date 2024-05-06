@@ -89,6 +89,7 @@ public class PlayGround {
         currentPlayer = null;
         chat = new Chat();
         status = GameStatus.WAIT;
+        numOfPlayers = 0;
     }
 
     /**
@@ -103,6 +104,10 @@ public class PlayGround {
      */
     public Deck getInitialCardDeck() {
         return InitialCardDeck;
+    }
+
+    public void setNumOfPlayers(int numOfPlayers){
+        this.numOfPlayers = numOfPlayers;
     }
 
     /**
@@ -122,9 +127,17 @@ public class PlayGround {
     /**
      * @return the number of total players
      */
-    public int getNumOfPlayers() {
+    public int getNumOfCurrentPlayers() {
         return players.size();
     }
+
+    /**
+     * @return the maximum number of players
+     */
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
 
     /**
      * @return the number of online players
@@ -136,7 +149,7 @@ public class PlayGround {
     /**
      * @return the number of players required by the game
      */
-    public int getSpecificNumOfPlayers(){
+    public int getSpecificNumOfPlayers() {
         return numOfPlayers;
     }
 
@@ -174,8 +187,8 @@ public class PlayGround {
      * @return the player's card goal
      */
     public ObjectiveCard getPlayerObjectiveCard(String nickname) {
-        for (Player name: players){
-            if(name.getNickname().equals(nickname))
+        for (Player name : players) {
+            if (name.getNickname().equals(nickname))
                 return name.getPersonalObjectiveCard();
         }
         throw new IllegalArgumentException("The player doesn't exist");
@@ -186,68 +199,60 @@ public class PlayGround {
      *
      * @param c
      */
-    public void addCommonCard(Card c){
+    public void addCommonCard(Card c) {
 
-        if(c instanceof GoldCard){
+        if (c instanceof GoldCard) {
             commonGoldCards.add((GoldCard) c);
-        }
-        else if(c instanceof ResourceCard) {
+        } else if (c instanceof ResourceCard) {
             commonResourceCards.add((ResourceCard) c);
-        }
-        else if( c instanceof ObjectiveCard){
+        } else if (c instanceof ObjectiveCard) {
             commonObjectivesCards.add((ObjectiveCard) c);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Unsupported card type");
         }
     }
 
     /**
      * Remove card from deck d
+     *
      * @param card
      * @param d
      */
-    public void removeCardFromDeck(Card card, Deck d){
+    public void removeCardFromDeck(Card card, Deck d) {
 
-        if(card instanceof GoldCard){
+        if (card instanceof GoldCard) {
             Iterator<GoldCard> cardIterator = (Iterator<GoldCard>) d.iterator();
 
-            while(cardIterator.hasNext()){
+            while (cardIterator.hasNext()) {
                 GoldCard nexCard = cardIterator.next();
-                if(nexCard.getIdCard() == (card.getIdCard())){
+                if (nexCard.getIdCard() == (card.getIdCard())) {
                     cardIterator.remove();
                 }
             }
-        }
-
-        else if(card instanceof ResourceCard){
+        } else if (card instanceof ResourceCard) {
             Iterator<ResourceCard> cardIterator = (Iterator<ResourceCard>) d.iterator();
 
-            while(cardIterator.hasNext()){
+            while (cardIterator.hasNext()) {
                 ResourceCard nexCard = cardIterator.next();
-                if(nexCard.getIdCard() == (card.getIdCard())){
+                if (nexCard.getIdCard() == (card.getIdCard())) {
                     cardIterator.remove();
                 }
             }
-        }
-
-        else if(card instanceof InitialCard){
+        } else if (card instanceof InitialCard) {
             Iterator<InitialCard> cardIterator = (Iterator<InitialCard>) d.iterator();
 
-            while(cardIterator.hasNext()){
+            while (cardIterator.hasNext()) {
                 InitialCard nexCard = cardIterator.next();
-                if(nexCard.getIdCard() == (card.getIdCard())){
+                if (nexCard.getIdCard() == (card.getIdCard())) {
                     cardIterator.remove();
                 }
             }
-        }
-
-        else if(card instanceof ObjectiveCard){
+        } else if (card instanceof ObjectiveCard) {
             Iterator<ObjectiveCard> cardIterator = (Iterator<ObjectiveCard>) d.iterator();
 
-            while(cardIterator.hasNext()){
+            while (cardIterator.hasNext()) {
                 ObjectiveCard nexCard = cardIterator.next();
-                if(nexCard.getIdCard() == (card.getIdCard())){
+                if (nexCard.getIdCard() == (card.getIdCard())) {
                     cardIterator.remove();
                 }
             }
@@ -322,7 +327,6 @@ public class PlayGround {
     }
 
 
-
     /**
      * @return true if every player in the game has a personal goal assigned
      */
@@ -349,22 +353,23 @@ public class PlayGround {
      * Reconnect a player to the Game unless the game is already over
      */
 
-    public void reconnectPlayer(Player p) throws  GameEndedException {
+    public void reconnectPlayer(Player p) throws GameEndedException {
 
-        if(players.contains(p) && (!onlinePlayers.contains(p))){
+        if (players.contains(p) && (!onlinePlayers.contains(p))) {
             onlinePlayers.add(p);
-        }
-        else {
-            System.out.println ("ERROR: Trying to reconnect a online player or a player not logged in the game");
+        } else {
+            System.out.println("ERROR: Trying to reconnect a online player or a player not logged in the game");
         }
     }
 
-    /** Method to be called by the first Player present in the lobby*/
-    private void chooseNumOfPlayers(){
+    /**
+     * Method to be called by the first Player present in the lobby
+     */
+    private void chooseNumOfPlayers() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter how many players you want to play with: ");
         this.numOfPlayers = scan.nextInt();
-        if((numOfPlayers > 4) || (numOfPlayers <= 1)){
+        if ((numOfPlayers > 4) || (numOfPlayers <= 1)) {
 
             throw new IllegalArgumentException("Invalid number of players.");
 

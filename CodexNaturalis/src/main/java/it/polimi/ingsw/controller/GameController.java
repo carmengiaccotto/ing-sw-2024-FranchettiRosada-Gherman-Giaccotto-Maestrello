@@ -38,7 +38,7 @@ public class GameController implements Runnable {
     }
 
     /** Add a player to Game's lobby.*/
-    public void addPlayerToLobby(Player p) throws MaxNumPlayersException {
+    public void addPlayerToLobby(String nickName, PawnColor color) throws MaxNumPlayersException {
 
             if (getPlayers().size() + 1 <= model.getSpecificNumOfPlayers()) {
                 getPlayers().add(p);
@@ -225,6 +225,20 @@ public class GameController implements Runnable {
     public void setStatus(GameStatus status) throws NotReadyToRunException {
         //model.setStatus(status);
     }
+
+    public void createGame(String nickname, int numOfPlayers, PawnColor color){
+
+    }
+
+    public String joinOrcreate(){
+
+    }
+
+    public List<ObjectiveCard> drawObjectiveCardForPlayer(){
+
+    }
+
+
 
 }
 
