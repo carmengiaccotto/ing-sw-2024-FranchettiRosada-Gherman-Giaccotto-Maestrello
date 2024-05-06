@@ -1,13 +1,14 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.View.TUI;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.MainController;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -19,6 +20,8 @@ public class TextualUI extends UserInterface {
     private int lobbySize;
     private String logo;
     private GameController gameController;
+
+    private MainController mainController;
 
 
     public void run() {
@@ -49,7 +52,7 @@ public class TextualUI extends UserInterface {
         System.out.println("Welcome to the game!");
 
 
-        String choice = gameController.joinOrcreate();
+        String choice = mainController.joinOrcreate();
 
         switch (choice) {
 
@@ -60,7 +63,7 @@ public class TextualUI extends UserInterface {
 
                     nickname = askNickname();
 
-                    logSuccessfull = gameController.checkUniqueNickname(nickname);
+                    logSuccessfull = mainController.checkUniqueNickname(nickname);
 
                     if (logSuccessfull) {
                         System.out.println("Login successful");
@@ -89,7 +92,7 @@ public class TextualUI extends UserInterface {
                     color = PawnColor.valueOf(scanner.next());
                 }
 
-                gameController.createGame(nickname, lobbySize, color);
+                mainController.createGame(nickname, lobbySize, color);
                 System.out.println("Wait for the chosen number of players to enter...");
                 //inserire una wait
 
@@ -101,7 +104,7 @@ public class TextualUI extends UserInterface {
 
                     nickname = askNickname();
 
-                    logSuccessfull = gameController.checkUniqueNickname(nickname);
+                    logSuccessfull = mainController.checkUniqueNickname(nickname);
 
                     if (logSuccessfull) {
                         System.out.println("Login successful");
@@ -121,7 +124,7 @@ public class TextualUI extends UserInterface {
                     System.out.println("Please insert a valid color: ");
                     colors = PawnColor.valueOf(scanner.next());
                 }
-                gameController.addPlayerToLobby(nickname, colors);
+                mainController.addClientToLobby(nickname, colors);
         }
 
     }
@@ -144,12 +147,12 @@ public class TextualUI extends UserInterface {
      * Show player information
      */
     public void printPlayerInformation(String nickName) {
-        for (Player player : gameController.getPlayers()) {
-            if (nickName == player.getNickname()) {
-                System.out.println("NickName: " + player.getNickname());
-                System.out.println("Score: " + player.getScore());
-                System.out.println("PawnColor: " + player.getNickname());
-                System.out.println("Round: " + player.getRound());
+        for (Client client : gameController.getClients()) {
+            if (nickName == client.getPlayer().getNickname()) {
+                System.out.println("NickName: " + client.getPlayer().getNickname());
+                System.out.println("Score: " + client.getPlayer().getScore());
+                System.out.println("PawnColor: " + client.getPlayer().getNickname());
+                System.out.println("Round: " + client.getPlayer().getRound());
             }
         }
     }

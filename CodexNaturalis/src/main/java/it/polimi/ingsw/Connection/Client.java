@@ -1,9 +1,21 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+
 import java.util.Scanner;
 
 public class Client {
     private static String serverIp;
+
+    private Player player;
+
+    public Player getPlayer(){
+        return player;
+    }
+
+    public void setPlayer(Player p){
+        player = p;
+    }
 
     public static void main(String[] args){
         new Client().start();

@@ -1,10 +1,9 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.GameStatus;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
  * disconnection of a Player need to be added.  */
 
 public class GameController implements Runnable {
+    private ArrayList<Client> clients = null;
 
     private PlayGround model;
 
@@ -37,38 +37,12 @@ public class GameController implements Runnable {
         return instance;
     }
 
-    /** Add a player to Game's lobby.*/
-    public void addPlayerToLobby(String nickName, PawnColor color) throws MaxNumPlayersException {
-
-            if (getPlayers().size() + 1 <= model.getSpecificNumOfPlayers()) {
-                getPlayers().add(p);
-            } else {
-                throw new MaxNumPlayersException();
-            }
-
-    }
-
-    /** Check if the nickname is unique*/
-    public boolean checkUniqueNickname(String name){
-        for (Player p : getPlayers()){
-            if (name.equals(p.getNickname())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /** Return a list containing all the current players of the game (Online and Offline)*/
-    public List <Player> getPlayers() {
-        return model.getPlayers();
-    }
-
-    public int getNumOfPlayers() {
-        return model.getNumOfPlayers();
-    }
-
     /** Reconnect a player to the Game unless the game is already over*/
     public void reconnectPlayer(Player p) {
+    }
+
+    public ArrayList<Client> getClients(){
+        return clients;
     }
 
     public void extractCommonObjectiveCards() {
@@ -97,9 +71,9 @@ public class GameController implements Runnable {
     }
 
 
-    /**private void extractPlayerHandCards(){
-        for (Player p: getPlayers()){
-            p.DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
+   /** private void extractPlayerHandCards(){
+        for (Client c: getClients()){
+            c.getPlayer().DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
             p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
             p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
         }
@@ -107,7 +81,9 @@ public class GameController implements Runnable {
 
     public List<PawnColor> AvailableColors(){
 
-        List<PawnColor> colors = getPlayers().stream().map(Player::getPawnColor).toList();
+        List<PawnColor> colors = clients.stream()
+                .map(client -> client.getPlayer().getPawnColor())
+                .toList();
 
         List<PawnColor> available = new ArrayList<>();
 
@@ -125,35 +101,35 @@ public class GameController implements Runnable {
     }
 
     public void addPersonalObjectiveCardPoints() {
-        for(Player p: getPlayers()){
-            if(p.getPersonalObjectiveCard() instanceof SymbolObjectiveCard){
-                SymbolObjectiveCard c = (SymbolObjectiveCard) p.getPersonalObjectiveCard();
-                int numOfGoals = c.CheckGoals(p.getPlayArea().getSymbols());
-                int points = c.calculatePoints(numOfGoals);
-                p.increaseScore(points);
+        for(Client c: getClients()){
+            if(c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard){
+                SymbolObjectiveCard card = (SymbolObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
+                int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
+                int points = card.calculatePoints(numOfGoals);
+                c.getPlayer().increaseScore(points);
             }else{
-                DispositionObjectiveCard c = (DispositionObjectiveCard) p.getPersonalObjectiveCard();
-                int numOfGoals = c.CheckGoals(p.getPlayArea());
-                int points = c.calculatePoints(numOfGoals);
-                p.increaseScore(points);
+                DispositionObjectiveCard card = (DispositionObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
+                int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea());
+                int points = card.calculatePoints(numOfGoals);
+                c.getPlayer().increaseScore(points);
 
             }
         }
     }
 
     public void addCommonObjectiveCardsPoints() {
-        for(Player p: getPlayers()){
+        for(Client c: getClients()){
             for(ObjectiveCard card: model.getCommonObjectivesCards()){
                 if(card instanceof SymbolObjectiveCard){
-                    SymbolObjectiveCard c = (SymbolObjectiveCard) card;
-                    int numOfGoals = c.CheckGoals(p.getPlayArea().getSymbols());
-                    int points = c.calculatePoints(numOfGoals);
-                    p.increaseScore(points);
+                    SymbolObjectiveCard s = (SymbolObjectiveCard) card;
+                    int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
+                    int points = s.calculatePoints(numOfGoals);
+                    c.getPlayer().increaseScore(points);
                 }else{
-                    DispositionObjectiveCard c = (DispositionObjectiveCard) card;
-                    int numOfGoals = c.CheckGoals(p.getPlayArea());
-                    int points = c.calculatePoints(numOfGoals);
-                    p.increaseScore(points);
+                    DispositionObjectiveCard s = (DispositionObjectiveCard) card;
+                    int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea());
+                    int points = s.calculatePoints(numOfGoals);
+                    c.getPlayer().increaseScore(points);
                 }
             }
         }
@@ -168,8 +144,8 @@ public class GameController implements Runnable {
 
     /** Method that checks for each turn if a player got 20 points*/
     public boolean scoreMaxReached(){
-        for(Player p: getPlayers()){
-            if(p.getScore() >= 20){
+        for(Client c: getClients()){
+            if(c.getPlayer().getScore() >= 20){
               return true;
             }
         }
@@ -180,65 +156,53 @@ public class GameController implements Runnable {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
         /** extractPlayerHandCards(); */
-        setStatus(GameStatus.SET_UP);
     }
 
     public void FinalizeGame() throws NotReadyToRunException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
         decreeWinner();
-        setStatus(GameStatus.ENDED);
     }
 
     public String decreeWinner(){
 
-        List<Player> winners = new ArrayList<>();
+        List<Client> winners = new ArrayList<>();
         int score = Integer.MIN_VALUE;
 
-        for(Player p : getPlayers()){
-            if(p.getScore() > score){
-                score = p.getScore();
+        for(Client c : getClients()){
+            if(c.getPlayer().getScore() > score){
+                score = c.getPlayer().getScore();
                 winners.clear();
-                winners.add(p);
-            }else if(p.getScore() == score){
-                winners.add(p);
+                winners.add(c);
+            }else if(c.getPlayer().getScore() == score){
+                winners.add(c);
             }
         }
 
         if (winners.size() == 1) {
-            return "The winners is" + winners.get(0).getNickname();
+            return "The winners is" + winners.get(0).getPlayer().getNickname();
         } else {
-            return "Tie between the following players: " + winners.stream().map(Player::getNickname).collect(Collectors.joining(", "));
+            return "Tie between the following players: " + winners.stream()
+                    .map(client -> client.getPlayer().getNickname())
+                    .collect(Collectors.joining(", "));
         }
 
     }
 
-    /**
-     * Return the GameStatus of the model
-     *
-     * @return status
-     */
-    public GameStatus getStatus() {
-        return model.getStatus();
-    }
-
-    public void setStatus(GameStatus status) throws NotReadyToRunException {
-        //model.setStatus(status);
-    }
-
-    public void createGame(String nickname, int numOfPlayers, PawnColor color){
-
-    }
-
-    public String joinOrcreate(){
-
-    }
-
     public List<ObjectiveCard> drawObjectiveCardForPlayer(){
-
+        List<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
+        while(listCard.size() < 2 ) {
+            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
+            ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
+            listCard.add(c);
+            model.removeCardFromDeck(c, model.getObjectiveCardDeck());
+        }
+        return listCard;
     }
 
-
+    public PlayGround getModel() {
+        return model;
+    }
 
 }
 
