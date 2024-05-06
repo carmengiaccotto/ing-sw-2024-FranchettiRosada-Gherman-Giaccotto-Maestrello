@@ -13,13 +13,12 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
 
     private static RMIServer serverObject = null;
 
-    private GameInterface gameInt = null;
+    private final GameInterface gameInt = null;
 
     private static Registry registry = null;
 
     /**
      * Constructor that creates a RMI Server
-     * @throws RemoteException
      */
     public RMIServer() throws RemoteException {
         super(0);
@@ -56,7 +55,6 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
 
     /**
      * @return the registry associated with the RMI Server
-     * @throws RemoteException
      */
     public synchronized static Registry getRegistry() throws RemoteException {
         return registry;
