@@ -46,8 +46,8 @@ public class GoldCard extends PlayCard {
      */
     public boolean checkRequirement(Map<Symbol, Integer> symbols, Side chosenSide){
         if(chosenSide.equals(Side.FRONT)){
-            for (Symbol key : requirement.keySet()) {
-                if (!symbols.containsKey(key))
+            for(Symbol key : requirement.keySet()) {
+                if(!symbols.containsKey(key))
                     return false;
                 else{
                     if(symbols.get(key)<requirement.get(key))
@@ -55,21 +55,16 @@ public class GoldCard extends PlayCard {
                 }
             }
             return true;
-
         }
-        else
-            return true;
-
-
+        else return true;
     }
+
 
     /**Method to calculate the points that the placing of the card gives
      * Override in PointPerCoveredCorner and PointPerVisibleSymbol classes
      * @param point points to be added
      * @return int points to add to Player's score*/
-    public int increasePoints (int point){
-        return this.point;
-    }
+    public int increasePoints (int point) { return this.point; }
 
 
     /**
