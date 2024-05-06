@@ -5,13 +5,14 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.MainController;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,13 +22,7 @@ public class TextualUI extends UserInterface {
     private String logo;
     private GameController gameController;
 
-    private MainController mainController;
-
-
-    public void run() {
-
-
-    }
+    private MainController mainController = new MainController();
 
     /**
      * Asks the user to enter the nickname
@@ -42,7 +37,7 @@ public class TextualUI extends UserInterface {
     /**
      * The player logs in
      */
-    private void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException {
+    public void userLogin() throws IOException, NotBoundException, NotReadyToRunException, MaxNumPlayersException {
         Scanner scanner = new Scanner(System.in);
         boolean logSuccessfull = false;
         String nickname = null;
@@ -81,18 +76,13 @@ public class TextualUI extends UserInterface {
                     System.out.println("Please choose a number between 2 and 4");
                     lobbySize = Integer.parseInt(scanner.next());
                 }
-                System.out.println("Choose PawnColor between the following: ");
-                List<PawnColor> listOfColors = gameController.AvailableColors();
 
-                System.out.println(listOfColors);
+                ArrayList<Client> c = new ArrayList<>();
+                PlayGround model = new PlayGround(0); //provvisorio numero zero
+                GameController game = new GameController(c, model);
+                Client client = new Client();
 
-                PawnColor color = PawnColor.valueOf(scanner.next());
-                while (!listOfColors.contains(color)) {
-                    System.out.println("Please insert a valid color: ");
-                    color = PawnColor.valueOf(scanner.next());
-                }
-
-                mainController.createGame(nickname, lobbySize, color);
+                mainController.createGame(nickname, lobbySize, game, client);
                 System.out.println("Wait for the chosen number of players to enter...");
                 //inserire una wait
 
@@ -114,17 +104,7 @@ public class TextualUI extends UserInterface {
                     }
                 }
 
-                System.out.println("Choose PawnColor between the following: ");
-                List<PawnColor> listOfColor = gameController.AvailableColors();
-
-                System.out.println(listOfColor);
-
-                PawnColor colors = PawnColor.valueOf(scanner.next());
-                while (!listOfColor.contains(colors)) {
-                    System.out.println("Please insert a valid color: ");
-                    colors = PawnColor.valueOf(scanner.next());
-                }
-                mainController.addClientToLobby(nickname, colors);
+                mainController.addClientToLobby(nickname);
         }
 
     }

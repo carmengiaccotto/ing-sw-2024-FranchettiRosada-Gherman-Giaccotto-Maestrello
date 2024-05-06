@@ -1,7 +1,6 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI.RMIServer;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -23,7 +22,6 @@ public class ServerManager {
         }
         //socketServer = new SocketServer(12345);
 
-        GameController game = new GameController();
         rmiServer = new RMIServer();
 
     }

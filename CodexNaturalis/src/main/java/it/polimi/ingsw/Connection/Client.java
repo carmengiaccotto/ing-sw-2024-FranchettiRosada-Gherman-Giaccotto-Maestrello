@@ -1,15 +1,22 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI.RMIClient;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.View.TUI.TextualUI;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 public class Client {
     private static String serverIp;
 
     private static UserInterface view;
+
+    private RMIClient clientRMI;
 
     private Player player;
 
@@ -21,10 +28,10 @@ public class Client {
         player = p;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, MaxNumPlayersException, NotBoundException, NotReadyToRunException {
         new Client().start();
     }
-    public void start() {
+    public void start() throws IOException, MaxNumPlayersException, NotBoundException, NotReadyToRunException {
         int InterfaceType = 0;
         System.out.println("Insert server ip address:");
         Scanner scan = new Scanner(System.in);
@@ -57,7 +64,10 @@ public class Client {
             Integer netProtocol = scan.nextInt();
 
             if (netProtocol.equals(1)) {
-                //runRMI(ip);
+                clientRMI = new RMIClient();
+                clientRMI.connect();
+                view.userLogin();
+                break;
             } else if (netProtocol.equals(2)) {
                 //runSocket(ip);
             }

@@ -1,24 +1,25 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
 import java.util.ArrayList;
 
 public class MainController {
 
-    private final ArrayList<GameController> games = null;
-    private final ArrayList<Client> clients = null;
+    private final ArrayList<GameController> games = new ArrayList<>();
+    private final ArrayList<Client> clients = new ArrayList<>();
+
+    public MainController() {
+    }
 
     /** Add a player to Game's lobby.*/
-    public void addClientToLobby(String nickName, PawnColor color) {
+    public void addClientToLobby(String nickName) {
         Client c = new Client();
         games.get(games.size() - 1).getClients().add(c);
         Player p = new Player();
         c.setPlayer(p);
         p.setNickname(nickName);
-        p.setPawnColor(color);
         clients.add(c);
     }
 
@@ -33,16 +34,13 @@ public class MainController {
     }
 
     /** Create a new Game and add the Player.*/
-    public void createGame(String nickname, int numOfPlayers, PawnColor color){
-        GameController game = new GameController();
+    public void createGame(String nickname, int numOfPlayers, GameController game, Client c){
         games.add(game);
-        Client c = new Client();
         clients.add(c);
         game.getClients().add(c);
         Player p = new Player();
-        c.setPlayer(p);
         p.setNickname(nickname);
-        p.setPawnColor(color);
+        c.setPlayer(p);
         game.getModel().setNumOfPlayers(numOfPlayers);
         game.getModel().setGameId(games.size());
     }
@@ -50,11 +48,14 @@ public class MainController {
     /** It checks if the new client that wants to connect
      should join an existing game or if he should create a new one.*/
     public String joinOrcreate(){
-        int num = games.get(games.size() - 1).getModel().getNumOfPlayers();
-        if(games.size() < num){
-            return "JOIN";
-        }else{
+        if(games.isEmpty()){
             return "CREATE";
-        }
+        }else{
+            if(games.get(games.size() - 1).getClients().size() < games.get(games.size() - 1).getModel().getNumOfPlayers()){
+                return "JOIN";
+            }else{
+                return "CREATE";
+            }
+       }
     }
 }

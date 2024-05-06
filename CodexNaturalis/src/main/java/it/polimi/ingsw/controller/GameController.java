@@ -18,23 +18,21 @@ import java.util.stream.Collectors;
  * disconnection of a Player need to be added.  */
 
 public class GameController implements Runnable {
-    private ArrayList<Client> clients = null;
+    private ArrayList<Client> clients;
 
     private PlayGround model;
 
     private static GameController instance = null;
     private final Random random = new Random();
 
+    public GameController(ArrayList<Client> clients, PlayGround model) {
+        this.clients = clients;
+        this.model = model;
+    }
+
     @Override
     public void run() {
 
-    }
-
-    public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
-        return instance;
     }
 
     /** Reconnect a player to the Game unless the game is already over*/
