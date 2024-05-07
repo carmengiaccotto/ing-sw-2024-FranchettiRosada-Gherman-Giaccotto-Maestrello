@@ -16,6 +16,66 @@ public class PrintPlayArea {
     private static final int RowDimensions=3;
     private static final int ColumnDimensions=10;
 
+    /**Method that allows to choose the dimensions of the Card: Cards on PlayGround are going to have bigger dimensions, cards on other player's
+     * PlayAreas are going to be smaller.*/
+    public static void DrawCardCustomDimensions(String[][] matrix, int startRow, int startColumn, SideOfCard card, int Height, int Width){
+        int[] rgb = GraphicUsage.getRGBColor(card.getColor());
+        String ANSIbackgroundColor = String.format("\u001B[48;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
+        String ANSIreset = "\u001B[0m";
+
+        for (int i = 0; i < Height; i++) {
+            for (int j = 0; j <Width; j++) {
+                if ((i == 0 && j == Width - 1)) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('┐');
+                } else if ((i == 0 || i == Height - 1) && (j > 0 && j < Width - 1)) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('─');
+                } else if ((i > 0 && i < Height - 1) && (j == 0 || j == Width - 1)) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('│');
+                } else if ((i == 0 && j == 0)) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('┌');
+                } else if (i == Height - 1 && j == 0) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('└');
+                } else if (i == Height - 1 && j == Width - 1) {
+                    matrix[startRow + i][startColumn + j] = String.valueOf('┘');
+                }
+            }
+        }
+    }
+
+
+    public static void DrawGraphicPlayAreaCustomDimensions(PlayArea playArea, int rowDimensions, int columnDimensions){
+        int rows=playArea.getCardsOnArea().size()*rowDimensions+5;
+        int columns=playArea.getCardsOnArea().getFirst().size()*columnDimensions+16;
+        String[][] playAreaMatrix= new String[rows][columns];
+        //InitializeMatrix
+        for(int i=0; i<rows;i++ )
+            for(int j=0; j<columns; j++)
+                playAreaMatrix[i][j]=" ";
+        //Add Cards
+        for (int i = 0; i < rows - 1; i++) {
+            for (int j = 0; j < columns - 1; j++) {
+                int cardRowIndex = i / rowDimensions;
+                int cardColumnIndex = j / columnDimensions;
+                int startRow = cardRowIndex * rowDimensions;
+                int startColumn = cardColumnIndex * columnDimensions;
+                if (cardRowIndex < playArea.getCardsOnArea().size() &&
+                        cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
+                    if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {
+                        DrawCardDeFaultDimensions(playAreaMatrix, startRow, startColumn, playArea.getCardInPosition(cardRowIndex, cardColumnIndex));
+                    }
+                }
+            }
+        }
+
+        //Print Matrix
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(playAreaMatrix[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     public static void DrawCardDeFaultDimensions(String[][] matrix, int startRow, int startColumn, SideOfCard card) {
         int[] rgb = GraphicUsage.getRGBColor(card.getColor());
         String ANSIbackgroundColor = String.format("\u001B[48;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
@@ -36,10 +96,6 @@ public class PrintPlayArea {
                 } else if (i == cardHeight - 1 && j == cardWidth - 1) {
                     matrix[startRow + i][startColumn + j] = String.valueOf('┘');
                 }
-//                else if(i==1&& j==2){
-//                    Symbol symbol=card.getCornerInPosition(CornerPosition.TOPLEFT).getSymbol();
-//                    matrix[startRow + i][startColumn + j] =GraphicUsage.getEmojiFromUnicode(GraphicUsage.symbolDictionary.get(symbol));
-//                }
             }
         }
 
