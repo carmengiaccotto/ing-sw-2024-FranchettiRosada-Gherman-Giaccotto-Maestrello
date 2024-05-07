@@ -72,7 +72,10 @@ public class GoldCard extends PlayCard {
      *
      * @return requirement
      */
-    public HashMap<Symbol, Integer> getRequirement(){
-        return requirement;
+    public HashMap<Symbol, Integer> getRequirement(Side chosenSide){
+        if(chosenSide.equals(Side.FRONT))
+            return requirement;
+        else
+            return null;
     }
 }
