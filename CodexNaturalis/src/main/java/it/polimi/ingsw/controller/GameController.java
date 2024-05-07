@@ -4,6 +4,7 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
@@ -18,50 +19,54 @@ import java.util.stream.Collectors;
  * disconnection of a Player need to be added.  */
 
 public class GameController implements Runnable {
-    private ArrayList<Client> clients;
+    private ArrayList<Client> clients = null;
 
     private PlayGround model;
 
     private static GameController instance = null;
     private final Random random = new Random();
 
-    public GameController(ArrayList<Client> clients, PlayGround model) {
-        this.clients = clients;
-        this.model = model;
-    }
-
     @Override
     public void run() {
 
     }
 
-    /** Reconnect a player to the Game unless the game is already over*/
+    public static GameController getInstance() {
+        if (instance == null) {
+            instance = new GameController();
+        }
+        return instance;
+    }
+
+    /**
+     * Reconnect a player to the Game unless the game is already over
+     */
     public void reconnectPlayer(Player p) {
     }
 
-    public ArrayList<Client> getClients(){
+    public ArrayList<Client> getClients() {
         return clients;
     }
 
     public void extractCommonObjectiveCards() {
-        while(model.getCommonObjectivesCards().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize()-1);
+        while (model.getCommonObjectivesCards().size() < 2) {
+            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
             ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
             model.addCommonCard(c);
             model.removeCardFromDeck(c, model.getObjectiveCardDeck());
-            }
         }
+    }
 
 
     public void extractCommonPlaygroundCards() {
-        while(model.getCommonGoldCards().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize()-1);
+        while (model.getCommonGoldCards().size() < 2) {
+            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
             GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
             model.addCommonCard(c);
             model.removeCardFromDeck(c, model.getGoldCardDeck());
         }
-        while(model.getCommonResourceCards().size() < 2 ){
-            int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize()-1);
+        while (model.getCommonResourceCards().size() < 2) {
+            int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
             ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
             model.addCommonCard(c);
             model.removeCardFromDeck(c, model.getResourceCardDeck());
@@ -69,15 +74,17 @@ public class GameController implements Runnable {
     }
 
 
-   /** private void extractPlayerHandCards(){
-        for (Client c: getClients()){
-            c.getPlayer().DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
-            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
-            p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
-        }
-    } */
+    /**
+     * private void extractPlayerHandCards(){
+     * for (Client c: getClients()){
+     * c.getPlayer().DrawCardFrom(model.getGoldCardDeck().getCards(), model.getGoldCardDeck().getLastCard());
+     * p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+     * p.DrawCardFrom(model.getResourceCardDeck().getCards(), model.getResourceCardDeck().getLastCard());
+     * }
+     * }
+     */
 
-    public List<PawnColor> AvailableColors(){
+    public List<PawnColor> AvailableColors() {
 
         List<PawnColor> colors = clients.stream()
                 .map(client -> client.getPlayer().getPawnColor())
@@ -85,8 +92,8 @@ public class GameController implements Runnable {
 
         List<PawnColor> available = new ArrayList<>();
 
-        for (PawnColor color: PawnColor.values()){
-            if(!colors.contains(color)){
+        for (PawnColor color : PawnColor.values()) {
+            if (!colors.contains(color)) {
                 available.add(color);
             }
         }
@@ -99,13 +106,13 @@ public class GameController implements Runnable {
     }
 
     public void addPersonalObjectiveCardPoints() {
-        for(Client c: getClients()){
-            if(c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard){
+        for (Client c : getClients()) {
+            if (c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard) {
                 SymbolObjectiveCard card = (SymbolObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
                 int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
                 int points = card.calculatePoints(numOfGoals);
                 c.getPlayer().increaseScore(points);
-            }else{
+            } else {
                 DispositionObjectiveCard card = (DispositionObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
                 int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea());
                 int points = card.calculatePoints(numOfGoals);
@@ -116,14 +123,14 @@ public class GameController implements Runnable {
     }
 
     public void addCommonObjectiveCardsPoints() {
-        for(Client c: getClients()){
-            for(ObjectiveCard card: model.getCommonObjectivesCards()){
-                if(card instanceof SymbolObjectiveCard){
+        for (Client c : getClients()) {
+            for (ObjectiveCard card : model.getCommonObjectivesCards()) {
+                if (card instanceof SymbolObjectiveCard) {
                     SymbolObjectiveCard s = (SymbolObjectiveCard) card;
                     int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
                     int points = s.calculatePoints(numOfGoals);
                     c.getPlayer().increaseScore(points);
-                }else{
+                } else {
                     DispositionObjectiveCard s = (DispositionObjectiveCard) card;
                     int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea());
                     int points = s.calculatePoints(numOfGoals);
@@ -140,11 +147,13 @@ public class GameController implements Runnable {
     }
 
 
-    /** Method that checks for each turn if a player got 20 points*/
-    public boolean scoreMaxReached(){
-        for(Client c: getClients()){
-            if(c.getPlayer().getScore() >= 20){
-              return true;
+    /**
+     * Method that checks for each turn if a player got 20 points
+     */
+    public boolean scoreMaxReached() {
+        for (Client c : getClients()) {
+            if (c.getPlayer().getScore() >= 20) {
+                return true;
             }
         }
         return false;
@@ -162,17 +171,17 @@ public class GameController implements Runnable {
         decreeWinner();
     }
 
-    public String decreeWinner(){
+    public String decreeWinner() {
 
         List<Client> winners = new ArrayList<>();
         int score = Integer.MIN_VALUE;
 
-        for(Client c : getClients()){
-            if(c.getPlayer().getScore() > score){
+        for (Client c : getClients()) {
+            if (c.getPlayer().getScore() > score) {
                 score = c.getPlayer().getScore();
                 winners.clear();
                 winners.add(c);
-            }else if(c.getPlayer().getScore() == score){
+            } else if (c.getPlayer().getScore() == score) {
                 winners.add(c);
             }
         }
@@ -187,9 +196,9 @@ public class GameController implements Runnable {
 
     }
 
-    public List<ObjectiveCard> drawObjectiveCardForPlayer(){
+    public List<ObjectiveCard> drawObjectiveCardForPlayer() {
         List<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
-        while(listCard.size() < 2 ) {
+        while (listCard.size() < 2) {
             int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
             ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
             listCard.add(c);
@@ -202,7 +211,48 @@ public class GameController implements Runnable {
         return model;
     }
 
+    public void addInHands(String nickname, Card card) {
+
+    }
+
+    public ObjectiveCard getPersonalObjective(String nickname) {
+        for (Client client : clients) {
+            if (client.getPlayer().getNickname().equals(nickname)) {
+                return client.getPlayer().getPersonalObjectiveCard();
+            }
+        }
+        return null;
+    }
+
+    public void addCardOnArea(Card card, Side side){
+
+    }
+
+    public ArrayList<PlayCard> getCardInHandPlayer(String nickname){
+        for(Client client : clients){
+            if(client.getPlayer().getNickname().equals(nickname)){
+                client.getPlayer().getCardsInHand();
+            }
+        }
+        return null;
+    }
+
+    public void removeCardInHand(Card card){
+
+    }
+
+    public void getChat(){
+
+    }
+    public Card getInitialcard(){
+
+    }
+
+
 }
+
+
+
 
 
 

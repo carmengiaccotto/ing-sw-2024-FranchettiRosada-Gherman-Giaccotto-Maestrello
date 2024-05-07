@@ -25,6 +25,7 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
         GameController game = GameControllerInterface.getInstance();
     }
 
+
     public static RMIServer bind() {
         try {
             serverObject = new RMIServer();
