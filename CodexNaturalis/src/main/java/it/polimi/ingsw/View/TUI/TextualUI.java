@@ -7,14 +7,14 @@ import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.MainController;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Card;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,28 +24,8 @@ public class TextualUI extends UserInterface {
     private int lobbySize;
     private String logo;
     private GameController gameController;
-    private MainController mainController;
+    private MainController mainController = new MainController();
 
-
-    public void run() throws MaxNumPlayersException, NotBoundException, NotReadyToRunException, RemoteException {
-        Scanner scanner = new Scanner(System.in);
-        userLogin();
-
-        while(true){
-            System.out.println("Select the action you want to take: [MOVE/CHAT]");
-            String action = scanner.next();
-            switch(action){
-                case "CHAT":
-                    System.out.println("Inset the message: ");
-                    printChat();
-                case "MOVE":
-                    playInitialCard(gameController.getInitialcard());
-                    chooseCardToPlay(gameController.getModel().getCurrentPlayer());
-                    drawCard();
-
-            }
-        }
-    }
 
     /**
      * Asks the user to enter the nickname
@@ -59,7 +39,7 @@ public class TextualUI extends UserInterface {
     /**
      * The player logs in
      */
-    private void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException {
+    public void userLogin() throws IOException, NotBoundException, NotReadyToRunException, MaxNumPlayersException {
         Scanner scanner = new Scanner(System.in);
         boolean logSuccessfull = false;
         String nickname = null;
@@ -97,18 +77,12 @@ public class TextualUI extends UserInterface {
                     System.out.println("Please choose a number between 2 and 4");
                     lobbySize = Integer.parseInt(scanner.next());
                 }
-                System.out.println("Choose PawnColor between the following: ");
-                List<PawnColor> listOfColors = gameController.AvailableColors();
+                ArrayList<Client> c = new ArrayList<>();
+                PlayGround model = new PlayGround(0); //provvisorio numero zero
+                GameController game = new GameController(c, model);
+                Client client = new Client();
 
-                System.out.println(listOfColors);
-
-                PawnColor color = PawnColor.valueOf(scanner.next());
-                while (!listOfColors.contains(color)) {
-                    System.out.println("Please insert a valid color: ");
-                    color = PawnColor.valueOf(scanner.next());
-                }
-
-                mainController.createGame(nickname, lobbySize, color);
+                mainController.createGame(nickname, lobbySize, game, client);
                 System.out.println("Wait for the chosen number of players to enter...");
                 //inserire una wait
                 break;
@@ -116,32 +90,32 @@ public class TextualUI extends UserInterface {
 
             case "JOIN":
 
-                System.out.println("Please choose a nickName: ");
-                while (!logSuccessfull) {
-
-                    nickname = askNickname();
-
-                    logSuccessfull = mainController.checkUniqueNickname(nickname);
-
-                    if (logSuccessfull) {
-                        System.out.println("Login successful");
-
-                    } else {
-                        System.out.println("Login failed. Please choose a different nickname. " + "\n >>");
-                    }
-                }
-
-                System.out.println("Choose PawnColor between the following: ");
-                List<PawnColor> listOfColor = gameController.AvailableColors();
-
-                System.out.println(listOfColor);
-
-                PawnColor colors = PawnColor.valueOf(scanner.next());
-                while (!listOfColor.contains(colors)) {
-                    System.out.println("Please insert a valid color: ");
-                    colors = PawnColor.valueOf(scanner.next());
-                }
-                mainController.addClientToLobby(nickname, colors);
+//                System.out.println("Please choose a nickName: ");
+//                while (!logSuccessfull) {
+//
+//                    nickname = askNickname();
+//
+//                    logSuccessfull = mainController.checkUniqueNickname(nickname);
+//
+//                    if (logSuccessfull) {
+//                        System.out.println("Login successful");
+//
+//                    } else {
+//                        System.out.println("Login failed. Please choose a different nickname. " + "\n >>");
+//                    }
+//                }
+//
+//                System.out.println("Choose PawnColor between the following: ");
+//                List<PawnColor> listOfColor = gameController.AvailableColors();
+//
+//                System.out.println(listOfColor);
+//
+//                PawnColor colors = PawnColor.valueOf(scanner.next());
+//                while (!listOfColor.contains(colors)) {
+//                    System.out.println("Please insert a valid color: ");
+//                    colors = PawnColor.valueOf(scanner.next());
+//                }
+//                mainController.addClientToLobby(nickname, colors);
                 break;
         }
 
@@ -192,7 +166,7 @@ public class TextualUI extends UserInterface {
 
                 case "1":
                     ObjectiveCard o = objectiveCards.getFirst();
-                    gameController.getPersonalObjective(nickname) = o;
+                  //  gameController.getPersonalObjective(nickname) = o;
                     isOk = true;
                     break;
 

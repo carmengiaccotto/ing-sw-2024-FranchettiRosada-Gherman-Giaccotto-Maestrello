@@ -31,11 +31,9 @@ public class GameController implements Runnable {
 
     }
 
-    public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
-        return instance;
+    public GameController(ArrayList<Client> clients, PlayGround model) {
+        this.clients = clients;
+        this.model = model;
     }
 
     /**
@@ -244,9 +242,9 @@ public class GameController implements Runnable {
     public void getChat(){
 
     }
-    public Card getInitialcard(){
+   // public Card getInitialcard(){
 
-    }
+    //}
 
 
 }
