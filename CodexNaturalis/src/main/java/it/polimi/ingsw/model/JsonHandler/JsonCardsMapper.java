@@ -1,7 +1,7 @@
 package CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
@@ -149,22 +149,37 @@ public class JsonCardsMapper {
         CardColors CentralCardColor = CardColors.valueOf(jsonObject.get("CentralCardColor").getAsString());
         JsonObject neighbors = jsonObject.getAsJsonObject("NEIGHBORS");
         Map<Position, CardColors> Neighbors= new HashMap<>();
-
         for (Map.Entry<String, JsonElement> entry : neighbors.entrySet()) {
-            Position position=null;
-            for (CornerPosition corner: CornerPosition.values()){
+            Position position = null;
+
+            // Cerca la posizione nell'enumerazione CornerPosition
+            for (CornerPosition corner : CornerPosition.values()) {
                 if (entry.getKey().toUpperCase().equals(corner.toString())) {
-                    position = CornerPosition.valueOf(entry.getKey());
+                    position = corner;
+                    break;
                 }
             }
-            for (UpDownPosition pos: UpDownPosition.values()){
-                if (entry.getKey().toUpperCase().equals(pos.toString())) {
-                    position = UpDownPosition.valueOf(entry.getKey());
+
+            if (position == null) {
+                for (UpDownPosition pos : UpDownPosition.values()) {
+                    if (entry.getKey().toUpperCase().equals(pos.toString())) {
+                        position = pos;
+                        break;
+                    }
                 }
             }
-            CardColors neighborColor=CardColors.valueOf(entry.getValue().toString());
-            Neighbors.put(position,neighborColor);
+
+            // Assicurati che la posizione sia stata trovata
+            if (position != null) {
+                // Ottieni il colore associato alla posizione
+                CardColors neighborColor = CardColors.valueOf(entry.getValue().getAsString());
+
+                // Aggiungi la coppia posizione-colore alla mappa
+                Neighbors.put(position, neighborColor);
+            }
         }
+
+
         return new DispositionObjectiveCard(objectiveCard.getIdCard(),objectiveCard.getPoints(),CentralCardColor,Neighbors);
     }
 

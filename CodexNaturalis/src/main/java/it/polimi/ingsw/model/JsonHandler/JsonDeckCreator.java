@@ -25,80 +25,71 @@ public class JsonDeckCreator {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
-        if (DeckType != ObjectiveCard.class) {
-            String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonHandler/" + DeckType.getSimpleName() + ".Json";
+        String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonHandler/" + DeckType.getSimpleName() + ".Json";
 
-            try (FileReader fileReader = new FileReader(filePath)) {
-                Gson gson = new Gson();
-                JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);
-                switch (DeckType.getSimpleName()) {
-                    case "InitialCard" -> {
-                        ArrayList<InitialCard> deck = new ArrayList<>();
+        try (FileReader fileReader = new FileReader(filePath)) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);
+            switch (DeckType.getSimpleName()) {
+                case "InitialCard" -> {
+                    ArrayList<InitialCard> deck = new ArrayList<>();
 
-                        JsonArray initialCardsArray = jsonObject.getAsJsonArray("InitialCards");
+                    JsonArray initialCardsArray = jsonObject.getAsJsonArray("InitialCards");
 
-                        for (JsonElement jsonElement : initialCardsArray) {
-                            JsonObject InitialCardJson = jsonElement.getAsJsonObject();
-                            InitialCard initialCard = JsonCardsMapper.MapInitialCardFromJson(InitialCardJson);
-                            deck.add(initialCard);
-                        }
-                        return deck;
+                    for (JsonElement jsonElement : initialCardsArray) {
+                        JsonObject InitialCardJson = jsonElement.getAsJsonObject();
+                        InitialCard initialCard = JsonCardsMapper.MapInitialCardFromJson(InitialCardJson);
+                        deck.add(initialCard);
                     }
-                    case "ResourceCard" -> {
-                        JsonArray resourceCardsJson = jsonObject.getAsJsonArray("ResourceCards");
-                        ArrayList<ResourceCard> deck = new ArrayList<>();
-                        for (JsonElement jsonElement : resourceCardsJson) {
-                            JsonObject ResourceCardJson = jsonElement.getAsJsonObject();
-                            ResourceCard resourceCard = JsonCardsMapper.MapResourceCardFromJson(ResourceCardJson);
-                            deck.add(resourceCard);
-                        }
-                        return deck;
-
-                    }
-                    case "GoldCard" -> {
-                        ArrayList<GoldCard> deck = new ArrayList<>();
-                        JsonArray jsonArray = jsonObject.getAsJsonArray("GoldCards");
-                        for (JsonElement jsonElement : jsonArray) {
-                            JsonObject GoldCardJson = jsonElement.getAsJsonObject();
-                            GoldCard goldCard = JsonCardsMapper.MapGoldCardFromJson(GoldCardJson);
-                            deck.add(goldCard);
-                        }
-                        return deck;
-                    }
+                    return deck;
                 }
-            }
-        } else {
-            ArrayList<ObjectiveCard> deck = new ArrayList<>();
-            String filePathD = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonHandler/DispositionObjectiveCard.Json";
-            try (FileReader fileReaderD = new FileReader(filePathD)) {
-                Gson gsonD = new Gson();
-                JsonObject jsonObject1 = gsonD.fromJson(fileReaderD, JsonObject.class);
+                case "ResourceCard" -> {
+                    JsonArray resourceCardsJson = jsonObject.getAsJsonArray("ResourceCards");
+                    ArrayList<ResourceCard> deck = new ArrayList<>();
+                    for (JsonElement jsonElement : resourceCardsJson) {
+                        JsonObject ResourceCardJson = jsonElement.getAsJsonObject();
+                        ResourceCard resourceCard = JsonCardsMapper.MapResourceCardFromJson(ResourceCardJson);
+                        deck.add(resourceCard);
+                    }
+                    return deck;
 
-                JsonArray dispositionCardsArray = jsonObject1.getAsJsonArray("DispositionObjectiveCards");
-                for (JsonElement jsonElement : dispositionCardsArray) {
-                    JsonObject DispositionCardJson = jsonElement.getAsJsonObject();
-                    DispositionObjectiveCard dispositionCard = JsonCardsMapper.MapDispositionObjectiveCard(DispositionCardJson);
-                    deck.add(dispositionCard);
                 }
-                String filePathS = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonHandler/SymbolObjectiveCard.Json";
-                try (FileReader fileReaderS = new FileReader(filePathS)) {
-                    Gson gsonS = new Gson();
-                    JsonObject jsonObject2 = gsonS.fromJson(fileReaderS, JsonObject.class);
-                    JsonArray symbolCardsArray = jsonObject2.getAsJsonArray("SymbolObjectiveCards");
-                    for (JsonElement jsonElement : symbolCardsArray) {
-                        JsonObject SymbolCardJson = jsonElement.getAsJsonObject();
-                        SymbolObjectiveCard symbolCard = JsonCardsMapper.MapSymbolObjectiveCard(SymbolCardJson);
+                case "GoldCard" -> {
+                    ArrayList<GoldCard> deck = new ArrayList<>();
+                    JsonArray jsonArray = jsonObject.getAsJsonArray("GoldCards");
+                    for (JsonElement jsonElement : jsonArray) {
+                        JsonObject GoldCardJson = jsonElement.getAsJsonObject();
+                        GoldCard goldCard = JsonCardsMapper.MapGoldCardFromJson(GoldCardJson);
+                        deck.add(goldCard);
+                    }
+                    return deck;
+                }
+                case "ObjectiveCard"->{
+                    ArrayList<ObjectiveCard> deck = new ArrayList<>();
+
+                    JsonArray dispositionCardsArray = jsonObject.getAsJsonArray("ObjectiveCards").get(0).getAsJsonObject().getAsJsonArray("DispositionObjectiveCards");
+                    for (JsonElement element : dispositionCardsArray) {
+                        JsonObject dispositionCardJson = element.getAsJsonObject();
+                        DispositionObjectiveCard dispositionCard = JsonCardsMapper.MapDispositionObjectiveCard(dispositionCardJson);
+                        deck.add(dispositionCard);
+                    }
+
+                    JsonArray symbolCardsArray = jsonObject.getAsJsonArray("ObjectiveCards").get(1).getAsJsonObject().getAsJsonArray("SymbolObjectiveCards");
+                    for (JsonElement element : symbolCardsArray) {
+                        JsonObject symbolCardJson = element.getAsJsonObject();
+                        SymbolObjectiveCard symbolCard = JsonCardsMapper.MapSymbolObjectiveCard(symbolCardJson);
                         deck.add(symbolCard);
                     }
 
+                    return deck;
                 }
-
             }
-            return deck;
         }
-        throw  new IllegalArgumentException("InvalidDeck");
+        return null;
     }
 }
+
+
 
 
 
