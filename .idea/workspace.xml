@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Removed library.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/GraphicalUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/controller/GameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +104,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main.java.it.polimi.ingsw&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/Project/src/main/java/org/example/Position.java&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -227,7 +225,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
       </set>
     </attachedChunks>
   </component>
@@ -243,7 +241,24 @@
       <workItem from="1711461796620" duration="2010000" />
       <workItem from="1714895032447" duration="1402000" />
       <workItem from="1714927404784" duration="375000" />
-      <workItem from="1715023041088" duration="11005000" />
+      <workItem from="1715023041088" duration="2402000" />
+      <workItem from="1715026063380" duration="317000" />
+      <workItem from="1715026388675" duration="865000" />
+      <workItem from="1715075360559" duration="22000" />
+      <workItem from="1715077761221" duration="1356000" />
+      <workItem from="1715079658707" duration="26000" />
+      <workItem from="1715079728815" duration="16000" />
+      <workItem from="1715091183074" duration="315000" />
+      <workItem from="1715091588134" duration="63000" />
+      <workItem from="1715150592717" duration="4418000" />
+    </task>
+    <task id="LOCAL-00025" summary="SideOfCard getNeighbours method adjusted for UpDownPosition parameter, UpDown enum Adjusted,CornerPosition enum Adjusted, by removing TransitionCard method. PlayArea Updated just by changing Method name from checkNeighbours to CheckCloseNeighbours to avoid confusions with UpDownPosition neighbours">
+      <option name="closed" value="true" />
+      <created>1713268596866</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1713268596866</updated>
     </task>
     <task id="LOCAL-00026" summary="Differentiated Colors Between PawnColors and CardColors enumerations, and corrected everywhere. Added Tests for UpDownPosition enum">
       <option name="closed" value="true" />
@@ -629,15 +644,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715020262326</updated>
     </task>
-    <task id="LOCAL-00074" summary="Removed library.">
-      <option name="closed" value="true" />
-      <created>1715025555171</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1715025555171</updated>
-    </task>
-    <option name="localTasksCounter" value="75" />
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -681,6 +688,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Renamed JSON for ParseInt purpose, added Javadocs" />
     <MESSAGE value="Modified UpDownPosition" />
     <MESSAGE value="EdgePosition Class modified. All tests passed. &#10;Other classes minor changes" />
     <MESSAGE value="EdgePositionsTest and Pair Class overrided functions" />
@@ -705,8 +713,7 @@
     <MESSAGE value="Model Tests and solved problems." />
     <MESSAGE value="Added MainController class." />
     <MESSAGE value="Delete enumeration." />
-    <MESSAGE value="Removed library." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed library." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete enumeration." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -719,11 +726,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TextualUI.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

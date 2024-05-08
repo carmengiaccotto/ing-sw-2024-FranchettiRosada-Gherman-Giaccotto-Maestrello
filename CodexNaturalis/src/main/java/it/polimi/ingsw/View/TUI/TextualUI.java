@@ -147,11 +147,7 @@ public class TextualUI extends UserInterface {
         }
     }
 
-    /**
-     * Print Chat
-     */
-    public void printChat() {
-    }
+
 
     public void printChoosePersonalObjective(String nickname) {
         boolean isOk = false;
