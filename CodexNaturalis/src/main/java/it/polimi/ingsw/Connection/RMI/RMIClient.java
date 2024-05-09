@@ -1,6 +1,6 @@
-/**
- * This package contains the classes related to the RMI (Remote Method Invocation) connection.
- */
+
+// This package contains the classes related to the RMI (Remote Method Invocation) connection.
+
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI;
 
 // Importing the necessary classes
