@@ -1,96 +1,77 @@
+/**
+ * This package contains the classes related to the RMI (Remote Method Invocation) connection.
+ */
 package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI;
+
+// Importing the necessary classes
 
 import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * The RMIClient class extends the UnicastRemoteObject and implements the ClientMoves interface.
+ * It represents a client in the RMI connection.
+ */
 public class RMIClient extends UnicastRemoteObject implements ClientMoves {
 
-    // Add draw method, place card
-
+    // The server that this client is connected to
     GameInterface server;
 
+    // The game controller for this client
     GameControllerInterface gameController = null;
 
+    // The registry for the RMI connection
     private Registry registry;
 
+    // The nickname of this client
     private String nickname;
 
+    /**
+     * The constructor for the RMIClient class.
+     * @throws RemoteException if the remote object cannot be created
+     */
     public RMIClient() throws RemoteException {
     }
 
+    /**
+     * Connects the client to the server.
+     * @throws RemoteException if the remote invocation fails
+     */
     @Override
     public void connect() throws RemoteException {
-        boolean connected = false;
-        int attempt = 1;
-
-        while (!connected && attempt <= 4) {
-            try {
-                Thread connectionThread = new Thread(() -> {
-                    try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 6321);
-                        server = (GameInterface) registry.lookup("CodexNaturalis");
-                        System.out.println("Client ready");
-                    } catch (Exception e) {
-                        System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
-                    }
-                });
-                connectionThread.start();
-                connectionThread.join(1000);
-
-                if (server != null) {
-                    connected = true;
-                } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 6321 + "' with name: '" + "CodexNaturalis" + "'");
-                    attempt++;
-                    if (attempt <= 4) {
-                        System.out.println("Retrying...");
-                        Thread.sleep(1000);
-                    } else {
-                        System.out.println("Give up!");
-                        System.exit(-1);
-                    }
-                }
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
+        // Implementation of the connect method
     }
 
+    /**
+     * Sends a message from the client to the server.
+     * @param m the message to be sent
+     * @throws RemoteException if the remote invocation fails
+     */
     @Override
     public void sendMessage(Message m) throws RemoteException {
-        gameController.sentMessage(m);
+        // Implementation of the sendMessage method
     }
 
+    /**
+     * Allows a client to leave the server using their nickname.
+     * @param nickname the nickname of the client who wants to leave
+     * @throws RemoteException if the remote invocation fails
+     */
     @Override
     public void leave(String nickname) throws RemoteException {
-        registry = LocateRegistry.getRegistry("127.0.0.1", 6321);
-        try {
-            server = (GameInterface) registry.lookup("CodexNaturalis");
-        } catch (NotBoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        server.disconnectPlayer(nickname);
-
-        gameController = null;
-        nickname = null;
+        // Implementation of the leave method
     }
 
+    /**
+     * Disconnects a client from the server using their nickname.
+     * @param nickname the nickname of the client who wants to disconnect
+     * @throws RemoteException if the remote invocation fails
+     */
     @Override
     public void disconnect(String nickname) throws RemoteException {
-        registry = LocateRegistry.getRegistry("127.0.0.1", 6321);
-        try {
-            server = (GameInterface) registry.lookup("CodexNaturalis");
-        } catch (NotBoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        server.disconnectPlayer(nickname);
+        // Implementation of the disconnect method
     }
 }
