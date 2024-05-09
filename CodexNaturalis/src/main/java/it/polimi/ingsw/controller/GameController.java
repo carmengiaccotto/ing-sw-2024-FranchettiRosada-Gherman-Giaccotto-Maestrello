@@ -3,9 +3,12 @@ package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
+import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
 import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
 
@@ -245,6 +248,107 @@ public class GameController implements Runnable {
    // public Card getInitialcard(){
 
     //}
+
+
+    //Name suggestions for this method?
+    /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
+     * @return  true id the position is valid, false otherWise
+     * @param playArea of the current player
+     * @param column1 chosen column where to place the card
+     * @param row1 chosen row where to place the card*/
+    public boolean ValidTwoCornersSameCard(PlayArea playArea, int row1, int column1){
+        //Graphic playArea is shown with one more column and one more row at the beginning and at the end
+        //compared to the actual PlayArea, to give the Player the opportunity to choose the position,
+        //rather than the card and the corner
+        int r = row1 - 1;
+        int c = column1 - 1;
+        for (int i=r-1; i<=r+1; i++){
+            for (int j=c-1; j<=c+1; c++){
+                if(i==r || j==c){
+                    if (playArea.getCardInPosition(i,j)!=null) // if we have cards in the adjacent positions
+                        //we are trying to cover two corners of the same card
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+//Method still to revise and test
+    /**Method that allows the Player to choose the position where to place the card in a more UserFriendly way*/
+    public boolean ValidPositionCardOnArea(PlayArea playArea, int row1, int column1, SideOfCard newCard) {
+        //Graphic playArea is shown with one more column and one more row at the beginning and at the end
+        //compared to the actual PlayArea, to give the Player the opportunity to choose the position,
+        //rather than the card and the corner
+        int r = row1 - 1;
+        int c = column1 - 1;
+
+        //Check if the position on the playArea is Already occupied
+        if (playArea.getCardInPosition(r, c) != null)
+            return false;
+
+        //Finds a Card to cover for the addCardOnArea method in PlayArea.
+        //This way checks if the player is trying to place a card without attaching it to another one
+        SideOfCard neighbourCard=new SideOfCard(null, null);
+        Corner cornerToCover=null;
+        for (Corner[] Rowcorner : newCard.getCorners()) {
+            for (Corner corner : Rowcorner) {
+                Pair<Integer, Integer> newPosition = corner.getPosition().PositionNewCard(newCard);
+                if (newPosition != null) {
+                    int rowToCheck = newPosition.getFirst();
+                    int columnToCheck = newPosition.getSecond();
+                    if (playArea.rowExists(rowToCheck) && playArea.columnExists(columnToCheck)) {
+                        List<SideOfCard> row = playArea.getCardsOnArea().get(rowToCheck);
+                        if (row != null) {
+                            neighbourCard = row.get(columnToCheck);
+                            if (neighbourCard != null){
+                                cornerToCover=neighbourCard.getCornerInPosition(corner.getPosition().CoverCorners());
+                                if (!cornerToCover.isHidden())
+                                    break;
+                                else
+                                    return false;// We are trying to cover a hidden Corner, so the position Is Invalid
+
+
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+        if (neighbourCard == null)
+            return false;
+        //Add Checks
+        playArea.AddCardOnArea(newCard,cornerToCover,neighbourCard);
+        return true;
+    }
+
+    /**Method that checks if the Player is trying to cover any hidden corners*/
+    public boolean notTryingToCoverHiddenCorners(PlayArea playArea, int row1, int column1, SideOfCard newCard){
+        for (Corner[] Rowcorner : newCard.getCorners()) {
+            for (Corner corner : Rowcorner) {
+                Pair<Integer, Integer> newPosition = corner.getPosition().PositionNewCard(newCard);
+                if (newPosition != null) {
+                    int rowToCheck = newPosition.getFirst();
+                    int columnToCheck = newPosition.getSecond();
+                    if (playArea.rowExists(rowToCheck) && playArea.columnExists(columnToCheck)) {
+                        List<SideOfCard> row = playArea.getCardsOnArea().get(rowToCheck);
+                        if (row != null) {
+                            SideOfCard neighbourCard = row.get(columnToCheck);
+                            if (neighbourCard != null) {
+                                CornerPosition cornerToCover = corner.getPosition().CoverCorners();
+                                if (neighbourCard.getCornerInPosition(cornerToCover).isHidden())
+                                    return false;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
 
 }

@@ -103,6 +103,9 @@ public class PlayArea {
      *
      * @param newCard the card that has just been placed: this method is called after the card has been added to the PlayArea
      */
+
+
+    //Method to revise
     public void checkCloseNeighbours(SideOfCard newCard) {
         for (Corner[] Rowcorner : newCard.getCorners()) {
             for (Corner corner : Rowcorner) {
