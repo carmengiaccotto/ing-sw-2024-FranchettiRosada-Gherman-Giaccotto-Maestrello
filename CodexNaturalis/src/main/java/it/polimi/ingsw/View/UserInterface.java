@@ -8,19 +8,17 @@ import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public abstract class UserInterface {
+public interface UserInterface {
 
-    public void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException, IOException {
+    public void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException, IOException;
+    public void choosePersonalObjectiveCard(String nickname);
 
-    }
-    public void choosePersonalObjectiveCard(String nickname){}
+    public void playInitialCard(Card c);
 
-    public void playInitialCard(Card c){}
+    public void playCard(String nickname);
 
-    public void playCard(String nickname){}
+    public void drawCard();
 
-    public void drawCard(){}
-
-    public void showBoardAndPlayAreas(){}
+    public void showBoardAndPlayAreas();
 
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TextualUI extends UserInterface {
+public class TextualUI implements UserInterface {
 
     private int lobbySize;
     private String logo;
@@ -121,6 +121,11 @@ public class TextualUI extends UserInterface {
 
     }
 
+    @Override
+    public void choosePersonalObjectiveCard(String nickname) {
+
+    }
+
     /**
      * displays the current state of the game
      */
@@ -203,6 +208,11 @@ public class TextualUI extends UserInterface {
 
     }
 
+    @Override
+    public void playCard(String nickname) {
+
+    }
+
     public void chooseCardToPlay(String nickname){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
@@ -239,6 +249,11 @@ public class TextualUI extends UserInterface {
     }
 
     public void drawCard(){
+    }
+
+    @Override
+    public void showBoardAndPlayAreas() {
+
     }
 
 
