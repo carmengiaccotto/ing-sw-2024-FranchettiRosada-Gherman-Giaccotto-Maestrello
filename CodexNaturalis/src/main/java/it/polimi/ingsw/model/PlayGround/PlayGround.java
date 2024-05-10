@@ -1,10 +1,10 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+package it.polimi.ingsw.model.PlayGround;
 
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Chat;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.GameEndedException;
+import it.polimi.ingsw.model.Cards.*;
+import it.polimi.ingsw.model.Chat.Chat;
+import it.polimi.ingsw.model.Chat.Message;
+import it.polimi.ingsw.model.Exceptions.GameEndedException;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler;
+package it.polimi.ingsw.model.JsonHandler;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Cards.*;
+import it.polimi.ingsw.model.Enumerations.CornerPosition;
+import it.polimi.ingsw.model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.model.Position;
+import it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

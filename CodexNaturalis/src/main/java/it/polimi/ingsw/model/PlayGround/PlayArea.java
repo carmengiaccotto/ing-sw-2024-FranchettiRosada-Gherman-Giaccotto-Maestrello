@@ -1,10 +1,10 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+package it.polimi.ingsw.model.PlayGround;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.Enumerations.CornerPosition;
+import it.polimi.ingsw.model.Pair;
+import it.polimi.ingsw.model.Symbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.Connection.Client;
+import it.polimi.ingsw.model.PlayGround.Player;
 
 import java.util.ArrayList;
 

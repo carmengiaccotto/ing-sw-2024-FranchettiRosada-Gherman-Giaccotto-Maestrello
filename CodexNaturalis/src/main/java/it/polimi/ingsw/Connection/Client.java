@@ -1,11 +1,11 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
+package it.polimi.ingsw.Connection;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI.RMIClient;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.View.TUI.TextualUI;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.Connection.RMI.RMIClient;
+import it.polimi.ingsw.View.TUI.TextualUI;
+import it.polimi.ingsw.View.UserInterface;
+import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
+import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.model.PlayGround.Player;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;

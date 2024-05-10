@@ -1,6 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+package it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.CardColors;
 
 /** This subclass represents the Initial Cards and extends the SideOfCard class*/
 public  class InitialCard extends PlayCard {

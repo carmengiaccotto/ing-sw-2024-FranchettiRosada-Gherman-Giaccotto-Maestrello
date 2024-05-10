@@ -1,10 +1,10 @@
 //This package contains the classes related to the RMI (Remote Method Invocation) connection.
 
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI;
+package it.polimi.ingsw.Connection.RMI;
 
 // Importing the necessary classes
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.GameControllerInterface;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

@@ -1,10 +1,8 @@
 // This package contains the classes related to the RMI (Remote Method Invocation) connection.
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI;
+package it.polimi.ingsw.Connection.RMI;
 
 // Importing the Message class from the model
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
 
-// Importing the necessary RMI classes
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -19,12 +17,14 @@ public interface ClientMoves extends Remote {
      */
     void connect() throws RemoteException;
 
-    /**
-     * Sends a message from the client to the server.
-     * @param m the message to be sent
-     * @throws RemoteException if the remote invocation fails
-     */
-    void sendMessage(Message m) throws RemoteException;
+//    /**
+//     * Sends a message from the client to the server.
+//     * @param m the message to be sent
+//     * @throws RemoteException if the remote invocation fails
+//     */
+//    void sendMessage(Message m) throws RemoteException;
+//
+//    void sendMessage(Message m) throws RemoteException;
 
     /**
      * Allows a client to leave the server using their nickname.

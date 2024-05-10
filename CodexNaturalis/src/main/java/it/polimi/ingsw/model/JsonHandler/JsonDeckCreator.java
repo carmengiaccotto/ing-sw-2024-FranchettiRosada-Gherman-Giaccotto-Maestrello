@@ -1,6 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler;
+package it.polimi.ingsw.model.JsonHandler;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
+import it.polimi.ingsw.model.Cards.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

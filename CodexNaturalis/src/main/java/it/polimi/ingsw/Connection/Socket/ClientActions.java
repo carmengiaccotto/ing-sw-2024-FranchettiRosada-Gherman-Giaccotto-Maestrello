@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket;
+package it.polimi.ingsw.Connection.Socket;
 
 public enum ClientActions {
     CHAT,

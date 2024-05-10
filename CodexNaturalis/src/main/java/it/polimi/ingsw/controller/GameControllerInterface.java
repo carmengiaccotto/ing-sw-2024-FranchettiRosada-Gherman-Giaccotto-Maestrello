@@ -1,14 +1,14 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.model.Cards.PlayCard;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.Chat.Message;
+import it.polimi.ingsw.model.Enumerations.PawnColor;
+import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
+import it.polimi.ingsw.model.PlayGround.PlayArea;
+import it.polimi.ingsw.model.PlayGround.Player;
 
 import java.rmi.Remote;
 import java.util.List;

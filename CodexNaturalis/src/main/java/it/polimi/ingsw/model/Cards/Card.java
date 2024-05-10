@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+package it.polimi.ingsw.model.Cards;
 
 /**Physical Card*/
 public class Card {

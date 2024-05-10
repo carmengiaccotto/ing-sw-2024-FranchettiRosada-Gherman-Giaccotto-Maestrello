@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+package it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Enumerations.Side;
 
 
 /** This subclass represents the Resource Cards and extends the SideOfCard class*/

@@ -1,8 +1,8 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
+package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.ClientActions;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Connection.Socket.ClientActions;
+import it.polimi.ingsw.controller.GameControllerInterface;
+import it.polimi.ingsw.model.Cards.ObjectiveCard;
 
 public class ChoosePersonalObjective extends ClientToControllerMessage{
     private ObjectiveCard chosenObjective;

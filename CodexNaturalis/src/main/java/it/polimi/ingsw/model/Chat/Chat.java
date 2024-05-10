@@ -1,6 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat;
+package it.polimi.ingsw.model.Chat;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.DefaultValue;
+import it.polimi.ingsw.model.DefaultValue;
 
 import java.util.ArrayList;
 

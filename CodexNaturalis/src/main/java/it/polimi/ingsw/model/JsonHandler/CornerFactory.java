@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler;
+package it.polimi.ingsw.model.JsonHandler;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.Symbol;
 
 /**Support Class for Json corners construction*/
 public class CornerFactory {

@@ -1,6 +1,6 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection;
+package it.polimi.ingsw.Connection;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.RMI.RMIServer;
+import it.polimi.ingsw.Connection.RMI.RMIServer;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

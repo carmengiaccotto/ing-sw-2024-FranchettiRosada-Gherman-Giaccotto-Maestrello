@@ -1,4 +1,4 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model;
+package it.polimi.ingsw.model;
 
 /** Class that contains the default values that are used **/
 public class DefaultValue {

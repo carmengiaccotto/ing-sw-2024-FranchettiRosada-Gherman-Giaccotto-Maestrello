@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+package it.polimi.ingsw.model.PlayGround;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Card;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
+import it.polimi.ingsw.model.Cards.Card;
+import it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;

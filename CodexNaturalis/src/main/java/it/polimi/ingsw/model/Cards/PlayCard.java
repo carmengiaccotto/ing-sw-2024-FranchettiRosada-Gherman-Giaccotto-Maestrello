@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards;
+package it.polimi.ingsw.model.Cards;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Enumerations.Side;
 
 /** Class that represents a play Card of the game. Each card is a Pair of sideOfCard,
  * where the first element is the front and the second element is the back.

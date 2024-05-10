@@ -1,16 +1,16 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Chat.Message;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.Connection.Client;
+import it.polimi.ingsw.model.Cards.*;
+import it.polimi.ingsw.model.Chat.Message;
+import it.polimi.ingsw.model.Enumerations.CornerPosition;
+import it.polimi.ingsw.model.Enumerations.PawnColor;
+import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.model.Pair;
+import it.polimi.ingsw.model.PlayGround.PlayArea;
+import it.polimi.ingsw.model.PlayGround.PlayGround;
+import it.polimi.ingsw.model.PlayGround.Player;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

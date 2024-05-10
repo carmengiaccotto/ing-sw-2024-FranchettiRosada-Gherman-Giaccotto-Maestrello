@@ -1,10 +1,10 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround;
+package it.polimi.ingsw.model.PlayGround;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.PawnColor;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.model.Cards.PlayCard;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.Enumerations.PawnColor;
+import it.polimi.ingsw.model.Enumerations.Side;
 
 import java.util.ArrayList;
 

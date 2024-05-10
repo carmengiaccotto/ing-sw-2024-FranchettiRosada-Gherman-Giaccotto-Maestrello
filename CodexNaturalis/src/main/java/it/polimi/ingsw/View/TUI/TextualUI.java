@@ -1,17 +1,17 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.View.TUI;
+package it.polimi.ingsw.View.TUI;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.View.UserInterface;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameController;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.MainController;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Card;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayGround;
+import it.polimi.ingsw.Connection.Client;
+import it.polimi.ingsw.View.UserInterface;
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.MainController;
+import it.polimi.ingsw.model.Cards.Card;
+import it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.model.Cards.PlayCard;
+import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
+import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.model.PlayGround.PlayArea;
+import it.polimi.ingsw.model.PlayGround.PlayGround;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;

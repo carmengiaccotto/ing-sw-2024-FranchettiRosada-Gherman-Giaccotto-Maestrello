@@ -1,7 +1,7 @@
-package CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
+package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Socket.ClientActions;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.controller.GameControllerInterface;
+import it.polimi.ingsw.Connection.Socket.ClientActions;
+import it.polimi.ingsw.controller.GameControllerInterface;
 //Questo è un metodo gestito dal main?
 public class ChooseNickName  {
     private String Nickname;
