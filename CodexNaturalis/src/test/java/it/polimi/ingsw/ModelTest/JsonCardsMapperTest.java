@@ -1,10 +1,10 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest;
+package it.polimi.ingsw.ModelTest;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.JsonCardsMapper;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.*;
+import it.polimi.ingsw.model.Enumerations.CornerPosition;
+import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.JsonHandler.JsonCardsMapper;
+import it.polimi.ingsw.model.Symbol;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.JsonCardsMapper.MapGoldCardFromJson;
+import static it.polimi.ingsw.model.JsonHandler.JsonCardsMapper.MapGoldCardFromJson;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonCardsMapperTest {

@@ -1,8 +1,8 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.ModelTest.CardTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Cards.ResourceCard;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Enumerations.Side;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

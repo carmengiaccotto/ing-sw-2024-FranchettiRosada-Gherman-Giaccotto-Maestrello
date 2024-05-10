@@ -1,17 +1,17 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.ModelTest.CardTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.DispositionObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.PlayCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.CornerPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Position;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.Cards.DispositionObjectiveCard;
+import it.polimi.ingsw.model.Cards.PlayCard;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.Enumerations.CornerPosition;
+import it.polimi.ingsw.model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.model.Pair;
+import it.polimi.ingsw.model.PlayGround.PlayArea;
+import it.polimi.ingsw.model.Position;
+import it.polimi.ingsw.model.Symbol;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

@@ -1,11 +1,11 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.EnumTests;
+package it.polimi.ingsw.ModelTest.EnumTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.UpDownPosition;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Pair;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.PlayArea;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.model.Pair;
+import it.polimi.ingsw.model.PlayGround.PlayArea;
+import it.polimi.ingsw.model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

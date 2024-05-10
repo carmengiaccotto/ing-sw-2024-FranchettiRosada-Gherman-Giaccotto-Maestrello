@@ -1,8 +1,8 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.JsonTests;
+package it.polimi.ingsw.ModelTest.JsonTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.CornerFactory;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.JsonHandler.CornerFactory;
+import it.polimi.ingsw.model.Symbol;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

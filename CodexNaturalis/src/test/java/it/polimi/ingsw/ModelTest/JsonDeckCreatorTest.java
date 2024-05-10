@@ -1,10 +1,10 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest;
+package it.polimi.ingsw.ModelTest;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.GoldCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.InitialCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ObjectiveCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.ResourceCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
+import it.polimi.ingsw.model.Cards.GoldCard;
+import it.polimi.ingsw.model.Cards.InitialCard;
+import it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.model.Cards.ResourceCard;
+import it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

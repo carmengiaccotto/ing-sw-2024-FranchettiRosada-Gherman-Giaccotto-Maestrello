@@ -1,6 +1,6 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.EnumTests;
+package it.polimi.ingsw.ModelTest.EnumTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.model.Enumerations.ObjectivePoints;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

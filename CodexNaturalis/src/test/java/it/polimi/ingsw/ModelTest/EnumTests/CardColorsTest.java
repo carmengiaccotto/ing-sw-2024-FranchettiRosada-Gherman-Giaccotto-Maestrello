@@ -1,6 +1,6 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.EnumTests;
+package it.polimi.ingsw.ModelTest.EnumTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.CardColors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -6,7 +6,7 @@ package it.polimi.ingsw.Connection.RMI;
 // Importing the necessary classes
 
 import it.polimi.ingsw.controller.GameControllerInterface;
-import it.polimi.ingsw.model.Chat.Message;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -45,15 +45,15 @@ public class RMIClient extends UnicastRemoteObject implements ClientMoves {
         // Implementation of the connect method
     }
 
-    /**
-     * Sends a message from the client to the server.
-     * @param m the message to be sent
-     * @throws RemoteException if the remote invocation fails
-     */
-    @Override
-    public void sendMessage(Message m) throws RemoteException {
-        // Implementation of the sendMessage method
-    }
+//    /**
+//     * Sends a message from the client to the server.
+//     * @param m the message to be sent
+//     * @throws RemoteException if the remote invocation fails
+//     */
+//    @Override
+//    public void sendMessage(Message m) throws RemoteException {
+//        // Implementation of the sendMessage method
+//    }
 
     /**
      * Allows a client to leave the server using their nickname.

@@ -1,10 +1,10 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.ModelTest.CardTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.GoldCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.CardColors;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Enumerations.Side;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.model.Cards.GoldCard;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.CardColors;
+import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.model.Symbol;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

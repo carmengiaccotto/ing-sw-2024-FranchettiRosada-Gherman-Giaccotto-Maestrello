@@ -1,9 +1,9 @@
-package CodexNaturalis.src.test.java.it.polimi.ingsw.ModelTest.PlayGroundTests;
+package it.polimi.ingsw.ModelTest.PlayGroundTests;
 
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.*;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.Corner;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.Cards.SideOfCard;
-import CodexNaturalis.src.main.java.it.polimi.ingsw.model.PlayGround.EdgePositions;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Cards.Corner;
+import it.polimi.ingsw.model.Cards.SideOfCard;
+import it.polimi.ingsw.model.PlayGround.EdgePositions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
