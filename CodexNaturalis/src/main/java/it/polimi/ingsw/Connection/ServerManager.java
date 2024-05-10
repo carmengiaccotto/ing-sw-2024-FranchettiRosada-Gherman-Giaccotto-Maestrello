@@ -1,14 +1,17 @@
 package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIServer;
+import it.polimi.ingsw.Connection.Socket.SocketServer;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 
 public class ServerManager {
-   // private final SocketServer socketServer;
+    private final SocketServer socketServer;
     private final RMIServer rmiServer;
+
 
     protected String serverIP;
 
@@ -20,37 +23,21 @@ public class ServerManager {
             System.err.println("Impossible to obtain local IP address: " + e.getMessage());
             throw e;
         }
-        //socketServer = new SocketServer(12345);
-
+        socketServer= new SocketServer(12345);
         rmiServer = new RMIServer();
 
     }
-    public static void main(String[] args) throws UnknownHostException, RemoteException {
+    public static void main(String[] args) throws IOException {
         ServerManager manager=new ServerManager();
-        manager.startBothServers();
+        System.out.println("Server Address: "+ manager.serverIP);
+        manager.rmiServer.bind();
+        manager.socketServer.startServer();
+
 
 
 
     }
 
-
-   // public void startSocketServer() {
-   //     socketServer.startServer();
-   // }
-
-    public void startRMIServer() throws RemoteException {
-        rmiServer.bind();
-    }
-
-    public void startBothServers() {
-        System.out.println("ServerAddress: "+serverIP);
-        //startSocketServer();
-        try {
-            startRMIServer();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
 }

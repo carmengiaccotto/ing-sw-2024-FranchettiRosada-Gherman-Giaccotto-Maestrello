@@ -1,16 +1,16 @@
 package it.polimi.ingsw.ModelTest.CardTests;
 
+import it.polimi.ingsw.model.CardColors;
 import it.polimi.ingsw.model.Cards.GoldCard;
 import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.CardColors;
 import it.polimi.ingsw.model.Enumerations.Side;
 import it.polimi.ingsw.model.Symbol;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoldCardTest {
@@ -37,7 +37,7 @@ class GoldCardTest {
 
     @Test
     public void testGoldCardConstructor() {
-        assertNotNull(goldCard);
+        Assertions.assertNotNull(goldCard);
         assertEquals(1, goldCard.getIdCard());
         assertEquals(front, goldCard.getFront());
         assertEquals(back, goldCard.getBack());

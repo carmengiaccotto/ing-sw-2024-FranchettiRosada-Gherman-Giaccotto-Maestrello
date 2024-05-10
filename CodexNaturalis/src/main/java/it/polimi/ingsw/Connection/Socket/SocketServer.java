@@ -3,25 +3,22 @@ package it.polimi.ingsw.Connection.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
-public class SocketServer implements Runnable {
+public class SocketServer  {
+    private int port;
+    private ServerSocket serverSocket;
 
-    private ArrayList<SocketConnectionHandler> connectedPlayers;
-    @Override
-    public void run(){
-        try {
-            ServerSocket server = new ServerSocket(4789);
-            Socket client=server.accept();
-            SocketConnectionHandler handler=new SocketConnectionHandler(client);
-            connectedPlayers.add(handler);
-        }catch (IOException e){
-            System.out.println("Unable to run Server");
-        }
+    public SocketServer(int port){
+        this.port=port;
+    }
+    public void startServer() throws IOException {
+        serverSocket= new ServerSocket(this.port);
+        System.out.println("socket server ready on port: "+port);
+        Socket socket=serverSocket.accept();
+        System.out.println("new client connected");
 
 
     }
-
 
 
 }

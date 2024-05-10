@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Test Fixed Imports">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated pom">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/GoldCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/GoldCardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +49,8 @@
     &quot;accountId&quot;: &quot;ba83697b-a3e1-4ed6-b3fd-32c49ba8372b&quot;
   }
 }</component>
-  <component name="MavenRunner">
-    <option name="delegateBuildToMaven" value="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -67,6 +70,8 @@
     "Application.Player.executor": "Run",
     "Application.ServerManager.executor": "Run",
     "Application.Unnamed.executor": "Run",
+    "Application.it.polimi.ingsw.Connection.Client.executor": "Run",
+    "Application.it.polimi.ingsw.Connection.ServerManager.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
     "JUnit.CardColorsTest.testEquality.executor": "Run",
@@ -89,6 +94,8 @@
     "JUnit.CornerTest.testIsCovered.executor": "Run",
     "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
     "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
+    "JUnit.GoldCardTest.executor": "Run",
+    "JUnit.GoldCardTest.testCheckRequirement_FrontSide_SufficientSymbols.executor": "Run",
     "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
     "JUnit.ObjectivePointsTest.executor": "Coverage",
     "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
@@ -107,7 +114,13 @@
     "JUnit.SideTest.executor": "Run",
     "JUnit.UpDownPositionTest.TestGetNeighbourCard.executor": "Run",
     "JavaClassFindUsagesOptions.isFieldsUsages": "true",
+    "Maven.PSP22 [clean].executor": "Run",
+    "Maven.PSP22 [install,--non-recursive].executor": "Run",
+    "Maven.PSP22 [install].executor": "Run",
+    "Maven.PSP22 [org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M9:test].executor": "Run",
+    "Maven.PSP22 [test].executor": "Run",
     "Maven.PSP49 [test].executor": "Run",
+    "Maven.it.polimi.ingsw.Connection.ServerManager.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -126,10 +139,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.48099607",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "project.structure.side.proportion": "0.1310616",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -153,7 +166,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.it.polimi.ingsw.Connection.ServerManager">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.model.App" />
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
@@ -167,12 +180,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client" />
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+    <configuration name="it.polimi.ingsw.Connection.Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
+      <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.Connection.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -180,12 +193,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.ServerManager" />
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+    <configuration name="it.polimi.ingsw.Connection.ServerManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.ServerManager" />
+      <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.Connection.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -193,51 +206,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InitialCardTest.testMapFromJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+    <configuration name="GoldCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.CardTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.InitialCardTest" />
-      <option name="METHOD_NAME" value="testMapFromJson" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.test.java.it.polimi.ingsw.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw" />
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.test.java.it.polimi.ingsw.PlayerTest" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.CardTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.CardTests.GoldCardTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GoldCardTest.testCheckRequirement_FrontSide_SufficientSymbols" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP22" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.CardTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.CardTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.CardTests.GoldCardTest" />
+      <option name="METHOD_NAME" value="testCheckRequirement_FrontSide_SufficientSymbols" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
+      <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
       <item itemvalue="Application.App" />
-      <item itemvalue="Application.Client" />
-      <item itemvalue="Application.ServerManager" />
-      <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
-      <item itemvalue="JUnit.PlayerTest" />
+      <item itemvalue="JUnit.GoldCardTest" />
+      <item itemvalue="JUnit.GoldCardTest.testCheckRequirement_FrontSide_SufficientSymbols" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
+        <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
+        <item itemvalue="JUnit.GoldCardTest" />
+        <item itemvalue="JUnit.GoldCardTest.testCheckRequirement_FrontSide_SufficientSymbols" />
         <item itemvalue="Application.App" />
-        <item itemvalue="Application.Client" />
-        <item itemvalue="Application.ServerManager" />
-        <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="JUnit.InitialCardTest.testMapFromJson" />
       </list>
     </recent_temporary>
   </component>
@@ -260,14 +274,6 @@
       <workItem from="1715179303862" duration="3369000" />
       <workItem from="1715196673520" duration="1646000" />
       <workItem from="1715200079795" duration="119000" />
-    </task>
-    <task id="LOCAL-00028" summary="Adjusted class Constructors according to new SideOfCard logic">
-      <option name="closed" value="true" />
-      <created>1713294268027</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1713294268028</updated>
     </task>
     <task id="LOCAL-00029" summary="findCoveredCornersMethod and its Javadoc">
       <option name="closed" value="true" />
@@ -653,7 +659,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715358013632</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Updated pom">
+      <option name="closed" value="true" />
+      <created>1715360930520</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1715360930521</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -697,7 +711,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="EdgePositionsTest and Pair Class overrided functions" />
     <MESSAGE value="Packages" />
     <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
     <MESSAGE value="getNeighborCard method modified. CornerPosition Test, all test passed" />
@@ -722,7 +735,8 @@
     <MESSAGE value="Removed library." />
     <MESSAGE value="Fixed Imports and Updated pom.xml" />
     <MESSAGE value="Test Fixed Imports" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Fixed Imports" />
+    <MESSAGE value="Updated pom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated pom" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
