@@ -17,7 +17,7 @@ public interface UserInterface {
 
     public void playCard(String nickname);
 
-    public void drawCard();
+    public void drawCard(String nickname);
 
     public void showBoardAndPlayAreas();
 

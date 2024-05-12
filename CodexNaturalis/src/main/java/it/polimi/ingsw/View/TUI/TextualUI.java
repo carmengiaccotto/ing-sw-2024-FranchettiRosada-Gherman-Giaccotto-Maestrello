@@ -248,7 +248,7 @@ public class TextualUI implements UserInterface {
 
     }
 
-    public void drawCard(){
+    public void drawCard(String nickname){
     }
 
     @Override

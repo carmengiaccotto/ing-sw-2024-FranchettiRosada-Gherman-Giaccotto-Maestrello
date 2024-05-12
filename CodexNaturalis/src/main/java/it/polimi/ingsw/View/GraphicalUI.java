@@ -36,7 +36,7 @@ public class GraphicalUI implements UserInterface{
     }
 
     @Override
-    public void drawCard() {
+    public void drawCard(String nickname) {
 
     }
 

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.Connection.Client;
+import it.polimi.ingsw.View.TUI.TextualUI;
+import it.polimi.ingsw.View.UserInterface;
 import it.polimi.ingsw.model.Cards.*;
 import it.polimi.ingsw.model.Chat.Message;
 import it.polimi.ingsw.model.Enumerations.CornerPosition;
@@ -24,13 +26,51 @@ import java.util.stream.Collectors;
 public class GameController implements Runnable {
     private ArrayList<Client> clients = null;
 
+    private static UserInterface view;
     private PlayGround model;
-
     private static GameController instance = null;
     private final Random random = new Random();
 
     @Override
     public void run() {
+        int pos = 0;
+        view = new TextualUI();
+        System.out.println("The game has started");
+        try {
+            initializeGame();
+            System.out.println("This is the initial board of the game:");
+            view.showBoardAndPlayAreas();
+        } catch (NotReadyToRunException e) {
+            throw new RuntimeException(e);
+        }
+        for (Client c : getClients()) {
+            view.choosePersonalObjectiveCard(c.getPlayer().getNickname());
+            InitialCard card = extractInitialCard();
+            view.playInitialCard(card);
+        }
+
+
+        while (!scoreMaxReached()) {
+            for (Client c : getClients()) {
+                System.out.println("It's your turn!");
+                view.playCard(c.getPlayer().getNickname());
+                view.drawCard(c.getPlayer().getNickname());
+                pos = getClients().indexOf(c);
+            }
+        }
+
+        if (pos < (clients.size() - 1)){
+            for (int i = pos + 1; i < clients.size(); i++) {
+                System.out.println("It's your last turn!");
+                view.playCard(getClients().get(i).getPlayer().getNickname());
+                view.drawCard(getClients().get(i).getPlayer().getNickname());
+            }
+        }
+        try {
+            FinalizeGame();
+        } catch (NotReadyToRunException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -72,6 +112,15 @@ public class GameController implements Runnable {
             model.addCommonCard(c);
             model.removeCardFromDeck(c, model.getResourceCardDeck());
         }
+    }
+
+    public InitialCard extractInitialCard(){
+        int cardExtracted = random.nextInt(model.getInitialCardDeck().getSize() - 1);
+        InitialCard c = (InitialCard) model.getInitialCardDeck().getCards().get(cardExtracted);
+        model.removeCardFromDeck(c, model.getInitialCardDeck());
+
+        return c;
+
     }
 
 
