@@ -2,6 +2,7 @@ package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIServer;
 import it.polimi.ingsw.Connection.Socket.SocketServer;
+import it.polimi.ingsw.controller.MainController;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -11,6 +12,8 @@ import java.rmi.RemoteException;
 public class ServerManager {
     private final SocketServer socketServer;
     private final RMIServer rmiServer;
+
+    private static MainController principal = new MainController();
 
 
     protected String serverIP;
@@ -32,10 +35,7 @@ public class ServerManager {
         System.out.println("Server Address: "+ manager.serverIP);
         manager.rmiServer.bind();
         manager.socketServer.startServer();
-
-
-
-
+        principal.run();
     }
 
 
