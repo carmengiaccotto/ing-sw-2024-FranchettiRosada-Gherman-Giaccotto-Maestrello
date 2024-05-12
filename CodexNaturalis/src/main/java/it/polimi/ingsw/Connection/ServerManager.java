@@ -33,7 +33,7 @@ public class ServerManager {
     public static void main(String[] args) throws IOException {
         ServerManager manager=new ServerManager();
         System.out.println("Server Address: "+ manager.serverIP);
-        manager.rmiServer.bind();
+        RMIServer.bind();
         manager.socketServer.startServer();
         principal.run();
     }

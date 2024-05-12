@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.Connection.Client;
-import it.polimi.ingsw.View.TUI.TextualUI;
 import it.polimi.ingsw.View.UserInterface;
 import it.polimi.ingsw.model.Cards.*;
 import it.polimi.ingsw.model.Chat.Message;
@@ -34,7 +33,6 @@ public class GameController implements Runnable {
     @Override
     public void run() {
         int pos = 0;
-        view = new TextualUI();
         System.out.println("The game has started");
         try {
             initializeGame();
@@ -44,17 +42,17 @@ public class GameController implements Runnable {
             throw new RuntimeException(e);
         }
         for (Client c : getClients()) {
-            view.choosePersonalObjectiveCard(c.getPlayer().getNickname());
+            c.getView().choosePersonalObjectiveCard(c.getPlayer().getNickname());
             InitialCard card = extractInitialCard();
-            view.playInitialCard(card);
+            c.getView().playInitialCard(card);
         }
 
 
         while (!scoreMaxReached()) {
             for (Client c : getClients()) {
                 System.out.println("It's your turn!");
-                view.playCard(c.getPlayer().getNickname());
-                view.drawCard(c.getPlayer().getNickname());
+                c.getView().playCard(c.getPlayer().getNickname());
+                c.getView().drawCard(c.getPlayer().getNickname());
                 pos = getClients().indexOf(c);
             }
         }
@@ -62,8 +60,8 @@ public class GameController implements Runnable {
         if (pos < (clients.size() - 1)){
             for (int i = pos + 1; i < clients.size(); i++) {
                 System.out.println("It's your last turn!");
-                view.playCard(getClients().get(i).getPlayer().getNickname());
-                view.drawCard(getClients().get(i).getPlayer().getNickname());
+                getClients().get(i).getView().playCard(getClients().get(i).getPlayer().getNickname());
+                getClients().get(i).getView().drawCard(getClients().get(i).getPlayer().getNickname());
             }
         }
         try {

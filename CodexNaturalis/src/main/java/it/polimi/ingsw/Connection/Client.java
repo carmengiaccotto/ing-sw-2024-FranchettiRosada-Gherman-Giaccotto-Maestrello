@@ -73,5 +73,9 @@ public class Client {
             }
         }
     }
+
+    public UserInterface getView(){
+        return view;
+    }
 }
 
