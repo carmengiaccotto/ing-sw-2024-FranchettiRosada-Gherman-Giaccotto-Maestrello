@@ -5,10 +5,9 @@ import it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**This is the class that implements the generic deck of cards*/
-public class Deck implements Iterable{
+public class Deck {
     private final ArrayList<? extends Card> deck;
 
 
@@ -40,10 +39,6 @@ public class Deck implements Iterable{
         return deck.size();
     }
 
-    @Override
-    public Iterator<? extends Card> iterator() {
-        return deck.iterator();
-    }
 
 
 //    /**

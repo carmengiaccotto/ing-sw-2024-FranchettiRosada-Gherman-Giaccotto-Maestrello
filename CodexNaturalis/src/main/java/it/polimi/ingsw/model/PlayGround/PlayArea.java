@@ -227,5 +227,16 @@ public class PlayArea {
     public List<List<SideOfCard>> getCardsOnArea() {
         return cardsOnArea;
     }
+
+
+    /**
+     * Method for adding the starting card to the player's playArea
+     * @param NewCard
+     */
+    public void AddCardOnArea(SideOfCard NewCard){
+        cardsOnArea.add(new ArrayList<>());
+        cardsOnArea.get(0).add(NewCard);
+
+    }
 }
 

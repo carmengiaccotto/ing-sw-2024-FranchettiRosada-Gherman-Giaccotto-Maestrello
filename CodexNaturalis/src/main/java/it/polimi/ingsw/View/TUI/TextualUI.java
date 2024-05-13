@@ -4,13 +4,13 @@ import it.polimi.ingsw.Connection.Client;
 import it.polimi.ingsw.View.UserInterface;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.MainController;
-import it.polimi.ingsw.model.Cards.Card;
+import it.polimi.ingsw.model.Cards.InitialCard;
 import it.polimi.ingsw.model.Cards.ObjectiveCard;
 import it.polimi.ingsw.model.Cards.PlayCard;
+import it.polimi.ingsw.model.Cards.SideOfCard;
 import it.polimi.ingsw.model.Enumerations.Side;
 import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
-import it.polimi.ingsw.model.PlayGround.PlayArea;
 import it.polimi.ingsw.model.PlayGround.PlayGround;
 
 import java.io.IOException;
@@ -21,20 +21,11 @@ import java.util.Scanner;
 
 public class TextualUI implements UserInterface {
 
-    private int lobbySize;
-    private String logo;
-    private GameController gameController;
-    private MainController mainController = new MainController();
+    GameController gameController;
 
+    private String CodexNaturalisLogo;
+    private final MainController mainController = new MainController();
 
-    /**
-     * Asks the user to enter the nickname
-     */
-    private String askNickname() {
-        Scanner scanner = new Scanner(System.in);
-        String nickName = scanner.next();
-        return nickName;
-    }
 
     /**
      * The player logs in
@@ -43,8 +34,7 @@ public class TextualUI implements UserInterface {
         Scanner scanner = new Scanner(System.in);
         boolean logSuccessfull = false;
         String nickname = null;
-        //System.out.println(logo + "\n");
-
+        //System.out.println(CodexNaturalisLogo + "\n");
 
         System.out.println("Welcome to the game!");
 
@@ -54,10 +44,10 @@ public class TextualUI implements UserInterface {
 
             case "CREATE":
 
-                System.out.println("Please choose a nickName: " + "\n >>");
+                System.out.println("Please choose a nickName: " + "\n ->");
                 while (!logSuccessfull) {
 
-                    nickname = askNickname();
+                    nickname = scanner.next();
 
                     logSuccessfull = mainController.checkUniqueNickname(nickname);
 
@@ -65,24 +55,24 @@ public class TextualUI implements UserInterface {
                         System.out.println("Login successful");
 
                     } else {
-                        System.out.println("Login failed. Please choose a different nickname. " + "\n >>");
+                        System.out.println("Login failed. Please choose a different nickname. " + "\n ->");
                     }
                 }
 
 
-                System.out.println("How many players do you want to play with?" + "\n >>");
-                lobbySize = Integer.parseInt(scanner.next());
-                while (lobbySize < 2 || lobbySize > 4) {
+                System.out.println("How many players do you want to play with? 2/3/4?" + "\n ->");
+                int numOfPlayers = Integer.parseInt(scanner.next());
+                while (numOfPlayers < 2 || numOfPlayers > 4) {
 
-                    System.out.println("Please choose a number between 2 and 4");
-                    lobbySize = Integer.parseInt(scanner.next());
+                    System.out.println("Please choose a number from the following: 2/3/4" + "\n ->");
+                    numOfPlayers = Integer.parseInt(scanner.next());
                 }
                 ArrayList<Client> c = new ArrayList<>();
-                PlayGround model = new PlayGround(0); //provvisorio numero zero
+                PlayGround model = new PlayGround(0);   //provvisorio numero zero
                 GameController game = new GameController(c, model);
                 Client client = new Client();
 
-                mainController.createGame(nickname, lobbySize, game, client);
+                mainController.createGame(nickname, numOfPlayers, game, client);
                 System.out.println("Wait for the chosen number of players to enter...");
                 //inserire una wait
                 break;
@@ -90,21 +80,72 @@ public class TextualUI implements UserInterface {
 
             case "JOIN":
 
-//                System.out.println("Please choose a nickName: ");
-//                while (!logSuccessfull) {
-//
-//                    nickname = askNickname();
-//
-//                    logSuccessfull = mainController.checkUniqueNickname(nickname);
-//
-//                    if (logSuccessfull) {
-//                        System.out.println("Login successful");
-//
-//                    } else {
-//                        System.out.println("Login failed. Please choose a different nickname. " + "\n >>");
-//                    }
-//                }
-//
+                System.out.println("Please choose a nickName: ");
+                while (!logSuccessfull) {
+
+                    nickname = scanner.next();
+
+                    logSuccessfull = mainController.checkUniqueNickname(nickname);
+
+                    if (logSuccessfull) {
+                        System.out.println("Login successful");
+
+                    } else {
+                        System.out.println("Login failed. Please choose a different nickname. " + "\n ->");
+                    }
+                }
+
+                System.out.println("Here is the list of games you can join: " + "\n");
+
+                for(GameController theGame : mainController.getGames()) {
+
+                    if (theGame.getClients().size() < theGame.getModel().getNumOfPlayers()) {
+
+                        System.out.println("Game ID: " + theGame.getModel().getGameId() + "\n");
+                        System.out.println("Maximum number of players: " + theGame.getModel().getNumOfPlayers() + "\n");
+                        System.out.println("Number of current players in the game: " + theGame.getClients().size() + "\n");
+                        System.out.println("List of players in the game: \n");
+                        for (int i = 0; i < theGame.getClients().size(); i++) {
+                            System.out.println(theGame.getClients().get(i).getPlayer().getNickname());
+                            System.out.println("\n");
+                        }
+                        System.out.println("\n");
+                    }
+                }
+                System.out.println("Select the ID of the game you want to join: ");
+                int ID = Integer.parseInt(scanner.next());
+
+                boolean gameFound = false;
+                boolean playerAdded = false;
+
+                while((!gameFound) || (!playerAdded)){
+
+                    for(GameController theGame1 : mainController.getGames()){
+
+                        if(theGame1.getModel().getGameId() == ID){
+
+                            if(theGame1.getClients().size() < theGame1.getModel().getNumOfPlayers()){
+
+                                mainController.addClientToLobby(nickname, ID);
+                                playerAdded = true;
+
+                            }
+                            else{
+                                System.out.println("Maximum number of players already reached: ");
+
+                            }
+                            gameFound = true;
+                            break;
+                        }
+
+                    }
+                    if(!gameFound){
+                        System.out.println("The ID entered does not exist: ");
+                        ID = Integer.parseInt(scanner.next());
+                    }
+
+                }
+
 //                System.out.println("Choose PawnColor between the following: ");
 //                List<PawnColor> listOfColor = gameController.AvailableColors();
 //
@@ -115,35 +156,19 @@ public class TextualUI implements UserInterface {
 //                    System.out.println("Please insert a valid color: ");
 //                    colors = PawnColor.valueOf(scanner.next());
 //                }
-//                mainController.addClientToLobby(nickname, colors);
                 break;
         }
 
     }
 
-    @Override
-    public void choosePersonalObjectiveCard(String nickname) {
-
-    }
-
-    /**
-     * displays the current state of the game
-     */
-    public void showGameBoard(PlayArea playArea) {
-    }
-
-    /**
-     * Menu to show once the game starts
-     */
-    public void showInitialMenu() {
-    }
 
     /**
      * Show player information
      */
+
     public void printPlayerInformation(String nickName) {
         for (Client client : gameController.getClients()) {
-            if (nickName == client.getPlayer().getNickname()) {
+            if (nickName.equals(client.getPlayer().getNickname())) {
                 System.out.println("NickName: " + client.getPlayer().getNickname());
                 System.out.println("Score: " + client.getPlayer().getScore());
                 System.out.println("PawnColor: " + client.getPlayer().getNickname());
@@ -153,8 +178,7 @@ public class TextualUI implements UserInterface {
     }
 
 
-
-    public void printChoosePersonalObjective(String nickname) {
+    public void choosePersonalObjectiveCard(String nickname) {
         boolean isOk = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose your personal goal: [1/2]");
@@ -167,13 +191,13 @@ public class TextualUI implements UserInterface {
 
                 case "1":
                     ObjectiveCard o = objectiveCards.getFirst();
-                  //  gameController.getPersonalObjective(nickname) = o;
+                    gameController.getPlayer(nickname).setPersonalObjectiveCard(o);
                     isOk = true;
                     break;
 
                 case "2":
-                    ObjectiveCard o1 = gameController.getPersonalObjective(nickname);
-                    o1 = objectiveCards.getFirst();
+                    ObjectiveCard o1 = objectiveCards.get(1);
+                    gameController.getPlayer(nickname).setPersonalObjectiveCard(o1);
                     isOk = true;
                     break;
 
@@ -184,7 +208,8 @@ public class TextualUI implements UserInterface {
         } while(!isOk);
     }
 
-    public void playInitialCard(Card c){
+    @Override
+    public void playInitialCard(InitialCard c, String nickname){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
@@ -193,27 +218,24 @@ public class TextualUI implements UserInterface {
         do {
             switch (side) {
                 case "FRONT":
-                    gameController.addCardOnArea(c, Side.FRONT);
+                    SideOfCard card = gameController.getPlayer(nickname).ChooseCardToPlay(c, Side.FRONT);
+                    gameController.getPlayer(nickname).getPlayArea().AddCardOnArea(card);
                     valid = true;
                     break;
                 case "BACK":
-                    gameController.addCardOnArea(c, Side.BACK);
+                    SideOfCard card1 = gameController.getPlayer(nickname).ChooseCardToPlay(c, Side.BACK);
+                    gameController.getPlayer(nickname).getPlayArea().AddCardOnArea(card1);
                     valid = true;
                     break;
                 default:
                     System.out.println("Choose a valid side: [FRONT/BACK]");
-
+                    side = scanner.next().toUpperCase();
             }
         } while(!valid);
-
     }
 
     @Override
-    public void playCard(String nickname) {
-
-    }
-
-    public void chooseCardToPlay(String nickname){
+    public void playCard(String nickname){
         boolean valid = false;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose from your cards which one you want to play; [1/2/3]");
@@ -221,45 +243,101 @@ public class TextualUI implements UserInterface {
         System.out.println(cardInHand);
         int c = Integer.parseInt(scanner.next());
 
-        while((c == 1) || (c == 2) || (c == 3)){
+        while((c != 1) && (c != 2) && (c != 3)){
             System.out.println("Choose a valid card");
             c = Integer.parseInt(scanner.next());
         }
 
         System.out.println("Choose the side you want to play: [FRONT/BACK]");
+        System.out.println(cardInHand.get(c-1));
         String side = scanner.next();
 
-        while((!side.equals("FRONT")) || (!side.equals("BACK")))
-        {
-            System.out.println("Choose a valid side");
-            side = scanner.next();
+        while(!valid) {
+            switch (side) {
+                case "FRONT":
+
+                    SideOfCard card = gameController.getPlayer(nickname).ChooseCardToPlay(cardInHand.get(c-1), Side.FRONT);
+                    System.out.println("Choose the row and column in which you want to place the card: ");
+                    int row = scanner.nextInt();
+                    int column = scanner.nextInt();
+                    boolean valid2 = gameController.ValidTwoCornersSameCard(gameController.getPlayer(nickname).getPlayArea(), row, column);
+                    boolean valid3 = gameController.notTryingToCoverHiddenCorners(gameController.getPlayer(nickname).getPlayArea(), row, column, card);
+
+                    boolean isOK = false;
+                    do {
+                        if (valid2 && valid3) {
+                            boolean valid1 = false;
+                            do {
+                                valid1 = gameController.ValidPositionCardOnArea(gameController.getPlayer(nickname).getPlayArea(), row, column, card);
+                                if (!valid1) {
+                                    System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
+                                    row = scanner.nextInt();
+                                    column = scanner.nextInt();
+                                }
+
+                            } while (!valid1);
+                            isOK = true;
+
+                        } else {
+                            System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
+                            row = scanner.nextInt();
+                            column = scanner.nextInt();
+                        }
+                    } while(!isOK);
+                    gameController.removeCardInHand(cardInHand.get(c - 1), nickname);
+
+                case "BACK":
+
+                    SideOfCard card1 = gameController.getPlayer(nickname).ChooseCardToPlay(cardInHand.get(c-1), Side.BACK);
+                    System.out.println("Choose the row and column in which you want to place the card: ");
+                    int row1 = scanner.nextInt();
+                    int column1 = scanner.nextInt();
+                    boolean valid5 = gameController.ValidTwoCornersSameCard(gameController.getPlayer(nickname).getPlayArea(), row1, column1);
+                    boolean valid6 = gameController.notTryingToCoverHiddenCorners(gameController.getPlayer(nickname).getPlayArea(), row1, column1, card1);
+
+                    boolean isOK1 = false;
+                    do {
+                        if (valid5 && valid6) {
+                            boolean valid8 = false;
+                            do {
+                                valid8 = gameController.ValidPositionCardOnArea(gameController.getPlayer(nickname).getPlayArea(), row1, column1, card1);
+                                if (!valid8) {
+                                    System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
+                                    row1 = scanner.nextInt();
+                                    column1 = scanner.nextInt();
+                                }
+
+                            } while (!valid8);
+                            isOK1 = true;
+
+                        } else {
+                            System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
+                            row1 = scanner.nextInt();
+                            column1 = scanner.nextInt();
+                        }
+                    } while(!isOK1);
+
+                    gameController.removeCardInHand(cardInHand.get(c - 1), nickname);
+
+                default:
+
+                    System.out.println("Choose a valid side: [FRONT/BACK]");
+                    side = scanner.next();
+            }
         }
 
-        switch(side){
-            case "FRONT":
-                gameController.addCardOnArea(cardInHand.get(c-1),Side.FRONT);
-                gameController.removeCardInHand(cardInHand.get(c-1));
-
-            case "BACK":
-                gameController.addCardOnArea(cardInHand.get(c-1),Side.BACK);
-                gameController.removeCardInHand(cardInHand.get(c-1));
-
-        }
-
-    }
-
-    public void drawCard(String nickname){
     }
 
     @Override
-    public void showBoardAndPlayAreas() {
+    public void drawCard(String nickname){
+    }
 
+
+    public void showBoardAndPlayAreas(){
     }
 
 
 }
-
-
 
 
 

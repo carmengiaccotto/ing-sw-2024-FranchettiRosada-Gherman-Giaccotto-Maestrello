@@ -4,7 +4,6 @@ import it.polimi.ingsw.Connection.RMI.RMIServer;
 import it.polimi.ingsw.Connection.Socket.SocketServer;
 import it.polimi.ingsw.controller.MainController;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -30,13 +29,13 @@ public class ServerManager {
         rmiServer = new RMIServer();
 
     }
-    public static void main(String[] args) throws IOException {
-        ServerManager manager=new ServerManager();
-        System.out.println("Server Address: "+ manager.serverIP);
-        RMIServer.bind();
-        manager.socketServer.startServer();
-        principal.run();
-    }
+//    public static void main(String[] args) throws IOException {
+//        ServerManager manager=new ServerManager();
+//        System.out.println("Server Address: "+ manager.serverIP);
+//        RMIServer.bind();
+//        manager.socketServer.startServer();
+//        principal.run();
+//    }
 
 
 

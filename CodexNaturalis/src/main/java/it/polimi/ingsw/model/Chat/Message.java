@@ -70,7 +70,6 @@ public class Message {
      *
      * @return "everyone" (everyone is a receiver)
      */
-    public String whoIsReceiver() {
-        return "everyone";
+    public void whoIsReceiver() {
     }
 }

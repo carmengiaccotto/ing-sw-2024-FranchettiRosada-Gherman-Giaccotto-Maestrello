@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.PlayGround.Player;
 
 import java.util.ArrayList;
 
-public class MainController implements Runnable{
+public class MainController {
 
     private final ArrayList<GameController> games = new ArrayList<>();
     private final ArrayList<Client> clients = new ArrayList<>();
@@ -13,23 +13,10 @@ public class MainController implements Runnable{
     public MainController() {
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            if(!games.isEmpty()) {
-                for (GameController game : games) {
-                    if (game.getClients().size() == game.getModel().getNumOfPlayers()) {
-                        game.run();
-                    }
-                }
-            }
-        }
-    }
-
     /** Add a player to Game's lobby.*/
-    public void addClientToLobby(String nickName) {
+    public void addClientToLobby(String nickName, int ID) {
         Client c = new Client();
-        games.get(games.size() - 1).getClients().add(c);
+        games.get(ID).getClients().add(c);
         Player p = new Player();
         c.setPlayer(p);
         p.setNickname(nickName);
@@ -72,4 +59,7 @@ public class MainController implements Runnable{
        }
     }
 
+    public ArrayList<GameController> getGames(){
+        return this.games;
+    }
 }

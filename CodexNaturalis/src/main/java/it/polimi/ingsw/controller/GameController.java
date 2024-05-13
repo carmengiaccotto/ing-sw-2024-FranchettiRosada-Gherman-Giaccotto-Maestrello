@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Cards.*;
 import it.polimi.ingsw.model.Chat.Message;
 import it.polimi.ingsw.model.Enumerations.CornerPosition;
 import it.polimi.ingsw.model.Enumerations.PawnColor;
-import it.polimi.ingsw.model.Enumerations.Side;
 import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.model.Pair;
 import it.polimi.ingsw.model.PlayGround.PlayArea;
@@ -44,9 +43,8 @@ public class GameController implements Runnable {
         for (Client c : getClients()) {
             c.getView().choosePersonalObjectiveCard(c.getPlayer().getNickname());
             InitialCard card = extractInitialCard();
-            c.getView().playInitialCard(card);
+            c.getView().playInitialCard(card, c.getPlayer().getNickname());
         }
-
 
         while (!scoreMaxReached()) {
             for (Client c : getClients()) {
@@ -272,21 +270,19 @@ public class GameController implements Runnable {
         return null;
     }
 
-    public void addCardOnArea(Card card, Side side){
-
-    }
 
     public ArrayList<PlayCard> getCardInHandPlayer(String nickname){
         for(Client client : clients){
             if(client.getPlayer().getNickname().equals(nickname)){
-                client.getPlayer().getCardsInHand();
+                return client.getPlayer().getCardsInHand();
             }
         }
         return null;
     }
 
-    public void removeCardInHand(Card card){
-
+    public void removeCardInHand(Card card, String nickname){
+        Player p = getPlayer(nickname);
+        p.getCardsInHand().remove(card);
     }
 
     public void getChat(){
@@ -395,6 +391,16 @@ public class GameController implements Runnable {
             }
         }
         return true;
+    }
+
+    public Player getPlayer(String nickname){
+        for(Client client: clients){
+            if(client.getPlayer().getNickname().equals(nickname)){
+                return client.getPlayer();
+
+            }
+        }
+        return null;
     }
 
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View;
 
-import it.polimi.ingsw.model.Cards.Card;
+import it.polimi.ingsw.model.Cards.InitialCard;
 import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 
@@ -13,7 +13,7 @@ public interface UserInterface {
     public void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException, IOException;
     public void choosePersonalObjectiveCard(String nickname);
 
-    public void playInitialCard(Card c);
+    public void playInitialCard(InitialCard c, String nickname);
 
     public void playCard(String nickname);
 

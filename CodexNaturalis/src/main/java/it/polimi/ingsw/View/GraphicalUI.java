@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View;
 
-import it.polimi.ingsw.model.Cards.Card;
+import it.polimi.ingsw.model.Cards.InitialCard;
 import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
 import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
 
@@ -26,7 +26,7 @@ public class GraphicalUI implements UserInterface{
     }
 
     @Override
-    public void playInitialCard(Card c) {
+    public void playInitialCard(InitialCard c, String nickname) {
 
     }
 

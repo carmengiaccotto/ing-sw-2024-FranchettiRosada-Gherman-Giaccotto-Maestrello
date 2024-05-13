@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.Exceptions.GameEndedException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -212,48 +211,11 @@ public class PlayGround {
     /**
      * Remove card from deck d
      *
-     * @param card
      * @param d
      */
-    public void removeCardFromDeck(Card card, Deck d) {
+    public void removeCardFromDeck(Card c, Deck d) {
 
-        if (card instanceof GoldCard) {
-            Iterator<GoldCard> cardIterator = (Iterator<GoldCard>) d.iterator();
-
-            while (cardIterator.hasNext()) {
-                GoldCard nexCard = cardIterator.next();
-                if (nexCard.getIdCard() == (card.getIdCard())) {
-                    cardIterator.remove();
-                }
-            }
-        } else if (card instanceof ResourceCard) {
-            Iterator<ResourceCard> cardIterator = (Iterator<ResourceCard>) d.iterator();
-
-            while (cardIterator.hasNext()) {
-                ResourceCard nexCard = cardIterator.next();
-                if (nexCard.getIdCard() == (card.getIdCard())) {
-                    cardIterator.remove();
-                }
-            }
-        } else if (card instanceof InitialCard) {
-            Iterator<InitialCard> cardIterator = (Iterator<InitialCard>) d.iterator();
-
-            while (cardIterator.hasNext()) {
-                InitialCard nexCard = cardIterator.next();
-                if (nexCard.getIdCard() == (card.getIdCard())) {
-                    cardIterator.remove();
-                }
-            }
-        } else if (card instanceof ObjectiveCard) {
-            Iterator<ObjectiveCard> cardIterator = (Iterator<ObjectiveCard>) d.iterator();
-
-            while (cardIterator.hasNext()) {
-                ObjectiveCard nexCard = cardIterator.next();
-                if (nexCard.getIdCard() == (card.getIdCard())) {
-                    cardIterator.remove();
-                }
-            }
-        }
+        d.getCards().remove(c);
     }
 
     /**
@@ -376,6 +338,9 @@ public class PlayGround {
     public void sentMessage(Message m) {
         chat.addMessage(m);
     }
+
+
+
 }
 
 

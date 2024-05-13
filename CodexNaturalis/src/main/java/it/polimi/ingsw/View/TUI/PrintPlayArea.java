@@ -146,10 +146,6 @@ public class PrintPlayArea {
         }
     }
 
-
-
-
-
     public static void main(String[] args) {
         List<List<SideOfCard>> cardsOnArea= new ArrayList<>();
         List<SideOfCard> row1 = new ArrayList<>();
