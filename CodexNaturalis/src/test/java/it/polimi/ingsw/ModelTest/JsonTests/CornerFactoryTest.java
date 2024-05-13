@@ -1,8 +1,8 @@
 package it.polimi.ingsw.ModelTest.JsonTests;
 
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.JsonHandler.CornerFactory;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.JsonHandler.CornerFactory;
+import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
-import it.polimi.ingsw.controller.GameControllerInterface;
+import it.polimi.ingsw.Controller.GameControllerInterface;
 
 public abstract class ClientToControllerMessage {
     private String senderNickName;

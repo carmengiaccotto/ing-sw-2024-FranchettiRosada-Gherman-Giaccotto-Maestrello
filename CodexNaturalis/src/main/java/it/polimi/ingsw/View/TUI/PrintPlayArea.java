@@ -1,11 +1,11 @@
 package it.polimi.ingsw.View.TUI;
 
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.Pair;
-import it.polimi.ingsw.model.PlayGround.PlayArea;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;

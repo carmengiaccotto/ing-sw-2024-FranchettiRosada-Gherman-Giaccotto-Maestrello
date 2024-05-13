@@ -1,11 +1,11 @@
 package it.polimi.ingsw.ModelTest.EnumTests;
 
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.Enumerations.UpDownPosition;
-import it.polimi.ingsw.model.Pair;
-import it.polimi.ingsw.model.PlayGround.PlayArea;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

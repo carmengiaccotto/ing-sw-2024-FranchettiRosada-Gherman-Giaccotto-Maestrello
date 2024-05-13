@@ -1,8 +1,8 @@
 package it.polimi.ingsw.View.TUI;
 
 
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;

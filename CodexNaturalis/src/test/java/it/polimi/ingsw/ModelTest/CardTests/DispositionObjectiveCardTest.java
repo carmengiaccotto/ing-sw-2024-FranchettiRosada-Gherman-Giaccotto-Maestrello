@@ -1,17 +1,17 @@
 package it.polimi.ingsw.ModelTest.CardTests;
 
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.Cards.DispositionObjectiveCard;
-import it.polimi.ingsw.model.Cards.PlayCard;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.Enumerations.CornerPosition;
-import it.polimi.ingsw.model.Enumerations.ObjectivePoints;
-import it.polimi.ingsw.model.Enumerations.UpDownPosition;
-import it.polimi.ingsw.model.Pair;
-import it.polimi.ingsw.model.PlayGround.PlayArea;
-import it.polimi.ingsw.model.Position;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.CornerPosition;
+import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.Position;
+import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

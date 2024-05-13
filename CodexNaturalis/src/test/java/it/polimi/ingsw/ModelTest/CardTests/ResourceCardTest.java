@@ -1,8 +1,8 @@
 package it.polimi.ingsw.ModelTest.CardTests;
 
-import it.polimi.ingsw.model.Cards.ResourceCard;
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Enumerations.Side;
+import it.polimi.ingsw.Model.Cards.ResourceCard;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.Side;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

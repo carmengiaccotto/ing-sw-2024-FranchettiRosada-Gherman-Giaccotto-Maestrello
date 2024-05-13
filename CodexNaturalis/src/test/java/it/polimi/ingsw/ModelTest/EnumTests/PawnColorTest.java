@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ModelTest.EnumTests;
 
-import it.polimi.ingsw.model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

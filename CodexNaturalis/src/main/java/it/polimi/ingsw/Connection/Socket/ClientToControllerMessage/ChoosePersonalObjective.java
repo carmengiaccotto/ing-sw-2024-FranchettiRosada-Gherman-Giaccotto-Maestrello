@@ -1,8 +1,8 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
-import it.polimi.ingsw.controller.GameControllerInterface;
-import it.polimi.ingsw.model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Controller.GameControllerInterface;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 
 public class ChoosePersonalObjective extends ClientToControllerMessage{
     private ObjectiveCard chosenObjective;

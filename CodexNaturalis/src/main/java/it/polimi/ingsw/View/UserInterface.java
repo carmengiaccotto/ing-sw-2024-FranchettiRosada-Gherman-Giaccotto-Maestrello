@@ -1,24 +1,33 @@
 package it.polimi.ingsw.View;
 
-import it.polimi.ingsw.model.Cards.InitialCard;
-import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Model.Enumerations.PawnColor;
 
-import java.io.IOException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface UserInterface {
 
-    public void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException, IOException;
-    public void choosePersonalObjectiveCard(String nickname);
+//    public void userLogin() throws RemoteException, NotBoundException, NotReadyToRunException, MaxNumPlayersException, IOException;
+//    public void choosePersonalObjectiveCard(String nickname);
+//
+//    public void playInitialCard(InitialCard c, String nickname);
+//
+//    public void playCard(String nickname);
+//
+//    public void drawCard(String nickname);
+//
+//    public void showBoardAndPlayAreas();
 
-    public void playInitialCard(InitialCard c, String nickname);
+    String selectNickName();
 
-    public void playCard(String nickname);
+    int createOrJoin();
 
-    public void drawCard(String nickname);
+    int MaxNumPlayers();
 
-    public void showBoardAndPlayAreas();
+    int displayavailableGames(ArrayList<GameController> games);
+
+
+    int  displayAvailableColors(ArrayList<PawnColor> availableColors);
+    void waitingForPlayers();
 
 }

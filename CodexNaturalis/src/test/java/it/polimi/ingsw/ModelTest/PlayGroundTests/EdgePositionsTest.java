@@ -1,9 +1,9 @@
 package it.polimi.ingsw.ModelTest.PlayGroundTests;
 
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.PlayGround.EdgePositions;
+import it.polimi.ingsw.Model.*;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.PlayGround.EdgePositions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

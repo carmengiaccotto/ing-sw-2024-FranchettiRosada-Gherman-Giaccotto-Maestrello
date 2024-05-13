@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ModelTest.CardTests;
 
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Cards.GoldCard;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.Enumerations.Side;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Cards.GoldCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

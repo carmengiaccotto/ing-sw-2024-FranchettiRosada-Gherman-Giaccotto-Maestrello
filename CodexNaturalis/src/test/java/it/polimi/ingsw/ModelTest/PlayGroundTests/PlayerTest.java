@@ -1,13 +1,13 @@
 package it.polimi.ingsw.ModelTest.PlayGroundTests;
 
-import it.polimi.ingsw.model.Cards.Corner;
-import it.polimi.ingsw.model.Cards.PlayCard;
-import it.polimi.ingsw.model.Cards.SideOfCard;
-import it.polimi.ingsw.model.CardColors;
-import it.polimi.ingsw.model.Enumerations.PawnColor;
-import it.polimi.ingsw.model.Enumerations.Side;
-import it.polimi.ingsw.model.PlayGround.PlayArea;
-import it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

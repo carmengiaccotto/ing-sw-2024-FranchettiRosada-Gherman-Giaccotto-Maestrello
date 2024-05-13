@@ -1,6 +1,6 @@
 package it.polimi.ingsw.ModelTest.EnumTests;
 
-import it.polimi.ingsw.model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

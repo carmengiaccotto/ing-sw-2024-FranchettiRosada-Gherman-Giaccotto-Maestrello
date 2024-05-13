@@ -3,27 +3,41 @@
 package it.polimi.ingsw.Connection.RMI;
 
 // Importing the necessary classes
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.controller.GameControllerInterface;
+
+import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Connection.VirtualClient;
+import it.polimi.ingsw.Connection.VirtualServer;
+import it.polimi.ingsw.Model.Enumerations.GameStatus;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * The RMIServer class extends the UnicastRemoteObject and implements the GameInterface interface.
  * It represents a server in the RMI connection.
  */
-public class RMIServer extends UnicastRemoteObject implements GameInterface {
+public class RMIServer extends UnicastRemoteObject implements VirtualServer {
 
     // The singleton instance of the RMIServer
     private static RMIServer serverObject = null;
 
-    // The game interface for this server
-    private final GameInterface gameInt = null;
+    //Thread pool for Multi-Game advanced feature
+    private ExecutorService executor;
+
 
     // The registry for the RMI connection
     private static Registry registry = null;
+
+    private ArrayList<VirtualClient> clients;
+
+    private ArrayList<GameController> runningGames;
+
+    private final Object gameLock = new Object();
 
     /**
      * The constructor for the RMIServer class.
@@ -31,7 +45,10 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
      */
     public RMIServer() throws RemoteException {
         super(0);
-        GameController game = GameControllerInterface.getInstance();
+        clients=new ArrayList<VirtualClient>();
+        runningGames=new ArrayList<GameController>();
+        executor= Executors.newCachedThreadPool();
+
     }
 
     /**
@@ -42,7 +59,7 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
         try {
             serverObject = new RMIServer();
             // Bind the remote object's stub in the registry
-            registry = LocateRegistry.createRegistry(6321);
+            registry = LocateRegistry.createRegistry(6322);
             getRegistry().rebind("CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
@@ -56,7 +73,7 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
      * Returns the singleton instance of the RMIServer.
      * @return RMIServer the singleton instance of the RMIServer
      */
-    public synchronized static RMIServer getInstance() {
+    public  static RMIServer getInstance() {
         if(serverObject == null) {
             try {
                 serverObject = new RMIServer();
@@ -72,92 +89,95 @@ public class RMIServer extends UnicastRemoteObject implements GameInterface {
      * @return Registry the registry associated with the RMI Server
      * @throws RemoteException if the remote invocation fails
      */
-    public synchronized static Registry getRegistry() throws RemoteException {
+    public  static Registry getRegistry() throws RemoteException {
         return registry;
     }
 
-    /**
-     * Creates a new game with the given nickname.
-     * @param nickname the nickname of the player who wants to create a new game
-     * @return GameControllerInterface the controller of the created game
-     * @throws RemoteException if the remote invocation fails
-     */
-    @Override
-    public GameControllerInterface createGame(String nickname) throws RemoteException {
-        GameControllerInterface game = serverObject.gameInt.createGame(nickname);
-        if (game != null) {
-            try {
-                UnicastRemoteObject.exportObject(game, 0);
-            }catch (RemoteException e){
-            }
-            System.out.println("[RMI] " + nickname + " created a new game");
-        }
-        return game;
-    }
 
-    /**
-     * Allows a player to join an existing game using their nickname.
-     * @param nickname the nickname of the player who wants to join an existing game
-     * @return GameControllerInterface the controller of the joined game
-     * @throws RemoteException if the remote invocation fails
-     */
-    @Override
-    public GameControllerInterface joinExistingGame(String nickname) throws RemoteException {
-         GameControllerInterface game = serverObject.gameInt.joinExistingGame(nickname);
-        if (game != null) {
-            try {
-                UnicastRemoteObject.exportObject(game, 0);
-            }catch (RemoteException e){
-            }
 
-            System.out.println("[RMI] " + nickname + " joined a game");
-        }
-        return game;
+    @Override
+    public void connect(VirtualClient client) throws RemoteException {
+        System.out.println("New Client Connected");
+        clients.add(client);
+        addClientToLobby(client);
+
 
     }
 
-    /**
-     * Allows a player to reconnect to a game using their nickname.
-     * @param nickname the nickname of the player who wants to reconnect
-     * @return GameControllerInterface the controller of the reconnected game
-     * @throws RemoteException if the remote invocation fails
-     */
+
+
     @Override
-    public GameControllerInterface reconnectPlayer(String nickname) throws RemoteException {
-        GameControllerInterface game = serverObject.gameInt.reconnectPlayer(nickname);
-
-        if (game != null) {
-            try {
-                UnicastRemoteObject.exportObject(game, 0);
-            }catch (RemoteException e){
-
-            }
-            System.out.println("[RMI] " + nickname + " reconnected to game");
-        }
-        return game;
+    public  void addClientToLobby(VirtualClient client) throws RemoteException {
+        client.setNickname();
+        client.JoinOrCreateGame();
+        System.out.println("se arrivi fino a qui allora non capisco");
 
     }
 
-    /**
-     * Allows a player to disconnect from a game using their nickname.
-     * @param nickname the nickname of the player who wants to disconnect
-     * @return GameControllerInterface the controller of the disconnected game
-     * @throws RemoteException if the remote invocation fails
-     */
     @Override
-    public GameControllerInterface disconnectPlayer(String nickname) throws RemoteException {
-        GameControllerInterface game = serverObject.gameInt.disconnectPlayer(nickname);
-
-        if (game != null) {
-            try {
-                UnicastRemoteObject.exportObject(game, 0);
-            }catch (RemoteException e){
-
+    public  boolean checkUniqueNickName(String name) throws RemoteException {
+        if (clients.size()>1) {
+            for (VirtualClient c : clients) {
+                if (name.equals(c.getNickname())) {
+                    return false;
+                }
             }
-            System.out.println("[RMI] " + nickname + "disconnected");
         }
-        return game;
 
+        return true;
     }
 
+    @Override
+    public synchronized void joinGame(VirtualClient client, int GameID) throws RemoteException {
+        GameController gameToJoin=null;
+        for(GameController game: runningGames)
+            if(game.getId()==GameID)
+                gameToJoin=game;
+
+        gameToJoin.addPlayer(client);
+        NotifyGamePlayerJoined(gameToJoin, client);
+    }
+
+    public ArrayList<GameController> DisplayAvailableGames() throws RemoteException{
+        ArrayList<GameController> availableGames=new ArrayList<>();
+        for(int i=0; i< runningGames.size(); i++) {
+            if (runningGames.get(i).getStatus().equals(GameStatus.WAITING)) {
+                availableGames.add(runningGames.get(i));
+            }
+        }
+        return availableGames;
+    }
+
+    public void createGameSynchronized(VirtualClient client) throws RemoteException {
+        Object gameLock= new Object();
+        synchronized (gameLock) {
+            createGame(client);
+            client.getView().waitingForPlayers();
+        }
+    }
+
+    public void createGame(VirtualClient client) throws RemoteException {
+
+        GameController newGame = new GameController(runningGames.size()+1,client.newGameSetUp());
+        executor.submit(newGame);
+        runningGames.add(newGame);
+        newGame.addPlayer(client);
+        NotifyGamePlayerJoined(newGame, client);
+    }
+
+    public synchronized void NotifyGamePlayerJoined(GameController game, VirtualClient client) throws RemoteException {
+        System.out.println("ci siamo");
+        game.NotifyNewPlayerJoined(client);
+    }
+
+    public GameController getGame(int id){
+        for (GameController game: runningGames)
+            if(game.getId()==id)
+                return game;
+        throw  new IllegalArgumentException("no game found with this id");
+    }
 }
+
+
+
+

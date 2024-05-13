@@ -1,11 +1,9 @@
 package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIClient;
-import it.polimi.ingsw.View.TUI.TextualUI;
+import it.polimi.ingsw.Connection.RMI.RMIServer;
 import it.polimi.ingsw.View.UserInterface;
-import it.polimi.ingsw.model.Exceptions.MaxNumPlayersException;
-import it.polimi.ingsw.model.Exceptions.NotReadyToRunException;
-import it.polimi.ingsw.model.PlayGround.Player;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -18,6 +16,8 @@ public class Client {
 
     private RMIClient clientRMI;
 
+//    private SocketClient socketClient;
+
     private Player player;
 
     public Player getPlayer(){
@@ -28,10 +28,10 @@ public class Client {
         player = p;
     }
 
-    public static void main(String[] args) throws IOException, MaxNumPlayersException, NotBoundException, NotReadyToRunException {
+    public static void main(String[] args) throws IOException, NotBoundException {
         new Client().start();
     }
-    public void start() throws IOException, MaxNumPlayersException, NotBoundException, NotReadyToRunException {
+    public void start() throws IOException, NotBoundException {
         int InterfaceType = 0;
         System.out.println("Insert server ip address:");
         Scanner scan = new Scanner(System.in);
@@ -39,22 +39,6 @@ public class Client {
             serverIp = scan.nextLine();
         } catch (Exception e) {
             serverIp = "localhost";
-        }
-        while (InterfaceType != 1 && InterfaceType != 2) {
-            System.out.println("Select InterfaceType: \n 1. TextUserInterface \n 2. GraphicUserInterface");
-            try {
-                InterfaceType = scan.nextInt();
-            } catch (Exception e) {
-                InterfaceType = 0;
-            }
-        }
-        switch (InterfaceType) {
-            case 1:
-                view = new TextualUI();
-                break;
-            case 2:
-                // Inizializza la GUI
-                break;
         }
 
         System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET");
@@ -64,18 +48,16 @@ public class Client {
             Integer netProtocol = scan.nextInt();
 
             if (netProtocol.equals(1)) {
-                clientRMI = new RMIClient();
+                clientRMI = new RMIClient(new RMIServer());
                 clientRMI.connect();
-                view.userLogin();
+
+
                 break;
             } else if (netProtocol.equals(2)) {
-                //runSocket(ip);
+//                socketClient=new SocketClient();
+
             }
         }
-    }
-
-    public UserInterface getView(){
-        return view;
     }
 }
 

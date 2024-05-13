@@ -1,8 +1,8 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
-import it.polimi.ingsw.controller.GameControllerInterface;
-import it.polimi.ingsw.model.Chat.Message;
+import it.polimi.ingsw.Controller.GameControllerInterface;
+import it.polimi.ingsw.Model.Chat.Message;
 
 public class ClientChatMessage extends ClientToControllerMessage {
     private String senderNickName;

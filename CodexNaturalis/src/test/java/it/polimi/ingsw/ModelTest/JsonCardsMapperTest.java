@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ModelTest;
 
-import it.polimi.ingsw.model.Cards.*;
-import it.polimi.ingsw.model.Enumerations.CornerPosition;
-import it.polimi.ingsw.model.Enumerations.Side;
-import it.polimi.ingsw.model.JsonHandler.JsonCardsMapper;
-import it.polimi.ingsw.model.Symbol;
+import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Enumerations.CornerPosition;
+import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.JsonHandler.JsonCardsMapper;
+import it.polimi.ingsw.Model.Symbol;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static it.polimi.ingsw.model.JsonHandler.JsonCardsMapper.MapGoldCardFromJson;
+import static it.polimi.ingsw.Model.JsonHandler.JsonCardsMapper.MapGoldCardFromJson;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonCardsMapperTest {

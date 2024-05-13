@@ -1,10 +1,10 @@
 package it.polimi.ingsw.ModelTest;
 
-import it.polimi.ingsw.model.Cards.GoldCard;
-import it.polimi.ingsw.model.Cards.InitialCard;
-import it.polimi.ingsw.model.Cards.ObjectiveCard;
-import it.polimi.ingsw.model.Cards.ResourceCard;
-import it.polimi.ingsw.model.JsonHandler.JsonDeckCreator;
+import it.polimi.ingsw.Model.Cards.GoldCard;
+import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.ResourceCard;
+import it.polimi.ingsw.Model.JsonHandler.JsonDeckCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
