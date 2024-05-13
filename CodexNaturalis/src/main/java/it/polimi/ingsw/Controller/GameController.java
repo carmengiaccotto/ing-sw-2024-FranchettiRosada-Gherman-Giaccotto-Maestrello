@@ -47,16 +47,16 @@ public class GameController implements  Runnable, Serializable {
 
     @Override
     public void run() {
-        while(!status.equals(GameStatus.ENDED)){
-            performAction(GameStatus currentStatus);
-        }
-
-        while(status.equals(GameStatus.RUNNING)){
-            receiveMessage(Command c);
-        }
-
-
-
+//        while(!status.equals(GameStatus.ENDED)){
+//            performAction(GameStatus currentStatus);
+//        }
+//
+//        while(status.equals(GameStatus.RUNNING)){
+//            receiveMessage(Command c);
+//        }
+//
+//
+//
     }
 
 

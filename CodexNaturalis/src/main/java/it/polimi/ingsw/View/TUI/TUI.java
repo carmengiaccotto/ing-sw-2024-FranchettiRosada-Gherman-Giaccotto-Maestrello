@@ -2,7 +2,10 @@ package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Connection.VirtualClient;
 import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.rmi.RemoteException;
@@ -12,6 +15,26 @@ import java.util.Scanner;
 public class TUI implements UserInterface {
     Scanner scanner = new Scanner(System.in);
 
+
+    @Override
+    public String ChooseSideInitialCard(InitialCard c) {
+        PrintCards.printCardFrontBack(c);
+        System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
+        String side = scanner.next().toUpperCase();
+        while (!side.equals("FRONT") && !side.equals("BACK")) {
+            System.out.println("Please insert a valid side: [FRONT/BACK]");
+            side = scanner.next().toUpperCase();
+        }
+        return side;
+    }
+
+
+
+    @Override
+    public void playInitialCard(SideOfCard s, PlayArea playArea) {
+        PrintPlayArea.DrawGraphicPlayArea(playArea);
+
+    }
 
     @Override
     public String selectNickName() {

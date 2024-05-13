@@ -21,6 +21,6 @@ public class ClientChatMessage extends ClientToControllerMessage {
 
 
     public void execute(GameControllerInterface game){
-        game.sentMessage(messageToSend);
+//        game.sentMessage(messageToSend);
     }
 }

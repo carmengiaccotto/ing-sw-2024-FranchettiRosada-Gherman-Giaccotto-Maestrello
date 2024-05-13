@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Run method in MainController implemented and updated Servermanager">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="RMI server and RMI client, controller and TUI new Implementations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChatMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +66,7 @@
     &quot;Application.App.executor&quot;: &quot;Run&quot;,
     &quot;Application.Client.executor&quot;: &quot;Run&quot;,
     &quot;Application.Player.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PrintCards.executor&quot;: &quot;Run&quot;,
     &quot;Application.ServerManager.executor&quot;: &quot;Run&quot;,
     &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
@@ -155,13 +158,13 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.it.polimi.ingsw.Connection.Client">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.model.App" />
+  <component name="RunManager" selected="Application.PrintCards">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client" />
       <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.model.*" />
+          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -169,12 +172,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client" />
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+    <configuration name="PrintCards" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.TUI.PrintCards" />
+      <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.View.TUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -222,19 +225,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.PrintCards" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
-      <item itemvalue="Application.App" />
       <item itemvalue="Application.Client" />
       <item itemvalue="Application.ServerManager" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PrintCards" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
         <item itemvalue="Application.ServerManager" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -257,14 +260,6 @@
       <workItem from="1715179303862" duration="3369000" />
       <workItem from="1715196673520" duration="1646000" />
       <workItem from="1715200079795" duration="119000" />
-    </task>
-    <task id="LOCAL-00029" summary="findCoveredCornersMethod and its Javadoc">
-      <option name="closed" value="true" />
-      <created>1713299435485</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1713299435485</updated>
     </task>
     <task id="LOCAL-00030" summary="findCoveredCornersMethod and its Javadoc">
       <option name="closed" value="true" />
@@ -650,7 +645,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715475428386</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="RMI server and RMI client, controller and TUI new Implementations">
+      <option name="closed" value="true" />
+      <created>1715633467622</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1715633467623</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,7 +697,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Packages" />
     <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
     <MESSAGE value="getNeighborCard method modified. CornerPosition Test, all test passed" />
     <MESSAGE value="UpDownPosition Test" />
@@ -719,7 +721,8 @@
     <MESSAGE value="Fixed Imports and Updated pom.xml" />
     <MESSAGE value="Run method in GameController implemented" />
     <MESSAGE value="Run method in MainController implemented and updated Servermanager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Run method in MainController implemented and updated Servermanager" />
+    <MESSAGE value="RMI server and RMI client, controller and TUI new Implementations" />
+    <option name="LAST_COMMIT_MESSAGE" value="RMI server and RMI client, controller and TUI new Implementations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -735,7 +738,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java</url>
-          <line>36</line>
+          <line>59</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
