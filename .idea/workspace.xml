@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="RMI server and RMI client, controller and TUI new Implementations">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Run method in MainController implemented and updated Servermanager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/GameControllerInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,6 +257,14 @@
       <workItem from="1715179303862" duration="3369000" />
       <workItem from="1715196673520" duration="1646000" />
       <workItem from="1715200079795" duration="119000" />
+    </task>
+    <task id="LOCAL-00029" summary="findCoveredCornersMethod and its Javadoc">
+      <option name="closed" value="true" />
+      <created>1713299435485</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1713299435485</updated>
     </task>
     <task id="LOCAL-00030" summary="findCoveredCornersMethod and its Javadoc">
       <option name="closed" value="true" />
@@ -640,15 +650,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715475428386</updated>
     </task>
-    <task id="LOCAL-00078" summary="RMI server and RMI client, controller and TUI new Implementations">
-      <option name="closed" value="true" />
-      <created>1715633467622</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1715633467623</updated>
-    </task>
-    <option name="localTasksCounter" value="79" />
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,6 +694,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Packages" />
     <MESSAGE value="Added personalObjectiveCard attribute with getter and setter" />
     <MESSAGE value="getNeighborCard method modified. CornerPosition Test, all test passed" />
     <MESSAGE value="UpDownPosition Test" />
@@ -716,8 +719,7 @@
     <MESSAGE value="Fixed Imports and Updated pom.xml" />
     <MESSAGE value="Run method in GameController implemented" />
     <MESSAGE value="Run method in MainController implemented and updated Servermanager" />
-    <MESSAGE value="RMI server and RMI client, controller and TUI new Implementations" />
-    <option name="LAST_COMMIT_MESSAGE" value="RMI server and RMI client, controller and TUI new Implementations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Run method in MainController implemented and updated Servermanager" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

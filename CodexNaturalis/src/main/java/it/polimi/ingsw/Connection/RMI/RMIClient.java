@@ -114,8 +114,7 @@ public class RMIClient extends UnicastRemoteObject implements VirtualClient, Ser
             throw new RuntimeException(e);
         }
     }
-    /**Method that allows the Player to set the Desired pawn color, by choosing between the ones that have not been taken
-     * By other Players*/
+
     @Override
     public void setPawnColor(ArrayList<PawnColor> availableColors) {
         int choice = view.displayAvailableColors(availableColors);
