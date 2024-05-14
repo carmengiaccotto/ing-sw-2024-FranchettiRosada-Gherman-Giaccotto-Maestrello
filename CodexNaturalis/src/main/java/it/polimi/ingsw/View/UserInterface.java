@@ -2,6 +2,7 @@ package it.polimi.ingsw.View;
 
 import it.polimi.ingsw.Controller.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
@@ -35,5 +36,9 @@ public interface UserInterface {
 
     int  displayAvailableColors(ArrayList<PawnColor> availableColors);
     void waitingForPlayers();
+
+    void printObjectives(ObjectiveCard card);
+
+    int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 
 }

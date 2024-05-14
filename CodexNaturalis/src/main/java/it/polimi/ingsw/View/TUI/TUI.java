@@ -2,12 +2,15 @@ package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Connection.VirtualClient;
 import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
 import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.View.UserInterface;
 
+import java.awt.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -91,6 +94,26 @@ public class TUI implements UserInterface {
     public void waitingForPlayers() {
         System.out.println("Waiting for other players to Join...");
     }
+
+    @Override
+    public void printObjectives(ObjectiveCard card) {
+        if(card.getClass().equals(DisplayMode.class))
+            PrintCards.printDispositionCard((DispositionObjectiveCard) card);
+        else
+            PrintCards.printSymbolObjectiveCard(card);
+
+    }
+
+    @Override
+    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
+        System.out.println("Please, choose your personal Objective Card");
+        for(int i=0; i<objectives.size(); i++){
+            System.out.println("["+(i+1)+"]");
+            printObjectives(objectives.get(i));
+        }
+        return (scanner.nextInt()-1);
+    }
+
 
 //    GameController gameController;
 //
