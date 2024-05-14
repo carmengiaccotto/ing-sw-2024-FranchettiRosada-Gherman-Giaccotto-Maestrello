@@ -143,9 +143,9 @@ public class PrintPlayArea {
         //Add indexes
         for(int i=0; i<rows;i++ )
             for(int j=0; j<columns; j++){
-                if (i==0 && j%ColumnDimensions==0){
+                if (i==0 && (j+ColumnDimensions/2)%ColumnDimensions==0){
                     playAreaMatrix[i][j]=String.valueOf(j/ColumnDimensions);
-                } else if (j==0 && i%RowDimensions==0){
+                } else if (j==0 && (i+RowDimensions/2)%RowDimensions==0){
                     playAreaMatrix[i][j]=String.valueOf(i/RowDimensions);
 
                 }
