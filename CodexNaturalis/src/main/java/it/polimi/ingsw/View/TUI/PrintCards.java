@@ -24,8 +24,8 @@ public class PrintCards {
 
         maxiMatrix[0][j / 2] = "FRONT";
         maxiMatrix[0][j + j / 2 + 2] = "BACK";
-        PrintPlayArea.DrawCardDeFaultDimensions(maxiMatrix, 1, 0, card.getFront());
-        PrintPlayArea.DrawCardDeFaultDimensions(maxiMatrix, 1, j + 10, card.getBack());
+        PrintPlayArea.DrawCardDefaultDimensions(maxiMatrix, 1, 0, card.getFront());
+        PrintPlayArea.DrawCardDefaultDimensions(maxiMatrix, 1, j + 10, card.getBack());
         for (int k = 0; k < i + 1; k++) {
             for (int l = 0; l < j * 3 + 1; l++) {
                 System.out.print(maxiMatrix[k][l]);
@@ -136,7 +136,7 @@ public class PrintCards {
             symbolIndex += 4;
         }
 
-        PrintPlayArea.DrawCardDeFaultDimensions(matrix,1,1,card.getFront());
+        PrintPlayArea.DrawCardDefaultDimensions(matrix,1,1,card.getFront());
         for (int h = 0; h < matrix.length; h++) {
             for (int x = 0; x < matrix[h].length; x++) {
                 System.out.print(matrix[h][x]);

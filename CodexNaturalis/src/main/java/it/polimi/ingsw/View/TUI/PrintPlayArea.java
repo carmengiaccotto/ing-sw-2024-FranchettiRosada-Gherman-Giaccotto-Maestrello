@@ -83,7 +83,7 @@ public class PrintPlayArea {
         }
     }
 
-    public static void DrawCardDeFaultDimensions(String[][] matrix, int startRow, int startColumn, SideOfCard card) {
+    public static void DrawCardDefaultDimensions(String[][] matrix, int startRow, int startColumn, SideOfCard card) {
         int[] rgb = GraphicUsage.getRGBColor(card.getColor());
         String ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String ANSIreset = "\u001B[0m";
@@ -131,25 +131,38 @@ public class PrintPlayArea {
         return corners;
     }
 
-    public static void DrawGraphicPlayArea(PlayArea playArea){
-        int rows=playArea.getCardsOnArea().size()*RowDimensions+10;
-        int columns=playArea.getCardsOnArea().getFirst().size()*ColumnDimensions+32;
+    public static void DrawMyPlayArea(PlayArea playArea){
+        int rows=(playArea.getCardsOnArea().size()+2)*(RowDimensions)+10;
+        int columns=(playArea.getCardsOnArea().getFirst().size()+2)*(ColumnDimensions)+32;
         String[][] playAreaMatrix= new String[rows][columns];
         //InitializeMatrix
         for(int i=0; i<rows;i++ )
             for(int j=0; j<columns; j++)
                 playAreaMatrix[i][j]=" ";
+
+        //Add indexes
+        for(int i=0; i<rows;i++ )
+            for(int j=0; j<columns; j++){
+                if (i==0 && j%ColumnDimensions==0){
+                    playAreaMatrix[i][j]=String.valueOf(j/ColumnDimensions);
+                } else if (j==0 && i%RowDimensions==0){
+                    playAreaMatrix[i][j]=String.valueOf(i/RowDimensions);
+
+                }
+            }
+
+
         //Add Cards
-        for (int i = 0; i < rows - 1; i++) {
-            for (int j = 0; j < columns - 1; j++) {
-                int cardRowIndex = i / RowDimensions;
-                int cardColumnIndex = j / ColumnDimensions;
-                int startRow = cardRowIndex * RowDimensions;
-                int startColumn = cardColumnIndex * ColumnDimensions;
+        for (int i = 0; i < rows-1; i++) { //leaving one row free ad the beginning plus space for index
+            for (int j = 0; j < columns - 1; j++) {//leaving one column free ad the beginning plus space for idex
+                int cardRowIndex = i/ RowDimensions; //Equivalent of the row in the playArea
+                int cardColumnIndex = j / ColumnDimensions;//Equivalent of the column in the playArea
+                int startRow = (cardRowIndex+1) * RowDimensions;
+                int startColumn = (cardColumnIndex+1) * ColumnDimensions;
                 if (cardRowIndex < playArea.getCardsOnArea().size() &&
                         cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
                     if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {
-                        DrawCardDeFaultDimensions(playAreaMatrix, startRow, startColumn, playArea.getCardInPosition(cardRowIndex, cardColumnIndex));
+                        DrawCardDefaultDimensions(playAreaMatrix, startRow, startColumn, playArea.getCardInPosition(cardRowIndex, cardColumnIndex));
                     }
                 }
             }
@@ -192,8 +205,8 @@ public class PrintPlayArea {
         PlayArea playArea=new PlayArea();
         playArea.setCardsOnArea(cardsOnArea);
 
-        PrintPlayArea.DrawGraphicPlayArea(playArea);
-        PrintPlayArea.DrawGraphicPlayAreaCustomDimensions(playArea,3, 15);
+        PrintPlayArea.DrawMyPlayArea(playArea);
+        //PrintPlayArea.DrawGraphicPlayAreaCustomDimensions(playArea,3, 15);
     }
 
 

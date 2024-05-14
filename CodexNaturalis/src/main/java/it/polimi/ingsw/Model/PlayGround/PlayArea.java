@@ -138,7 +138,7 @@ public class PlayArea {
 
 
 
-
+    /**resets the attribute InConfig pf all the cards on the playArea to false*/
     public void resetConfig() {
         for (List<SideOfCard> row :cardsOnArea)
             for (SideOfCard card : row) {
@@ -237,6 +237,16 @@ public class PlayArea {
         cardsOnArea.add(new ArrayList<>());
         cardsOnArea.get(0).add(NewCard);
 
+    }
+
+
+    /**
+     *Method to add the InitialCard on the Area. Different from the other Add Card on Area, because there is no neighbour to check
+     * */
+    public void addInitialCardToArea(SideOfCard initialCard){
+        List<SideOfCard> newRow=new ArrayList<>();
+        newRow.add(initialCard);
+        cardsOnArea.add(newRow);
     }
 }
 

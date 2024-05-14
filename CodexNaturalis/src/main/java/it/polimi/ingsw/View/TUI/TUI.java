@@ -35,7 +35,7 @@ public class TUI implements UserInterface {
 
     @Override
     public void playInitialCard(SideOfCard s, PlayArea playArea) {
-        PrintPlayArea.DrawGraphicPlayArea(playArea);
+        PrintPlayArea.DrawMyPlayArea(playArea);
 
     }
 

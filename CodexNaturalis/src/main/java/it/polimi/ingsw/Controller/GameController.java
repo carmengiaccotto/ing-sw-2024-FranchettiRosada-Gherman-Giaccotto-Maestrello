@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller;
 
-import it.polimi.ingsw.Connection.Client;
 import it.polimi.ingsw.Connection.VirtualClient;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
@@ -11,6 +10,7 @@ import it.polimi.ingsw.Model.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.IOException;
@@ -327,6 +327,21 @@ public class GameController implements  Runnable, Serializable {
             }
         }
         return null;
+    }
+
+    /**Method that adds the initialCard to the playArea of the client
+     * @param client the client that is currently Playing
+     * @param initialCard side of the initialCard that the Player chose to Play */
+    public void  playInitialCard(VirtualClient client, SideOfCard initialCard){
+        try {
+            for(Player p: model.getPlayers()){
+                if(p.getNickname().equals(client.getPlayer().getNickname())){
+                    p.getPlayArea().addInitialCardToArea(initialCard);
+                }
+            }
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
