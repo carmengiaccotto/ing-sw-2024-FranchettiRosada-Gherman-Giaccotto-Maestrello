@@ -1,14 +1,12 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Model.CardColors;
-import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
-import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
+import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Position;
+import it.polimi.ingsw.Model.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,14 +116,50 @@ public class PrintCards {
         //creazione carta normale, gestione emoji
     }
 
+    public static void printGoldGardPlayGround(GoldCard card){
+        Map<Symbol, Integer> requirements=card.getRequirement(Side.FRONT);
+
+        int i=PrintPlayArea.getCardHeight();
+        int j=PrintPlayArea.getCardWidth();
+        String[][] matrix=new String[i+i/2][j+j/2];
+
+        // Inizializza tutti gli elementi della matrice con una stringa vuota
+        for(int h=0; h<matrix.length; h++){
+            for(int x=0; x<matrix[h].length; x++){
+                matrix[h][x]=" ";
+            }
+        }
+
+        int symbolIndex = 1;
+        for(Symbol s: requirements.keySet()){
+            matrix[0][symbolIndex] = requirements.get(s)+ ""+  GraphicUsage.symbolDictionary.get(s);
+            symbolIndex += 4;
+        }
+
+        PrintPlayArea.DrawCardDeFaultDimensions(matrix,1,1,card.getFront());
+        for (int h = 0; h < matrix.length; h++) {
+            for (int x = 0; x < matrix[h].length; x++) {
+                System.out.print(matrix[h][x]);
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args){
-        Map<Position, CardColors> neighbors=new HashMap<>();
-        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
-        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
-        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
-        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
-        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
-        printDispositionCard(card);
+//        Map<Position, CardColors> neighbors=new HashMap<>();
+//        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
+//        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
+//        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
+//        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
+//        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
+//        printDispositionCard(card);
+
+        HashMap<Symbol, Integer> requirements=new HashMap<>();
+        requirements.put(Symbol.ANIMAL, 2);
+        requirements.put(Symbol.MANUSCRIPT, 3);
+        SideOfCard card=new SideOfCard(null, null);
+        GoldCard card2=new GoldCard(1,card, card,CardColors.PURPLE,requirements,3);
+        PrintCards.printGoldGardPlayGround(card2);
 
     }
 }

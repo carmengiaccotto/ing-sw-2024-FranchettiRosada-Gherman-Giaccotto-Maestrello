@@ -14,12 +14,12 @@ public class GraphicUsage {
 
     static {
         symbolDictionary.put(Symbol.PLANT, "\uD83C\uDF3F");
-        symbolDictionary.put(Symbol.ANIMAL, "\\uD83D\\uDC3A");
+        symbolDictionary.put(Symbol.ANIMAL, "\uD83D\uDC3A");
         symbolDictionary.put(Symbol.FUNGI, "\uD83C\uDF44");
-        symbolDictionary.put(Symbol.INSECT, "\\uD83E\\uDD8B");
-        symbolDictionary.put(Symbol.QUILL, "\\uD83E\\uDDB6");
-        symbolDictionary.put(Symbol.INKWELL, "\\uD83D\\uDD8B\\uFE0F");
-        symbolDictionary.put(Symbol.MANUSCRIPT, "\\uD83D\\uDCDC");
+        symbolDictionary.put(Symbol.INSECT, "\uD83E\uDD8B");
+        symbolDictionary.put(Symbol.QUILL, "\uD83E\uDDB6");
+        symbolDictionary.put(Symbol.INKWELL, "\uD83D\uDD8B\uFE0F");
+        symbolDictionary.put(Symbol.MANUSCRIPT, "\uD83D\uDCDC");
     }
 //    public static String getEmojiFromUnicode(String unicode) {
 //        return new String(Character.toChars(Integer.parseInt(unicode, 16)));
