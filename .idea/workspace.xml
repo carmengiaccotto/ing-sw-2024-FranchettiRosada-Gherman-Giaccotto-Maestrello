@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated POM for JavaFX.">
       <change beforePath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/pom.xml" afterDir="false" />
@@ -58,80 +58,81 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PrintCards.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ServerManager.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.CardColorsTest.testDefinedValues.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CardColorsTest.testEquality.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CardColorsTest.testStringRepresentation.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CardColorsTest.testSwitchStatement.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CardTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateEmptyCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerFactoryTest.testCreateHiddenCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.TestCoverCorner.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.TestPositionNewCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.CornerPositionTest.testGetNeighbourCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerPositionTest.testPositionNewCard.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testCornerConstructorValidInput.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCovered.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCoveredFalse.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CornerTest.testIsCoveredTrue.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.InitialCardTest.testMapFromJson.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PawnColorTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetCardsInHand.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SideTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UpDownPositionTest.TestGetNeighbourCard.executor&quot;: &quot;Run&quot;,
-    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
-    &quot;Maven.PSP49 [test].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.Client.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "Application.Player.executor": "Run",
+    "Application.PrintCards.executor": "Run",
+    "Application.ServerManager.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
+    "JUnit.CardColorsTest.testEquality.executor": "Run",
+    "JUnit.CardColorsTest.testStringRepresentation.executor": "Run",
+    "JUnit.CardColorsTest.testSwitchStatement.executor": "Run",
+    "JUnit.CardTest.executor": "Coverage",
+    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
+    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
+    "JUnit.CornerPositionTest.TestCoverCorner.executor": "Run",
+    "JUnit.CornerPositionTest.TestPositionNewCard.executor": "Run",
+    "JUnit.CornerPositionTest.executor": "Coverage",
+    "JUnit.CornerPositionTest.testGetNeighbourCard.executor": "Run",
+    "JUnit.CornerPositionTest.testPositionNewCard.executor": "Run",
+    "JUnit.CornerTest.executor": "Coverage",
+    "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
+    "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
+    "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
+    "JUnit.CornerTest.testIsCovered.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
+    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
+    "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
+    "JUnit.ObjectivePointsTest.executor": "Coverage",
+    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
+    "JUnit.PawnColorTest.executor": "Coverage",
+    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
+    "JUnit.PlayerTest.executor": "Coverage",
+    "JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor": "Coverage",
+    "JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor": "Run",
+    "JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor": "Run",
+    "JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor": "Run",
+    "JUnit.PlayerTest.testGetCardsInHand.executor": "Run",
+    "JUnit.PlayerTest.testGetNickname.executor": "Run",
+    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
+    "JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor": "Run",
+    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
+    "JUnit.SideTest.executor": "Run",
+    "JUnit.UpDownPositionTest.TestGetNeighbourCard.executor": "Run",
+    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
+    "Maven.PSP49 [test].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/denis/Documents/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw" />
@@ -155,13 +156,13 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PrintCards">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.Client" />
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
+  <component name="RunManager" selected="Application.HelloApplication">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.HelloApplication" />
+      <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.View.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -222,19 +223,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.HelloApplication" />
       <item itemvalue="Application.PrintCards" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
-      <item itemvalue="Application.Client" />
       <item itemvalue="Application.ServerManager" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.PrintCards" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
         <item itemvalue="Application.ServerManager" />
-        <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
   </component>
@@ -257,14 +258,6 @@
       <workItem from="1715179303862" duration="3369000" />
       <workItem from="1715196673520" duration="1646000" />
       <workItem from="1715200079795" duration="119000" />
-    </task>
-    <task id="LOCAL-00033" summary="Corner Complete JavaDoc">
-      <option name="closed" value="true" />
-      <created>1713301834012</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1713301834012</updated>
     </task>
     <task id="LOCAL-00034" summary="solved warnings in CornerPosition">
       <option name="closed" value="true" />
@@ -650,7 +643,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715648107960</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Updated POM for JavaFX.">
+      <option name="closed" value="true" />
+      <created>1715690871102</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1715690871102</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -694,7 +695,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CardColorsTest" />
     <MESSAGE value="PawnColorTest all tests passed" />
     <MESSAGE value="Side enum Test" />
     <MESSAGE value="ObjectivePoints Tests. Enum Tests finished" />
@@ -719,7 +719,8 @@
     <MESSAGE value="TUI and UserInterface methods" />
     <MESSAGE value="printCards class" />
     <MESSAGE value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
-    <option name="LAST_COMMIT_MESSAGE" value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
+    <MESSAGE value="Updated POM for JavaFX." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated POM for JavaFX." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
