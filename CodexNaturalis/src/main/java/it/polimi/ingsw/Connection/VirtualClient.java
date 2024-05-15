@@ -16,6 +16,8 @@ public interface VirtualClient extends Remote, Serializable {
 
     void connect() throws RemoteException;
 
+    void disconnect() throws RemoteException;
+
     void setPawnColor(ArrayList<PawnColor> availableColors) throws RemoteException;
 
     String getNickname() throws RemoteException;

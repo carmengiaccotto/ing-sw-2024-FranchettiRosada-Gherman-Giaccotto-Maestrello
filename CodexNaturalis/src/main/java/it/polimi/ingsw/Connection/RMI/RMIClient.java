@@ -116,6 +116,12 @@ public class RMIClient extends UnicastRemoteObject implements VirtualClient, Ser
     }
 
     @Override
+    public void disconnect() throws RemoteException {
+
+    }
+
+
+    @Override
     public void setPawnColor(ArrayList<PawnColor> availableColors) {
         int choice = view.displayAvailableColors(availableColors);
         if(choice<=0 || choice> availableColors.size()){

@@ -53,13 +53,17 @@ public class GameController implements  Runnable, Serializable {
     @Override
     public void run() {
         while(!status.equals(GameStatus.ENDED)){
-            performAction(GameStatus currentStatus);
-        }
             try {
-                FinalizeGame();
-            } catch (RemoteException | NotReadyToRunException e) {
+                performAction(status);
+            } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
+        }
+        try {
+            FinalizeGame();
+        } catch (RemoteException | NotReadyToRunException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -200,6 +204,10 @@ public class GameController implements  Runnable, Serializable {
             }
             case INITIAL_CIRCLE -> {
                 for (VirtualClient c : getPlayers()) {
+                    ArrayList<ObjectiveCard> objectiveList = drawObjectiveCardForPlayer();
+                    int indexOfCard = c.getView().choosePersonaObjectiveCard(objectiveList);
+                    c.getPlayer().setPersonalObjectiveCard(objectiveList.get(indexOfCard));
+                    System.out.println(c.getPlayer().getNickname() + "has chosen his personal Objective card");
                     InitialCard card = extractInitialCard();
                     String side = c.getView().ChooseSideInitialCard(card);
                     playInitialCard(c, card.chooseSide(Side.valueOf(side)));
@@ -351,16 +359,21 @@ public class GameController implements  Runnable, Serializable {
         return false;
     }
 
-    public void initializeGame() throws NotReadyToRunException {
+    public void initializeGame() throws NotReadyToRunException, RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
-        /** extractPlayerHandCards(); */
+        extractPlayerHandCards();
     }
 
     public void FinalizeGame() throws NotReadyToRunException, RemoteException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
         decreeWinner();
+
+        for (VirtualClient client : players) {
+            System.out.println("The game is over");
+            client.disconnect();
+        }
     }
 
     public String decreeWinner() throws RemoteException {
@@ -394,8 +407,8 @@ public class GameController implements  Runnable, Serializable {
 
     }
 
-    public List<ObjectiveCard> drawObjectiveCardForPlayer() {
-        List<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
+    public ArrayList<ObjectiveCard> drawObjectiveCardForPlayer() {
+        ArrayList<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
         while (listCard.size() < 2) {
             int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
             ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
@@ -409,7 +422,19 @@ public class GameController implements  Runnable, Serializable {
         return model;
     }
 
-    public void addInHands(String nickname, Card card) {
+    public void extractPlayerHandCards() throws RemoteException {
+        for (VirtualClient client : players) {
+            while (client.getPlayer().getCardsInHand().size() < 2) {
+                int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
+                ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
+                client.getPlayer().addCardToHand(c);
+                model.removeCardFromDeck(c, model.getResourceCardDeck());
+            }
+            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
+            GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
+            client.getPlayer().addCardToHand(c);
+            model.removeCardFromDeck(c, model.getGoldCardDeck());
+        }
 
     }
 
@@ -417,15 +442,6 @@ public class GameController implements  Runnable, Serializable {
         for (VirtualClient client : players) {
             if (client.getPlayer().getNickname().equals(nickname)) {
                 return client.getPlayer().getPersonalObjectiveCard();
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<PlayCard> getCardInHandPlayer(String nickname) throws RemoteException {
-        for(VirtualClient client : players){
-            if(client.getPlayer().getNickname().equals(nickname)){
-                client.getPlayer().getCardsInHand();
             }
         }
         return null;
