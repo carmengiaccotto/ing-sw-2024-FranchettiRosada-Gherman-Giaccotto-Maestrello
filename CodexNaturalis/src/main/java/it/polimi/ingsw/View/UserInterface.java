@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 
@@ -18,9 +19,9 @@ public interface UserInterface {
 //
 //    public void playCard(String nickname);
 //
-//    public void drawCard(String nickname);
-//
-//    public void showBoardAndPlayAreas();
+    public void drawCard(String nickname);
+
+    public void showBoardAndPlayAreas();
 
     String selectNickName();
 
@@ -38,6 +39,8 @@ public interface UserInterface {
     void waitingForPlayers();
 
     void printObjectives(ObjectiveCard card);
+
+    Command receiveCommand();
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 

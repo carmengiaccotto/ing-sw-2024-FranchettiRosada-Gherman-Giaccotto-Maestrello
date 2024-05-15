@@ -6,6 +6,7 @@ import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.View.UserInterface;
@@ -20,6 +21,16 @@ public class TUI implements UserInterface {
 
 
     @Override
+    public void drawCard(String nickname) {
+
+    }
+
+    @Override
+    public void showBoardAndPlayAreas() {
+
+    }
+
+    @Override
     public String ChooseSideInitialCard(InitialCard c) {
         PrintCards.printCardFrontBack(c);
         System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
@@ -30,7 +41,6 @@ public class TUI implements UserInterface {
         }
         return side;
     }
-
 
 
     @Override
@@ -63,10 +73,10 @@ public class TUI implements UserInterface {
     @Override
     public int displayavailableGames(ArrayList<GameController> games) {
         System.out.println("Please choose one of the following games");
-        for (int i=0; i<games.size(); i++){
-            System.out.println("["+(i+1)+"] Game"+ (i+1)+ "   Needed players to start the match: "+ games.get(i).getNumPlayers());
+        for (int i = 0; i < games.size(); i++) {
+            System.out.println("[" + (i + 1) + "] Game" + (i + 1) + "   Needed players to start the match: " + games.get(i).getNumPlayers());
             System.out.println("Current players: ");
-            for (VirtualClient client: games.get(i).getPlayers() ) {
+            for (VirtualClient client : games.get(i).getPlayers()) {
                 try {
                     System.out.println(client.getNickname());
                 } catch (RemoteException e) {
@@ -80,12 +90,11 @@ public class TUI implements UserInterface {
     }
 
 
-
     @Override
     public int displayAvailableColors(ArrayList<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
-        for (int i=0; i<availableColors.size(); i++){
-            System.out.println("["+(i+1)+"]"+ availableColors.get(i).toString());
+        for (int i = 0; i < availableColors.size(); i++) {
+            System.out.println("[" + (i + 1) + "]" + availableColors.get(i).toString());
         }
         return (scanner.nextInt());
     }
@@ -97,7 +106,7 @@ public class TUI implements UserInterface {
 
     @Override
     public void printObjectives(ObjectiveCard card) {
-        if(card.getClass().equals(DisplayMode.class))
+        if (card.getClass().equals(DisplayMode.class))
             PrintCards.printDispositionCard((DispositionObjectiveCard) card);
         else
             PrintCards.printSymbolObjectiveCard(card);
@@ -105,13 +114,25 @@ public class TUI implements UserInterface {
     }
 
     @Override
+    public Command receiveCommand() {
+        System.out.println("Select a command: [MOVE/CHAT]");
+        String command = scanner.nextLine().toUpperCase();
+        while (!command.equals("MOVE") && !command.equals("CHAT")) {
+            System.out.println("Please insert a valid command: [MOVE/CHAT]");
+            command = scanner.nextLine().toUpperCase();
+        }
+
+        return Command.valueOf(command.toUpperCase());
+    }
+
+    @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         System.out.println("Please, choose your personal Objective Card");
-        for(int i=0; i<objectives.size(); i++){
-            System.out.println("["+(i+1)+"]");
+        for (int i = 0; i < objectives.size(); i++) {
+            System.out.println("[" + (i + 1) + "]");
             printObjectives(objectives.get(i));
         }
-        return (scanner.nextInt()-1);
+        return (scanner.nextInt() - 1);
     }
 
 
@@ -422,15 +443,6 @@ public class TUI implements UserInterface {
 //
 //    }
 //
-//    @Override
-//    public void drawCard(String nickname){
-//    }
-//
-//
-//    public void showBoardAndPlayAreas(){
-//    }
-
-
 }
 
 

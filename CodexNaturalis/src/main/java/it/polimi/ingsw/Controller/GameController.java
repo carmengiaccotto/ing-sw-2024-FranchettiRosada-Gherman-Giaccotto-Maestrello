@@ -2,10 +2,7 @@ package it.polimi.ingsw.Controller;
 
 import it.polimi.ingsw.Connection.VirtualClient;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Enumerations.Command;
-import it.polimi.ingsw.Model.Enumerations.CornerPosition;
-import it.polimi.ingsw.Model.Enumerations.GameStatus;
-import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Model.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
@@ -19,6 +16,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public class GameController implements  Runnable, Serializable {
@@ -34,6 +35,10 @@ public class GameController implements  Runnable, Serializable {
 
     private final PlayGround model;
 
+    private final ReentrantLock turnLock = new ReentrantLock();
+
+    private int numOfLastPlayer = 0;
+
     public GameController(int id, int n) {
         this.status = GameStatus.WAITING;
         this.numPlayers=n;
@@ -47,16 +52,14 @@ public class GameController implements  Runnable, Serializable {
 
     @Override
     public void run() {
-//        while(!status.equals(GameStatus.ENDED)){
-//            performAction(GameStatus currentStatus);
-//        }
-//
-//        while(status.equals(GameStatus.RUNNING)){
-//            receiveMessage(Command c);
-//        }
-//
-//
-//
+        while(!status.equals(GameStatus.ENDED)){
+            performAction(GameStatus currentStatus);
+        }
+            try {
+                FinalizeGame();
+            } catch (RemoteException | NotReadyToRunException e) {
+                throw new RuntimeException(e);
+            }
     }
 
 
@@ -155,21 +158,120 @@ public class GameController implements  Runnable, Serializable {
 
     }
 
-    void receiveMessage(Command c){
+    void receiveMessage(Command c, VirtualClient client) throws RemoteException {
         switch (c){
             case CHAT ->{
                 //broadcast chat
             }
-            case MOVE ->{
-                // check se è current player
-                //aggiungi carta se si
-                //digli fatti i fatti tuoi se no
+            case MOVE -> {
+                turnLock.lock();
+                try {
+                    client.getView().playCard(client.getPlayer().getNickname());
+                    System.out.println(client.getPlayer().getNickname() + "has played a card");
+                    for (VirtualClient clients : getPlayers()) {
+                        clients.getView().showBoardAndPlayAreas();
+                    }
+                    client.getView().drawCard(client.getPlayer().getNickname());
+                    System.out.println("This is the current Playground: ");
+                    for (VirtualClient clients : getPlayers()) {
+                        clients.getView().showBoardAndPlayAreas();
+                    }
+                } finally {
+                    turnLock.unlock();  // Rilascia il lock
+                }
             }
         }
     }
 
-    void performAction(GameStatus status){
+    void performAction(GameStatus status) throws RemoteException {
+        switch(status) {
+            case SETUP -> {
+                try {
+                    initializeGame();
+                    System.out.println("This is the initial board of the game:");
+                    for (VirtualClient c : getPlayers()) {
+                        c.getView().showBoardAndPlayAreas();
+                    }
+                    setStatus(GameStatus.INITIAL_CIRCLE);
+                } catch (NotReadyToRunException e) {
+                    throw new RuntimeException(e);
+                }
 
+            }
+            case INITIAL_CIRCLE -> {
+                for (VirtualClient c : getPlayers()) {
+                    InitialCard card = extractInitialCard();
+                    String side = c.getView().ChooseSideInitialCard(card);
+                    playInitialCard(c, card.chooseSide(Side.valueOf(side)));
+                    System.out.println(c.getPlayer().getNickname() + "has played his initial card");
+                    for (VirtualClient clients : getPlayers()) {
+                        clients.getView().showBoardAndPlayAreas();
+                    }
+                }
+                setStatus(GameStatus.RUNNING);
+
+            }
+            case RUNNING -> {
+                ExecutorService executor = Executors.newCachedThreadPool();
+
+                for (VirtualClient c : getPlayers()) {
+                    executor.execute(() -> {
+                        Command command = null;
+                        try {
+                            command = c.getView().receiveCommand();
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if (command == Command.CHAT) {
+                            try {
+                                receiveMessage(command, c);
+                            } catch (RemoteException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                    });
+                }
+
+                try {
+                    while (!scoreMaxReached()) {
+                        for (VirtualClient c : getPlayers()) {
+                            model.setCurrentPlayer(c.getPlayer().getNickname());
+                            System.out.println("It's your turn, " + c.getPlayer().getNickname() + "!");
+                            numOfLastPlayer = getPlayers().indexOf(c);
+                            Command command = c.getView().receiveCommand();
+                            if (command == Command.MOVE && c.getPlayer().getNickname().equals(model.getCurrentPlayer())) {
+                                receiveMessage(command, c);
+                            } else {
+                                System.out.println("Please wait for your turn!");
+                            }
+                        }
+                        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+                    }
+                    setStatus(GameStatus.LAST_CIRCLE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    executor.shutdown();
+                }
+
+            }
+            case LAST_CIRCLE -> {
+                if (numOfLastPlayer < (getPlayers().size() - 1)) {
+                    for (int i = numOfLastPlayer + 1; i < getPlayers().size(); i++) {
+                        System.out.println("It's your last turn!");
+                        getPlayers().get(i).getView().playCard(getPlayers().get(i).getPlayer().getNickname());
+                        System.out.println(getPlayers().get(i).getPlayer().getNickname() + "has played a card");
+                        for (VirtualClient clients : getPlayers()) {
+                            clients.getView().showBoardAndPlayAreas();
+                        }
+
+                    }
+
+                }
+                setStatus(GameStatus.ENDED);
+            }
+        }
     }
 
     public void extractCommonObjectiveCards() {
