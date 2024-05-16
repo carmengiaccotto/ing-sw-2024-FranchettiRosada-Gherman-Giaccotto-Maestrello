@@ -4,10 +4,10 @@ package it.polimi.ingsw.Connection.RMI;
 
 // Importing the necessary classes
 
-import it.polimi.ingsw.Connection.MainController;
-import it.polimi.ingsw.Connection.MainControllerInterface;
-import it.polimi.ingsw.Connection.VirtualClient;
-import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Main.MainController;
+import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -86,7 +86,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     /**Method that adds the player to a lobby. Uses MainController method
      * @param client  that just connected*/
     @Override
-    public void connect(VirtualClient client) throws RemoteException {
+    public void connect(ClientControllerInterface client) throws RemoteException {
         handler.connect(client);
 
     }
@@ -95,7 +95,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     /**Method that adds the Client to a lobby. Uses MainController method
      * @param client  new client in the lobby */
     @Override
-    public  void addClientToLobby(VirtualClient client) throws RemoteException {
+    public  void addClientToLobby(ClientControllerInterface client) throws RemoteException {
         handler.addClientToLobby(client);
 
     }
@@ -103,7 +103,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @param client that is logging in
      * @param name inserted nickname*/
     @Override
-    public  void checkUniqueNickName(String name, VirtualClient client) throws RemoteException {
+    public  void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
         handler.checkUniqueNickName(name, client);
     }
 
@@ -112,30 +112,33 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @param client that is joining a new game
      * @param GameID chosen game to join*/
     @Override
-    public synchronized void joinGame(VirtualClient client, int GameID) throws RemoteException {
+    public synchronized void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
         handler.joinGame(client,GameID);
     }
 
     /**Method that gives the Client a list of games it can join. Uses MainController method
      * @param client that requests to see the available games*/
     @Override
-    public void DisplayAvailableGames(VirtualClient client) throws RemoteException{
+    public void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException{
        handler.DisplayAvailableGames(client);
 
     }
 
     /**Method that creates a new game when requested by a player. Uses MainControllerMethod
-     * @param client that wants to create a new game*/
+     * @param client that wants to create a new game
+     * @param n number on players that need to join to start the game*/
     @Override
-    public void createGame(VirtualClient client) throws RemoteException {
-        handler.createGame(client);
+    public void createGame(ClientControllerInterface client, int n) throws RemoteException {
+        handler.createGame(client,n);
     }
+
+
 
     /**Method that notifies the game that a new player has joined. Uses MainController method
      * @param client that joined
      * @param game not be notified*/
     @Override
-    public synchronized void NotifyGamePlayerJoined(GameController game, VirtualClient client) throws RemoteException {
+    public synchronized void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
 
     }

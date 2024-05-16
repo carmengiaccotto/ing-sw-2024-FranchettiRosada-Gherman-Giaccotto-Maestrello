@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller;
+package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Connection.VirtualClient;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;

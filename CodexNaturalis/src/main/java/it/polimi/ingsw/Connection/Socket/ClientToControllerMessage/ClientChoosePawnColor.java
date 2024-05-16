@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
-import it.polimi.ingsw.Controller.GameControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 
 public class ClientChoosePawnColor extends ClientToControllerMessage {

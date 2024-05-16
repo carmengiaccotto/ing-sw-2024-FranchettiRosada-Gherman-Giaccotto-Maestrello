@@ -1,0 +1,17 @@
+package it.polimi.ingsw.Controller.Main;
+
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
+
+import java.rmi.RemoteException;
+
+public interface MainControllerInterface {
+    void connect(ClientControllerInterface client) throws RemoteException;
+    void addClientToLobby(ClientControllerInterface client) throws RemoteException;
+    void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException;
+    void joinGame(ClientControllerInterface client, int GameID) throws RemoteException;
+    void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException;
+    void createGame(ClientControllerInterface client, int n) throws RemoteException;
+    void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException;
+
+}

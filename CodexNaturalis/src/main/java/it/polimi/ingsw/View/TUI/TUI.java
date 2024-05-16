@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.TUI;
 
-import it.polimi.ingsw.Connection.VirtualClient;
-import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -71,17 +71,13 @@ public class TUI implements UserInterface {
     }
 
     @Override
-    public int displayavailableGames(ArrayList<GameController> games) {
+    public int displayavailableGames(ArrayList<GameController> games) throws RemoteException {
         System.out.println("Please choose one of the following games");
         for (int i = 0; i < games.size(); i++) {
             System.out.println("[" + (i + 1) + "] Game" + (i + 1) + "   Needed players to start the match: " + games.get(i).getNumPlayers());
             System.out.println("Current players: ");
-            for (VirtualClient client : games.get(i).getPlayers()) {
-                try {
-                    System.out.println(client.getNickname());
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+            for (ClientControllerInterface client : games.get(i).getPlayers()) {
+                System.out.println(client.getNickname());
             }
         }
         System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert 0 (zero)");

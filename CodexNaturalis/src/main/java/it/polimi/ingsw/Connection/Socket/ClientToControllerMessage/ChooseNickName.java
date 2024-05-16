@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
-import it.polimi.ingsw.Controller.GameControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 //Questo è un metodo gestito dal main?
 public class ChooseNickName  {
     private String Nickname;

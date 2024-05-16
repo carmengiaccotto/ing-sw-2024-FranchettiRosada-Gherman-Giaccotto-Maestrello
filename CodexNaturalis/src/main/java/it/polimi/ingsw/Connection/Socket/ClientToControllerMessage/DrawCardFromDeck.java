@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
 
-import it.polimi.ingsw.Controller.GameControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 
 public class DrawCardFromDeck extends ClientToControllerMessage {

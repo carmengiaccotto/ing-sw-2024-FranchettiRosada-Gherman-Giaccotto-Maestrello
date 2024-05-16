@@ -1,15 +1,18 @@
-package it.polimi.ingsw.Connection;
+package it.polimi.ingsw.Controller.Main;
 
-import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Connection.ExecutorBuffer;
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
-public class MainController implements MainControllerInterface{
+public class MainController extends UnicastRemoteObject implements MainControllerInterface {
     /**ArrayList of Connected Clients*/
-    private final ArrayList<VirtualClient> clients;
+    private final ArrayList<ClientControllerInterface> clients;
 
     /**ArrayList of Games that are currently running on the server*/
     private final ArrayList<GameController> runningGames;
@@ -19,8 +22,9 @@ public class MainController implements MainControllerInterface{
     /** Thread pool for async communication and task management*/
     private final ExecutorBuffer executorBuffer = new ExecutorBuffer();
 
-    public MainController() {
-        this.clients = new ArrayList<>();
+    public MainController() throws RemoteException {
+        super();
+        this.clients = new ArrayList<ClientControllerInterface>();
         this.runningGames=new ArrayList<>();
     }
 
@@ -28,7 +32,7 @@ public class MainController implements MainControllerInterface{
     /**Method that adds the Client to the list of connected Client, and adds it to the lobby
      * @param client  that connected*/
     @Override
-    public void connect(VirtualClient client) throws RemoteException {
+    public void connect(ClientControllerInterface client) throws RemoteException {
         System.out.println("New Client Connected");
         clients.add(client);
         addClientToLobby(client);
@@ -36,10 +40,10 @@ public class MainController implements MainControllerInterface{
     /**Method that adds the Client to a lobby.
      * @param client  new client in the lobby */
     @Override
-    public void addClientToLobby(VirtualClient client) throws RemoteException {
+    public void addClientToLobby(ClientControllerInterface client) throws RemoteException {
         Runnable task=()-> {
             try {
-                client.setNickname();
+                client.ChooseNickname();
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -60,11 +64,11 @@ public class MainController implements MainControllerInterface{
      * @param client that is currently choosing the nickname
      * @param name nickname that the client wants to choose*/
     @Override
-    public void checkUniqueNickName(String name, VirtualClient client) throws RemoteException {
+    public void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
         Runnable task=()-> {
             boolean b = clients.size() > 1;
             {
-                for (VirtualClient c : clients) {
+                for (ClientControllerInterface c : clients) {
                     try {
                         if (name.equals(c.getNickname())) {
                             //TODO manda messaggio di errore alla view client.getView.UnavailableNickName()
@@ -89,7 +93,7 @@ public class MainController implements MainControllerInterface{
      * @param GameID id of the game the client chose
      * Once the player has been added to the game, the Game gets notified*/
     @Override
-    public void joinGame(VirtualClient client, int GameID) throws RemoteException {
+    public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
         Runnable task=()-> {
             GameController gameToJoin=null;
             for(GameController game: runningGames)
@@ -113,7 +117,7 @@ public class MainController implements MainControllerInterface{
      * required number of player are displayed
      * @param client that wants to see the available games*/
     @Override
-    public void DisplayAvailableGames(VirtualClient client) throws RemoteException {
+    public void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException {
         Runnable task=()-> {
             synchronized (new Object()) {
                 ArrayList<GameController> availableGames = new ArrayList<>();
@@ -136,8 +140,8 @@ public class MainController implements MainControllerInterface{
      * that created it to the list of players of said game. Notifies the game that a new player joined
      * @param client that created the game*/
     @Override
-    public  synchronized void createGame(VirtualClient client) throws RemoteException {
-        GameController newGame = new GameController(runningGames.size()+1,client.newGameSetUp());
+    public  synchronized void createGame(ClientControllerInterface client, int n) throws RemoteException {
+        GameController newGame = new GameController(runningGames.size()+1,n);
         executor.submit(newGame);
         runningGames.add(newGame);
         newGame.addPlayer(client);
@@ -149,7 +153,7 @@ public class MainController implements MainControllerInterface{
      *@param game to be notified
      *@param client that joined the game*/
     @Override
-    public void NotifyGamePlayerJoined(GameController game, VirtualClient client) throws RemoteException {
+    public void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
         game.NotifyNewPlayerJoined(client);
     }
 
