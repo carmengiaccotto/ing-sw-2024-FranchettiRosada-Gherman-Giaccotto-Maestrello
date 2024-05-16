@@ -4,40 +4,31 @@ package it.polimi.ingsw.Connection.RMI;
 
 // Importing the necessary classes
 
-import it.polimi.ingsw.Controller.GameController;
+import it.polimi.ingsw.Connection.MainController;
+import it.polimi.ingsw.Connection.MainControllerInterface;
 import it.polimi.ingsw.Connection.VirtualClient;
-import it.polimi.ingsw.Connection.VirtualServer;
-import it.polimi.ingsw.Model.Enumerations.GameStatus;
+import it.polimi.ingsw.Controller.GameController;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * The RMIServer class extends the UnicastRemoteObject and implements the GameInterface interface.
  * It represents a server in the RMI connection.
  */
-public class RMIServer extends UnicastRemoteObject implements VirtualServer {
+public class RMIServer extends UnicastRemoteObject implements MainControllerInterface {
 
     // The singleton instance of the RMIServer
     private static RMIServer serverObject = null;
 
-    //Thread pool for Multi-Game advanced feature
-    private ExecutorService executor;
-
-
     // The registry for the RMI connection
     private static Registry registry = null;
 
-    private ArrayList<VirtualClient> clients;
+    //Interface that contains the methods used in this class
+    private final MainControllerInterface handler;
 
-    private ArrayList<GameController> runningGames;
-
-    private final Object gameLock = new Object();
 
     /**
      * The constructor for the RMIServer class.
@@ -45,9 +36,7 @@ public class RMIServer extends UnicastRemoteObject implements VirtualServer {
      */
     public RMIServer() throws RemoteException {
         super(0);
-        clients=new ArrayList<VirtualClient>();
-        runningGames=new ArrayList<GameController>();
-        executor= Executors.newCachedThreadPool();
+        handler=new MainController();
 
     }
 
@@ -94,88 +83,63 @@ public class RMIServer extends UnicastRemoteObject implements VirtualServer {
     }
 
 
-
+    /**Method that adds the player to a lobby. Uses MainController method
+     * @param client  that just connected*/
     @Override
     public void connect(VirtualClient client) throws RemoteException {
-        System.out.println("New Client Connected");
-        clients.add(client);
-        addClientToLobby(client);
-
+        handler.connect(client);
 
     }
 
 
-
+    /**Method that adds the Client to a lobby. Uses MainController method
+     * @param client  new client in the lobby */
     @Override
     public  void addClientToLobby(VirtualClient client) throws RemoteException {
-        client.setNickname();
-        client.JoinOrCreateGame();
-        System.out.println("se arrivi fino a qui allora non capisco");
+        handler.addClientToLobby(client);
 
     }
-
+    /**Method that checks if the chosen Nickname is already taken. Uses MainController method
+     * @param client that is logging in
+     * @param name inserted nickname*/
     @Override
-    public  boolean checkUniqueNickName(String name) throws RemoteException {
-        if (clients.size()>1) {
-            for (VirtualClient c : clients) {
-                if (name.equals(c.getNickname())) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+    public  void checkUniqueNickName(String name, VirtualClient client) throws RemoteException {
+        handler.checkUniqueNickName(name, client);
     }
 
+
+    /**method that adds the player to the chosen game and notifies the game. Uses MainController method
+     * @param client that is joining a new game
+     * @param GameID chosen game to join*/
     @Override
     public synchronized void joinGame(VirtualClient client, int GameID) throws RemoteException {
-        GameController gameToJoin=null;
-        for(GameController game: runningGames)
-            if(game.getId()==GameID)
-                gameToJoin=game;
-
-        gameToJoin.addPlayer(client);
-        NotifyGamePlayerJoined(gameToJoin, client);
+        handler.joinGame(client,GameID);
     }
 
-    public ArrayList<GameController> DisplayAvailableGames() throws RemoteException{
-        ArrayList<GameController> availableGames=new ArrayList<>();
-        for(int i=0; i< runningGames.size(); i++) {
-            if (runningGames.get(i).getStatus().equals(GameStatus.WAITING)) {
-                availableGames.add(runningGames.get(i));
-            }
-        }
-        return availableGames;
+    /**Method that gives the Client a list of games it can join. Uses MainController method
+     * @param client that requests to see the available games*/
+    @Override
+    public void DisplayAvailableGames(VirtualClient client) throws RemoteException{
+       handler.DisplayAvailableGames(client);
+
     }
 
-    public void createGameSynchronized(VirtualClient client) throws RemoteException {
-        Object gameLock= new Object();
-        synchronized (gameLock) {
-            createGame(client);
-            client.getView().waitingForPlayers();
-        }
-    }
-
+    /**Method that creates a new game when requested by a player. Uses MainControllerMethod
+     * @param client that wants to create a new game*/
+    @Override
     public void createGame(VirtualClient client) throws RemoteException {
-
-        GameController newGame = new GameController(runningGames.size()+1,client.newGameSetUp());
-        executor.submit(newGame);
-        runningGames.add(newGame);
-        newGame.addPlayer(client);
-        NotifyGamePlayerJoined(newGame, client);
+        handler.createGame(client);
     }
 
+    /**Method that notifies the game that a new player has joined. Uses MainController method
+     * @param client that joined
+     * @param game not be notified*/
+    @Override
     public synchronized void NotifyGamePlayerJoined(GameController game, VirtualClient client) throws RemoteException {
-        System.out.println("ci siamo");
-        game.NotifyNewPlayerJoined(client);
+        handler.NotifyGamePlayerJoined(game,client);
+
     }
 
-    public GameController getGame(int id){
-        for (GameController game: runningGames)
-            if(game.getId()==id)
-                return game;
-        throw  new IllegalArgumentException("no game found with this id");
-    }
 }
 
 
