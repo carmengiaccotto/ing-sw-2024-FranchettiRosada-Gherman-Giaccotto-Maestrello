@@ -10,8 +10,12 @@ import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
@@ -168,6 +172,31 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     @Override
     public Player getPlayer() throws RemoteException {
         return controller.getPlayer();
+    }
+
+    @Override
+    public void showBoardAndPlayAreas(PlayGround m) throws RemoteException {
+
+    }
+
+    @Override
+    public PlayCard chooseCardToDraw(PlayGround m) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public Command receiveCommand() {
+        return null;
+    }
+
+    @Override
+    public String chooseSideInitialCard(InitialCard c) {
+        return null;
+    }
+
+    @Override
+    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
+        return 0;
     }
 
 

@@ -2,13 +2,11 @@ package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
-import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
-import it.polimi.ingsw.Model.Cards.InitialCard;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.awt.*;
@@ -21,8 +19,39 @@ public class TUI implements UserInterface {
 
 
     @Override
-    public void drawCard(String nickname) {
+    public PlayCard chooseCardToDraw (PlayGround model) {
+        System.out.println("Choose where you want to draw the card from: [GOLD-DECK / RESOURCE-DECK / RESOURCE-CARD1 / RESOURCE-CARD2 / GOLD-CARD1 / GOLD-CARD2]");
+        String draw = scanner.next().toUpperCase();
+        switch (draw) {
 
+            case "GOLD-DECK":
+                GoldCard card = (GoldCard) model.getGoldCardDeck().getCards().getFirst();
+                return card;
+
+            case "RESOURCE-DECK":
+                ResourceCard card1 = (ResourceCard) model.getResourceCardDeck().getCards().getFirst();
+                return card1;
+
+            case "RESOURCE-CARD1":
+                ResourceCard card2 = (ResourceCard) model.getCommonResourceCards().get(0);
+                return card2;
+
+            case "RESOURCE-CARD2":
+                ResourceCard card3 = (ResourceCard) model.getCommonResourceCards().get(1);
+                return card3;
+
+            case "GOLD-CARD1":
+                GoldCard card4 = (GoldCard) model.getCommonGoldCards().get(0);
+                return card4;
+
+            case "GOLD-CARD2":
+                GoldCard card5 = (GoldCard) model.getCommonGoldCards().get(1);
+                return card5;
+
+            default:
+                System.out.println("Choose a valid option!");
+                return chooseCardToDraw(model);
+        }
     }
 
     @Override
@@ -31,7 +60,7 @@ public class TUI implements UserInterface {
     }
 
     @Override
-    public String ChooseSideInitialCard(InitialCard c) {
+    public String chooseSideInitialCard(InitialCard c) {
         PrintCards.printCardFrontBack(c);
         System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
         String side = scanner.next().toUpperCase();

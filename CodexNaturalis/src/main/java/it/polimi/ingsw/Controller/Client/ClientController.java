@@ -2,8 +2,12 @@ package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
@@ -50,6 +54,32 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public Player getPlayer() throws RemoteException {
         return player;
+    }
+
+    @Override
+    public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
+        game.setModel(model);
+        view.showBoardAndPlayAreas();
+    }
+
+    @Override
+    public PlayCard chooseCardToDraw(PlayGround model) throws RemoteException {
+        return view.chooseCardToDraw(model);
+    }
+
+    @Override
+    public Command receiveCommand() {
+        return view.receiveCommand();
+    }
+
+    @Override
+    public String chooseSideInitialCard(InitialCard c) {
+        return view.chooseSideInitialCard(c);
+    }
+
+    @Override
+    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
+        return view.choosePersonaObjectiveCard(objectives);
     }
 
     /**Method that sets the view to GUI or TUI basing on the choice the client made in Client class

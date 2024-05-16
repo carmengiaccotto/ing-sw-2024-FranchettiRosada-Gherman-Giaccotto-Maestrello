@@ -3,10 +3,12 @@ package it.polimi.ingsw.View;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public interface UserInterface {
 //
 //    public void playCard(String nickname);
 //
-    public void drawCard(String nickname);
+    PlayCard chooseCardToDraw (PlayGround model);
 
     public void showBoardAndPlayAreas();
 
@@ -32,7 +34,9 @@ public interface UserInterface {
 
     int displayavailableGames(ArrayList<GameController> games) throws RemoteException;
 
-    String ChooseSideInitialCard(InitialCard c);
+    String chooseSideInitialCard(InitialCard c);
+
+    int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
     void playInitialCard(SideOfCard side, PlayArea playArea);
 
 
@@ -42,7 +46,5 @@ public interface UserInterface {
     void printObjectives(ObjectiveCard card);
 
     Command receiveCommand();
-
-    int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 
 }

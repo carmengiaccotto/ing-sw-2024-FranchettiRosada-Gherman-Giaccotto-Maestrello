@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Game;
 
-import it.polimi.ingsw.Connection.VirtualClient;
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface GameControllerInterface extends  Remote{
     //Player Configuration Methods
-    List<VirtualClient> getPlayers();
+    List<ClientControllerInterface> getPlayers();
     void SetPlayerPawnColorChoice(PawnColor color);
     void addPlayerToLobby(Player p) throws MaxNumPlayersException;
     boolean checkUniqueNickname(String name);

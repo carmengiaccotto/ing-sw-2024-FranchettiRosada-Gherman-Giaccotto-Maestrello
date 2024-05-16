@@ -52,7 +52,7 @@ public class Client {
         switch (protocol) {
             case 1:
                 try {
-                    MainControllerInterface server = RMIServer.bind();
+                    MainControllerInterface server = (MainControllerInterface) RMIServer.bind();
                     RMIClient client = new RMIClient(server);
                     client.connect();
                 } catch (RemoteException e) {
@@ -79,6 +79,10 @@ public class Client {
 
         selectProtocol();
         selectView();
+    }
+
+    public void showBoardAndPlayAreas(){
+
     }
 }
 

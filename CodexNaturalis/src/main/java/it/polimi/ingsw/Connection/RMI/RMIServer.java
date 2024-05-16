@@ -125,14 +125,11 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
     /**Method that creates a new game when requested by a player. Uses MainControllerMethod
-     * @param client that wants to create a new game
-     * @param n number on players that need to join to start the game*/
+     * @param client that wants to create a new game*/
     @Override
     public void createGame(ClientControllerInterface client, int n) throws RemoteException {
-        handler.createGame(client,n);
+        handler.createGame(client, n);
     }
-
-
 
     /**Method that notifies the game that a new player has joined. Uses MainController method
      * @param client that joined
