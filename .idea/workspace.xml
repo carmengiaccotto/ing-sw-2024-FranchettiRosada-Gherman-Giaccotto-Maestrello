@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated POM for JavaFX.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated Game Controller and TUI.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,15 +263,7 @@
       <workItem from="1715200079795" duration="119000" />
       <workItem from="1715869480730" duration="516000" />
       <workItem from="1715870075562" duration="20000" />
-      <workItem from="1715888104741" duration="11007000" />
-    </task>
-    <task id="LOCAL-00034" summary="solved warnings in CornerPosition">
-      <option name="closed" value="true" />
-      <created>1713301956679</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1713301956679</updated>
+      <workItem from="1715888104741" duration="20316000" />
     </task>
     <task id="LOCAL-00035" summary="JSON cards constructors. &#10;Card Class Json, SideOfCard Class Jaon, CornerFactory class, ResourceCard Json, GoldCard Json">
       <option name="closed" value="true" />
@@ -661,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715690871102</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="Updated Game Controller and TUI.">
+      <option name="closed" value="true" />
+      <created>1715899516900</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1715899516901</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -705,7 +701,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="PawnColorTest all tests passed" />
     <MESSAGE value="Side enum Test" />
     <MESSAGE value="ObjectivePoints Tests. Enum Tests finished" />
     <MESSAGE value="Modified JsonMap" />
@@ -730,7 +725,8 @@
     <MESSAGE value="printCards class" />
     <MESSAGE value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
     <MESSAGE value="Updated POM for JavaFX." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated POM for JavaFX." />
+    <MESSAGE value="Updated Game Controller and TUI." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Game Controller and TUI." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

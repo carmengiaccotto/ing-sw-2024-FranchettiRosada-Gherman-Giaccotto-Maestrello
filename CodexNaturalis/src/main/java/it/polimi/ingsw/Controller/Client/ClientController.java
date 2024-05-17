@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -18,8 +19,8 @@ import java.util.List;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface{
     private UserInterface view;
-    private GameController game;
-    private Player player=new Player();
+    private GameControllerInterface game;
+    private Player player = new Player();
     private MainControllerInterface server;
 
     public ClientController(MainControllerInterface server) throws RemoteException {
@@ -68,8 +69,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public Command receiveCommand() {
-        return view.receiveCommand();
+    public void receiveCommand() throws RemoteException {
+
+        Command c=  view.receiveCommand();
+        game.receiveMessage(c, this);
     }
 
     @Override
@@ -80,6 +83,55 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
         return view.choosePersonaObjectiveCard(objectives);
+    }
+
+    @Override
+    public void printInitialMessage() {
+        System.out.println("This is the initial board of the game: \n");
+    }
+
+    @Override
+    public void printFinalMessage() {
+        System.out.println("The game is over!");
+    }
+
+    @Override
+    public void printFinalScoresMessage(List<ClientControllerInterface> players) throws RemoteException {
+        System.out.println("Those are the final scores: \n");
+        for(ClientControllerInterface p: players){
+            System.out.println(p.getNickname() + " : " + p.getPlayer().getScore());
+        }
+    }
+
+    @Override
+    public void printTurnMessage(String nickname) {
+        System.out.println("It's your turn " + nickname + "!");
+    }
+
+    @Override
+    public void printInitialCardMessage(String nickname) {
+        System.out.println(nickname + "has played his initial card.");
+    }
+
+    @Override
+    public void printObjectiveCardMessage(String nickname) {
+        System.out.println(nickname + "has chosen his personal Objective card.");
+    }
+
+    @Override
+    public void printWinnerMessage(List<ClientControllerInterface> winners) {
+        System.out.println("The winner is: ");
+        for(ClientControllerInterface p: winners){
+            System.out.println(p.getNickname());
+        }
+    }
+
+    @Override
+    public void printWinnersMessage(List<ClientControllerInterface> winners) {
+        System.out.println("Tie between the following players: ");
+        for(ClientControllerInterface p: winners){
+            System.out.println(p.getNickname());
+        }
     }
 
     /**Method that sets the view to GUI or TUI basing on the choice the client made in Client class

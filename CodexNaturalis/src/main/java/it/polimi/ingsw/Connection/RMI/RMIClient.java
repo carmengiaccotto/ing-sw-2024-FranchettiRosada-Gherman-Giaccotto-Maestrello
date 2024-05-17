@@ -13,7 +13,6 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -181,12 +180,12 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     @Override
     public PlayCard chooseCardToDraw(PlayGround m) throws RemoteException {
-        return null;
+        return controller.chooseCardToDraw(m);
     }
 
     @Override
-    public Command receiveCommand() {
-        return null;
+    public void receiveCommand() throws RemoteException{
+        controller.receiveCommand();
     }
 
     @Override

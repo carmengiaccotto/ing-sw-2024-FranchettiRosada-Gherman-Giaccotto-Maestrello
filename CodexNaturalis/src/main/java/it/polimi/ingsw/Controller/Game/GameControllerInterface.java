@@ -4,13 +4,16 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.Exceptions.MaxNumPlayersException;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 public interface GameControllerInterface extends  Remote{
@@ -50,6 +53,8 @@ public interface GameControllerInterface extends  Remote{
         return null;
     }
     int getGameId();
+    void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException;
+    public void setModel(PlayGround model);
 
 
 

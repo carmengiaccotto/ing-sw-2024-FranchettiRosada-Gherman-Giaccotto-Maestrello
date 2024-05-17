@@ -4,7 +4,6 @@ import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -45,10 +44,24 @@ public interface ClientControllerInterface extends Remote {
 
     PlayCard chooseCardToDraw(PlayGround m) throws RemoteException;
 
-    Command receiveCommand();
+    void receiveCommand() throws RemoteException;
 
     String chooseSideInitialCard(InitialCard c);
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException;
 
+    void printInitialMessage();
+
+    void printFinalMessage();
+
+    void printFinalScoresMessage(List<ClientControllerInterface> players) throws RemoteException;
+
+    void printTurnMessage(String nickname);
+
+    void printInitialCardMessage(String nickname);
+
+    void printObjectiveCardMessage(String nickname);
+
+    void printWinnerMessage(List<ClientControllerInterface> winners);
+    void printWinnersMessage(List<ClientControllerInterface> winners);
 }

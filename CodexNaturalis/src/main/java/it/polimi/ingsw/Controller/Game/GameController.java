@@ -15,11 +15,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 public class GameController implements  Runnable, Serializable {
 
@@ -175,6 +171,7 @@ public class GameController implements  Runnable, Serializable {
                     for (ClientControllerInterface clients : getPlayers()) {
                         clients.showBoardAndPlayAreas(getModel());
                     }
+
                 } finally {
                     turnLock.unlock();
                 }
@@ -187,8 +184,8 @@ public class GameController implements  Runnable, Serializable {
             case SETUP -> {
                 try {
                     initializeGame();
-                    System.out.println("This is the initial board of the game:");
                     for (ClientControllerInterface c : getPlayers()) {
+                        c.printInitialMessage();
                         c.showBoardAndPlayAreas(getModel());
                     }
                     setStatus(GameStatus.INITIAL_CIRCLE);
@@ -202,12 +199,14 @@ public class GameController implements  Runnable, Serializable {
                     ArrayList<ObjectiveCard> objectiveList = drawObjectiveCardForPlayer();
                     int indexOfCard = c.choosePersonaObjectiveCard(objectiveList);
                     c.setPersonalObjectiveCard(objectiveList.get(indexOfCard));
-                    System.out.println(c.getNickname() + "has chosen his personal Objective card");
+                    for (ClientControllerInterface client : getPlayers()) {
+                        client.printObjectiveCardMessage(c.getNickname());
+                    }
                     InitialCard card = extractInitialCard();
                     String side = c.chooseSideInitialCard(card);
                     playInitialCard(c, card.chooseSide(Side.valueOf(side)));
-                    System.out.println(c.getNickname() + "has played his initial card");
                     for (ClientControllerInterface clients : getPlayers()) {
+                        clients.printInitialCardMessage(c.getNickname());
                         clients.showBoardAndPlayAreas(getModel());
                     }
                 }
@@ -215,57 +214,40 @@ public class GameController implements  Runnable, Serializable {
 
             }
             case RUNNING -> {
-                ExecutorService executor = Executors.newCachedThreadPool();
+//                for (ClientControllerInterface c : getPlayers()) {
+//                    Command command = null;
+//                    c.receiveCommand();
+//                }
+//
+//
+//                    while (!scoreMaxReached()) {
+//                        for (ClientControllerInterface c : getPlayers()) {
+//                            model.setCurrentPlayer(c.getNickname());
+//                            c.printTurnMessage(c.getNickname());
+//                            numOfLastPlayer = getPlayers().indexOf(c);
+//                            Command command = c.receiveCommand();
+//                            if (command == Command.MOVE && c.getNickname().equals(model.getCurrentPlayer())) {
+//                                receiveMessage(command, c);
+//                            } else {
+//                                System.out.println("Please wait for your turn!");
+//                            }
+//                        }
+//                    }
+//                    setStatus(GameStatus.LAST_CIRCLE);
 
-                for (ClientControllerInterface c : getPlayers()) {
-                    executor.execute(() -> {
-                        Command command = null;
-                        command = c.receiveCommand();
-                        if (command == Command.CHAT) {
-                            try {
-                                receiveMessage(command, c);
-                            } catch (RemoteException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                    });
-                }
-
-                try {
-                    while (!scoreMaxReached()) {
-                        for (ClientControllerInterface c : getPlayers()) {
-                            model.setCurrentPlayer(c.getNickname());
-                            System.out.println("It's your turn, " + c.getNickname() + "!");
-                            numOfLastPlayer = getPlayers().indexOf(c);
-                            Command command = c.receiveCommand();
-                            if (command == Command.MOVE && c.getNickname().equals(model.getCurrentPlayer())) {
-                                receiveMessage(command, c);
-                            } else {
-                                System.out.println("Please wait for your turn!");
-                            }
-                        }
-                        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-                    }
-                    setStatus(GameStatus.LAST_CIRCLE);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    executor.shutdown();
-                }
 
             }
             case LAST_CIRCLE -> {
-                if (numOfLastPlayer < (getPlayers().size() - 1)) {
-                    System.out.println("We are at the last round of the Game, " + getPlayers().get(numOfLastPlayer).getNickname() + "has reached the maximum score!");
-                    for (int i = numOfLastPlayer + 1; i < getPlayers().size(); i++) {
-                        model.setCurrentPlayer(getPlayers().get(i).getNickname());
-                        System.out.println("It's your last turn, " + getPlayers().get(i).getNickname() + "!");
-                        Command command = getPlayers().get(i).receiveCommand();
-                        receiveMessage(command, getPlayers().get(i));
-                    }
-
-                }
+//                if (numOfLastPlayer < (getPlayers().size() - 1)) {
+//                    System.out.println("We are at the last round of the Game, " + getPlayers().get(numOfLastPlayer).getNickname() + "has reached the maximum score!");
+//                    for (int i = numOfLastPlayer + 1; i < getPlayers().size(); i++) {
+//                        model.setCurrentPlayer(getPlayers().get(i).getNickname());
+//                        System.out.println("It's your last turn, " + getPlayers().get(i).getNickname() + "!");
+//                        Command command = getPlayers().get(i).receiveCommand();
+//                        receiveMessage(command, getPlayers().get(i));
+//                    }
+//
+//                }
                 setStatus(GameStatus.ENDED);
             }
         }
@@ -357,18 +339,17 @@ public class GameController implements  Runnable, Serializable {
     public void FinalizeGame() throws NotReadyToRunException, RemoteException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
-        System.out.println("Those are the final scores: ");
         for (ClientControllerInterface client : players) {
-            System.out.println(client.getPlayer().getScore());
+            client.printFinalScoresMessage(players);
         }
         decreeWinner();
-        System.out.println("The game is over");
         for (ClientControllerInterface client : players) {
+            client.printFinalMessage();
             client.disconnect();
         }
     }
 
-    public String decreeWinner() throws RemoteException {
+    public void decreeWinner() throws RemoteException {
 
         List<ClientControllerInterface> winners = new ArrayList<>();
         int score = Integer.MIN_VALUE;
@@ -384,13 +365,13 @@ public class GameController implements  Runnable, Serializable {
         }
 
         if (winners.size() == 1) {
-            return "The winners is" + winners.get(0).getNickname();
+            for (ClientControllerInterface client : players) {
+                client.printWinnerMessage(winners);
+            }
         } else {
-            return "Tie between the following players: " + winners.stream()
-                    .map(client -> {
-                        return client.getNickname();
-                    })
-                    .collect(Collectors.joining(", "));
+            for (ClientControllerInterface client : players) {
+                client.printWinnersMessage(winners);
+            }
         }
 
     }
