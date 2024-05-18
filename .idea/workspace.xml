@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added javaDoc to GameController and GameControllerInterface">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added javaDoc to GameListener and TUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,71 +154,97 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PrintCards">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.HelloApplication" />
+  <component name="RunManager" selected="JUnit.JsonDeckCreatorTest">
+    <configuration name="CornerFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.View.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.JsonTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.JsonTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonTests.CornerFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PrintCards" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.TUI.PrintCards" />
+    <configuration name="GoldCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.View.TUI.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.CardTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.CardTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.CardTests.GoldCardTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="it.polimi.ingsw.Connection.Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
+    <configuration name="JsonCardsMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Controller.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonCardsMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="it.polimi.ingsw.Connection.ServerManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.ServerManager" />
+    <configuration name="JsonDeckCreatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Controller.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonDeckCreatorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlayGroundTest.testGetGoldCardDeck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP22" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.PlayGroundTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests.PlayGroundTest" />
+      <option name="METHOD_NAME" value="testGetGoldCardDeck" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.HelloApplication" />
-      <item itemvalue="Application.PrintCards" />
-      <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
-      <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
+      <item itemvalue="JUnit.CornerFactoryTest" />
+      <item itemvalue="JUnit.GoldCardTest" />
+      <item itemvalue="JUnit.JsonCardsMapperTest" />
+      <item itemvalue="JUnit.JsonDeckCreatorTest" />
+      <item itemvalue="JUnit.PlayGroundTest.testGetGoldCardDeck" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PrintCards" />
-        <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
-        <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="JUnit.JsonDeckCreatorTest" />
+        <item itemvalue="JUnit.JsonCardsMapperTest" />
+        <item itemvalue="JUnit.CornerFactoryTest" />
+        <item itemvalue="JUnit.GoldCardTest" />
+        <item itemvalue="JUnit.PlayGroundTest.testGetGoldCardDeck" />
       </list>
     </recent_temporary>
   </component>
@@ -250,15 +273,7 @@
       <workItem from="1715938861627" duration="1389000" />
       <workItem from="1715984870710" duration="54000" />
       <workItem from="1716021629502" duration="26390000" />
-      <workItem from="1716063904579" duration="1722000" />
-    </task>
-    <task id="LOCAL-00040" summary="ObjectiveCard Tests">
-      <option name="closed" value="true" />
-      <created>1713384856579</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1713384856579</updated>
+      <workItem from="1716063904579" duration="4101000" />
     </task>
     <task id="LOCAL-00041" summary="Tests and Javadoc">
       <option name="closed" value="true" />
@@ -644,7 +659,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716060533511</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Added javaDoc to GameListener and TUI">
+      <option name="closed" value="true" />
+      <created>1716065657944</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1716065657945</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -688,7 +711,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
     <MESSAGE value="Client Interface and ConnectionType Choice" />
     <MESSAGE value="Player Changed Constructor and updated Test" />
     <MESSAGE value="Game Connection Structure" />
@@ -713,7 +735,8 @@
     <MESSAGE value="Created Gamelistener class and updated all the other class as a consequence" />
     <MESSAGE value="Game loop is done. I also added a timer for each player's move." />
     <MESSAGE value="Added javaDoc to GameController and GameControllerInterface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added javaDoc to GameController and GameControllerInterface" />
+    <MESSAGE value="Added javaDoc to GameListener and TUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added javaDoc to GameListener and TUI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
