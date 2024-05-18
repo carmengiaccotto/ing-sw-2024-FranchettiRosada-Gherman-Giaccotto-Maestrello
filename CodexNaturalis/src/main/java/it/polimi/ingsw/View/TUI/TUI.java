@@ -19,7 +19,13 @@ import java.util.Scanner;
 public class TUI implements UserInterface {
     Scanner scanner = new Scanner(System.in);
 
-
+    /**
+     * Prompts the user to choose where to draw a card from.
+     * The user can choose to draw from the gold deck, resource deck, or one of the four available cards on the playground.
+     * The method will keep asking until a valid option is chosen.
+     *
+     * @return A string representing the chosen deck or card to draw from.
+     */
     @Override
     public String chooseCardToDraw () {
         String draw;
@@ -38,6 +44,14 @@ public class TUI implements UserInterface {
 
     }
 
+    /**
+     * Prompts the user to choose a side of the initial card to play.
+     * The user can choose either the front or the back side of the card.
+     * The method will keep asking until a valid option is chosen.
+     *
+     * @param c The initial card from which the user needs to choose a side.
+     * @return A string representing the chosen side of the card.
+     */
     @Override
     public String chooseSideInitialCard(InitialCard c) {
         PrintCards.printCardFrontBack(c);
@@ -57,12 +71,23 @@ public class TUI implements UserInterface {
 
     }
 
+    /**
+     * Prompts the user to choose a nickname.
+     *
+     * @return A string representing the chosen nickname.
+     */
     @Override
     public String selectNickName() {
         System.out.println("Insert your Nickname: ");
         return scanner.next();
     }
 
+    /**
+     * Prompts the user to either create a new game or join an existing one.
+     * The user can choose to create a new game by entering 0 or join an existing game by entering 1.
+     *
+     * @return An integer representing the user's choice. 0 for creating a new game, 1 for joining an existing game.
+     */
     @Override
     public int createOrJoin() {
         System.out.println("Do you want to create a new game or join an existing one? ");
@@ -72,12 +97,27 @@ public class TUI implements UserInterface {
 
     }
 
+    /**
+     * Prompts the user to select the maximum number of players for the match.
+     * The user can choose a number between 2 and 4.
+     *
+     * @return An integer representing the maximum number of players chosen by the user.
+     */
     @Override
     public int MaxNumPlayers() {
         System.out.println("How Many Players do you want to have for this match? Please select a Number between 2 and 4");
         return scanner.nextInt();
     }
 
+    /**
+     * Displays the available games that the user can join.
+     * For each game, it shows the game number, the number of players needed to start the match, and the nicknames of the players that are already in.
+     * It also provides an option for the user to create a new game instead of joining an existing one.
+     *
+     * @param games An ArrayList of GameController objects representing the available games.
+     * @return An integer representing the user's choice. The index of the chosen game in the list, or 0 to create a new game.
+     * @throws RemoteException If a communication-related exception occurs during the execution of a remote method call.
+     */
     @Override
     public int displayavailableGames(ArrayList<GameController> games) throws RemoteException {
         System.out.println("Please choose one of the following games");
@@ -94,6 +134,13 @@ public class TUI implements UserInterface {
     }
 
 
+    /**
+     * Prompts the user to choose a color from the available colors.
+     * The user can choose a color by entering the corresponding number.
+     *
+     * @param availableColors An ArrayList of PawnColor objects representing the available colors.
+     * @return An integer representing the index of the chosen color in the list.
+     */
     @Override
     public int displayAvailableColors(ArrayList<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
@@ -103,6 +150,9 @@ public class TUI implements UserInterface {
         return (scanner.nextInt());
     }
 
+    /**
+     * Notifies the user that the system is waiting for other players to join the game.
+     */
     @Override
     public void waitingForPlayers() {
         System.out.println("Waiting for other players to Join...");
@@ -117,11 +167,23 @@ public class TUI implements UserInterface {
 
     }
 
+    /**
+     * Prints a given message to the console.
+     *
+     * @param message The string message to be printed.
+     */
     @Override
     public void printMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Prompts the user to select a command from the available options.
+     * The user can choose either the "MOVE" or "CHAT" command.
+     * The method will keep asking until a valid command is chosen.
+     *
+     * @return A Command enum representing the chosen command by the user.
+     */
     @Override
     public Command receiveCommand() {
         System.out.println("Select a command: [MOVE/CHAT]");
@@ -134,6 +196,13 @@ public class TUI implements UserInterface {
         return Command.valueOf(command.toUpperCase());
     }
 
+    /**
+     * Prompts the user to choose a personal Objective Card from a list of available objective cards.
+     * The user can choose an objective card by entering the corresponding number.
+     *
+     * @param objectives An ArrayList of ObjectiveCard objects representing the available objective cards.
+     * @return An integer representing the index of the chosen objective card in the list.
+     */
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         System.out.println("Please, choose your personal Objective Card");
@@ -144,188 +213,6 @@ public class TUI implements UserInterface {
         return (scanner.nextInt() - 1);
     }
 
-//
-//    /**
-//     * The player logs in
-//     */
-//    public void userLogin() throws IOException, NotBoundException, NotReadyToRunException, MaxNumPlayersException {
-//        Scanner scanner = new Scanner(System.in);
-//        boolean logSuccessfull = false;
-//        String nickname = null;
-//        //System.out.println(CodexNaturalisLogo + "\n");
-//
-//        System.out.println("Welcome to the game!");
-//
-//        String choice = mainController.joinOrcreate();
-//
-//        switch (choice) {
-//
-//            case "CREATE":
-//
-//                System.out.println("Please choose a nickName: " + "\n ->");
-//                while (!logSuccessfull) {
-//
-//                    nickname = scanner.next();
-//
-//                    logSuccessfull = mainController.checkUniqueNickname(nickname);
-//
-//                    if (logSuccessfull) {
-//                        System.out.println("Login successful");
-//
-//                    } else {
-//                        System.out.println("Login failed. Please choose a different nickname. " + "\n ->");
-//                    }
-//                }
-//
-//
-//                System.out.println("How many players do you want to play with? 2/3/4?" + "\n ->");
-//                int numOfPlayers = Integer.parseInt(scanner.next());
-//                while (numOfPlayers < 2 || numOfPlayers > 4) {
-//
-//                    System.out.println("Please choose a number from the following: 2/3/4" + "\n ->");
-//                    numOfPlayers = Integer.parseInt(scanner.next());
-//                }
-//                ArrayList<Client> c = new ArrayList<>();
-//                PlayGround model = new PlayGround(0);   //provvisorio numero zero
-//                GameController game = new GameController(c, model);
-//                Client client = new Client();
-//
-//                mainController.createGame(nickname, numOfPlayers, game, client);
-//                System.out.println("Wait for the chosen number of players to enter...");
-//                //inserire una wait
-//                break;
-//
-//
-//            case "JOIN":
-//
-//                System.out.println("Please choose a nickName: ");
-//                while (!logSuccessfull) {
-//
-//                    nickname = scanner.next();
-//
-//                    logSuccessfull = mainController.checkUniqueNickname(nickname);
-//
-//                    if (logSuccessfull) {
-//                        System.out.println("Login successful");
-//
-//                    } else {
-//                        System.out.println("Login failed. Please choose a different nickname. " + "\n ->");
-//                    }
-//                }
-//
-//                System.out.println("Here is the list of games you can join: " + "\n");
-//
-//                for(GameController theGame : mainController.getGames()) {
-//
-//                    if (theGame.getClients().size() < theGame.getModel().getNumOfPlayers()) {
-//
-//                        System.out.println("Game ID: " + theGame.getModel().getGameId() + "\n");
-//                        System.out.println("Maximum number of players: " + theGame.getModel().getNumOfPlayers() + "\n");
-//                        System.out.println("Number of current players in the game: " + theGame.getClients().size() + "\n");
-//                        System.out.println("List of players in the game: \n");
-//                        for (int i = 0; i < theGame.getClients().size(); i++) {
-//                            System.out.println(theGame.getClients().get(i).getPlayer().getNickname());
-//                            System.out.println("\n");
-//                        }
-//                        System.out.println("\n");
-//                    }
-//                }
-//                System.out.println("Select the ID of the game you want to join: ");
-//                int ID = Integer.parseInt(scanner.next());
-//
-//                boolean gameFound = false;
-//                boolean playerAdded = false;
-//
-//                while((!gameFound) || (!playerAdded)){
-//
-//                    for(GameController theGame1 : mainController.getGames()){
-//
-//                        if(theGame1.getModel().getGameId() == ID){
-//
-//                            if(theGame1.getClients().size() < theGame1.getModel().getNumOfPlayers()){
-//
-//                                mainController.addClientToLobby(nickname, ID);
-//                                playerAdded = true;
-//
-//                            }
-//                            else{
-//                                System.out.println("Maximum number of players already reached: ");
-//
-//                            }
-//                            gameFound = true;
-//                            break;
-//                        }
-//
-//                    }
-//                    if(!gameFound){
-//                        System.out.println("The ID entered does not exist: ");
-//                        ID = Integer.parseInt(scanner.next());
-//                    }
-//
-//                }
-//
-////                System.out.println("Choose PawnColor between the following: ");
-////                List<PawnColor> listOfColor = gameController.AvailableColors();
-////
-////                System.out.println(listOfColor);
-////
-////                PawnColor colors = PawnColor.valueOf(scanner.next());
-////                while (!listOfColor.contains(colors)) {
-////                    System.out.println("Please insert a valid color: ");
-////                    colors = PawnColor.valueOf(scanner.next());
-////                }
-//                break;
-//        }
-//
-//    }
-//
-//
-//    /**
-//     * Show player information
-//     */
-//
-//    public void printPlayerInformation(String nickName) {
-//        for (Client client : gameController.getClients()) {
-//            if (nickName.equals(client.getPlayer().getNickname())) {
-//                System.out.println("NickName: " + client.getPlayer().getNickname());
-//                System.out.println("Score: " + client.getPlayer().getScore());
-//                System.out.println("PawnColor: " + client.getPlayer().getNickname());
-//                System.out.println("Round: " + client.getPlayer().getRound());
-//            }
-//        }
-//    }
-//
-//
-//    public void choosePersonalObjectiveCard(String nickname) {
-//        boolean isOk = false;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Choose your personal goal: [1/2]");
-//        List<ObjectiveCard> objectiveCards = gameController.drawObjectiveCardForPlayer();
-//        System.out.println(objectiveCards);
-//        String personalObjectiveCard = scanner.next();
-//
-//        do {
-//            switch (personalObjectiveCard) {
-//
-//                case "1":
-//                    ObjectiveCard o = objectiveCards.getFirst();
-//                    gameController.getPlayer(nickname).setPersonalObjectiveCard(o);
-//                    isOk = true;
-//                    break;
-//
-//                case "2":
-//                    ObjectiveCard o1 = objectiveCards.get(1);
-//                    gameController.getPlayer(nickname).setPersonalObjectiveCard(o1);
-//                    isOk = true;
-//                    break;
-//
-//                default:
-//                    System.out.println("Enter a valid choice: [1/2]");
-//                    personalObjectiveCard = scanner.next();
-//            }
-//        } while(!isOk);
-//    }
-//
 
 //
 //    @Override
