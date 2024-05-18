@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameController implements  Runnable, Serializable {
+public class GameController implements  Runnable, Serializable, GameControllerInterface {
 
     private List<ClientControllerInterface> players = new ArrayList<>();
     private GameStatus status;
@@ -151,7 +151,7 @@ public class GameController implements  Runnable, Serializable {
     }
 
 
-    void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException {
+    public void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException{
         switch (c){
             case CHAT ->{
                 //broadcast chat

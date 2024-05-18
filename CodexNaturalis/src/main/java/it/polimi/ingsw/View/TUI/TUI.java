@@ -2,11 +2,13 @@ package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
-import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
+import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
-import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.awt.*;
@@ -19,39 +21,16 @@ public class TUI implements UserInterface {
 
 
     @Override
-    public PlayCard chooseCardToDraw (PlayGround model) {
-        System.out.println("Choose where you want to draw the card from: [GOLD-DECK / RESOURCE-DECK / RESOURCE-CARD1 / RESOURCE-CARD2 / GOLD-CARD1 / GOLD-CARD2]");
-        String draw = scanner.next().toUpperCase();
-        switch (draw) {
-
-            case "GOLD-DECK":
-                GoldCard card = (GoldCard) model.getGoldCardDeck().getCards().getFirst();
-                return card;
-
-            case "RESOURCE-DECK":
-                ResourceCard card1 = (ResourceCard) model.getResourceCardDeck().getCards().getFirst();
-                return card1;
-
-            case "RESOURCE-CARD1":
-                ResourceCard card2 = (ResourceCard) model.getCommonResourceCards().get(0);
-                return card2;
-
-            case "RESOURCE-CARD2":
-                ResourceCard card3 = (ResourceCard) model.getCommonResourceCards().get(1);
-                return card3;
-
-            case "GOLD-CARD1":
-                GoldCard card4 = (GoldCard) model.getCommonGoldCards().get(0);
-                return card4;
-
-            case "GOLD-CARD2":
-                GoldCard card5 = (GoldCard) model.getCommonGoldCards().get(1);
-                return card5;
-
-            default:
-                System.out.println("Choose a valid option!");
-                return chooseCardToDraw(model);
-        }
+    public String chooseCardToDraw () {
+        String draw;
+        do {
+            System.out.println("Choose where you want to draw the card from: [GOLD-DECK / RESOURCE-DECK / RESOURCE-CARD1 / RESOURCE-CARD2 / GOLD-CARD1 / GOLD-CARD2]");
+            draw = scanner.next().toUpperCase();
+            if (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2")) {
+                System.out.println("Invalid option! Please choose a valid option!");
+            }
+        } while (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2"));
+        return draw;
     }
 
     @Override
@@ -160,12 +139,6 @@ public class TUI implements UserInterface {
         return (scanner.nextInt() - 1);
     }
 
-
-//    GameController gameController;
-//
-//    private String CodexNaturalisLogo;
-//    private final MainController mainController = new MainController();
-//
 //
 //    /**
 //     * The player logs in
@@ -348,31 +321,7 @@ public class TUI implements UserInterface {
 //        } while(!isOk);
 //    }
 //
-//    @Override
-//    public void playInitialCard(InitialCard c, String nickname){
-//        boolean valid = false;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
-//        String side = scanner.next().toUpperCase();
-//
-//        do {
-//            switch (side) {
-//                case "FRONT":
-//                    SideOfCard card = gameController.getPlayer(nickname).ChooseCardToPlay(c, Side.FRONT);
-//                    gameController.getPlayer(nickname).getPlayArea().AddCardOnArea(card);
-//                    valid = true;
-//                    break;
-//                case "BACK":
-//                    SideOfCard card1 = gameController.getPlayer(nickname).ChooseCardToPlay(c, Side.BACK);
-//                    gameController.getPlayer(nickname).getPlayArea().AddCardOnArea(card1);
-//                    valid = true;
-//                    break;
-//                default:
-//                    System.out.println("Choose a valid side: [FRONT/BACK]");
-//                    side = scanner.next().toUpperCase();
-//            }
-//        } while(!valid);
-//    }
+
 //
 //    @Override
 //    public void playCard(String nickname){

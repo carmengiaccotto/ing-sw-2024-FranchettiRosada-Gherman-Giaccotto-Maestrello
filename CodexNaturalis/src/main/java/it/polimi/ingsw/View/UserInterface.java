@@ -3,12 +3,10 @@ package it.polimi.ingsw.View;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
-import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public interface UserInterface {
 //
 //    public void playCard(String nickname);
 //
-    PlayCard chooseCardToDraw (PlayGround model);
+    String chooseCardToDraw ();
 
     public void showBoardAndPlayAreas();
 

@@ -1,16 +1,10 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
+import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
-import it.polimi.ingsw.Model.Enumerations.Side;
-import it.polimi.ingsw.Model.Exceptions.MaxNumPlayersException;
-import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
-import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -18,49 +12,19 @@ import java.util.List;
 
 public interface GameControllerInterface extends  Remote{
     //Player Configuration Methods
-    List<ClientControllerInterface> getPlayers();
-    void SetPlayerPawnColorChoice(PawnColor color);
-    void addPlayerToLobby(Player p) throws MaxNumPlayersException;
-    boolean checkUniqueNickname(String name);
-    void reconnectPlayer(Player p);
-    ObjectiveCard getPersonalObjective(String nickname);
-
-
-    //PlayGrounds Objects Methods
-    void extractCommonObjectiveCards();
-    void extractCommonPlaygroundCards();
-    void extractPlayerHandCards();
-
-    //Game playing methods
-    List<PawnColor> AvailableColors();
-    void addPersonalObjectiveCardPoints();
-    boolean scoreMaxReached();
-    void initializeGame();
-    void FinalizeGame();
-    String decreeWinner();
-    boolean isMyTurn(String nickname);
-    void addCommonObjectiveCardsPoints();
-    SideOfCard playerChoosesCardToPlay(PlayCard card, Side side);
-
-    //Game Rules
-    boolean ValidTwoCornersSameCard(PlayArea playArea, int row1, int column1);
-    boolean ValidPositionCardOnArea(PlayArea playArea, int row1, int column1, SideOfCard newCard);
-    boolean notTryingToCoverHiddenCorners(PlayArea playArea, int row1, int column1, SideOfCard newCard);
-
-
-    //Game Object methods
-    public static GameController getInstance() {
-        return null;
-    }
-    int getGameId();
-    void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException;
+    public List<ClientControllerInterface> getPlayers();
+    public void setPlayers(List<ClientControllerInterface> players);
+    public int getNumPlayers();
+    public void addPlayer(ClientControllerInterface client);
+    public GameStatus getStatus();
+    public void setStatus(GameStatus status);
+    public void CheckMaxNumPlayerReached();
+    public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients);
+    public void NotifyNewPlayerJoined(ClientControllerInterface newPlayer);
+    public int getId();
+    public void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException;
+    public PlayGround getModel();
     public void setModel(PlayGround model);
-
-
-
-
-
-
 
 
 }
