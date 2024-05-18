@@ -11,7 +11,7 @@ public class GameListener {
 
     private List<ClientControllerInterface> players = new ArrayList<>();
 
-    public void updatePlayers(String message) {
+    public void updatePlayers(String message) throws RemoteException {
         for (ClientControllerInterface player : players) {
             player.sendUpdateMessage(message);
         }
@@ -34,7 +34,7 @@ public class GameListener {
         }
     }
 
-    public void updatePlayers(List<ClientControllerInterface> winners) {
+    public void updatePlayers(List<ClientControllerInterface> winners) throws RemoteException {
         for (ClientControllerInterface player : players) {
             if (winners.size() == 1) {
                 player.sendUpdateMessage("The winner is: " + winners.get(0).getNickname());

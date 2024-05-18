@@ -326,7 +326,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private void startTurnTimer(ClientControllerInterface client) {
 
         currentTimer = scheduler.schedule(() -> {
-            client.sendUpdateMessage("Please enter your MOVE command.");
+            try {
+                client.sendUpdateMessage("Please enter your MOVE command.");
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
             currentTimer = scheduler.schedule(() -> {
                 try {
                     client.sendUpdateMessage("Time is up! Passing your turn.");

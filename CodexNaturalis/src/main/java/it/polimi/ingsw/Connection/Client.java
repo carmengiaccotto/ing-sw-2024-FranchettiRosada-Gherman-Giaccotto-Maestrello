@@ -27,7 +27,7 @@ public class Client {
     }
 
 
-    public void selectView(){
+    public void selectView() throws RemoteException {
         System.out.println("What kind of view would you like to use? ");
         System.out.println("[0] GUI \n[1] TUI");
         Scanner scanner = new Scanner(System.in);
@@ -53,7 +53,7 @@ public class Client {
             case 1:
                 try {
                     MainControllerInterface server = (MainControllerInterface) RMIServer.bind();
-                    RMIClient client = new RMIClient(server);
+                    this.client = new RMIClient(server);
                     client.connect();
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);

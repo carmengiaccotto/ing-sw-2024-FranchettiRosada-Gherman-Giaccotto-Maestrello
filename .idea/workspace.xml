@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Game loop is done. I also added a timer for each player's move.">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added javaDoc to GameController and GameControllerInterface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +161,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ServerManager">
+  <component name="RunManager" selected="Application.it.polimi.ingsw.Connection.Client">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.HelloApplication" />
       <module name="PSP22" />
@@ -176,19 +181,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="it.polimi.ingsw.View.TUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.ServerManager" />
-      <module name="ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="CodexNaturalis.src.main.java.it.polimi.ingsw.Connection.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -227,15 +219,13 @@
       <item itemvalue="Application.PrintCards" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
       <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
-      <item itemvalue="Application.ServerManager" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ServerManager" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
+        <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.PrintCards" />
-        <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
       </list>
     </recent_temporary>
   </component>
@@ -263,15 +253,7 @@
       <workItem from="1715888104741" duration="20368000" />
       <workItem from="1715938861627" duration="1389000" />
       <workItem from="1715984870710" duration="54000" />
-      <workItem from="1716021629502" duration="23232000" />
-    </task>
-    <task id="LOCAL-00039" summary="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests">
-      <option name="closed" value="true" />
-      <created>1713384743234</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1713384743234</updated>
+      <workItem from="1716021629502" duration="26390000" />
     </task>
     <task id="LOCAL-00040" summary="ObjectiveCard Tests">
       <option name="closed" value="true" />
@@ -657,7 +639,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716058265887</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Added javaDoc to GameController and GameControllerInterface">
+      <option name="closed" value="true" />
+      <created>1716060533511</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1716060533511</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -701,7 +691,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GameController almost done." />
     <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
     <MESSAGE value="Client Interface and ConnectionType Choice" />
     <MESSAGE value="Player Changed Constructor and updated Test" />
@@ -726,7 +715,8 @@
     <MESSAGE value="Updated draw method in client and GameControllerInterface" />
     <MESSAGE value="Created Gamelistener class and updated all the other class as a consequence" />
     <MESSAGE value="Game loop is done. I also added a timer for each player's move." />
-    <option name="LAST_COMMIT_MESSAGE" value="Game loop is done. I also added a timer for each player's move." />
+    <MESSAGE value="Added javaDoc to GameController and GameControllerInterface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added javaDoc to GameController and GameControllerInterface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

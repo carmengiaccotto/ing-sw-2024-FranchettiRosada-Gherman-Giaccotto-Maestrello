@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ClientControllerInterface extends Remote {
-    void setView(UserInterface view);
+    void setView(UserInterface view) throws RemoteException;
 
     void disconnect() throws RemoteException;
 
@@ -23,7 +23,7 @@ public interface ClientControllerInterface extends Remote {
 
     void getGameToJoin(ArrayList<GameController> availableGames) throws RemoteException;
 
-    String getNickname();
+    String getNickname() throws RemoteException;
 
     void JoinOrCreateGame() throws RemoteException;
 
@@ -37,7 +37,7 @@ public interface ClientControllerInterface extends Remote {
 
     void updatePlayers(List<ClientControllerInterface> players)throws RemoteException;
 
-    void setPersonalObjectiveCard(ObjectiveCard objectiveCard);
+    void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException;
     Player getPlayer() throws RemoteException;
 
     void showBoardAndPlayAreas(PlayGround m) throws RemoteException;
@@ -46,9 +46,11 @@ public interface ClientControllerInterface extends Remote {
 
     void receiveCommand() throws RemoteException;
 
-    String chooseSideInitialCard(InitialCard c);
+    String chooseSideInitialCard(InitialCard c) throws RemoteException;
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException;
 
-    void sendUpdateMessage(String message);
+    void sendUpdateMessage(String message) throws RemoteException;
+
+    void connect()  throws RemoteException;
 }

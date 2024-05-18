@@ -47,53 +47,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
 
-
-    public  void connect() {
-        boolean connected = false;
-        int attempt = 1;
-
-        while (!connected && attempt <= 4) {
-            try {
-                Thread connectionThread = new Thread(() -> {
-                    try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 6322);
-                        server = (MainControllerInterface) registry.lookup("CodexNaturalis");
-                        System.out.println("Client ready");
-                    } catch (Exception e) {
-                        System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
-                    }
-                });
-                connectionThread.start();
-                connectionThread.join(1000);
-
-                if (server != null) {
-                    connected = true;
-                } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 6322 + "' with name: '" + "CodexNaturalis" + "'");
-                    attempt++;
-                    if (attempt <= 4) {
-                        System.out.println("Retrying...");
-                        Thread.sleep(1000);
-                    } else {
-                        System.out.println("Give up!");
-                        System.exit(-1);
-                    }
-                }
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
-        try {
-            server.connect(this);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
      /**Method that sets the view of the player to the chosen type. Uses ClientController implementation
       * @param view  GUI or TUI*/
     @Override
-    public void setView(UserInterface view) {
+    public void setView(UserInterface view) throws RemoteException {
         controller.setView(view);
     }
 
@@ -121,7 +78,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     /**Nickname getter method*/
     @Override
-    public String getNickname() {
+    public String getNickname() throws RemoteException {
         return controller.getNickname();
     }
 
@@ -163,7 +120,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
 
     @Override
-    public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) {
+    public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         controller.setPersonalObjectiveCard(objectiveCard);
 
     }
@@ -199,8 +156,52 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public void sendUpdateMessage(String message) {
+    public void sendUpdateMessage(String message) throws RemoteException {
         controller.sendUpdateMessage(message);
+    }
+
+    @Override
+    public  void connect() throws RemoteException{
+        boolean connected = false;
+        int attempt = 1;
+
+        while (!connected && attempt <= 4) {
+            try {
+                Thread connectionThread = new Thread(() -> {
+                    try {
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 8323);
+                        server = (MainControllerInterface) registry.lookup("CodexNaturalis");
+                        System.out.println("Client ready");
+                    } catch (Exception e) {
+                        System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
+                    }
+                });
+                connectionThread.start();
+                connectionThread.join(1000);
+
+                if (server != null) {
+                    connected = true;
+                } else {
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8323 + "' with name: '" + "CodexNaturalis" + "'");
+                    attempt++;
+                    if (attempt <= 4) {
+                        System.out.println("Retrying...");
+                        Thread.sleep(1000);
+                    } else {
+                        System.out.println("Give up!");
+                        System.exit(-1);
+                    }
+                }
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        try {
+            server.connect(this);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

@@ -44,7 +44,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     /**method that sets the PersonalObjective card of the client.
      * @param objectiveCard chosen objective card*/
     @Override
-    public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) {
+    public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         player.setPersonalObjectiveCard(objectiveCard);
     }
 
@@ -103,7 +103,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public String chooseSideInitialCard(InitialCard c) {
+    public String chooseSideInitialCard(InitialCard c)throws RemoteException {
         return view.chooseSideInitialCard(c);
     }
 
@@ -113,15 +113,20 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public void sendUpdateMessage(String message) {
+    public void sendUpdateMessage(String message) throws RemoteException{
         view.printMessage(message);
+    }
+
+    @Override
+    public void connect() throws RemoteException {
+
     }
 
     /**Method that sets the view to GUI or TUI basing on the choice the client made in Client class
      * in SelectView method
      * @param view chosen */
     @Override
-    public void setView(UserInterface view) {
+    public void setView(UserInterface view) throws RemoteException{
         this.view=view;
     }
 
@@ -206,7 +211,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     /**Getter method for Nickname attribute of Player attribute
      * @return  nickname that identifies the client */
     @Override
-    public String getNickname() {
+    public String getNickname() throws RemoteException{
         return player.getNickname();
     }
 
@@ -214,7 +219,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     /**Method that allows the player to decide whether they want to create a new game or
      * join one that has already been created by another player*/
     @Override
-    public void JoinOrCreateGame() {
+    public void JoinOrCreateGame() throws RemoteException{
         int choice = view.createOrJoin();
         switch (choice) {
             case 0 -> {
