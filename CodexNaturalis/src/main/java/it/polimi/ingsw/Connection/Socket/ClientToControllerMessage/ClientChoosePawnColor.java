@@ -17,6 +17,6 @@ public class ClientChoosePawnColor extends ClientToControllerMessage {
 
     @Override
     public void execute(GameControllerInterface game) {
-       game.SetPlayerPawnColorChoice(color);
+ //      game.setPlayerPawnColorChoice(color);
     }
 }

@@ -16,13 +16,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.TimeUnit;
+
 
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
     private GameListener listener = new GameListener();
     private GameStatus status;
     private final int numPlayers;
     private final int id;
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private ScheduledFuture<?> currentTimer;
 
 
     private final Random random = new Random();
@@ -152,18 +159,25 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 //broadcast chat
             }
             case MOVE -> {
-                turnLock.lock();
-                try {
-       //             client.getView().playCard(client.getNickname()); //TODO change with a method that invokes a method in the ClientController
-                    listener.updatePlayers(client.getNickname() + "has played a card");
-                    listener.updatePlayers(getModel());
-                    PlayCard card = client.chooseCardToDraw(model);
-                    client.getPlayer().addCardToHand(card);
-                    updatePlayground(card);
-                    listener.updatePlayers("This is the current Playground: ");
-                    listener.updatePlayers(getModel());
-                } finally {
-                    turnLock.unlock();
+                if (!client.getNickname().equals(model.getCurrentPlayer())) {
+                    client.sendUpdateMessage("It's not your turn, please wait!");
+                } else {
+                    turnLock.lock();
+                    try {
+                        listener.updatePlayers(client.getNickname() + "has played a card");
+                        listener.updatePlayers(getModel());
+                        PlayCard card = client.chooseCardToDraw(model);
+                        client.getPlayer().addCardToHand(card);
+                        updatePlayground(card);
+                        listener.updatePlayers("This is the current Playground: ");
+                        listener.updatePlayers(getModel());
+                        numOfLastPlayer = (numOfLastPlayer + 1) % listener.getPlayers().size();
+                        model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
+                        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+                        startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
+                    } finally {
+                        turnLock.unlock();
+                    }
                 }
             }
         }
@@ -198,43 +212,63 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
             }
             case RUNNING -> {
-//                for (ClientControllerInterface c : getPlayers()) {
-//                    Command command = null;
-//                    c.receiveCommand();
-//                }
-//
-//
-//                    while (!scoreMaxReached()) {
-//                        for (ClientControllerInterface c : getPlayers()) {
-//                            model.setCurrentPlayer(c.getNickname());
-//                            listener.updatePlayers("It's your turn, " + c.getNickname() + "!");
-//                            numOfLastPlayer = getPlayers().indexOf(c);
-//                            Command command = c.receiveCommand();
-//                            if (command == Command.MOVE && c.getNickname().equals(model.getCurrentPlayer())) {
-//                                receiveMessage(command, c);
-//                            } else {
-//                                System.out.println("Please wait for your turn!");
-//                            }
-//                        }
-//                    }
-//                    setStatus(GameStatus.LAST_CIRCLE);
-
+                numOfLastPlayer = 0;
+                model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
+                listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+                startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
+                for (ClientControllerInterface c : listener.getPlayers()) {
+                    while(true) {
+                        if (scoreMaxReached()) {
+                            break;
+                        }
+                        c.receiveCommand();
+                    }
+                }
+                setStatus(GameStatus.LAST_CIRCLE);
 
             }
             case LAST_CIRCLE -> {
-//                if (numOfLastPlayer < (getPlayers().size() - 1)) {
-//                    System.out.println("We are at the last round of the Game, " + getPlayers().get(numOfLastPlayer).getNickname() + "has reached the maximum score!");
-//                    for (int i = numOfLastPlayer + 1; i < getPlayers().size(); i++) {
-//                        model.setCurrentPlayer(getPlayers().get(i).getNickname());
-//                        System.out.println("It's your last turn, " + getPlayers().get(i).getNickname() + "!");
-//                        Command command = getPlayers().get(i).receiveCommand();
-//                        receiveMessage(command, getPlayers().get(i));
-//                    }
-//
-//                }
+                int adjustedNumOfLastPlayer = ((numOfLastPlayer - 1) + listener.getPlayers().size()) % listener.getPlayers().size();
+                if (adjustedNumOfLastPlayer < (listener.getPlayers().size() - 1)) {
+                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(adjustedNumOfLastPlayer).getNickname() + "has reached the maximum score!");
+                    for (ClientControllerInterface c : listener.getPlayers()) {
+                    while(true) {
+                        if (numOfLastPlayer == listener.getPlayers().size() - 1){
+                            break;
+                        }
+                        c.receiveCommand();
+                    }
+                }
+
+                }
                 setStatus(GameStatus.ENDED);
             }
         }
+    }
+
+    private void startTurnTimer(ClientControllerInterface client) {
+        if (currentTimer != null && !currentTimer.isDone()) {
+            currentTimer.cancel(true);
+        }
+
+        currentTimer = scheduler.schedule(() -> {
+            client.sendUpdateMessage("Please enter your MOVE command.");
+            currentTimer = scheduler.schedule(() -> {
+                try {
+                    client.sendUpdateMessage("Time is up! Passing your turn.");
+                    passTurn();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }, 60, TimeUnit.SECONDS);
+        }, 60, TimeUnit.SECONDS);
+    }
+
+    private void passTurn() throws RemoteException {
+        numOfLastPlayer = (numOfLastPlayer + 1) % listener.getPlayers().size();
+        model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
+        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+        startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
     }
 
     public void extractCommonObjectiveCards() {

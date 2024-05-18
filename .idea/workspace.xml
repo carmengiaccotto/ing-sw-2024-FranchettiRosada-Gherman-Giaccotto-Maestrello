@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated draw method in client and GameControllerInterface">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Created Gamelistener class and updated all the other class as a consequence">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChoosePawnColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChoosePawnColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +156,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HelloApplication">
+  <component name="RunManager" selected="Application.ServerManager">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.HelloApplication" />
       <module name="PSP22" />
@@ -236,11 +231,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ServerManager" />
+        <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.PrintCards" />
-        <item itemvalue="Application.it.polimi.ingsw.Connection.Client" />
         <item itemvalue="Application.it.polimi.ingsw.Connection.ServerManager" />
-        <item itemvalue="Application.ServerManager" />
       </list>
     </recent_temporary>
   </component>
@@ -268,15 +263,7 @@
       <workItem from="1715888104741" duration="20368000" />
       <workItem from="1715938861627" duration="1389000" />
       <workItem from="1715984870710" duration="54000" />
-      <workItem from="1716021629502" duration="12254000" />
-    </task>
-    <task id="LOCAL-00037" summary="JSon cards">
-      <option name="closed" value="true" />
-      <created>1713342361344</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1713342361344</updated>
+      <workItem from="1716021629502" duration="20996000" />
     </task>
     <task id="LOCAL-00038" summary="DispositionObjectiveCard Json">
       <option name="closed" value="true" />
@@ -662,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716034612423</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Created Gamelistener class and updated all the other class as a consequence">
+      <option name="closed" value="true" />
+      <created>1716049526308</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1716049526308</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -706,7 +701,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modified JsonMap" />
     <MESSAGE value="Modified methods in GameController" />
     <MESSAGE value="GameController almost done." />
     <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
@@ -731,7 +725,8 @@
     <MESSAGE value="Updated Game Controller and TUI." />
     <MESSAGE value="Print messages in ClientController" />
     <MESSAGE value="Updated draw method in client and GameControllerInterface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated draw method in client and GameControllerInterface" />
+    <MESSAGE value="Created Gamelistener class and updated all the other class as a consequence" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Gamelistener class and updated all the other class as a consequence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
