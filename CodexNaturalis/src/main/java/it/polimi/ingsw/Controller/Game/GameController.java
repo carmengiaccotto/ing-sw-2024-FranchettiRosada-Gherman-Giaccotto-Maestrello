@@ -12,14 +12,14 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameController implements  Runnable, Serializable, GameControllerInterface {
-
-    private List<ClientControllerInterface> players = new ArrayList<>();
+public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
+    private GameListener listener = new GameListener();
     private GameStatus status;
     private final int numPlayers;
     private final int id;
@@ -33,15 +33,16 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
 
     private int numOfLastPlayer = 0;
 
-    public GameController(int id, int n) {
+    public GameController(int numPlayers, int id) throws RemoteException {
+        this.numPlayers = numPlayers;
+        this.id = id;
         this.status = GameStatus.WAITING;
-        this.numPlayers=n;
-        this.id=id;
         try {
             model = new PlayGround(this.id);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -61,16 +62,15 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
 
-    public synchronized List<ClientControllerInterface> getPlayers() {
-        return players;
-    }
-
     public int getNumPlayers() {
 
         return numPlayers;
     }
+    public GameListener getListener() {
+        return listener;
+    }
     public synchronized void addPlayer(ClientControllerInterface client){
-        players.add(client);
+        listener.getPlayers().add(client);
     }
 
 
@@ -84,12 +84,12 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
 
 
     public void CheckMaxNumPlayerReached(){
-        if(players.size()==numPlayers){
+        if(listener.getPlayers().size()==numPlayers){
             setStatus(GameStatus.SETUP);
             run();
         }
         else{
-            for(ClientControllerInterface client: players){
+            for(ClientControllerInterface client: listener.getPlayers()){
                 try {
                     client.Wait();
                 } catch (RemoteException e) {
@@ -124,22 +124,17 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
         return available;
     }
 
-    public void setPlayers(List<ClientControllerInterface> players){
-        this.players=players;
-
-    }
-
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) {
-        for (ClientControllerInterface player : players) {
+        for (ClientControllerInterface player : listener.getPlayers()) {
             try {
-                player.updatePlayers(players);
+                player.updatePlayers(listener.getPlayers());
             } catch (RemoteException e) {
                 System.out.println("An error Occurred dutìring Players update: " + e.getMessage());
                 e.printStackTrace();
             }
         }
         try {
-            newPlayer.ChoosePawnColor((ArrayList<PawnColor>) AvailableColors(players));
+            newPlayer.ChoosePawnColor((ArrayList<PawnColor>) AvailableColors(listener.getPlayers()));
         } catch (RemoteException e) {
             System.out.println("An error occured");
         }
@@ -160,18 +155,13 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
                 turnLock.lock();
                 try {
        //             client.getView().playCard(client.getNickname()); //TODO change with a method that invokes a method in the ClientController
-                    System.out.println(client.getNickname() + "has played a card");
-                    for (ClientControllerInterface clients : getPlayers()) {
-                        clients.showBoardAndPlayAreas(getModel());
-                    }
+                    listener.updatePlayers(client.getNickname() + "has played a card");
+                    listener.updatePlayers(getModel());
                     PlayCard card = client.chooseCardToDraw(model);
                     client.getPlayer().addCardToHand(card);
                     updatePlayground(card);
-                    System.out.println("This is the current Playground: ");
-                    for (ClientControllerInterface clients : getPlayers()) {
-                        clients.showBoardAndPlayAreas(getModel());
-                    }
-
+                    listener.updatePlayers("This is the current Playground: ");
+                    listener.updatePlayers(getModel());
                 } finally {
                     turnLock.unlock();
                 }
@@ -184,10 +174,8 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
             case SETUP -> {
                 try {
                     initializeGame();
-                    for (ClientControllerInterface c : getPlayers()) {
-                        c.printInitialMessage();
-                        c.showBoardAndPlayAreas(getModel());
-                    }
+                    listener.updatePlayers("This is the initial board of the game: \n");
+                    listener.updatePlayers(getModel());
                     setStatus(GameStatus.INITIAL_CIRCLE);
                 } catch (NotReadyToRunException e) {
                     throw new RuntimeException(e);
@@ -195,20 +183,16 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
 
             }
             case INITIAL_CIRCLE -> {
-                for (ClientControllerInterface c : getPlayers()) {
+                for (ClientControllerInterface c : listener.getPlayers()) {
                     ArrayList<ObjectiveCard> objectiveList = drawObjectiveCardForPlayer();
                     int indexOfCard = c.choosePersonaObjectiveCard(objectiveList);
                     c.setPersonalObjectiveCard(objectiveList.get(indexOfCard));
-                    for (ClientControllerInterface client : getPlayers()) {
-                        client.printObjectiveCardMessage(c.getNickname());
-                    }
+                    listener.updatePlayers(c.getNickname() + "has chosen his personal Objective card.");
                     InitialCard card = extractInitialCard();
                     String side = c.chooseSideInitialCard(card);
                     playInitialCard(c, card.chooseSide(Side.valueOf(side)));
-                    for (ClientControllerInterface clients : getPlayers()) {
-                        clients.printInitialCardMessage(c.getNickname());
-                        clients.showBoardAndPlayAreas(getModel());
-                    }
+                    listener.updatePlayers(c.getNickname() + "has played his initial card.");
+                    listener.updatePlayers(getModel());
                 }
                 setStatus(GameStatus.RUNNING);
 
@@ -223,7 +207,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
 //                    while (!scoreMaxReached()) {
 //                        for (ClientControllerInterface c : getPlayers()) {
 //                            model.setCurrentPlayer(c.getNickname());
-//                            c.printTurnMessage(c.getNickname());
+//                            listener.updatePlayers("It's your turn, " + c.getNickname() + "!");
 //                            numOfLastPlayer = getPlayers().indexOf(c);
 //                            Command command = c.receiveCommand();
 //                            if (command == Command.MOVE && c.getNickname().equals(model.getCurrentPlayer())) {
@@ -287,7 +271,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
     public void addPersonalObjectiveCardPoints() throws RemoteException {
-        for (ClientControllerInterface c : getPlayers()) {
+        for (ClientControllerInterface c : listener.getPlayers()) {
             if (c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard) {
                 SymbolObjectiveCard card = (SymbolObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
                 int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
@@ -304,7 +288,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
     public void addCommonObjectiveCardsPoints() throws RemoteException {
-        for (ClientControllerInterface c : getPlayers()) {
+        for (ClientControllerInterface c : listener.getPlayers()) {
             for (ObjectiveCard card : model.getCommonObjectivesCards()) {
                 if (card instanceof SymbolObjectiveCard) {
                     SymbolObjectiveCard s = (SymbolObjectiveCard) card;
@@ -322,7 +306,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
     public boolean scoreMaxReached() throws RemoteException {
-        for (ClientControllerInterface c : getPlayers()) {
+        for (ClientControllerInterface c : listener.getPlayers()) {
             if (c.getPlayer().getScore() >= 20) {
                 return true;
             }
@@ -339,14 +323,11 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     public void FinalizeGame() throws NotReadyToRunException, RemoteException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
-        for (ClientControllerInterface client : players) {
-            client.printFinalScoresMessage(players);
-        }
+        listener.updatePlayers("Those are the final scores: \n");
+        listener.updatePlayers();
         decreeWinner();
-        for (ClientControllerInterface client : players) {
-            client.printFinalMessage();
-            client.disconnect();
-        }
+        listener.updatePlayers("The game is over!");
+        listener.disconnectPlayers();
     }
 
     public void decreeWinner() throws RemoteException {
@@ -354,7 +335,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
         List<ClientControllerInterface> winners = new ArrayList<>();
         int score = Integer.MIN_VALUE;
 
-        for (ClientControllerInterface c : getPlayers()) {
+        for (ClientControllerInterface c : listener.getPlayers()) {
             if (c.getPlayer().getScore() > score) {
                 score = c.getPlayer().getScore();
                 winners.clear();
@@ -363,16 +344,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
                 winners.add(c);
             }
         }
-
-        if (winners.size() == 1) {
-            for (ClientControllerInterface client : players) {
-                client.printWinnerMessage(winners);
-            }
-        } else {
-            for (ClientControllerInterface client : players) {
-                client.printWinnersMessage(winners);
-            }
-        }
+        listener.updatePlayers(winners);
 
     }
 
@@ -426,7 +398,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
     public void extractPlayerHandCards() throws RemoteException {
-        for (ClientControllerInterface client : players) {
+        for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
                 int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
                 ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
@@ -442,7 +414,7 @@ public class GameController implements  Runnable, Serializable, GameControllerIn
     }
 
     public ObjectiveCard getPersonalObjective(String nickname) throws RemoteException {
-        for (ClientControllerInterface client : players) {
+        for (ClientControllerInterface client : listener.getPlayers()) {
             if (client.getNickname().equals(nickname)) {
                 return client.getPlayer().getPersonalObjectiveCard();
             }

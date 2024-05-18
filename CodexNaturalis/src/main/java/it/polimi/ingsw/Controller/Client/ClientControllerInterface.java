@@ -50,18 +50,5 @@ public interface ClientControllerInterface extends Remote {
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException;
 
-    void printInitialMessage();
-
-    void printFinalMessage();
-
-    void printFinalScoresMessage(List<ClientControllerInterface> players) throws RemoteException;
-
-    void printTurnMessage(String nickname);
-
-    void printInitialCardMessage(String nickname);
-
-    void printObjectiveCardMessage(String nickname);
-
-    void printWinnerMessage(List<ClientControllerInterface> winners);
-    void printWinnersMessage(List<ClientControllerInterface> winners);
+    void sendUpdateMessage(String message);
 }

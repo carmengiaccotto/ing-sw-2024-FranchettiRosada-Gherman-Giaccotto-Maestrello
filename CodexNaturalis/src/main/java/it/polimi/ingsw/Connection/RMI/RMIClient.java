@@ -198,5 +198,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         return 0;
     }
 
+    @Override
+    public void sendUpdateMessage(String message) {
+        controller.sendUpdateMessage(message);
+    }
+
 
 }

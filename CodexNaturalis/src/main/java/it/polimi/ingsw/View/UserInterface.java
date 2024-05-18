@@ -43,6 +43,8 @@ public interface UserInterface {
 
     void printObjectives(ObjectiveCard card);
 
+    void printMessage(String message);
+
     Command receiveCommand();
 
 }

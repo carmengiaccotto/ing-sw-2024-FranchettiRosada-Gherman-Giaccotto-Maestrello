@@ -12,8 +12,7 @@ import java.util.List;
 
 public interface GameControllerInterface extends  Remote{
     //Player Configuration Methods
-    public List<ClientControllerInterface> getPlayers();
-    public void setPlayers(List<ClientControllerInterface> players);
+    public GameListener getListener();
     public int getNumPlayers();
     public void addPlayer(ClientControllerInterface client);
     public GameStatus getStatus();

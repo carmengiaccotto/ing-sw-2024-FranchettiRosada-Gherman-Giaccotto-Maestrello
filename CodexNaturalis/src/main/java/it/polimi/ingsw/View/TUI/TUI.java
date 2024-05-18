@@ -84,7 +84,7 @@ public class TUI implements UserInterface {
         for (int i = 0; i < games.size(); i++) {
             System.out.println("[" + (i + 1) + "] Game" + (i + 1) + "   Needed players to start the match: " + games.get(i).getNumPlayers());
             System.out.println("Current players: ");
-            for (ClientControllerInterface client : games.get(i).getPlayers()) {
+            for (ClientControllerInterface client : games.get(i).getListener().getPlayers()) {
                 System.out.println(client.getNickname());
             }
         }
@@ -115,6 +115,11 @@ public class TUI implements UserInterface {
         else
             PrintCards.printSymbolObjectiveCard(card);
 
+    }
+
+    @Override
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     @Override
