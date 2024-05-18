@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Created Gamelistener class and updated all the other class as a consequence">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Game loop is done. I also added a timer for each player's move.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChoosePawnColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Socket/ClientToControllerMessage/ClientChoosePawnColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,15 +263,7 @@
       <workItem from="1715888104741" duration="20368000" />
       <workItem from="1715938861627" duration="1389000" />
       <workItem from="1715984870710" duration="54000" />
-      <workItem from="1716021629502" duration="20996000" />
-    </task>
-    <task id="LOCAL-00038" summary="DispositionObjectiveCard Json">
-      <option name="closed" value="true" />
-      <created>1713345140457</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1713345140458</updated>
+      <workItem from="1716021629502" duration="23232000" />
     </task>
     <task id="LOCAL-00039" summary="ObjectiveCard Tests, Objective Card JavaDov, ObjectivePoints Tests">
       <option name="closed" value="true" />
@@ -657,7 +649,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716049526308</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="Game loop is done. I also added a timer for each player's move.">
+      <option name="closed" value="true" />
+      <created>1716058265887</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1716058265887</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -701,7 +701,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Modified methods in GameController" />
     <MESSAGE value="GameController almost done." />
     <MESSAGE value="extractCommonObjectiveCards and extractCommonPlaygroundCards methods updated" />
     <MESSAGE value="Client Interface and ConnectionType Choice" />
@@ -726,7 +725,8 @@
     <MESSAGE value="Print messages in ClientController" />
     <MESSAGE value="Updated draw method in client and GameControllerInterface" />
     <MESSAGE value="Created Gamelistener class and updated all the other class as a consequence" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Gamelistener class and updated all the other class as a consequence" />
+    <MESSAGE value="Game loop is done. I also added a timer for each player's move." />
+    <option name="LAST_COMMIT_MESSAGE" value="Game loop is done. I also added a timer for each player's move." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

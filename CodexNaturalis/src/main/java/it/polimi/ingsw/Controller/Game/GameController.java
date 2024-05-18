@@ -40,6 +40,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private int numOfLastPlayer = 0;
 
+    /**
+     * Creates a new GameController with the specified number of players and game ID.
+     *
+     * @param numPlayers The number of players in the game.
+     * @param id The game ID.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public GameController(int numPlayers, int id) throws RemoteException {
         this.numPlayers = numPlayers;
         this.id = id;
@@ -51,6 +58,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
 
     }
+
 
     @Override
     public void run() {
@@ -68,28 +76,50 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
-
+    /**Method that returns the number of players in the game
+     * @return the number of players in the game*/
     public int getNumPlayers() {
 
         return numPlayers;
     }
+
+    /**Method that returns the GameListener of the game
+     * @return the GameListener of the game*/
     public GameListener getListener() {
         return listener;
     }
+
+    /**Method that adds a player to the game
+     * @param client the client that is added to the game*/
     public synchronized void addPlayer(ClientControllerInterface client){
         listener.getPlayers().add(client);
     }
 
 
+    /**
+     * Gets the current game status.
+     *
+     * @return The current game status.
+     */
     public GameStatus getStatus() {
         return status;
     }
 
+    /**
+     * Sets the current game status.
+     *
+     * @param status The new game status.
+     */
     public void setStatus(GameStatus status) {
         this.status = status;
     }
 
 
+    /**
+     * Checks if the maximum number of players has been reached.
+     * If the number of players in the game is equal to the maximum number of players, the game is ready to run.
+     * If the maximum number of players has not been reached, the game waits for more players to join.
+     */
     public void CheckMaxNumPlayerReached(){
         if(listener.getPlayers().size()==numPlayers){
             setStatus(GameStatus.SETUP);
@@ -108,7 +138,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
-
+    /**
+     * Returns a list of available pawn colors for a player to choose from.
+     * The method iterates through the list of players in the game and extracts the pawn color of each player.
+     * It then checks the available colors and returns a list of colors that are not already taken by other players.
+     *
+     * @param clients The list of clients in the game.
+     * @return A list of available pawn colors for a new player to choose from.
+     */
     public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients) {
 
         List<PawnColor> colors = clients.stream()
@@ -131,12 +168,18 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return available;
     }
 
+    /**
+     * Notifies all players that a new player has joined the game.
+     * The method sends an update message to all players with the list of players in the game.
+     * It then prompts the new player to choose a pawn color from the available colors.
+     * If the maximum number of players has been reached, the method checks if the game is ready to run.
+     */
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) {
         for (ClientControllerInterface player : listener.getPlayers()) {
             try {
                 player.updatePlayers(listener.getPlayers());
             } catch (RemoteException e) {
-                System.out.println("An error Occurred dutìring Players update: " + e.getMessage());
+                System.out.println("An error Occurred during Players update: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -153,6 +196,17 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
+    /**
+     * Receives a message from a client and performs actions based on the command received.
+     * The method checks the command received and performs the following actions:
+     * CHAT - Broadcasts a chat message to all players.
+     * MOVE - Checks if it is the player's turn. If it is, the player is prompted to play a card.
+     * If the player does not respond within 2 minutes, the turn is passed to the next player.
+     *
+     * @param c The command received from the client.
+     * @param client The client interface of the player who sent the command.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException{
         switch (c){
             case CHAT ->{
@@ -162,6 +216,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 if (!client.getNickname().equals(model.getCurrentPlayer())) {
                     client.sendUpdateMessage("It's not your turn, please wait!");
                 } else {
+                    if (currentTimer != null && !currentTimer.isDone()) {
+                        currentTimer.cancel(true);
+                    }
                     turnLock.lock();
                     try {
                         listener.updatePlayers(client.getNickname() + "has played a card");
@@ -183,6 +240,19 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * This method performs actions based on the current game status.
+     *
+     * @param status The current status of the game. It can be one of the following:
+     *               WAITING - The game is waiting for players to join.
+     *               SETUP - The game is being initialized.
+     *               INITIAL_CIRCLE - Players are choosing their personal objective cards and playing their initial cards.
+     *               RUNNING - The game is in progress and players are taking turns to play.
+     *               LAST_CIRCLE - The game is in its final round.
+     *               ENDED - The game has ended.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     void performAction(GameStatus status) throws RemoteException {
         switch(status) {
             case SETUP -> {
@@ -246,17 +316,21 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * Starts a turn timer for the current player. The timer is scheduled to send a message to the player
+     * after 60 seconds, prompting them to enter their MOVE command. If the player does not respond within
+     * another 60 seconds, the turn is passed to the next player.
+     *
+     * @param client The client interface of the current player. This is used to send update messages to the player.
+     */
     private void startTurnTimer(ClientControllerInterface client) {
-        if (currentTimer != null && !currentTimer.isDone()) {
-            currentTimer.cancel(true);
-        }
 
         currentTimer = scheduler.schedule(() -> {
             client.sendUpdateMessage("Please enter your MOVE command.");
             currentTimer = scheduler.schedule(() -> {
                 try {
                     client.sendUpdateMessage("Time is up! Passing your turn.");
-                    passTurn();
+                    passPlayerTurn();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -264,13 +338,26 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }, 60, TimeUnit.SECONDS);
     }
 
-    private void passTurn() throws RemoteException {
+    /**
+     * Passes the turn to the next player in the game.
+     * This method increments the index of the last player, wrapping around to the start of the player list if necessary.
+     * It then sets the current player in the game model to the new player, sends an update to all players notifying them of the new current player,
+     * and starts a new turn timer for the new current player.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
+    private void passPlayerTurn() throws RemoteException {
         numOfLastPlayer = (numOfLastPlayer + 1) % listener.getPlayers().size();
         model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
         listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
         startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
     }
 
+    /**
+     * Extracts common objective cards from the deck and adds them to the common objectives.
+     * The method continues to extract cards until there are 2 common objective cards.
+     * After extracting a card, it is removed from the objective card deck.
+     */
     public void extractCommonObjectiveCards() {
         while (model.getCommonObjectivesCards().size() < 2) {
             int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
@@ -280,6 +367,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * Extracts common gold and resource cards from their respective decks and adds them to the common cards.
+     * The method continues to extract cards until there are 2 common gold cards and 2 common resource cards.
+     * After a card is extracted, it is removed from its respective deck.
+     */
     public void extractCommonPlaygroundCards() {
         while (model.getCommonGoldCards().size() < 2) {
             int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
@@ -295,6 +387,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * Extracts an initial card from the deck.
+     * The method randomly selects a card from the deck, removes it from the deck, and returns it.
+     *
+     * @return The extracted initial card.
+     */
     public InitialCard extractInitialCard(){
         int cardExtracted = random.nextInt(model.getInitialCardDeck().getSize() - 1);
         InitialCard c = (InitialCard) model.getInitialCardDeck().getCards().get(cardExtracted);
@@ -304,6 +402,15 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    /**
+     * Calculates and adds the points from the personal objective card to each player's score.
+     * This method iterates through each player in the game and checks their personal objective card.
+     * If the card is a SymbolObjectiveCard, it calculates the number of goals the player has achieved and the points they have earned.
+     * If the card is a DispositionObjectiveCard, it calculates the number of dispositions the player has got and the points they have earned.
+     * The points are then added to the player's score.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void addPersonalObjectiveCardPoints() throws RemoteException {
         for (ClientControllerInterface c : listener.getPlayers()) {
             if (c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard) {
@@ -321,6 +428,15 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * Calculates and adds the points from the common objective cards to each player's score.
+     * This method iterates through each player in the game and for each common objective card,
+     * it checks the type of the card (SymbolObjectiveCard or DispositionObjectiveCard), calculates the number of goals
+     * the player has achieved and the points they have earned based on the card's rules.
+     * The points are then added to the player's score.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void addCommonObjectiveCardsPoints() throws RemoteException {
         for (ClientControllerInterface c : listener.getPlayers()) {
             for (ObjectiveCard card : model.getCommonObjectivesCards()) {
@@ -339,6 +455,15 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**
+     * Checks if any player's score has reached or exceeded the maximum score limit (20).
+     * This method iterates through each player in the game and checks their current score.
+     * If a player's score is 20 or more, the method returns true, indicating that the maximum score has been reached.
+     * If no player's score is 20 or more, the method returns false.
+     *
+     * @return true if any player's score is 20 or more, false otherwise.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public boolean scoreMaxReached() throws RemoteException {
         for (ClientControllerInterface c : listener.getPlayers()) {
             if (c.getPlayer().getScore() >= 20) {
@@ -348,12 +473,26 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return false;
     }
 
+    /** Method that initializes the game by extracting the common playground cards and the common objective cards.
+     * It then extracts the cards for each player and adds it to their hand.
+     *
+     * @throws NotReadyToRunException If the game is not ready to run.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void initializeGame() throws NotReadyToRunException, RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
         extractPlayerHandCards();
     }
 
+    /**
+     * Finalizes the game by adding the points from the personal objective cards and the common objective cards to each player's score.
+     * It then determines the winner of the game based on the player with the highest score.
+     * Finally, it sends a message to all players with the final scores and disconnects all players from the game.
+     *
+     * @throws NotReadyToRunException If the game is not ready to run.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void FinalizeGame() throws NotReadyToRunException, RemoteException {
         addPersonalObjectiveCardPoints();
         addCommonObjectiveCardsPoints();
@@ -364,6 +503,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         listener.disconnectPlayers();
     }
 
+    /**
+     * Determines the winner of the game based on the player with the highest score.
+     * If there is only one player with the highest score, they are declared the winner.
+     * If there are multiple players with the highest score, a tie is declared between them.
+     * The method then sends a message to all players with the winner or the list of players in a tie.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void decreeWinner() throws RemoteException {
 
         List<ClientControllerInterface> winners = new ArrayList<>();
@@ -382,6 +529,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    /**
+     * Draws two objective cards for a player.
+     * This method randomly selects two objective cards from the objective card deck and adds them to a list.
+     * The cards are then removed from the objective card deck.
+     *
+     * @return A list of two objective cards drawn for the player.
+     */
     public ArrayList<ObjectiveCard> drawObjectiveCardForPlayer() {
         ArrayList<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
         while (listCard.size() < 2) {
@@ -393,14 +547,26 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return listCard;
     }
 
+    /**
+     * Gets the current game model.
+     *
+     * @return The current game model.
+     */
     public PlayGround getModel() {
         return model;
     }
 
+    /**
+     * Sets the current game model.
+     *
+     * @param model The new game model.
+     */
     public void setModel(PlayGround model) {
         this.model = model;
     }
 
+    /**Method that updates the playground after a card has been played by a player
+     * @param c the card that has been played*/
     public void updatePlayground(PlayCard c){
         boolean ok = false;
         if(c instanceof GoldCard){
@@ -431,6 +597,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    /**Method that extracts the cards for each player and adds them to their hand*/
     public void extractPlayerHandCards() throws RemoteException {
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
@@ -447,6 +614,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    /**Method that returns the personal objective card of a player
+     * @param nickname the nickname of the player
+     * @return the personal objective card of the player*/
     public ObjectiveCard getPersonalObjective(String nickname) throws RemoteException {
         for (ClientControllerInterface client : listener.getPlayers()) {
             if (client.getNickname().equals(nickname)) {
