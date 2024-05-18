@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Added javaDoc to GameListener and TUI">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified path for JsonCards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonCardsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonCardsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonDeckCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonDeckCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/EdgePositions.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/EdgePositions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/EdgePositionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/EdgePositionsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +91,7 @@
     "JUnit.CornerTest.testIsCovered.executor": "Run",
     "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
     "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
+    "JUnit.EdgePositionsTest.executor": "Run",
     "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
     "JUnit.JsonDeckCreatorTest.executor": "Run",
     "JUnit.ObjectivePointsTest.executor": "Coverage",
@@ -157,7 +160,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JsonDeckCreatorTest">
+  <component name="RunManager" selected="JUnit.EdgePositionsTest">
     <configuration name="CornerFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
@@ -168,6 +171,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.JsonTests" />
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonTests.CornerFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EdgePositionsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PSP22" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.PlayGroundTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests.EdgePositionsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -218,36 +236,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayGroundTest.testGetGoldCardDeck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PSP22" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.PlayGroundTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests.PlayGroundTest" />
-      <option name="METHOD_NAME" value="testGetGoldCardDeck" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="JUnit.EdgePositionsTest" />
       <item itemvalue="JUnit.CornerFactoryTest" />
       <item itemvalue="JUnit.GoldCardTest" />
       <item itemvalue="JUnit.JsonCardsMapperTest" />
       <item itemvalue="JUnit.JsonDeckCreatorTest" />
-      <item itemvalue="JUnit.PlayGroundTest.testGetGoldCardDeck" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EdgePositionsTest" />
         <item itemvalue="JUnit.JsonDeckCreatorTest" />
         <item itemvalue="JUnit.JsonCardsMapperTest" />
         <item itemvalue="JUnit.CornerFactoryTest" />
         <item itemvalue="JUnit.GoldCardTest" />
-        <item itemvalue="JUnit.PlayGroundTest.testGetGoldCardDeck" />
       </list>
     </recent_temporary>
   </component>
@@ -277,14 +279,6 @@
       <workItem from="1715984870710" duration="54000" />
       <workItem from="1716021629502" duration="26390000" />
       <workItem from="1716063904579" duration="4101000" />
-    </task>
-    <task id="LOCAL-00041" summary="Tests and Javadoc">
-      <option name="closed" value="true" />
-      <created>1713385039137</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1713385039137</updated>
     </task>
     <task id="LOCAL-00042" summary="Card Class Complete with JavaDoc and Test">
       <option name="closed" value="true" />
@@ -670,7 +664,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716065657945</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Modified path for JsonCards">
+      <option name="closed" value="true" />
+      <created>1716072898009</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1716072898009</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -714,7 +716,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Client Interface and ConnectionType Choice" />
     <MESSAGE value="Player Changed Constructor and updated Test" />
     <MESSAGE value="Game Connection Structure" />
     <MESSAGE value="ServerManager main" />
@@ -739,7 +740,8 @@
     <MESSAGE value="Game loop is done. I also added a timer for each player's move." />
     <MESSAGE value="Added javaDoc to GameController and GameControllerInterface" />
     <MESSAGE value="Added javaDoc to GameListener and TUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added javaDoc to GameListener and TUI" />
+    <MESSAGE value="Modified path for JsonCards" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified path for JsonCards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -757,6 +759,11 @@
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java</url>
           <line>120</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/EdgePositionsTest.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

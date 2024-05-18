@@ -6,10 +6,7 @@ import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.Symbol;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**This class represents the playArea. Each player has its own*/
 public class PlayArea {
@@ -24,7 +21,7 @@ public class PlayArea {
      * Dynamic matrix of SideOfCard. We are using SideOfCard, because, if the card is present here, is because the player has
      * already made a choice about what side they want to play
      */
-    private List<List<SideOfCard>> cardsOnArea;
+    private List<List<SideOfCard>> cardsOnArea=new ArrayList<>();
 
 
     /**
@@ -32,15 +29,26 @@ public class PlayArea {
 
      */
     public PlayArea() {
-        cardsOnArea=new ArrayList<>();
+        cardsOnArea.add(new ArrayList<>()); // Adding an inner list
+        cardsOnArea.get(0).add(null); // Adding a null element to the inner list
         symbols = InitializeSymbolMap();
     }
 
 
+    /**Getter method for Symbols attribute
+     * @return  symbols  on the playArea*/
+    public Map<Symbol, Integer> getSymbols() {
+        return symbols;
+    }
+
+    /**Returns the number of occurrences of a specified symbol on the playArea
+     * @param symbol whose occurrences we want to check */
     public int getNumSymbols(Symbol symbol) {
         return symbols.get(symbol);
     }
 
+
+    /**Setter method for cardsOnArea attribute. Used for testing purposes*/
     public void setCardsOnArea(List<List<SideOfCard>> cards){
         this.cardsOnArea=cards;
     }
@@ -49,7 +57,6 @@ public class PlayArea {
     /**
      * Method that is used to initialize the Symbols map of the playArea.
      * Populates the map with all the symbols from Symbol enum, and sets all their values to zero
-     *
      * @return playAreaMap which is going to be our symbols map
      */
     public Map<Symbol, Integer> InitializeSymbolMap() {
@@ -59,6 +66,29 @@ public class PlayArea {
         }
         return playAreaMap;
 
+    }
+
+    /**method to add the initial card to the area. It is used only for the first card of the game.
+     * Once the card is added, the matrix is expanded, adding a new row before and after, and a new
+     * column before and after. The new card is placed in the center of the matrix.
+     * @param card initial card to be added*/
+    public void addInitialCardOnArea(SideOfCard card){
+        cardsOnArea.get(0).set(0, card);
+        AddSymbolsToArea(card);
+
+        //add an empty row at the beginning of the playArea
+        cardsOnArea.add(0, new ArrayList<>(Collections.nCopies(cardsOnArea.get(0).size(), null)));
+        //add an empty row at the  ending of the playArea
+        cardsOnArea.add(new ArrayList<>(Collections.nCopies(cardsOnArea.get(0).size(), null)));
+
+        // add an empty column at the beginning of each row
+        for (List<SideOfCard> row : cardsOnArea) {
+            row.add(0, null);
+        }
+        //add an empty column at the end of each row
+        for (List<SideOfCard> row : cardsOnArea) {
+            row.add(null);
+        }
     }
 
 
@@ -167,28 +197,24 @@ public class PlayArea {
 
     /**
      * Main method of the player's round. Once a player has chosen the card they want to play, and the side of the card, they have to place it on the area.
-     * They can choose the corner they want to place the card on.
-     * If the corner and the card position make up an edge case, the PlayArea has to be updated with new dimensions, the card can only be placed after this is done,
+     * PlayArea has to be updated with new dimensions
      * else the playArea stays the same and the card gets Placed in the chosen position.
      * The corner to cover is set to covered, and the nextCorners are set
      * Card symbols are added to the PlayAreaMap
      * Neighbours check
      *
      * @param NewCard       card the player wants to place
-     * @param CornerToCover corner the player wants to place the card on
+
      */
 
-    public void AddCardOnArea(SideOfCard NewCard, Corner CornerToCover, SideOfCard CoveredCard) {
-        IsEdgeCase(CornerToCover, CoveredCard, cardsOnArea);
+    public void  AddCardOnArea(SideOfCard NewCard, int r, int c) {
+        if(rowExists(r) && columnExists(c)) {
+            cardsOnArea.get(r).set(c, NewCard);
 
-        NewCard.setPositionOnArea(CornerToCover.getPosition().PositionNewCard(CoveredCard));
-        int i= CornerToCover.getPosition().PositionNewCard(CoveredCard).getFirst();
-
-        int j=CornerToCover.getPosition().PositionNewCard(CoveredCard).getSecond();
-        List<SideOfCard> row = cardsOnArea.get(i);
-        row.set(j, NewCard);
-        checkCloseNeighbours(NewCard);
-        AddSymbolsToArea(NewCard);
+        }
+        else {
+            throw new ArrayIndexOutOfBoundsException("Invalid Position");
+        }
     }
 
 
@@ -196,30 +222,18 @@ public class PlayArea {
     /**Method that verifies if the placement of the new card in the desired position is an edge case
      * and the matrix needs to be Expanded
      * @param cardsOnArea cards on the playArea
-     * @param CardToCover chosen By The Player
-     * @param cornerToCover  also chosen by the player*/
-    public void IsEdgeCase(Corner cornerToCover, SideOfCard CardToCover, List<List<SideOfCard>> cardsOnArea) {
+     * @param positionPlacedCard position where the player wants to place a new card
+     * */
+    public void IsEdgeCase(Pair<Integer, Integer>positionPlacedCard, List<List<SideOfCard>> cardsOnArea) {
         EdgePositions edgePositions=new EdgePositions();
-        Map <EdgePositions.EdgeCases, ArrayList<CornerPosition>> cornersToCheck=edgePositions.cornersToCheck;
-        for (EdgePositions.EdgeCases key : cornersToCheck.keySet()) {
-            if (key.isEdgePosition(CardToCover, cardsOnArea)) {
-                ArrayList<CornerPosition> value = cornersToCheck.get(key);
-                for (CornerPosition corner : value) {
-                    if (cornerToCover.getPosition().equals(corner)) {
-                        key.ExpandArea(cardsOnArea);
-
-                    }
-                }
-
+        for (EdgePositions.EdgeCases key : EdgePositions.EdgeCases.values()) {
+            if (key.isEdgePosition(positionPlacedCard, cardsOnArea)) {
+                key.ExpandArea(cardsOnArea);
             }
         }
     }
 
-    /**Getter method for Symbols attribute
-     * @return  symbols  on the playArea*/
-    public Map<Symbol, Integer> getSymbols() {
-        return symbols;
-    }
+
 
     /**Getter method for cardsOnArea attribute
      * @return cardsOnArea */
@@ -229,24 +243,5 @@ public class PlayArea {
     }
 
 
-    /**
-     * Method for adding the starting card to the player's playArea
-     * @param NewCard
-     */
-    public void AddCardOnArea(SideOfCard NewCard){
-        cardsOnArea.add(new ArrayList<>());
-        cardsOnArea.get(0).add(NewCard);
 
-    }
-
-
-    /**
-     *Method to add the InitialCard on the Area. Different from the other Add Card on Area, because there is no neighbour to check
-     * */
-    public void addInitialCardToArea(SideOfCard initialCard){
-        List<SideOfCard> newRow=new ArrayList<>();
-        newRow.add(initialCard);
-        cardsOnArea.add(newRow);
-    }
 }
-
