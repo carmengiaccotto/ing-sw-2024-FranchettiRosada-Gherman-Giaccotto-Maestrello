@@ -1,14 +1,15 @@
 package it.polimi.ingsw.Model.JsonHandler;
 
-import it.polimi.ingsw.Model.Cards.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.Model.Cards.*;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class JsonDeckCreator {
     private JsonCardsMapper mapper;
@@ -25,7 +26,7 @@ public class JsonDeckCreator {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
-        String filePath = "CodexNaturalis/src/main/java/it/polimi/ingsw/model/JsonHandler/" + DeckType.getSimpleName() + ".Json";
+        String filePath = "src/main/java/it/polimi/ingsw/Model/JsonHandler/" + DeckType.getSimpleName() + ".Json";
 
         try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
