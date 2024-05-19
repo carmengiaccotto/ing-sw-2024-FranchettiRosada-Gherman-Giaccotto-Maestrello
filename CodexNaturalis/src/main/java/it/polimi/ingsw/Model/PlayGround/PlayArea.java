@@ -30,7 +30,7 @@ public class PlayArea {
      */
     public PlayArea() {
         cardsOnArea.add(new ArrayList<>()); // Adding an inner list
-        cardsOnArea.get(0).add(null); // Adding a null element to the inner list
+        cardsOnArea.getFirst().add(null); // Adding a null element to the inner list
         symbols = InitializeSymbolMap();
     }
 
@@ -45,13 +45,13 @@ public class PlayArea {
      * @param symbol whose occurrences we want to check */
     public int getNumSymbols(Symbol symbol) {
         return symbols.get(symbol);
-    }
+    } //tested
 
 
     /**Setter method for cardsOnArea attribute. Used for testing purposes*/
     public void setCardsOnArea(List<List<SideOfCard>> cards){
         this.cardsOnArea=cards;
-    }
+    } //TODO test this
 
 
     /**
@@ -59,7 +59,7 @@ public class PlayArea {
      * Populates the map with all the symbols from Symbol enum, and sets all their values to zero
      * @return playAreaMap which is going to be our symbols map
      */
-    public Map<Symbol, Integer> InitializeSymbolMap() {
+    public Map<Symbol, Integer> InitializeSymbolMap() { //tested
         Map<Symbol, Integer> playAreaMap = new HashMap<>();
         for (Symbol symbol : Symbol.values()) {
             playAreaMap.put(symbol, 0);
@@ -69,17 +69,18 @@ public class PlayArea {
     }
 
     /**method to add the initial card to the area. It is used only for the first card of the game.
+    /**method to add the initial card to the area. It is used only for the first card of the game
      * Once the card is added, the matrix is expanded, adding a new row before and after, and a new
      * column before and after. The new card is placed in the center of the matrix.
      * @param card initial card to be added*/
-    public void addInitialCardOnArea(SideOfCard card){
-        cardsOnArea.get(0).set(0, card);
+    public void addInitialCardOnArea(SideOfCard card){//tested
+        cardsOnArea.getFirst().set(0, card);
         AddSymbolsToArea(card);
 
         //add an empty row at the beginning of the playArea
-        cardsOnArea.add(0, new ArrayList<>(Collections.nCopies(cardsOnArea.get(0).size(), null)));
+        cardsOnArea.addFirst(new ArrayList<>(Collections.nCopies(cardsOnArea.getFirst().size(), null)));
         //add an empty row at the  ending of the playArea
-        cardsOnArea.add(new ArrayList<>(Collections.nCopies(cardsOnArea.get(0).size(), null)));
+        cardsOnArea.add(new ArrayList<>(Collections.nCopies(cardsOnArea.getFirst().size(), null)));
 
         // add an empty column at the beginning of each row
         for (List<SideOfCard> row : cardsOnArea) {
@@ -91,9 +92,11 @@ public class PlayArea {
         }
     }
 
-
-    public SideOfCard getCardInPosition(int i, int j) {
-        if(i<cardsOnArea.size() && j< cardsOnArea.get(0).size()) {
+    /**Method to get the card that occupies a specified position on the area.
+     * @param  i desired row
+     * @param j desired column*/
+    public SideOfCard getCardInPosition(int i, int j) { //tested
+        if(i<cardsOnArea.size() && j< cardsOnArea.getFirst().size()) {
             List<SideOfCard> internalList = getCardsOnArea().get(i);
             return internalList.get(j);
         }
@@ -108,7 +111,7 @@ public class PlayArea {
      * @param column the column whose existence we have to check
      * @return boolean true if the column exists, false if it doesn't
      */
-    public boolean columnExists(int column) {
+    public boolean columnExists(int column) { //tested
         return !cardsOnArea.getFirst().isEmpty() && column >= 0 && column < cardsOnArea.getFirst().size();
     }
 
@@ -121,7 +124,7 @@ public class PlayArea {
      */
     public boolean rowExists(int row) {
         return row >= 0 && row < cardsOnArea.size();
-    }
+    } //tested
 
 
     /**
@@ -135,26 +138,28 @@ public class PlayArea {
      */
 
 
-    //Method to revise
-    public void checkCloseNeighbours(SideOfCard newCard) {
-        for (Corner[] Rowcorner : newCard.getCorners()) {
-            for (Corner corner : Rowcorner) {
-                Pair<Integer, Integer> newPosition = corner.getPosition().PositionNewCard(newCard);
-                if (newPosition != null) {
-                    int rowToCheck = newPosition.getFirst();
-                    int columnToCheck = newPosition.getSecond();
-                    if (rowExists(rowToCheck) && columnExists(columnToCheck)) {
-                        List<SideOfCard> row = cardsOnArea.get(rowToCheck);
-                        if (row != null) {
-                            SideOfCard neighbourCard = row.get(columnToCheck);
-                            if (neighbourCard != null) {
-                                CornerPosition cornerToCover = corner.getPosition().CoverCorners();
-                                if (neighbourCard.getCornerInPosition(cornerToCover) != null) {
-                                    neighbourCard.getCornerInPosition(cornerToCover).setCovered();
-                                    Symbol coveredSymbol = neighbourCard.getCornerInPosition(cornerToCover).getSymbol();
-                                    if (symbols.containsKey(coveredSymbol)) {
-                                        symbols.put(coveredSymbol, symbols.getOrDefault(coveredSymbol, 0) - 1);
+    //TODO Modify this method with new Logic
+    public void checkCloseNeighbours(Pair<Integer, Integer>newCardPosition, SideOfCard newCard) {
+        for (Corner[] Rowcorner : newCard.getCorners()) {//access the corners lines
+            for (Corner corner : Rowcorner) {// access the single corner
+                Pair<Integer, Integer> newPosition = corner.getPosition().neighborToCheck(newCardPosition.getFirst(), newCardPosition.getSecond());
+                //use ConerPosition methods to calculate position to check
+                if (newPosition != null) {// check
+                    int rowToCheck = newPosition.getFirst();//get row to check
+                    int columnToCheck = newPosition.getSecond();// get column to check
+                    if (rowExists(rowToCheck) && columnExists(columnToCheck)) {// check that these positions exist
+                        List<SideOfCard> row = cardsOnArea.get(rowToCheck);// get cards on the row to check
+                        if (row != null) {//check that row is not null
+                            SideOfCard neighbourCard = row.get(columnToCheck);//get card in the column to check
+                            if (neighbourCard != null) {//check that this card is not occupied by a null object
+                                CornerPosition cornerToCover = corner.getPosition().CoverCorners(); //get the corresponding corner to cover
+                                if (neighbourCard.getCornerInPosition(cornerToCover) != null) {//check this corner is not null
+                                    neighbourCard.getCornerInPosition(cornerToCover).setCovered();//cover corner
+                                    Symbol coveredSymbol = neighbourCard.getCornerInPosition(cornerToCover).getSymbol(); //get symbol in the covered corner
+                                    if (symbols.containsKey(coveredSymbol)) {//if the playArea symbol map contains this symbol
+                                        symbols.put(coveredSymbol, symbols.getOrDefault(coveredSymbol, 1) - 1);//that symbol is no longer visible, so we must subtract 1
                                     }
+                                    // setting the corners to be each other's next
                                     neighbourCard.getCornerInPosition(cornerToCover).setNextCorner(corner);
                                     corner.setNextCorner(neighbourCard.getCornerInPosition(cornerToCover));
                                 }
@@ -168,7 +173,9 @@ public class PlayArea {
 
 
 
-    /**resets the attribute InConfig pf all the cards on the playArea to false*/
+    /**resets the attribute InConfig pf all the cards on the playArea to false.
+     * This method is used when we finished checking the number of occurrences of
+     * one Objective Disposition, and we have to start to check for a new one*/
     public void resetConfig() {
         for (List<SideOfCard> row :cardsOnArea)
             for (SideOfCard card : row) {
@@ -186,7 +193,7 @@ public class PlayArea {
      *
      * @param NewCard card that has just been placed
      */
-    public void AddSymbolsToArea(SideOfCard NewCard) {
+    public void AddSymbolsToArea(SideOfCard NewCard) { //ToTest
         for (Symbol symbol : NewCard.getSymbols().keySet()) {
             int newValue = NewCard.getSymbols().get(symbol) + symbols.get(symbol);
             symbols.put(symbol, newValue);
@@ -206,10 +213,19 @@ public class PlayArea {
      * @param NewCard       card the player wants to place
 
      */
-
-    public void  AddCardOnArea(SideOfCard NewCard, int r, int c) {
+    //TODO In controller add checking that we are covering at least a card+
+    // check hidden corners+check not covering two corners same card+ IsEdgeCase expansion
+    public void  addCardOnArea(SideOfCard NewCard, int r, int c) {
+        //check if the desired position exists and is not already occupied
         if(rowExists(r) && columnExists(c)) {
-            cardsOnArea.get(r).set(c, NewCard);
+            System.out.println("prev card: "+getCardInPosition(r,c));
+            cardsOnArea.get(r).set(c, NewCard);//addCard in the desired position
+            System.out.println("curr card: "+getCardInPosition(r,c));
+            IsEdgeCase(new Pair<>(r,c));//Expand Area if needed;
+            checkCloseNeighbours(new Pair<>(r,c), NewCard);//cover the corners of the surrounding cards
+            System.out.println("new card neighbor: "+ NewCard.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
+            AddSymbolsToArea(NewCard);//update playArea symbols map with the ones of the new card
+            //other checks to be done in controller
 
         }
         else {
@@ -221,10 +237,9 @@ public class PlayArea {
 
     /**Method that verifies if the placement of the new card in the desired position is an edge case
      * and the matrix needs to be Expanded
-     * @param cardsOnArea cards on the playArea
      * @param positionPlacedCard position where the player wants to place a new card
      * */
-    public void IsEdgeCase(Pair<Integer, Integer>positionPlacedCard, List<List<SideOfCard>> cardsOnArea) {
+    public void IsEdgeCase(Pair<Integer, Integer>positionPlacedCard) {
         EdgePositions edgePositions=new EdgePositions();
         for (EdgePositions.EdgeCases key : EdgePositions.EdgeCases.values()) {
             if (key.isEdgePosition(positionPlacedCard, cardsOnArea)) {

@@ -1,10 +1,6 @@
-package it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.Model.Cards;
 
 import it.polimi.ingsw.Model.CardColors;
-import it.polimi.ingsw.Model.Cards.Corner;
-import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.UpDownPosition;

@@ -41,9 +41,9 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
      * The constructor for the RMIClient class.
      * @throws RemoteException if the remote object cannot be created
      */
-    public RMIClient(MainControllerInterface server) throws RemoteException {
-        this.server=server;
-        this.controller=new ClientController(server);
+    public RMIClient() throws RemoteException {
+        //this.server=server;
+        this.controller=new ClientController();
     }
 
 
@@ -168,9 +168,12 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         while (!connected && attempt <= 4) {
             try {
                 Thread connectionThread = new Thread(() -> {
+                    // ...
                     try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 8323);
-                        server = (MainControllerInterface) registry.lookup("CodexNaturalis");
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 7323);
+                        Object obj = registry.lookup("CodexNaturalis");
+                        Class<?>[] interfaces = obj.getClass().getInterfaces();
+                        server = (MainControllerInterface) obj;
                         System.out.println("Client ready");
                     } catch (Exception e) {
                         System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
@@ -182,7 +185,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 if (server != null) {
                     connected = true;
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8323 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 7323 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");
@@ -203,6 +206,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
             throw new RuntimeException(e);
         }
     }
+
 
 
 }

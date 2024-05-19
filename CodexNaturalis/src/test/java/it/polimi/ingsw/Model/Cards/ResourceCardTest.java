@@ -1,6 +1,5 @@
-package it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.Model.Cards;
 
-import it.polimi.ingsw.Model.Cards.ResourceCard;
 import it.polimi.ingsw.Model.CardColors;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import org.junit.jupiter.api.Test;

@@ -36,7 +36,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      */
     public RMIServer() throws RemoteException {
         super(0);
-        handler=new MainController();
+        handler=new MainController(); //TODO: change to MainControllerInterface
 
     }
 
@@ -46,12 +46,12 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      */
     public static RMIServer bind() {
         try {
-            serverObject = new RMIServer();
-            // Bind the remote object's stub in the registry
-            registry = LocateRegistry.createRegistry(8323);
+            serverObject = RMIServer.getInstance();
+            registry = LocateRegistry.createRegistry(7323);
             getRegistry().rebind("CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
+            System.out.println("Exception when binding RMIServer: " + e);
             e.printStackTrace();
             System.err.println("[ERROR] STARTING RMI SERVER: \n\tServer RMI exception: " + e);
         }
@@ -62,11 +62,12 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * Returns the singleton instance of the RMIServer.
      * @return RMIServer the singleton instance of the RMIServer
      */
-    public  static RMIServer getInstance() {
+    public synchronized static RMIServer getInstance() {
         if(serverObject == null) {
             try {
                 serverObject = new RMIServer();
             } catch (RemoteException e) {
+                System.out.println("Exception when creating RMIServer: " + e);
                 throw new RuntimeException(e);
             }
         }

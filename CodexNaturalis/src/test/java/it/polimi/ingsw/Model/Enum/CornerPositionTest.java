@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ModelTest.EnumTests;
+package it.polimi.ingsw.Model.Enum;
 
 import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -43,12 +43,12 @@ class CornerPositionTest {
 
     @Test
     public void TestPositionNewCard(){
-        SideOfCard testCard= new SideOfCard(null, null);
-        testCard.setPositionOnArea(new Pair<>(1,3));
-        assertEquals(new Pair<>(0,2), CornerPosition.TOPLEFT.PositionNewCard(testCard));
-        assertEquals(new Pair<>(0,4), CornerPosition.TOPRIGHT.PositionNewCard(testCard));
-        assertEquals(new Pair<>(2,2), CornerPosition.BOTTOMLEFT.PositionNewCard(testCard));
-        assertEquals(new Pair<>(2,4), CornerPosition.BOTTOMRIGHT.PositionNewCard(testCard));
+        int r=1;
+        int c=3;
+        assertEquals(new Pair<>(0,2), CornerPosition.TOPLEFT.neighborToCheck(r,c));
+        assertEquals(new Pair<>(0,4), CornerPosition.TOPRIGHT.neighborToCheck(r,c));
+        assertEquals(new Pair<>(2,2), CornerPosition.BOTTOMLEFT.neighborToCheck(r,c));
+        assertEquals(new Pair<>(2,4), CornerPosition.BOTTOMRIGHT.neighborToCheck(r,c));
 
     }
 

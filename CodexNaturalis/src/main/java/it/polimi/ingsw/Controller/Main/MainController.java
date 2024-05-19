@@ -22,10 +22,18 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     /** Thread pool for async communication and task management*/
     private final ExecutorBuffer executorBuffer = new ExecutorBuffer();
 
+    private static MainController instance = null;
+
     public MainController() throws RemoteException {
         super();
         this.clients = new ArrayList<ClientControllerInterface>();
         this.runningGames=new ArrayList<>();
+    }
+    public static MainController getInstance() throws RemoteException {
+        if (instance == null) {
+            instance = new MainController();
+        }
+        return instance;
     }
 
 
@@ -156,6 +164,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     public void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
         game.NotifyNewPlayerJoined(client);
     }
+
 
 
 }

@@ -1,6 +1,5 @@
-package it.polimi.ingsw.ModelTest.CardTests;
+package it.polimi.ingsw.Model.Cards;
 
-import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

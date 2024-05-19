@@ -53,4 +53,5 @@ public interface ClientControllerInterface extends Remote {
     void sendUpdateMessage(String message) throws RemoteException;
 
     void connect()  throws RemoteException;
+
 }

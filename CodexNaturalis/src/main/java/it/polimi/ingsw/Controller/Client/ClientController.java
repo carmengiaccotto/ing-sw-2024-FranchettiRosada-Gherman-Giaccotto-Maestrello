@@ -21,8 +21,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private Player player = new Player();
     private MainControllerInterface server;
 
-    public ClientController(MainControllerInterface server) throws RemoteException {
-        this.server=server;
+    public ClientController() throws RemoteException {
+        this.server=MainControllerInterface.getInstance();
         game=null;
         view=null;
     }
@@ -119,6 +119,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public void connect() throws RemoteException {
+        System.out.println("You are reaching this method");
 
     }
 
@@ -274,4 +275,5 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             throw new RuntimeException(e);
         }
     }
+
 }

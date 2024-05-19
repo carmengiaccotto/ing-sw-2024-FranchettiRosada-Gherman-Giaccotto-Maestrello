@@ -1,9 +1,7 @@
 package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIClient;
-import it.polimi.ingsw.Connection.RMI.RMIServer;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.View.TUI.TUI;
 import it.polimi.ingsw.View.UserInterface;
 
@@ -29,7 +27,7 @@ public class Client {
 
     public void selectView() throws RemoteException {
         System.out.println("What kind of view would you like to use? ");
-        System.out.println("[0] GUI \n[1] TUI");
+        System.out.println("[0] TUI \n[1] GUI");
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         switch (choice){
@@ -52,9 +50,9 @@ public class Client {
         switch (protocol) {
             case 1:
                 try {
-                    MainControllerInterface server = (MainControllerInterface) RMIServer.bind();
-                    this.client = new RMIClient(server);
-                    client.connect();
+                    //server = (MainControllerInterface) RMIServer.bind(); //port already in use error
+                    this.client = new RMIClient();
+
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
@@ -79,10 +77,8 @@ public class Client {
 
         selectProtocol();
         selectView();
+        client.connect();
     }
 
-    public void showBoardAndPlayAreas(){
-
-    }
 }
 

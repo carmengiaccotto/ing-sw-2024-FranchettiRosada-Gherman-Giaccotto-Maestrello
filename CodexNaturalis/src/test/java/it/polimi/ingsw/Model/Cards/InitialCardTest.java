@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ModelTest;
+package it.polimi.ingsw.Model.Cards;
 
 class InitialCardTest {
 //    @Test

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ModelTest.EnumTests;
+package it.polimi.ingsw.Model.Enum;
 
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import org.junit.jupiter.api.Assertions;
