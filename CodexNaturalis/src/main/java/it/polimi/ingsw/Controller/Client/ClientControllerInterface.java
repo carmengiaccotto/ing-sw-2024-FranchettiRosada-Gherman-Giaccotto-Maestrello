@@ -5,6 +5,7 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -49,7 +50,7 @@ public interface ClientControllerInterface extends Remote {
 
     PlayCard chooseCardToDraw(PlayGround m) throws RemoteException;
 
-    PlayCard chooseCardToPlay(PlayGround m) throws RemoteException;
+    SideOfCard chooseCardToPlay() throws RemoteException;
 
     void receiveCommand() throws RemoteException;
 

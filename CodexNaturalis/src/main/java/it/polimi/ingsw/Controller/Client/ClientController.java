@@ -5,8 +5,10 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
+import it.polimi.ingsw.View.TUI.PrintCards;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.rmi.RemoteException;
@@ -94,8 +96,35 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public PlayCard chooseCardToPlay(PlayGround m) throws RemoteException {
-        return null;
+    public SideOfCard chooseCardToPlay() throws RemoteException {
+        SideOfCard card = null;
+        boolean requirements = false;
+
+        do {
+            int indexOfCard = (view.chooseCardToPlay(getPlayer().getCardsInHand())) - 1;
+            String side = view.chooseSide();
+
+            PlayCard playCard = getPlayer().getCardsInHand().get(indexOfCard);
+
+            card = getPlayer().ChooseCardToPlay(playCard, Side.valueOf(side));
+
+            if ((playCard) instanceof GoldCard){
+                GoldCard goldCard = (GoldCard) playCard;
+                if (!(goldCard.checkRequirement(getPlayer().getPlayArea().getSymbols(), Side.valueOf(side)))) {
+                    view.printMessage("You can't play this card, the requirement is not met!");
+                } else {
+                    requirements= true;
+                }
+            } else {
+                requirements = true;
+            }
+        } while (!requirements);
+
+        return card;
+    }
+
+    public ArrayList<Integer> choosePositionCard() throws RemoteException { //TODO check this
+        return view.choosePositionCardOnArea(getPlayer().getPlayArea());
     }
 
     @Override
@@ -107,7 +136,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public String chooseSideInitialCard(InitialCard c)throws RemoteException {
-        return view.chooseSideInitialCard(c);
+        System.out.println("This is your Initial Card!");
+        PrintCards.printCardFrontBack(c);
+        String side = view.chooseSide();
+        return side;
     }
 
     @Override

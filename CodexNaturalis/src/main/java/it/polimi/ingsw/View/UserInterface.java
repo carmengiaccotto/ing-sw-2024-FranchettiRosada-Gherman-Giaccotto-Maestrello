@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
-import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -22,7 +21,10 @@ public interface UserInterface {
 //    public void playCard(String nickname);
 //
     String chooseCardToDraw ();
-    String chooseCardToPlay(ArrayList<PlayCard> cardInHand);
+    int chooseCardToPlay(ArrayList<PlayCard> cardInHand);
+    String chooseSide();
+
+    public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea);
     public void showBoardAndPlayAreas();
 
     String selectNickName();
@@ -32,8 +34,6 @@ public interface UserInterface {
     int MaxNumPlayers();
 
     int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException;
-
-    String chooseSideInitialCard(InitialCard c);
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
     void playInitialCard(SideOfCard side, PlayArea playArea);

@@ -25,7 +25,7 @@ public class TUI implements UserInterface {
      * @return A string representing the chosen deck or card to draw from.
      */
     @Override
-    public String chooseCardToDraw () {
+    public String chooseCardToDraw() {
         String draw;
         do {
             System.out.println("Choose where you want to draw the card from: [GOLD-DECK / RESOURCE-DECK / RESOURCE-CARD1 / RESOURCE-CARD2 / GOLD-CARD1 / GOLD-CARD2]");
@@ -38,39 +38,21 @@ public class TUI implements UserInterface {
     }
 
     @Override
-    public String chooseCardToPlay(ArrayList<PlayCard> cardInHand) {
-//        System.out.println("Choose which card you want to play; [1/2/3]");
-//        System.out.println(cardInHand);
-//        int c = Integer.parseInt(scanner.next());
-//
-//        while((c != 1) && (c != 2) && (c != 3)){
-//            System.out.println("Choose a valid card");
-//            c = Integer.parseInt(scanner.next());
-//        }
-//
-//        System.out.println("Choose the side you want to play: [FRONT/BACK]");
-//        System.out.println(cardInHand.get(c-1));
-//        String side = scanner.next();
-        return null;
+    public int chooseCardToPlay(ArrayList<PlayCard> cardInHand) {
+        System.out.println("Those are the cards in your hand: ");
+        //showCardsInHand(cardInHand);
+        System.out.println("Which card do you want to play? [1/2/3]");
+        int c = Integer.parseInt(scanner.next());
+        while ((c != 1) && (c != 2) && (c != 3)) {
+            System.out.println("Choose a valid card! [1/2/3]");
+            c = Integer.parseInt(scanner.next());
+        }
+        return c;
     }
 
     @Override
-    public void showBoardAndPlayAreas() {
-
-    }
-
-    /**
-     * Prompts the user to choose a side of the initial card to play.
-     * The user can choose either the front or the back side of the card.
-     * The method will keep asking until a valid option is chosen.
-     *
-     * @param c The initial card from which the user needs to choose a side.
-     * @return A string representing the chosen side of the card.
-     */
-    @Override
-    public String chooseSideInitialCard(InitialCard c) {
-        PrintCards.printCardFrontBack(c);
-        System.out.println("Choose the side of the starting card you want to play: [FRONT/BACK]");
+    public String chooseSide() {
+        System.out.println("Which side of the card do you want to play? [FRONT/BACK]");
         String side = scanner.next().toUpperCase();
         while (!side.equals("FRONT") && !side.equals("BACK")) {
             System.out.println("Please insert a valid side: [FRONT/BACK]");
@@ -79,6 +61,21 @@ public class TUI implements UserInterface {
         return side;
     }
 
+    @Override
+    public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea) {
+        ArrayList<Integer> position = new ArrayList<Integer>();
+        System.out.println("Choose the row and column in which you want to place the card: [row] [column]");
+        int row = scanner.nextInt();
+        int column = scanner.nextInt();
+        position.add(row);
+        position.add(column);
+        return position;
+    }
+
+    @Override
+    public void showBoardAndPlayAreas() {
+
+    }
 
     @Override
     public void playInitialCard(SideOfCard s, PlayArea playArea) {
@@ -228,8 +225,6 @@ public class TUI implements UserInterface {
         return (scanner.nextInt() - 1);
     }
 
-
-
     /**Method that shows the player the cards they have in hand and can play during their turn
      * @param cards that the player has in its hand*/
     public void showCardsInHand(ArrayList<PlayCard> cards) {
@@ -307,7 +302,6 @@ public class TUI implements UserInterface {
                     PrintCard.PrintDeck(playGroundCards, goldDeck, i, j);
             }
         }
-
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 70; j++) {
                 System.out.print(playGroundCards[i][j]);
@@ -315,9 +309,6 @@ public class TUI implements UserInterface {
             System.out.println();
         }
     }
-
-
-
 }
 
 

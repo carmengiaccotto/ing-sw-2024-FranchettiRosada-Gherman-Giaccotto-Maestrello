@@ -224,7 +224,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
                     turnLock.lock();
                     try {
-                        PlayCard handCard = client.chooseCardToPlay(model);
+                        SideOfCard handCard = client.chooseCardToPlay(); //TODO put methods to play the card
                         listener.updatePlayers(client.getNickname() + "has played a card");
                         listener.updatePlayers(getModel());
                         PlayCard card = client.chooseCardToDraw(model);
