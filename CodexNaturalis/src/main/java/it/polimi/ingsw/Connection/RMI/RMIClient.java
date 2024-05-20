@@ -8,7 +8,7 @@ package it.polimi.ingsw.Connection.RMI;
 
 import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -76,7 +76,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
      * Uses ClientController Implementation
      * @param availableGames list of games the player can join*/
     @Override
-    public void getGameToJoin(ArrayList<GameController> availableGames) throws RemoteException {
+    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
         controller.getGameToJoin(availableGames);
 
     }

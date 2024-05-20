@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified and fixed bugs">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Removed TODO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +52,9 @@
     &quot;accountId&quot;: &quot;ba83697b-a3e1-4ed6-b3fd-32c49ba8372b&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -275,15 +283,9 @@
       <workItem from="1716021629502" duration="26390000" />
       <workItem from="1716063904579" duration="4101000" />
       <workItem from="1716153947838" duration="12000000" />
-      <workItem from="1716166392118" duration="268000" />
-    </task>
-    <task id="LOCAL-00043" summary="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code">
-      <option name="closed" value="true" />
-      <created>1713388127508</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1713388127508</updated>
+      <workItem from="1716166392118" duration="307000" />
+      <workItem from="1716166824536" duration="86000" />
+      <workItem from="1716199464491" duration="1499000" />
     </task>
     <task id="LOCAL-00044" summary="DrawCardFrom method, created to support future Controller methods +Javadoc">
       <option name="closed" value="true" />
@@ -669,7 +671,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716166379390</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="Removed TODO">
+      <option name="closed" value="true" />
+      <created>1716166693378</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1716166693378</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -713,7 +723,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Game Connection Structure" />
     <MESSAGE value="ServerManager main" />
     <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
     <MESSAGE value="Update PlayGround class." />
@@ -738,7 +747,8 @@
     <MESSAGE value="Added javaDoc to GameListener and TUI" />
     <MESSAGE value="Modified path for JsonCards" />
     <MESSAGE value="Modified and fixed bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified and fixed bugs" />
+    <MESSAGE value="Removed TODO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed TODO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

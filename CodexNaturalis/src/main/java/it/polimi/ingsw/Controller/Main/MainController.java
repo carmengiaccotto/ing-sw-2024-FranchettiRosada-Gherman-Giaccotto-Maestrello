@@ -3,6 +3,7 @@ package it.polimi.ingsw.Controller.Main;
 import it.polimi.ingsw.Connection.ExecutorBuffer;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 
 import java.rmi.RemoteException;
@@ -142,7 +143,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     public void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException {
         Runnable task=()-> {
             synchronized (new Object()) {
-                ArrayList<GameController> availableGames = new ArrayList<>();
+                ArrayList<GameControllerInterface> availableGames = new ArrayList<>();
                 for (GameController runningGame : runningGames) {
                     try {
                         if (runningGame.getStatus().equals(GameStatus.WAITING)) {

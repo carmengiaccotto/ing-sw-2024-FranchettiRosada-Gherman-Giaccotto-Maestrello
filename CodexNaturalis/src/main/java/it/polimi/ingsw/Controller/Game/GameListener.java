@@ -3,11 +3,12 @@ package it.polimi.ingsw.Controller.Game;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameListener {
+public class GameListener implements Serializable {
 
     private List<ClientControllerInterface> players = new ArrayList<>();
 

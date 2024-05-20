@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client;
 
-import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -24,7 +24,7 @@ public interface ClientControllerInterface extends Remote {
 
     void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException;
 
-    void getGameToJoin(ArrayList<GameController> availableGames) throws RemoteException;
+    void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException;
 
     String getNickname() throws RemoteException;
 

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller.Client;
 
-import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
@@ -184,7 +183,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * the player gets to choose again if they want to create a new game or join an existing one.
      * @param availableGames games the player can join. Only the ones that do not already have all the needed players*/
     @Override
-    public void getGameToJoin(ArrayList<GameController> availableGames) throws RemoteException {
+    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
         if (availableGames.isEmpty()) {
             System.out.println("Sorry, there are no Available games, you have to start a new one");
             try {

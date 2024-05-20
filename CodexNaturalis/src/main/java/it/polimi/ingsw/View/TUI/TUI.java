@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -133,7 +133,7 @@ public class TUI implements UserInterface {
      * @throws RemoteException If a communication-related exception occurs during the execution of a remote method call.
      */
     @Override
-    public int displayavailableGames(ArrayList<GameController> games) throws RemoteException {
+    public int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException {
         System.out.println("Please choose one of the following games");
         for (int i = 0; i < games.size(); i++) {
             System.out.println("[" + (i + 1) + "] Game" + (i + 1) + "   Needed players to start the match: " + games.get(i).getNumPlayers());

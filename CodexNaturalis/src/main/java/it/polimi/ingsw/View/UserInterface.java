@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View;
 
-import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
@@ -31,7 +31,7 @@ public interface UserInterface {
 
     int MaxNumPlayers();
 
-    int displayavailableGames(ArrayList<GameController> games) throws RemoteException;
+    int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException;
 
     String chooseSideInitialCard(InitialCard c);
 
