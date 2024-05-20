@@ -269,7 +269,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void newGameSetUp() throws RemoteException {
         int n=view.MaxNumPlayers();
         if(n>=2 && n<=4) {
-            System.out.println("numero che viene mandato" + n); //TODO
             server.createGame(this, n);
         }
         else{

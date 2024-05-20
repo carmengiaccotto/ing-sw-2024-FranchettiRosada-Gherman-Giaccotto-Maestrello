@@ -123,7 +123,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * If the maximum number of players has not been reached, the game waits for more players to join.
      */
     public void CheckMaxNumPlayerReached() throws RemoteException {
-        System.out.println(getNumPlayers() + "sei un cretino"); //TODO
         if(listener.getPlayers().size()==getNumPlayers()){
             setStatus(GameStatus.SETUP);
             run();
@@ -259,7 +258,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         switch(status) {
             case SETUP -> {
                 try {
-                    System.out.println("Setting up the game"); //TODO
                     initializeGame();
                     listener.updatePlayers("This is the initial board of the game: \n");
                     listener.updatePlayers(getModel());
@@ -606,7 +604,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     /**Method that extracts the cards for each player and adds them to their hand*/
     public void extractPlayerHandCards() throws RemoteException {
-        System.out.println(model.getResourceCardDeck().getCards().size());
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
                 int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
