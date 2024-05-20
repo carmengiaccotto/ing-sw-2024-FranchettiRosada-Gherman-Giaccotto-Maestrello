@@ -15,12 +15,10 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -36,6 +34,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private final Random random = new Random();
 
     private PlayGround model;
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
 
     private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -125,7 +126,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     public void CheckMaxNumPlayerReached() throws RemoteException {
         if(listener.getPlayers().size()==getNumPlayers()){
             setStatus(GameStatus.SETUP);
-            run();
+            if (executor.isShutdown()) {
+                executor.execute(this);
+            }
         }
         else{
             for(ClientControllerInterface client: listener.getPlayers()){
@@ -177,12 +180,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * If the maximum number of players has been reached, the method checks if the game is ready to run.
      */
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
-            try {
-                getListener().updatePlayers(newPlayer);
-            } catch (RemoteException e) {
-                System.out.println("An error Occurred during Players update: " + e.getMessage());
-                e.printStackTrace();
-            }
+        try {
+            getListener().updatePlayers(newPlayer);
+        } catch (RemoteException e) {
+            System.out.println("An error Occurred during Players update: " + e.getMessage());
+            e.printStackTrace();
+        }
         try {
             newPlayer.ChoosePawnColor((ArrayList<PawnColor>) AvailableColors(listener.getPlayers()));
         } catch (RemoteException e) {
@@ -259,6 +262,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             case SETUP -> {
                 try {
                     initializeGame();
+                    System.out.println("The game arrived here"); //TODO
                     listener.updatePlayers("This is the initial board of the game: \n");
                     listener.updatePlayers(getModel());
                     setStatus(GameStatus.INITIAL_CIRCLE);
@@ -484,10 +488,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws NotReadyToRunException If the game is not ready to run.
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    public void initializeGame() throws NotReadyToRunException, RemoteException {
+    public synchronized void initializeGame() throws NotReadyToRunException, RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
         extractPlayerHandCards();
+        System.out.println("Ho estratto le carte delle mani"); //TODO
     }
 
     /**
@@ -607,20 +612,17 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
                 if (!model.getResourceCardDeck().getCards().isEmpty()) {
-                    int cardExtracted = random.nextInt(model.getResourceCardDeck().getCards().size());
-                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
+                    Collections.shuffle(model.getResourceCardDeck().getCards());
+                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().remove(model.getResourceCardDeck().getCards().size() - 1);
                     client.getPlayer().addCardToHand(c);
-                    model.removeCardFromDeck(c, model.getResourceCardDeck());
                 }
             }
             if (!model.getGoldCardDeck().getCards().isEmpty()) {
-                int cardExtracted = random.nextInt(model.getGoldCardDeck().getCards().size());
-                GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
+                Collections.shuffle(model.getGoldCardDeck().getCards());
+                GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().remove(model.getGoldCardDeck().getCards().size() - 1);
                 client.getPlayer().addCardToHand(c);
-                model.removeCardFromDeck(c, model.getGoldCardDeck());
             }
         }
-
     }
 
     /**Method that returns the personal objective card of a player
