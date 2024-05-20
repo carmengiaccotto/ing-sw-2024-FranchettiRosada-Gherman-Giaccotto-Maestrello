@@ -609,12 +609,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     /**Method that extracts the cards for each player and adds them to their hand*/
     public void extractPlayerHandCards() throws RemoteException {
+        System.out.println("Extracting cards for each player...");
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
+                System.out.println("Extracting cards for " + client.getNickname());
                 if (!model.getResourceCardDeck().getCards().isEmpty()) {
                     Collections.shuffle(model.getResourceCardDeck().getCards());
-                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().remove(model.getResourceCardDeck().getCards().size() - 1);
-                    client.getPlayer().addCardToHand(c);
+                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().getLast();
+                    model.removeCardFromDeck(c, model.getResourceCardDeck());
+                    client.addCardToHand(c);
+                    System.out.println(client.getPawnColor());
                 }
             }
             if (!model.getGoldCardDeck().getCards().isEmpty()) {

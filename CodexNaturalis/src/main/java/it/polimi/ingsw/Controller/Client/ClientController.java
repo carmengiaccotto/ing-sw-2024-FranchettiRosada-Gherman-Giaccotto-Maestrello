@@ -127,6 +127,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
+    public void addCardToHand(PlayCard card) throws RemoteException {
+        player.addCardToHand(card);
+    }
+
+    @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
         this.server=server;
     }

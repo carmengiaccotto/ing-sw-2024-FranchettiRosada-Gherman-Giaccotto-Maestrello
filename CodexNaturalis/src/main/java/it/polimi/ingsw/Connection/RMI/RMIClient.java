@@ -223,6 +223,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         }
     }
 
+    @Override
+    public void addCardToHand(PlayCard card) throws RemoteException {
+        controller.addCardToHand(card);
+    }
 
 
 }
