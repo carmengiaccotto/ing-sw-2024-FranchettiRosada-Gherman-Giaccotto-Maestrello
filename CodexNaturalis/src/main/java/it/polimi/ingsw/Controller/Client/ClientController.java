@@ -22,7 +22,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private MainControllerInterface server;
 
     public ClientController() throws RemoteException {
-        this.server=MainControllerInterface.getInstance();
         game=null;
         view=null;
     }
@@ -96,6 +95,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
+    public PlayCard chooseCardToPlay(PlayGround m) throws RemoteException {
+        return null;
+    }
+
+    @Override
     public void receiveCommand() throws RemoteException {
 
         Command c=  view.receiveCommand();
@@ -121,6 +125,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void connect() throws RemoteException {
         System.out.println("You are reaching this method");
 
+    }
+
+    @Override
+    public void setServer(MainControllerInterface server) throws RemoteException {
+        this.server=server;
     }
 
     /**Method that sets the view to GUI or TUI basing on the choice the client made in Client class
@@ -216,6 +225,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         return player.getNickname();
     }
 
+    @Override
+    public void setNickname(String nickname) throws RemoteException {
+        player.setNickname(nickname);
+    }
+
 
     /**Method that allows the player to decide whether they want to create a new game or
      * join one that has already been created by another player*/
@@ -255,6 +269,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void newGameSetUp() throws RemoteException {
         int n=view.MaxNumPlayers();
         if(n>=2 && n<=4) {
+            System.out.println("numero che viene mandato" + n); //TODO
             server.createGame(this, n);
         }
         else{
@@ -269,11 +284,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * Uses UserInterface method */
     @Override
     public void Wait() throws RemoteException {
-        try {
-            view.wait();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        view.waitingForPlayers();
     }
 
 }

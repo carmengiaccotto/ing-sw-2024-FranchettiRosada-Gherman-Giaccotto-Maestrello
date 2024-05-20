@@ -4,37 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="EdgePositions modified, and Tests, all tests passed. Modified AddCardOnArea method">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Modified path for JsonCards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/RMI/RMIServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/ServerManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameControllerInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Game/GameListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainControllerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Main/MainControllerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Enumerations/CornerPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Enumerations/CornerPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/Corner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Chat/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Chat/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Chat/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/GoldCard.Json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/GoldCard.Json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/InitialCard.Json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/InitialCard.Json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonDeckCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonDeckCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/ObjectiveCard.Json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/ObjectiveCard.Json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/ResourceCard.Json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/ResourceCard.Json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/CardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/CornerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/CornerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/DispositionObjectiveCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/DispositionObjectiveCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/GoldCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/GoldCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/CardTests/ResourceCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/ResourceCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/DeckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/JsonHandler/DeckTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/CardColorsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/CardColorsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/CornerPositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/CornerPositionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/ObjectivePointsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/ObjectivePointsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/PawnColorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/PawnColorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/SideTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/SideTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/EnumTests/UpDownPositionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/UpDownPositionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/InitialCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Cards/InitialCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/JsonCardsMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/JsonHandler/JsonCardsMapperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/JsonDeckCreatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/JsonHandler/JsonDeckCreatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/JsonTests/CornerFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/JsonHandler/CornerFactoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/EdgePositionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/PlayGround/EdgePositionsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/PlayGround/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayGround.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/PlayGround.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/PlayGround/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/UserInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +44,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -85,86 +81,83 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.Client.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Application.Player.executor": "Run",
-    "Application.PrintCards.executor": "Run",
-    "Application.ServerManager.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CardColorsTest.testDefinedValues.executor": "Run",
-    "JUnit.CardColorsTest.testEquality.executor": "Run",
-    "JUnit.CardColorsTest.testStringRepresentation.executor": "Run",
-    "JUnit.CardColorsTest.testSwitchStatement.executor": "Run",
-    "JUnit.CardTest.executor": "Coverage",
-    "JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateEmptyCorner.executor": "Run",
-    "JUnit.CornerFactoryTest.testCreateHiddenCorner.executor": "Run",
-    "JUnit.CornerPositionTest.TestCoverCorner.executor": "Run",
-    "JUnit.CornerPositionTest.TestPositionNewCard.executor": "Run",
-    "JUnit.CornerPositionTest.executor": "Coverage",
-    "JUnit.CornerPositionTest.testGetNeighbourCard.executor": "Run",
-    "JUnit.CornerPositionTest.testPositionNewCard.executor": "Run",
-    "JUnit.CornerTest.executor": "Coverage",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor": "Run",
-    "JUnit.CornerTest.testCornerConstructorValidInput.executor": "Run",
-    "JUnit.CornerTest.testIsCovered.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredFalse.executor": "Run",
-    "JUnit.CornerTest.testIsCoveredTrue.executor": "Run",
-    "JUnit.EdgePositionsTest.executor": "Run",
-    "JUnit.InitialCardTest.testMapFromJson.executor": "Run",
-    "JUnit.JsonDeckCreatorTest.executor": "Coverage",
-    "JUnit.ObjectivePointsTest.executor": "Coverage",
-    "JUnit.ObjectivePointsTest.testEnumValues.executor": "Run",
-    "JUnit.PawnColorTest.executor": "Coverage",
-    "JUnit.PlayAreaTest.addCardOnAreaEdgeCasePosition.executor": "Run",
-    "JUnit.PlayAreaTest.executor": "Run",
-    "JUnit.PlayAreaTest.getCardInPositionTest.executor": "Run",
-    "JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor": "Coverage",
-    "JUnit.PlayerTest.executor": "Coverage",
-    "JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor": "Coverage",
-    "JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor": "Run",
-    "JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor": "Run",
-    "JUnit.PlayerTest.testGetCardsInHand.executor": "Run",
-    "JUnit.PlayerTest.testGetNickname.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor": "Run",
-    "JUnit.PlayerTest.testPlayerConstructor.executor": "Run",
-    "JUnit.SideTest.executor": "Run",
-    "JUnit.UpDownPositionTest.TestGetNeighbourCard.executor": "Run",
-    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
-    "Maven.PSP49 [test].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/denis/Documents/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Player.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PrintCards.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ServerManager.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CardColorsTest.testDefinedValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testEquality.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testStringRepresentation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardColorsTest.testSwitchStatement.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CardTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateCornerFromInvalidValue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateCornerFromValidSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateEmptyCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerFactoryTest.testCreateHiddenCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.TestCoverCorner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.TestPositionNewCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerPositionTest.testGetNeighbourCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerPositionTest.testPositionNewCard.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorHiddenWithoutSymbol.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testCornerConstructorValidInput.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCovered.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCoveredFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CornerTest.testIsCoveredTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EdgePositionsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InitialCardTest.testMapFromJson.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JsonDeckCreatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectivePointsTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.ObjectivePointsTest.testEnumValues.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PawnColorTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.TestDisplayAvailablePawnColorsNoColorsAvailable.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.testChooseCardToPlay_RemovesCardFromHand.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_DrawsCardFromDeck.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsIllegalStateException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testDrawCardFrom_ThrowsNoSuchElementException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetCardsInHand.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetNickname.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testGetPlayAreaSetPlayArea.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlayerTest.testPlayerConstructor.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SideTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UpDownPositionTest.TestGetNeighbourCard.executor&quot;: &quot;Run&quot;,
+    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
+    &quot;Maven.PSP49 [test].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/denis/Documents/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/java/it/polimi/ingsw&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw" />
@@ -178,24 +171,19 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\denis\Documents\ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello\CodexNaturalis\src\test\java\it\polimi\ingsw\Model\Cards" />
+      <recent name="$PROJECT_DIR$/CodexNaturalis/src/main/resources" />
       <recent name="C:\Users\denis\Documents\ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello\CodexNaturalis\src\main\java\it\polimi\ingsw\model\JsonFiles" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="it.polimi.ingsw.Model" />
-      <recent name="it.polimi.ingsw.Model.Cards" />
-      <recent name="it.polimi.ingsw.Model.JsonHandler" />
-      <recent name="it.polimi.ingsw.Model.PlayGround" />
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="it.polimi.ingsw.Model.PlayGround" />
       <recent name="CodexNaturalis.src.test.java.it.polimi.ingsw" />
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Client">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
       <module name="PSP22" />
       <extension name="coverage">
@@ -221,49 +209,47 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonDeckCreatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EdgePositionsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Model.JsonHandler.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.PlayGroundTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Model.JsonHandler" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Model.JsonHandler.JsonDeckCreatorTest" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.PlayGroundTests.EdgePositionsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayAreaTest.addCardOnAreaEdgeCasePosition" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonCardsMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Model.PlayGround.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Model.PlayGround" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Model.PlayGround.PlayAreaTest" />
-      <option name="METHOD_NAME" value="addCardOnAreaEdgeCasePosition" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonCardsMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayAreaTest.getCardInPositionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonDeckCreatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PSP22" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Model.PlayGround.*" />
+          <option name="PATTERN" value="it.polimi.ingsw.ModelTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Model.PlayGround" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Model.PlayGround.PlayAreaTest" />
-      <option name="METHOD_NAME" value="getCardInPositionTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="it.polimi.ingsw.ModelTest" />
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.ModelTest.JsonDeckCreatorTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -271,17 +257,17 @@
     <list>
       <item itemvalue="Application.Client" />
       <item itemvalue="Application.ServerManager" />
+      <item itemvalue="JUnit.EdgePositionsTest" />
+      <item itemvalue="JUnit.JsonCardsMapperTest" />
       <item itemvalue="JUnit.JsonDeckCreatorTest" />
-      <item itemvalue="JUnit.PlayAreaTest.addCardOnAreaEdgeCasePosition" />
-      <item itemvalue="JUnit.PlayAreaTest.getCardInPositionTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerManager" />
+        <item itemvalue="JUnit.EdgePositionsTest" />
         <item itemvalue="JUnit.JsonDeckCreatorTest" />
-        <item itemvalue="JUnit.PlayAreaTest.addCardOnAreaEdgeCasePosition" />
-        <item itemvalue="JUnit.PlayAreaTest.getCardInPositionTest" />
+        <item itemvalue="JUnit.JsonCardsMapperTest" />
       </list>
     </recent_temporary>
   </component>
@@ -311,6 +297,15 @@
       <workItem from="1715984870710" duration="54000" />
       <workItem from="1716021629502" duration="26390000" />
       <workItem from="1716063904579" duration="4101000" />
+      <workItem from="1716153947838" duration="11887000" />
+    </task>
+    <task id="LOCAL-00042" summary="Card Class Complete with JavaDoc and Test">
+      <option name="closed" value="true" />
+      <created>1713385394878</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1713385394878</updated>
     </task>
     <task id="LOCAL-00043" summary="Finished Deck creation with Json files. Modified Player class, by deleting Controller functions, and modified Player Tests. Commented PlayGround Class to run code">
       <option name="closed" value="true" />
@@ -696,15 +691,7 @@
       <option name="project" value="LOCAL" />
       <updated>1716072898009</updated>
     </task>
-    <task id="LOCAL-00091" summary="EdgePositions modified, and Tests, all tests passed. Modified AddCardOnArea method">
-      <option name="closed" value="true" />
-      <created>1716074504910</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1716074504910</updated>
-    </task>
-    <option name="localTasksCounter" value="92" />
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -748,6 +735,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Player Changed Constructor and updated Test" />
     <MESSAGE value="Game Connection Structure" />
     <MESSAGE value="ServerManager main" />
     <MESSAGE value="Create Package View. Renamed GameModel class to PlayGround and move it to its own package." />
@@ -772,8 +760,7 @@
     <MESSAGE value="Added javaDoc to GameController and GameControllerInterface" />
     <MESSAGE value="Added javaDoc to GameListener and TUI" />
     <MESSAGE value="Modified path for JsonCards" />
-    <MESSAGE value="EdgePositions modified, and Tests, all tests passed. Modified AddCardOnArea method" />
-    <option name="LAST_COMMIT_MESSAGE" value="EdgePositions modified, and Tests, all tests passed. Modified AddCardOnArea method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified path for JsonCards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -793,15 +780,9 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/PlayGround/EdgePositionsTest.java</url>
+          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/ModelTest/PlayGroundTests/EdgePositionsTest.java</url>
           <line>20</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/test/java/it/polimi/ingsw/Model/Enum/CornerPositionTest.java</url>
-          <line>18</line>
-          <properties field="cardsOnArea" class="it.polimi.ingsw.Model.Enum.CornerPositionTest" />
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -812,29 +793,26 @@
     </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerTest.ic" NAME="CornerTest Coverage Results" MODIFIED="1713565369444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CardTest.ic" NAME="CardTest Coverage Results" MODIFIED="1713399184801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$JsonDeckCreatorTest.ic" NAME="JsonDeckCreatorTest Coverage Results" MODIFIED="1716145679608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>it.polimi.ingsw.Model.JsonHandler.*</FILTER>
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerPositionTest.ic" NAME="CornerPositionTest Coverage Results" MODIFIED="1714237315059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest_testChooseCardToPlay_RemovesCardFromHand.ic" NAME="PlayerTest.testChooseCardToPlay_RemovesCardFromHand Coverage Results" MODIFIED="1713564847439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$ObjectivePointsTest.ic" NAME="ObjectivePointsTest Coverage Results" MODIFIED="1714242229646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PawnColorTest.ic" NAME="PawnColorTest Coverage Results" MODIFIED="1714241781945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$CornerPositionTest.ic" NAME="CornerPositionTest Coverage Results" MODIFIED="1716129513808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>it.polimi.ingsw.Model.Enum.*</FILTER>
+    <SUITE FILE_PATH="coverage/ing_sw_2024_FranchettiRosada_Gherman_Giaccotto_Maestrello$PlayerTest.ic" NAME="PlayerTest Coverage Results" MODIFIED="1713565428314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>CodexNaturalis.src.test.java.it.polimi.ingsw.*</FILTER>
     </SUITE>
   </component>
 </project>

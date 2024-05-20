@@ -47,7 +47,12 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
 
-     /**Method that sets the view of the player to the chosen type. Uses ClientController implementation
+    @Override
+    public void setServer(MainControllerInterface server) throws RemoteException {
+        controller.setServer(server);
+    }
+
+    /**Method that sets the view of the player to the chosen type. Uses ClientController implementation
       * @param view  GUI or TUI*/
     @Override
     public void setView(UserInterface view) throws RemoteException {
@@ -80,6 +85,11 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     @Override
     public String getNickname() throws RemoteException {
         return controller.getNickname();
+    }
+
+    @Override
+    public void setNickname(String nickname) throws RemoteException {
+        controller.setNickname(nickname);
     }
 
     @Override
@@ -141,6 +151,11 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
+    public PlayCard chooseCardToPlay(PlayGround m) throws RemoteException {
+        return controller.chooseCardToPlay(m);
+    }
+
+    @Override
     public void receiveCommand() throws RemoteException{
         controller.receiveCommand();
     }
@@ -174,6 +189,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                         Object obj = registry.lookup("CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
+                        setServer(server);
                         System.out.println("Client ready");
                     } catch (Exception e) {
                         System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");

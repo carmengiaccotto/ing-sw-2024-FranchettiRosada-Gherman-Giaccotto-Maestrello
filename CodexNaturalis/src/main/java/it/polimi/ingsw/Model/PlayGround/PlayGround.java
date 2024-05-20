@@ -7,6 +7,7 @@ import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Exceptions.GameEndedException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ import java.util.Scanner;
  * It also contains the current player that is playing
  */
 
-public class PlayGround {
+public class PlayGround implements Serializable {
 
     /**
      * It contains the list of all players, online and offline
@@ -40,7 +41,7 @@ public class PlayGround {
     /**
      * It contains the list of common resourceCards, goldCard and objective card
      */
-    private ArrayList<PlayCard> commonResourceCards;
+    private ArrayList<ResourceCard> commonResourceCards;
     private ArrayList<GoldCard> commonGoldCards;
     private ArrayList<ObjectiveCard> commonObjectivesCards;
 
@@ -77,9 +78,9 @@ public class PlayGround {
         ObjectiveCardDeck = new Deck(ObjectiveCard.class);
         InitialCardDeck = new Deck(InitialCard.class);
 
-        commonResourceCards = null;
-        commonGoldCards = null;
-        commonObjectivesCards = null;
+        commonResourceCards = new ArrayList<ResourceCard>();
+        commonGoldCards = new ArrayList<GoldCard>();
+        commonObjectivesCards = new ArrayList<ObjectiveCard>();
 
         this.gameId = gameId;
 
@@ -261,7 +262,7 @@ public class PlayGround {
     /**
      * @return the commonResourceCard extracted list
      */
-    public ArrayList<PlayCard> getCommonResourceCards() {
+    public ArrayList<ResourceCard> getCommonResourceCards() {
         return commonResourceCards;
     }
 

@@ -1,7 +1,9 @@
 package it.polimi.ingsw.Model.Cards;
 
+import java.io.Serializable;
+
 /**Physical Card*/
-public class Card {
+public class Card implements Serializable {
     /**JSON Card ID*/
     private int idCard;
 

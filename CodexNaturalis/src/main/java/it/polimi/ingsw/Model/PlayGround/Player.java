@@ -6,11 +6,12 @@ import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /** Class that represents the Player of the game which coincides with the client*/
-public class Player {
+public class Player implements Serializable {
     /**
      * Every Player has its own playArea.
      */

@@ -79,21 +79,22 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     /**Method that returns the number of players in the game
      * @return the number of players in the game*/
-    public int getNumPlayers() {
+    public int getNumPlayers() throws RemoteException {
 
         return numPlayers;
     }
 
     /**Method that returns the GameListener of the game
      * @return the GameListener of the game*/
-    public GameListener getListener() {
+    public GameListener getListener() throws RemoteException {
         return listener;
     }
 
     /**Method that adds a player to the game
      * @param client the client that is added to the game*/
-    public synchronized void addPlayer(ClientControllerInterface client){
+    public synchronized void addPlayer(ClientControllerInterface client) throws RemoteException{
         listener.getPlayers().add(client);
+        System.out.println(client.getNickname());
     }
 
 
@@ -102,7 +103,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      *
      * @return The current game status.
      */
-    public GameStatus getStatus() {
+    public GameStatus getStatus() throws RemoteException {
         return status;
     }
 
@@ -111,7 +112,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      *
      * @param status The new game status.
      */
-    public void setStatus(GameStatus status) {
+    public void setStatus(GameStatus status) throws RemoteException {
         this.status = status;
     }
 
@@ -121,8 +122,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * If the number of players in the game is equal to the maximum number of players, the game is ready to run.
      * If the maximum number of players has not been reached, the game waits for more players to join.
      */
-    public void CheckMaxNumPlayerReached(){
-        if(listener.getPlayers().size()==numPlayers){
+    public void CheckMaxNumPlayerReached() throws RemoteException {
+        System.out.println(getNumPlayers() + "sei un cretino"); //TODO
+        if(listener.getPlayers().size()==getNumPlayers()){
             setStatus(GameStatus.SETUP);
             run();
         }
@@ -147,7 +149,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @param clients The list of clients in the game.
      * @return A list of available pawn colors for a new player to choose from.
      */
-    public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients) {
+    public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients) throws RemoteException {
 
         List<PawnColor> colors = clients.stream()
                 .map(client -> {
@@ -175,15 +177,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * It then prompts the new player to choose a pawn color from the available colors.
      * If the maximum number of players has been reached, the method checks if the game is ready to run.
      */
-    public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) {
-        for (ClientControllerInterface player : listener.getPlayers()) {
+    public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
             try {
-                player.updatePlayers(listener.getPlayers());
+                getListener().updatePlayers(newPlayer);
             } catch (RemoteException e) {
                 System.out.println("An error Occurred during Players update: " + e.getMessage());
                 e.printStackTrace();
             }
-        }
         try {
             newPlayer.ChoosePawnColor((ArrayList<PawnColor>) AvailableColors(listener.getPlayers()));
         } catch (RemoteException e) {
@@ -192,7 +192,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         CheckMaxNumPlayerReached();
     }
 
-    public int getId() {
+    public int getId() throws RemoteException {
         return id;
     }
 
@@ -222,6 +222,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
                     turnLock.lock();
                     try {
+                        PlayCard handCard = client.chooseCardToPlay(model);
                         listener.updatePlayers(client.getNickname() + "has played a card");
                         listener.updatePlayers(getModel());
                         PlayCard card = client.chooseCardToDraw(model);
@@ -258,6 +259,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         switch(status) {
             case SETUP -> {
                 try {
+                    System.out.println("Setting up the game"); //TODO
                     initializeGame();
                     listener.updatePlayers("This is the initial board of the game: \n");
                     listener.updatePlayers(getModel());
@@ -604,6 +606,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     /**Method that extracts the cards for each player and adds them to their hand*/
     public void extractPlayerHandCards() throws RemoteException {
+        System.out.println(model.getResourceCardDeck().getCards().size());
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
                 int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);

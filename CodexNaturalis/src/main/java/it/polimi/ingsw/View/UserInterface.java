@@ -3,6 +3,7 @@ package it.polimi.ingsw.View;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -21,7 +22,7 @@ public interface UserInterface {
 //    public void playCard(String nickname);
 //
     String chooseCardToDraw ();
-
+    String chooseCardToPlay(ArrayList<PlayCard> cardInHand);
     public void showBoardAndPlayAreas();
 
     String selectNickName();

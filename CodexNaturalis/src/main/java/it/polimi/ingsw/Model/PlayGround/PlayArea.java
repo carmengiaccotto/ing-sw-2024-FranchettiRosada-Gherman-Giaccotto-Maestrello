@@ -6,10 +6,11 @@ import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.Symbol;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**This class represents the playArea. Each player has its own*/
-public class PlayArea {
+public class PlayArea implements Serializable {
     /**
      * A map that contains all the symbols that are visible on the playArea. It is going to be used for
      * goldCards requirement check and to attribute ObjectiveCards points and goldCard points

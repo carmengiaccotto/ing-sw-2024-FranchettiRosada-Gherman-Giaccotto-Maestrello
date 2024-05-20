@@ -11,6 +11,13 @@ public class GameListener {
 
     private List<ClientControllerInterface> players = new ArrayList<>();
 
+    public void updatePlayers(ClientControllerInterface newPlayer) throws RemoteException {
+        for (ClientControllerInterface player : players) {
+            player.sendUpdateMessage(newPlayer.getNickname() + " has joined the game.");
+            // aggiungere il nuovo giocatore alla lista dei giocatori
+        }
+    }
+
     /**
      * Sends an update message to all players.
      * This method iterates through each player in the game and sends them the provided message.

@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainController extends UnicastRemoteObject implements MainControllerInterface {
     /**ArrayList of Connected Clients*/
@@ -28,6 +29,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         super();
         this.clients = new ArrayList<ClientControllerInterface>();
         this.runningGames=new ArrayList<>();
+        this.executor = Executors.newCachedThreadPool();
     }
     public static MainController getInstance() throws RemoteException {
         if (instance == null) {
@@ -87,8 +89,11 @@ public class MainController extends UnicastRemoteObject implements MainControlle
                     }
                 }
             }
-            //TODO
-            //client.setNickname(name); //setting the client's nickname
+            try {
+                client.setNickname(name); //setting the client's nickname
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         };
         executorBuffer.execute(task);
     }
@@ -104,11 +109,20 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
         Runnable task=()-> {
             GameController gameToJoin=null;
-            for(GameController game: runningGames)
-                if(game.getId()==GameID)
-                    gameToJoin=game;
+            for(GameController game: runningGames) {
+                try {
+                    if(game.getId()==GameID)
+                        gameToJoin=game;
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
-            gameToJoin.addPlayer(client);
+            try {
+                gameToJoin.addPlayer(client);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
             try {
                 NotifyGamePlayerJoined(gameToJoin, client);
             } catch (RemoteException e) {
@@ -129,10 +143,15 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         Runnable task=()-> {
             synchronized (new Object()) {
                 ArrayList<GameController> availableGames = new ArrayList<>();
-                for (GameController runningGame : runningGames)
-                    if (runningGame.getStatus().equals(GameStatus.WAITING)) {
-                        availableGames.add(runningGame);
+                for (GameController runningGame : runningGames) {
+                    try {
+                        if (runningGame.getStatus().equals(GameStatus.WAITING)) {
+                            availableGames.add(runningGame);
+                        }
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
                     }
+                }
                 try {
                     client.getGameToJoin(availableGames); //TODO fix client method
                 } catch (RemoteException e) {
@@ -149,7 +168,8 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @param client that created the game*/
     @Override
     public  synchronized void createGame(ClientControllerInterface client, int n) throws RemoteException {
-        GameController newGame = new GameController(runningGames.size()+1,n);
+        GameController newGame = new GameController(n, runningGames.size()+1);
+
         executor.submit(newGame);
         runningGames.add(newGame);
         newGame.addPlayer(client);

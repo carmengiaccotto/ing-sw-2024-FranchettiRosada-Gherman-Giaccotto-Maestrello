@@ -18,5 +18,4 @@ public interface MainControllerInterface extends Remote {
     static MainControllerInterface getInstance() throws RemoteException {
         return null;
     }
-
 }

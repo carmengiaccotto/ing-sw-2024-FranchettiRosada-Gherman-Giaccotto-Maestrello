@@ -5,12 +5,13 @@ import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.Symbol;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
 /** Class that represents the Card that has already been placed on the PlayArea*/
 
-public class SideOfCard {
+public class SideOfCard implements Serializable {
     /**Matrix of corners */
     private Corner[][] corners;
 

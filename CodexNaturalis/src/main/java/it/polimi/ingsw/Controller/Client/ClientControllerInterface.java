@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ClientControllerInterface extends Remote {
+
+    public void setServer(MainControllerInterface server) throws RemoteException;
     void setView(UserInterface view) throws RemoteException;
 
     void disconnect() throws RemoteException;
@@ -24,6 +27,8 @@ public interface ClientControllerInterface extends Remote {
     void getGameToJoin(ArrayList<GameController> availableGames) throws RemoteException;
 
     String getNickname() throws RemoteException;
+
+    void setNickname(String nickname) throws RemoteException;
 
     void JoinOrCreateGame() throws RemoteException;
 
@@ -43,6 +48,8 @@ public interface ClientControllerInterface extends Remote {
     void showBoardAndPlayAreas(PlayGround m) throws RemoteException;
 
     PlayCard chooseCardToDraw(PlayGround m) throws RemoteException;
+
+    PlayCard chooseCardToPlay(PlayGround m) throws RemoteException;
 
     void receiveCommand() throws RemoteException;
 

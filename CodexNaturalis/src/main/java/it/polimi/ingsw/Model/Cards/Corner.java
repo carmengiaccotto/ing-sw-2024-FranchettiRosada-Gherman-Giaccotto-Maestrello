@@ -4,9 +4,11 @@ package it.polimi.ingsw.Model.Cards;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Symbol;
 
+import java.io.Serializable;
+
 
 /**Corner Class: Describes the elements of the matrix that compose the SideOfCard*/
-public class Corner {
+public class Corner implements Serializable {
 
     private Symbol symbol;
 

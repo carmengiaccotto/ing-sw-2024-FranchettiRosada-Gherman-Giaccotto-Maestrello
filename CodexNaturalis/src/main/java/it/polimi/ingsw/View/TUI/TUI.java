@@ -2,10 +2,7 @@ package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
-import it.polimi.ingsw.Model.Cards.DispositionObjectiveCard;
-import it.polimi.ingsw.Model.Cards.InitialCard;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
@@ -37,6 +34,23 @@ public class TUI implements UserInterface {
             }
         } while (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2"));
         return draw;
+    }
+
+    @Override
+    public String chooseCardToPlay(ArrayList<PlayCard> cardInHand) {
+//        System.out.println("Choose which card you want to play; [1/2/3]");
+//        System.out.println(cardInHand);
+//        int c = Integer.parseInt(scanner.next());
+//
+//        while((c != 1) && (c != 2) && (c != 3)){
+//            System.out.println("Choose a valid card");
+//            c = Integer.parseInt(scanner.next());
+//        }
+//
+//        System.out.println("Choose the side you want to play: [FRONT/BACK]");
+//        System.out.println(cardInHand.get(c-1));
+//        String side = scanner.next();
+        return null;
     }
 
     @Override

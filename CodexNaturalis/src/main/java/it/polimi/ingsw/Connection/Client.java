@@ -50,7 +50,6 @@ public class Client {
         switch (protocol) {
             case 1:
                 try {
-                    //server = (MainControllerInterface) RMIServer.bind(); //port already in use error
                     this.client = new RMIClient();
 
                 } catch (RemoteException e) {

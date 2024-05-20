@@ -26,7 +26,7 @@ public class JsonDeckCreator {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
-        String filePath = "src/main/java/it/polimi/ingsw/Model/JsonHandler/" + DeckType.getSimpleName() + ".Json";
+        String filePath = "CodexNaturalis/src/main/resources/" + DeckType.getSimpleName() + ".Json";
 
         try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
@@ -89,6 +89,10 @@ public class JsonDeckCreator {
         return null;
     }
 }
+
+
+
+
 
 
 

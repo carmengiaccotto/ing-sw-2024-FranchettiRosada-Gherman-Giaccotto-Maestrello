@@ -132,15 +132,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         handler.createGame(client, n);
     }
 
-    /**Method that notifies the game that a new player has joined. Uses MainController method
-     * @param client that joined
-     * @param game not be notified*/
     @Override
-    public synchronized void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
+    public void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
-
     }
-
 }
 
 
