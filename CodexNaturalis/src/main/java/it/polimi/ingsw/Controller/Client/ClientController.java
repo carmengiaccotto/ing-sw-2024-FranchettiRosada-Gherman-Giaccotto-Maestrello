@@ -172,11 +172,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
  * no other player has already chosen it
  */
     @Override
-    public void ChooseNickname() throws RemoteException {
-        String nickname=view.selectNickName();
-        server.checkUniqueNickName(nickname, this);
-
-
+    public String ChooseNickname() throws RemoteException {
+        return view.selectNickName();
     }
 
 

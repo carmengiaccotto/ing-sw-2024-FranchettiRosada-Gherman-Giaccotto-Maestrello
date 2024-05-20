@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 public interface MainControllerInterface extends Remote {
     void connect(ClientControllerInterface client) throws RemoteException;
     void addClientToLobby(ClientControllerInterface client) throws RemoteException;
-    void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException;
+    boolean checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException;
     void joinGame(ClientControllerInterface client, int GameID) throws RemoteException;
     void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException;
     void createGame(ClientControllerInterface client, int n) throws RemoteException;

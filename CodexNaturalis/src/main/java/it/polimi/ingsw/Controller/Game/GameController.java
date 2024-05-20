@@ -262,7 +262,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             case SETUP -> {
                 try {
                     initializeGame();
-                    System.out.println("The game arrived here"); //TODO
                     listener.updatePlayers("This is the initial board of the game: \n");
                     listener.updatePlayers(getModel());
                     setStatus(GameStatus.INITIAL_CIRCLE);
@@ -492,7 +491,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
         extractPlayerHandCards();
-        System.out.println("Ho estratto le carte delle mani"); //TODO
     }
 
     /**

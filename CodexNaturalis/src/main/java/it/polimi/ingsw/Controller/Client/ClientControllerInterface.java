@@ -32,7 +32,7 @@ public interface ClientControllerInterface extends Remote {
 
     void JoinOrCreateGame() throws RemoteException;
 
-    void ChooseNickname() throws RemoteException;
+    String ChooseNickname() throws RemoteException;
 
     void  newGameSetUp() throws RemoteException;
 

@@ -100,12 +100,13 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         handler.addClientToLobby(client);
 
     }
+
     /**Method that checks if the chosen Nickname is already taken. Uses MainController method
      * @param client that is logging in
      * @param name inserted nickname*/
     @Override
-    public  void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
-        handler.checkUniqueNickName(name, client);
+    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
+         return handler.checkUniqueNickName(name, client);
     }
 
 

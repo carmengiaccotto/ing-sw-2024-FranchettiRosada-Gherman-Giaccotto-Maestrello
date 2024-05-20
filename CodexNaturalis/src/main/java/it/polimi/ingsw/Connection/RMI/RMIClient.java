@@ -99,8 +99,8 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public void ChooseNickname() throws RemoteException {
-        controller.ChooseNickname();
+    public String ChooseNickname() throws RemoteException {
+        return controller.ChooseNickname();
 
     }
 

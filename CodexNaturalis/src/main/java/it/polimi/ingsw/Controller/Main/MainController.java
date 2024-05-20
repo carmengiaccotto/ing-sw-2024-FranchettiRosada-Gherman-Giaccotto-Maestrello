@@ -54,7 +54,13 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     public void addClientToLobby(ClientControllerInterface client) throws RemoteException {
         Runnable task=()-> {
             try {
-                client.ChooseNickname();
+                String name = client.ChooseNickname();
+                boolean unique = checkUniqueNickName(name, client);
+                while(!unique){
+                    name = client.ChooseNickname();
+                    unique = checkUniqueNickName(name, client);
+                }
+                client.setNickname(name);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -75,28 +81,20 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @param client that is currently choosing the nickname
      * @param name nickname that the client wants to choose*/
     @Override
-    public void checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
-        Runnable task=()-> {
-            boolean b = clients.size() > 1;
-            {
-                for (ClientControllerInterface c : clients) {
-                    try {
-                        if (name.equals(c.getNickname())) {
-                            //TODO manda messaggio di errore alla view client.getView.UnavailableNickName()
-                            addClientToLobby(client); //we add the client back to the lobby, where it can choose another nickname
-                        }
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
+        boolean unique = true;
+        for (ClientControllerInterface c : clients) {
             try {
-                client.setNickname(name); //setting the client's nickname
+                if (name.equals(c.getNickname())) {
+                    unique = false;
+                    client.sendUpdateMessage("Nickname already taken, please choose another one.");
+                    return unique;
+                }
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
-        };
-        executorBuffer.execute(task);
+        }
+        return unique;
     }
 
 
