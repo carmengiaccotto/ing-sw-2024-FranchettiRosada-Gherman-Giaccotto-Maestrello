@@ -606,15 +606,19 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     public void extractPlayerHandCards() throws RemoteException {
         for (ClientControllerInterface client : listener.getPlayers()) {
             while (client.getPlayer().getCardsInHand().size() < 2) {
-                int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
-                ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
-                client.getPlayer().addCardToHand(c);
-                model.removeCardFromDeck(c, model.getResourceCardDeck());
+                if (!model.getResourceCardDeck().getCards().isEmpty()) {
+                    int cardExtracted = random.nextInt(model.getResourceCardDeck().getCards().size());
+                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
+                    client.getPlayer().addCardToHand(c);
+                    model.removeCardFromDeck(c, model.getResourceCardDeck());
+                }
             }
-            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
-            GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
-            client.getPlayer().addCardToHand(c);
-            model.removeCardFromDeck(c, model.getGoldCardDeck());
+            if (!model.getGoldCardDeck().getCards().isEmpty()) {
+                int cardExtracted = random.nextInt(model.getGoldCardDeck().getCards().size());
+                GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
+                client.getPlayer().addCardToHand(c);
+                model.removeCardFromDeck(c, model.getGoldCardDeck());
+            }
         }
 
     }
