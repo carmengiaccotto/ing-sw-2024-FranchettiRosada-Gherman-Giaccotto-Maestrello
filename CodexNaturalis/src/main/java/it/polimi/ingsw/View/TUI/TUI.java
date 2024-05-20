@@ -5,6 +5,7 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.View.UserInterface;
 
@@ -228,101 +229,95 @@ public class TUI implements UserInterface {
     }
 
 
-//
-//    @Override
-//    public void playCard(String nickname){
-//        boolean valid = false;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Choose from your cards which one you want to play; [1/2/3]");
-//        ArrayList<PlayCard> cardInHand = gameController.getCardInHandPlayer(nickname);
-//        System.out.println(cardInHand);
-//        int c = Integer.parseInt(scanner.next());
-//
-//        while((c != 1) && (c != 2) && (c != 3)){
-//            System.out.println("Choose a valid card");
-//            c = Integer.parseInt(scanner.next());
-//        }
-//
-//        System.out.println("Choose the side you want to play: [FRONT/BACK]");
-//        System.out.println(cardInHand.get(c-1));
-//        String side = scanner.next();
-//
-//        while(!valid) {
-//            switch (side) {
-//                case "FRONT":
-//
-//                    SideOfCard card = gameController.getPlayer(nickname).ChooseCardToPlay(cardInHand.get(c-1), Side.FRONT);
-//                    System.out.println("Choose the row and column in which you want to place the card: ");
-//                    int row = scanner.nextInt();
-//                    int column = scanner.nextInt();
-//                    boolean valid2 = gameController.ValidTwoCornersSameCard(gameController.getPlayer(nickname).getPlayArea(), row, column);
-//                    boolean valid3 = gameController.notTryingToCoverHiddenCorners(gameController.getPlayer(nickname).getPlayArea(), row, column, card);
-//
-//                    boolean isOK = false;
-//                    do {
-//                        if (valid2 && valid3) {
-//                            boolean valid1 = false;
-//                            do {
-//                                valid1 = gameController.ValidPositionCardOnArea(gameController.getPlayer(nickname).getPlayArea(), row, column, card);
-//                                if (!valid1) {
-//                                    System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
-//                                    row = scanner.nextInt();
-//                                    column = scanner.nextInt();
-//                                }
-//
-//                            } while (!valid1);
-//                            isOK = true;
-//
-//                        } else {
-//                            System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
-//                            row = scanner.nextInt();
-//                            column = scanner.nextInt();
-//                        }
-//                    } while(!isOK);
-//                    gameController.removeCardInHand(cardInHand.get(c - 1), nickname);
-//
-//                case "BACK":
-//
-//                    SideOfCard card1 = gameController.getPlayer(nickname).ChooseCardToPlay(cardInHand.get(c-1), Side.BACK);
-//                    System.out.println("Choose the row and column in which you want to place the card: ");
-//                    int row1 = scanner.nextInt();
-//                    int column1 = scanner.nextInt();
-//                    boolean valid5 = gameController.ValidTwoCornersSameCard(gameController.getPlayer(nickname).getPlayArea(), row1, column1);
-//                    boolean valid6 = gameController.notTryingToCoverHiddenCorners(gameController.getPlayer(nickname).getPlayArea(), row1, column1, card1);
-//
-//                    boolean isOK1 = false;
-//                    do {
-//                        if (valid5 && valid6) {
-//                            boolean valid8 = false;
-//                            do {
-//                                valid8 = gameController.ValidPositionCardOnArea(gameController.getPlayer(nickname).getPlayArea(), row1, column1, card1);
-//                                if (!valid8) {
-//                                    System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
-//                                    row1 = scanner.nextInt();
-//                                    column1 = scanner.nextInt();
-//                                }
-//
-//                            } while (!valid8);
-//                            isOK1 = true;
-//
-//                        } else {
-//                            System.out.println("Invalid positions. Re-enter the row and column where you want to insert the card: ");
-//                            row1 = scanner.nextInt();
-//                            column1 = scanner.nextInt();
-//                        }
-//                    } while(!isOK1);
-//
-//                    gameController.removeCardInHand(cardInHand.get(c - 1), nickname);
-//
-//                default:
-//
-//                    System.out.println("Choose a valid side: [FRONT/BACK]");
-//                    side = scanner.next();
-//            }
-//        }
-//
-//    }
-//
+
+    /**Method that shows the player the cards they have in hand and can play during their turn
+     * @param cards that the player has in its hand*/
+    public void showCardsInHand(ArrayList<PlayCard> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println("[" + (i + 1) + "]");
+            PrintCards.printCardFrontBack(cards.get(i));
+        }
+    }
+
+    /**Method used to show the player info
+     * @param client whose info we want to show*/
+    public void showPlayerInfo(ClientControllerInterface client) {
+        try {
+            PawnColor color = client.getPawnColor();
+            String ANSIcolor = GraphicUsage.pawnColorDictionary.get(color);
+            String ANSIreset = "\u001B[0m";
+            System.out.println(ANSIcolor + "Player: " + client.getNickname() +ANSIreset);
+            System.out.println(ANSIcolor + "Score: " + client.getScore() + ANSIreset);
+            System.out.println(ANSIcolor + "Round: " + client.getRound() + ANSIreset);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public  static void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
+        String[][] playGroundCards = new String[20][140]; //To adjust if we want the dimensions of the cards to be bigger
+        // fill the playGroundCards with empty spaces
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 70; j++) {
+                playGroundCards[i][j] = " ";
+            }
+        }
+        //Add caption
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 70; j++) {
+                if (i==0 && j==10){
+                    playGroundCards[i][j] = "RESOURCE CARDS";
+                }
+                if (i==0 && j==20){
+                    playGroundCards[i][j] = "GOLD CARDS";
+                }
+
+                if((i==1 && j==0) || (i==1 && j==30)){
+                    playGroundCards[i][j] = "[1]";
+                }
+                if((i==10 && j==0) || (i==10 && j==30)){
+                    playGroundCards[i][j] = "[2]";
+                }
+                if(i==1 && j==65){
+                    playGroundCards[i][j] = "RESOURCE DECK";
+                }
+                if (i==10 && j==65){
+                    playGroundCards[i][j] = "GOLD DECK";
+                }
+
+            }
+        }
+        //AddCards
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 70; j++) {
+                if (i==2 && j==3)
+                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, cards.get(0).getFront());
+                if (i==2 && j==33)
+                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(0).getFront());
+
+                if (i==11 && j==3)
+                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, cards.get(1).getFront());
+                if(i==11 && j==33)
+                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(1).getFront());
+
+                if (i==2 && j==63)
+                    PrintCard.PrintDeck(playGroundCards, resourceDeck, i, j);
+                if(i==11 && j==63)
+                    PrintCard.PrintDeck(playGroundCards, goldDeck, i, j);
+            }
+        }
+
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 70; j++) {
+                System.out.print(playGroundCards[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+
+
 }
 
 

@@ -228,5 +228,15 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         controller.addCardToHand(card);
     }
 
+    @Override
+    public int getScore() {
+        return controller.getScore();
+    }
+
+    @Override
+    public int getRound() {
+        return controller.getRound();
+    }
+
 
 }

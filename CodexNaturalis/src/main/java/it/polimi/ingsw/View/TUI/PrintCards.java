@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.TUI;
 import it.polimi.ingsw.Model.CardColors;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
+import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Position;
@@ -24,10 +25,11 @@ public class PrintCards {
 
         maxiMatrix[0][j / 2] = "FRONT";
         maxiMatrix[0][j + j / 2 + 2] = "BACK";
-        PrintPlayArea.DrawCardDefaultDimensions(maxiMatrix, 1, 0, card.getFront());
-        PrintPlayArea.DrawCardDefaultDimensions(maxiMatrix, 1, j + 10, card.getBack());
-        for (int k = 0; k < i + 1; k++) {
-            for (int l = 0; l < j * 3 + 1; l++) {
+        PrintCard.DrawCardDefaultDimensions(maxiMatrix, 1, 0, card.getFront());
+        PrintCard.DrawCardDefaultDimensions(maxiMatrix, 1, j + 10, card.getBack());
+
+        for (int k = 0; k < maxiMatrix.length; k++) {
+            for (int l = 0; l < maxiMatrix[k].length; l++) {
                 System.out.print(maxiMatrix[k][l]);
             }
             System.out.println();
@@ -36,6 +38,9 @@ public class PrintCards {
 
 
     }
+
+
+
     public static int getStartingRow(Position p){
         if(p==CornerPosition.TOPLEFT){
             return 9;
@@ -68,7 +73,7 @@ public class PrintCards {
                 matrix[i][j]=" ";
             }
         }
-        PrintPlayArea.DrawCardCustomDimensions(matrix, 6, 0,new SideOfCard(null, null),  10,20);
+        PrintCard.DrawCardDefaultDimensions(matrix, 6, 0,new SideOfCard(null, null));
 
         SideOfCard centralCard=new SideOfCard(null,null);
         centralCard.setColor(color);
@@ -79,12 +84,6 @@ public class PrintCards {
             PrintPlayArea.DrawCardCustomDimensions(matrix,getStartingRow(p),getStaringColumn(p),side,3,8);
 
 
-        }
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print(matrix[i][j]);
-            }
-            System.out.println();
         }
 
 
@@ -136,30 +135,39 @@ public class PrintCards {
             symbolIndex += 4;
         }
 
-        PrintPlayArea.DrawCardDefaultDimensions(matrix,1,1,card.getFront());
-        for (int h = 0; h < matrix.length; h++) {
-            for (int x = 0; x < matrix[h].length; x++) {
-                System.out.print(matrix[h][x]);
-            }
-            System.out.println();
-        }
+        PrintCard.DrawCardDefaultDimensions(matrix,1,1,card.getFront());
+//        for (int h = 0; h < matrix.length; h++) {
+//            for (int x = 0; x < matrix[h].length; x++) {
+//                System.out.print(matrix[h][x]);
+//            }
+//            System.out.println();
+//        }
     }
 
     public static void main(String[] args){
-//        Map<Position, CardColors> neighbors=new HashMap<>();
-//        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
-//        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
-//        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
-//        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
-//        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
-//        printDispositionCard(card);
+        Map<Position, CardColors> neighbors=new HashMap<>();
+        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
+        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
+        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
+        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
+        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
+        //printDispositionCard(card);
 
         HashMap<Symbol, Integer> requirements=new HashMap<>();
         requirements.put(Symbol.ANIMAL, 2);
         requirements.put(Symbol.MANUSCRIPT, 3);
-        SideOfCard card=new SideOfCard(null, null);
-        GoldCard card2=new GoldCard(1,card, card,CardColors.PURPLE,requirements,3);
-        PrintCards.printGoldGardPlayGround(card2);
+        Corner corner1 = new Corner(Symbol.FUNGI, false);
+        Corner corner2 = new Corner(Symbol.INKWELL, false);
+        Corner corner3 = new Corner(Symbol.ANIMAL, false);
+        Corner corner4 = new Corner(Symbol.MANUSCRIPT, false);
+
+        Corner[][] corners= {{corner1, corner2}, {corner3, corner4}};
+
+        SideOfCard card1=new SideOfCard(null, corners);
+        card1.setColor(CardColors.BLUE);
+        GoldCard card2=new GoldCard(1,card1, card1,CardColors.PURPLE,requirements,3);
+        //PrintCards.printGoldGardPlayGround(card2);
+        PrintCards.printCardFrontBack(card2);
 
     }
 }

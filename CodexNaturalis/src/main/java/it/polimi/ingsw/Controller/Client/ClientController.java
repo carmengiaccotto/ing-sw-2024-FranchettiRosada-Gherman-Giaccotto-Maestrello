@@ -132,6 +132,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
+    public int getScore() {
+        return player.getScore();
+    }
+
+    @Override
+    public int getRound() {
+        return player.getRound();
+    }
+
+    @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
         this.server=server;
     }

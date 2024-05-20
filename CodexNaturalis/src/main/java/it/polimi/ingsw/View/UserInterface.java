@@ -48,4 +48,7 @@ public interface UserInterface {
 
     Command receiveCommand();
 
+    void showCardsInHand(ArrayList<PlayCard> cards);
+
+
 }

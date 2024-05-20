@@ -63,4 +63,6 @@ public interface ClientControllerInterface extends Remote {
 
     void addCardToHand(PlayCard card) throws RemoteException;
 
+    int getScore();
+    int getRound();
 }
