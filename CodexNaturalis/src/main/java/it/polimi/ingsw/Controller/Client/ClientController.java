@@ -6,6 +6,7 @@ import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.TUI.PrintCards;
@@ -26,6 +27,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         game=null;
         view=null;
     }
+
+    public void setGame(GameControllerInterface game) throws RemoteException {
+        this.game = game;
+    }
+
 
     /**getter method for PawnColor attribute in Player attribute
      * @return pawnColor that the player chose when joining the game */
@@ -57,8 +63,25 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
-        game.setModel(model);
-        view.showBoardAndPlayAreas();
+        //Printing opponents areas and informations (nickname, score, round)
+        for(ClientControllerInterface player: game.getListener().getPlayers()){
+            if(player.getNickname()!= this.getNickname()){ //this is done only for the opponents
+                view.showPlayerInfo(player);
+                view.showOpponentPlayArea(player);
+            }
+        }
+        //Showing the common board
+        view.showCommonCards(model.getCommonResourceCards(), model.getCommonGoldCards(), model.getResourceCardDeck(), model.getGoldCardDeck());
+
+        //Showing the player's area
+        view.showPlayerInfo(this);
+        view.showMyPlayArea(getPlayArea());
+    }
+
+    /**Getter method for Player's playArea attribute
+     * @return PlayArea*/
+    public PlayArea getPlayArea() throws RemoteException {
+        return player.getPlayArea();
     }
 
     @Override
@@ -164,14 +187,17 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public int getScore() {
+    public int getScore() throws RemoteException {
         return player.getScore();
     }
 
     @Override
-    public int getRound() {
+    public int getRound() throws RemoteException {
         return player.getRound();
     }
+
+
+
 
     @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
@@ -248,10 +274,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 JoinOrCreateGame();
 
             } else {
-
-                game=availableGames.get(chosenGame - 1); //TODO check this
                 try {
-                    server.joinGame(this,game.getId()); //TODO check this
+                    server.joinGame(this,availableGames.get(chosenGame-1).getId()); //TODO check this
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

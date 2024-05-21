@@ -14,8 +14,10 @@ public class GameListener implements Serializable {
 
     public void updatePlayers(ClientControllerInterface newPlayer) throws RemoteException {
         for (ClientControllerInterface player : players) {
-            player.sendUpdateMessage(newPlayer.getNickname() + " has joined the game.");
-            // aggiungere il nuovo giocatore alla lista dei giocatori
+            if (player != newPlayer) {
+                player.sendUpdateMessage(newPlayer.getNickname() + " joined the game.");
+                //player.addOpponent(newPlayer);
+            }
         }
     }
 

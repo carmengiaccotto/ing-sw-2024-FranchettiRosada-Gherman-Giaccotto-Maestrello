@@ -181,6 +181,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      */
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
         try {
+            System.out.println("Notifying players that a new player has joined the game...");
             getListener().updatePlayers(newPlayer);
         } catch (RemoteException e) {
             System.out.println("An error Occurred during Players update: " + e.getMessage());
@@ -263,7 +264,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 try {
                     initializeGame();
                     listener.updatePlayers("This is the initial board of the game: \n");
-                    listener.updatePlayers(getModel());
+                    listener.updatePlayers(model);
+                    System.out.println("Game is ready to run!");
                     setStatus(GameStatus.INITIAL_CIRCLE);
                 } catch (NotReadyToRunException e) {
                     throw new RuntimeException(e);

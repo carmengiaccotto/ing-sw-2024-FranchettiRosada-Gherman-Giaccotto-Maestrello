@@ -64,6 +64,14 @@ public interface ClientControllerInterface extends Remote {
 
     void addCardToHand(PlayCard card) throws RemoteException;
 
-    int getScore();
-    int getRound();
+    int getScore() throws RemoteException;
+
+    int getRound() throws RemoteException;
+
+    void setGame(GameControllerInterface game) throws RemoteException;
+
+
+
+
+
 }

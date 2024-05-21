@@ -72,10 +72,6 @@ public class TUI implements UserInterface {
         return position;
     }
 
-    @Override
-    public void showBoardAndPlayAreas() {
-
-    }
 
     @Override
     public void playInitialCard(SideOfCard s, PlayArea playArea) {
@@ -247,10 +243,21 @@ public class TUI implements UserInterface {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-
+    }
+     /**Method to print the opponent play areas. Prints an empty space if no card has been added to the area.
+      * @param opponent other player whose playArea we are printing*/
+    public void showOpponentPlayArea(ClientControllerInterface opponent){
+        try {
+            if((opponent.getPlayer().getPlayArea().getCardsOnArea().size()>1))
+                PrintPlayArea.DrawOthersPlayArea(opponent.getPlayer().getPlayArea());
+            else
+                System.out.println(" ");
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public  static void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
+    public  void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
         String[][] playGroundCards = new String[20][140]; //To adjust if we want the dimensions of the cards to be bigger
         // fill the playGroundCards with empty spaces
         for (int i = 0; i < 20; i++) {
@@ -308,6 +315,16 @@ public class TUI implements UserInterface {
             }
             System.out.println();
         }
+    }
+
+
+    /**Method used to show  tha playArea of the player that is calling the method*/
+    @Override
+    public void showMyPlayArea(PlayArea playArea) {
+        if (playArea.getCardsOnArea().size() > 1)
+            PrintPlayArea.DrawMyPlayArea(playArea); //if playArea has cards, draw the cards
+        else
+            System.out.println(" ");//else draw an empty space
     }
 }
 

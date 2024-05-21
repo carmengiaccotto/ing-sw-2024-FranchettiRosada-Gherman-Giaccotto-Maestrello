@@ -195,6 +195,7 @@ public class PrintCard {
         Corner corner2 = new Corner(Symbol.INKWELL, false);
         Corner corner3 = new Corner(Symbol.ANIMAL, false);
         Corner corner4 = new Corner(null, true);
+        corner2.setCovered();
 
         Corner[][] corners= {{corner1, corner2}, {corner3, corner4}};
         SideOfCard card= new SideOfCard(null, corners);
@@ -204,7 +205,6 @@ public class PrintCard {
         HashMap<Symbol, Integer> requirements=new HashMap<>();
         requirements.put(Symbol.ANIMAL, 2);
         requirements.put(Symbol.MANUSCRIPT, 3);
-
 
         SideOfCard card1=new SideOfCard(null, corners);
         card1.setColor(CardColors.BLUE);

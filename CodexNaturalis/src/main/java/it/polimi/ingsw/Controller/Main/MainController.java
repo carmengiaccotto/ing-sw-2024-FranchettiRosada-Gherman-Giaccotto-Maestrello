@@ -123,7 +123,9 @@ public class MainController extends UnicastRemoteObject implements MainControlle
                 throw new RuntimeException(e);
             }
             try {
+                client.setGame(gameToJoin);
                 NotifyGamePlayerJoined(gameToJoin, client);
+
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -172,6 +174,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         executor.submit(newGame);
         runningGames.add(newGame);
         newGame.addPlayer(client);
+        client.setGame(newGame);
         NotifyGamePlayerJoined(newGame, client);
     }
 
@@ -180,7 +183,8 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      *@param game to be notified
      *@param client that joined the game*/
     @Override
-    public void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
+    public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
+
         game.NotifyNewPlayerJoined(client);
     }
 

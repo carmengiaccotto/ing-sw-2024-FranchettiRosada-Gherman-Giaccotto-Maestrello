@@ -230,14 +230,23 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public int getScore() {
+    public int getScore() throws RemoteException {
         return controller.getScore();
     }
 
     @Override
-    public int getRound() {
+    public int getRound() throws RemoteException
+    {
         return controller.getRound();
     }
+
+
+    @Override
+    public void setGame(GameControllerInterface game) throws RemoteException {
+        controller.setGame(game);
+    }
+
+
 
 
 }

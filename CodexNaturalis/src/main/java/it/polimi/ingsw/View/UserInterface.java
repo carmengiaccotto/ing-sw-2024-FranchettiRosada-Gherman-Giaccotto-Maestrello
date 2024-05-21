@@ -1,11 +1,11 @@
 package it.polimi.ingsw.View;
 
+import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 
 import java.rmi.RemoteException;
@@ -25,7 +25,6 @@ public interface UserInterface {
     String chooseSide();
 
     public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea);
-    public void showBoardAndPlayAreas();
 
     String selectNickName();
 
@@ -38,8 +37,8 @@ public interface UserInterface {
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
     void playInitialCard(SideOfCard side, PlayArea playArea);
 
-
     int  displayAvailableColors(ArrayList<PawnColor> availableColors);
+
     void waitingForPlayers();
 
     void printObjectives(ObjectiveCard card);
@@ -49,6 +48,14 @@ public interface UserInterface {
     Command receiveCommand();
 
     void showCardsInHand(ArrayList<PlayCard> cards);
+
+    void showOpponentPlayArea(ClientControllerInterface opponent);
+
+    void showPlayerInfo(ClientControllerInterface client);
+
+    void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck);
+
+    void showMyPlayArea(PlayArea playArea);
 
 
 }

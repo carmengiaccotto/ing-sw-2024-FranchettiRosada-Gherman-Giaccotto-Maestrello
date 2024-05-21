@@ -5,7 +5,7 @@ package it.polimi.ingsw.Connection.RMI;
 // Importing the necessary classes
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameController;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainController;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 
@@ -134,7 +134,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
     @Override
-    public void NotifyGamePlayerJoined(GameController game, ClientControllerInterface client) throws RemoteException {
+    public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
     }
 }
