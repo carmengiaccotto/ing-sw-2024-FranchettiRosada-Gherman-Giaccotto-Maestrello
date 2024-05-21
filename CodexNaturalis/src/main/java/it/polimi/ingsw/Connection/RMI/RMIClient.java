@@ -54,7 +54,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     /**Method that sets the view of the player to the chosen type. Uses ClientController implementation
-      * @param view  GUI or TUI*/
+     * @param view  GUI or TUI*/
     @Override
     public void setView(UserInterface view) throws RemoteException {
         controller.setView(view);

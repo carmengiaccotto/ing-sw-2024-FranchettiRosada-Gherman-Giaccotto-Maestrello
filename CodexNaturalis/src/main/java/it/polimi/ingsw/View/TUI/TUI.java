@@ -244,8 +244,8 @@ public class TUI implements UserInterface {
             throw new RuntimeException(e);
         }
     }
-     /**Method to print the opponent play areas. Prints an empty space if no card has been added to the area.
-      * @param opponent other player whose playArea we are printing*/
+    /**Method to print the opponent play areas. Prints an empty space if no card has been added to the area.
+     * @param opponent other player whose playArea we are printing*/
     public void showOpponentPlayArea(ClientControllerInterface opponent){
         try {
             if((opponent.getPlayer().getPlayArea().getCardsOnArea().size()>1))
@@ -327,6 +327,9 @@ public class TUI implements UserInterface {
             System.out.println(" ");//else draw an empty space
     }
 }
+
+
+
 
 
 

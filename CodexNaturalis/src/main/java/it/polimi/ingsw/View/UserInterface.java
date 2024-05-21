@@ -17,7 +17,7 @@ public interface UserInterface {
 //    public void choosePersonalObjectiveCard(String nickname);
 //
 
-//
+    //
 //    public void playCard(String nickname);
 //
     String chooseCardToDraw ();

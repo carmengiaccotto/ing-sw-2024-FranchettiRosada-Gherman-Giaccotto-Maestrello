@@ -84,6 +84,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         return player.getPlayArea();
     }
 
+
     @Override
     public PlayCard chooseCardToDraw(PlayGround model) throws RemoteException {
         String draw = view.chooseCardToDraw();
@@ -187,17 +188,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     @Override
-    public int getScore() throws RemoteException {
+    public int getScore() {
         return player.getScore();
     }
 
     @Override
-    public int getRound() throws RemoteException {
+    public int getRound() {
         return player.getRound();
     }
-
-
-
 
     @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
@@ -274,8 +272,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 JoinOrCreateGame();
 
             } else {
+
+                game=availableGames.get(chosenGame - 1); //TODO check this
                 try {
-                    server.joinGame(this,availableGames.get(chosenGame-1).getId()); //TODO check this
+                    server.joinGame(this,game.getId()); //TODO check this
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
