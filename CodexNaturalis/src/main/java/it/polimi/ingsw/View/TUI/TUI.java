@@ -9,7 +9,6 @@ import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.View.UserInterface;
 
-import java.awt.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -168,10 +167,10 @@ public class TUI implements UserInterface {
 
     @Override
     public void printObjectives(ObjectiveCard card) {
-        if (card.getClass().equals(DisplayMode.class))
+        if (card.getClass().equals(DispositionObjectiveCard.class))
             PrintCards.printDispositionCard((DispositionObjectiveCard) card);
-        else
-            PrintCards.printSymbolObjectiveCard(card);
+        else if (card.getClass().equals(SymbolObjectiveCard.class))
+            PrintCards.printSymbolObjectiveCard((SymbolObjectiveCard) card);
 
     }
 

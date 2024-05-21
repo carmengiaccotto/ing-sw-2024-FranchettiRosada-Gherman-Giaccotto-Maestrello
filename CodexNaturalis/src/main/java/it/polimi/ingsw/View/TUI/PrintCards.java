@@ -9,6 +9,7 @@ import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Position;
 import it.polimi.ingsw.Model.Symbol;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,8 +112,22 @@ public class PrintCards {
         return -1;
     }
 
-    public static void printSymbolObjectiveCard(ObjectiveCard card){
-        //creazione carta normale, gestione emoji
+    public static void printSymbolObjectiveCard(SymbolObjectiveCard card){
+        Map<Symbol, Integer> objectives=card.getGoal();
+        ArrayList<Symbol> goalList=new ArrayList<>();
+        for(Symbol s: objectives.keySet()){
+            for(int i=0; i<objectives.get(s); i++){
+                goalList.add(s);
+            }
+        }
+
+        String graphic_card= "┌──────┬────┬──────┐\n"+
+                "│      └─"+card.getPoints().getValue()+"──┘      │\n"+
+                "│    "+GraphicUsage.symbolDictionary.get(goalList.get(0))+"    "+GraphicUsage.symbolDictionary.get(goalList.get(1))+"     │\n"+
+                "│       "+GraphicUsage.symbolDictionary.get(goalList.get(1))+"\u2004"+"        │\n"+
+                "└──────────────────┘";
+
+        System.out.print(graphic_card);
     }
 
     public static void printGoldGardPlayGround(GoldCard card){
@@ -167,7 +182,10 @@ public class PrintCards {
         card1.setColor(CardColors.BLUE);
         GoldCard card2=new GoldCard(1,card1, card1,CardColors.PURPLE,requirements,3);
         //PrintCards.printGoldGardPlayGround(card2);
-        PrintCards.printCardFrontBack(card2);
+        //PrintCards.printCardFrontBack(card2);
+
+        SymbolObjectiveCard card3 = new SymbolObjectiveCard(1, ObjectivePoints.THREE, requirements);
+        printSymbolObjectiveCard(card3);
 
     }
 }
