@@ -41,9 +41,13 @@ public class GameListener implements Serializable {
      * @param model The current state of the playground.
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    public void updatePlayers(PlayGround model) throws RemoteException {
+    public void updatePlayers(PlayGround model) {
         for (ClientControllerInterface player : players) {
-            player.showBoardAndPlayAreas(model);
+            try {
+                player.showBoardAndPlayAreas(model);
+            } catch (RemoteException e) {
+                System.out.println("Errore durante la chiamata a showBoardAndPlayAreas: " + e.getMessage());
+            }
         }
     }
 

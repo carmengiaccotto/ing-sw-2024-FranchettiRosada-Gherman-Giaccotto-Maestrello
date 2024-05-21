@@ -4,10 +4,11 @@ import it.polimi.ingsw.Model.Cards.Card;
 import it.polimi.ingsw.Model.JsonHandler.JsonDeckCreator;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**This is the class that implements the generic deck of cards*/
-public class Deck {
+public class Deck implements Serializable {
     private final ArrayList<? extends Card> deck;
 
 

@@ -186,7 +186,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 7323);
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 8323);
                         Object obj = registry.lookup("CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
@@ -202,7 +202,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 if (server != null) {
                     connected = true;
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 7323 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8323 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");

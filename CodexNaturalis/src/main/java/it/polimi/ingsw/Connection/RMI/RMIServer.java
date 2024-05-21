@@ -47,7 +47,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     public static RMIServer bind() {
         try {
             serverObject = RMIServer.getInstance();
-            registry = LocateRegistry.createRegistry(7323);
+            registry = LocateRegistry.createRegistry(8323);
             getRegistry().rebind("CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
