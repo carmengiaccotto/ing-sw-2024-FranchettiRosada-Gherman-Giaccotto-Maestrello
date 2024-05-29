@@ -13,19 +13,25 @@ public class GraphicUsage {
     public static Map<Symbol, String> symbolDictionary=new HashMap<>();
     public static final Map<CardColors, int[]> ColorDictionary = new HashMap<>();
     public static final Map<PawnColor, String> pawnColorDictionary = new HashMap<>();
+    public static final Map<CardColors, String> cardColorDictionary = new HashMap<>();
 
     static {
-        symbolDictionary.put(Symbol.PLANT, "\uD83C\uDF3F\u2009");
-        symbolDictionary.put(Symbol.ANIMAL, "\uD83D\uDC3A\u2009");
-        symbolDictionary.put(Symbol.FUNGI, "\uD83C\uDF44\u2009");
-        symbolDictionary.put(Symbol.INSECT, "\uD83E\uDD8B\u2009");
-        symbolDictionary.put(Symbol.QUILL, "\uD83E\uDDB6\u2009");
-        symbolDictionary.put(Symbol.INKWELL, "\uD83D\uDD8B\uFE0F\u2005");
-        symbolDictionary.put(Symbol.MANUSCRIPT, "\uD83D\uDCDC\u2009");
+        symbolDictionary.put(Symbol.PLANT, "P");
+        symbolDictionary.put(Symbol.ANIMAL, "A");
+        symbolDictionary.put(Symbol.FUNGI, "F");
+        symbolDictionary.put(Symbol.INSECT, "I");
+        symbolDictionary.put(Symbol.QUILL, "Q");
+        symbolDictionary.put(Symbol.INKWELL, "K");
+        symbolDictionary.put(Symbol.MANUSCRIPT, "M");
     }
-//    public static String getEmojiFromUnicode(String unicode) {
-//        return new String(Character.toChars(Integer.parseInt(unicode, 16)));
-//    }
+
+    static{
+        cardColorDictionary.put(CardColors.RED,"F"); //F=Fungi
+        cardColorDictionary.put(CardColors.GREEN,"P");//P=Plant
+        cardColorDictionary.put(CardColors.BLUE,"A");//A=Animal
+        cardColorDictionary.put(CardColors.PURPLE,"I");//I=Insect
+    }
+
 
 
 

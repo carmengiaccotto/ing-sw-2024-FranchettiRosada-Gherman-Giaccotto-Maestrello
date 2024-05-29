@@ -65,30 +65,30 @@ public class PrintCards {
 
 
     public static void printDispositionCard(DispositionObjectiveCard card){
-        CardColors color=card.getCentralCardColor();
-        Map<Position, CardColors> neighbors=card.getNeighbors();
-        //Creation of the big matrix
-        String[][] matrix=new String[20][30];
-        for(int i=0; i<20; i++){
-            for(int j=0; j<30; j++){
-                matrix[i][j]=" ";
-            }
-        }
-        PrintCard.DrawCardDefaultDimensions(matrix, 6, 0,new SideOfCard(null, null));
+//        CardColors color=card.getCentralCardColor();
+//        Map<Position, CardColors> neighbors=card.getNeighbors();
+//        //Creation of the big matrix
+//        String[][] matrix=new String[20][30];
+//        for(int i=0; i<20; i++){
+//            for(int j=0; j<30; j++){
+//                matrix[i][j]=" ";
+//            }
+//        }
+//        PrintCard.DrawCardDefaultDimensions(matrix, 6, 0,new SideOfCard(null, null));
+//
+//        SideOfCard centralCard=new SideOfCard(null,null);
+//        centralCard.setColor(color);
+//        PrintPlayArea.DrawCardCustomDimensions(matrix,10,6,centralCard,3,8);
+//        for(Position p: neighbors.keySet()){
+//            SideOfCard side=new SideOfCard(null,null);
+//            side.setColor(neighbors.get(p));
+//            PrintPlayArea.DrawCardCustomDimensions(matrix,getStartingRow(p),getStaringColumn(p),side,3,8);
+//
+//
+//        }
 
-        SideOfCard centralCard=new SideOfCard(null,null);
-        centralCard.setColor(color);
-        PrintPlayArea.DrawCardCustomDimensions(matrix,10,6,centralCard,3,8);
-        for(Position p: neighbors.keySet()){
-            SideOfCard side=new SideOfCard(null,null);
-            side.setColor(neighbors.get(p));
-            PrintPlayArea.DrawCardCustomDimensions(matrix,getStartingRow(p),getStaringColumn(p),side,3,8);
 
-
-        }
-
-
-
+        System.out.println("┌──────┬────┬──────┐");
     }
 
     private static int getStaringColumn(Position p) {
@@ -123,8 +123,8 @@ public class PrintCards {
 
         String graphic_card= "┌──────┬────┬──────┐\n"+
                 "│      └─"+card.getPoints().getValue()+"──┘      │\n"+
-                "│    "+GraphicUsage.symbolDictionary.get(goalList.get(0))+"    "+GraphicUsage.symbolDictionary.get(goalList.get(1))+"     │\n"+
-                "│       "+GraphicUsage.symbolDictionary.get(goalList.get(1))+"\u2004"+"        │\n"+
+                "│     "+GraphicUsage.symbolDictionary.get(goalList.get(0))+"     "+GraphicUsage.symbolDictionary.get(goalList.get(1))+"      │\n"+
+                "│        "+GraphicUsage.symbolDictionary.get(goalList.get(1))+" "+"        │\n"+
                 "└──────────────────┘";
 
         System.out.print(graphic_card);
@@ -151,12 +151,12 @@ public class PrintCards {
         }
 
         PrintCard.DrawCardDefaultDimensions(matrix,1,1,card.getFront());
-//        for (int h = 0; h < matrix.length; h++) {
-//            for (int x = 0; x < matrix[h].length; x++) {
-//                System.out.print(matrix[h][x]);
-//            }
-//            System.out.println();
-//        }
+        for (int h = 0; h < matrix.length; h++) {
+            for (int x = 0; x < matrix[h].length; x++) {
+                System.out.print(matrix[h][x]);
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args){
@@ -181,7 +181,7 @@ public class PrintCards {
         SideOfCard card1=new SideOfCard(null, corners);
         card1.setColor(CardColors.BLUE);
         GoldCard card2=new GoldCard(1,card1, card1,CardColors.PURPLE,requirements,3);
-        //PrintCards.printGoldGardPlayGround(card2);
+        PrintCards.printGoldGardPlayGround(card2);
         //PrintCards.printCardFrontBack(card2);
 
         SymbolObjectiveCard card3 = new SymbolObjectiveCard(1, ObjectivePoints.THREE, requirements);

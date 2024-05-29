@@ -260,17 +260,17 @@ public class TUI implements UserInterface {
         String[][] playGroundCards = new String[20][140]; //To adjust if we want the dimensions of the cards to be bigger
         // fill the playGroundCards with empty spaces
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 70; j++) {
+            for (int j = 0; j < 140; j++) {
                 playGroundCards[i][j] = " ";
             }
         }
         //Add caption
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 70; j++) {
-                if (i==0 && j==10){
+            for (int j = 0; j < 140; j++) {
+                if (i==0 && j==7){
                     playGroundCards[i][j] = "RESOURCE CARDS";
                 }
-                if (i==0 && j==20){
+                if (i==0 && j==27){
                     playGroundCards[i][j] = "GOLD CARDS";
                 }
 
@@ -280,10 +280,10 @@ public class TUI implements UserInterface {
                 if((i==10 && j==0) || (i==10 && j==30)){
                     playGroundCards[i][j] = "[2]";
                 }
-                if(i==1 && j==65){
+                if(i==1 && j==72){
                     playGroundCards[i][j] = "RESOURCE DECK";
                 }
-                if (i==10 && j==65){
+                if (i==10 && j==74){
                     playGroundCards[i][j] = "GOLD DECK";
                 }
 
@@ -291,7 +291,7 @@ public class TUI implements UserInterface {
         }
         //AddCards
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 70; j++) {
+            for (int j = 0; j < 140; j++) {
                 if (i==2 && j==3)
                     PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, cards.get(0).getFront());
                 if (i==2 && j==33)
@@ -302,18 +302,20 @@ public class TUI implements UserInterface {
                 if(i==11 && j==33)
                     PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(1).getFront());
 
-                if (i==2 && j==63)
+                if (i==2 && j==70)
                     PrintCard.PrintDeck(playGroundCards, resourceDeck, i, j);
-                if(i==11 && j==63)
+                if(i==11 && j==70)
                     PrintCard.PrintDeck(playGroundCards, goldDeck, i, j);
             }
         }
+
         for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 70; j++) {
+            for (int j = 0; j < 140; j++) {
                 System.out.print(playGroundCards[i][j]);
             }
             System.out.println();
         }
+
     }
 
 

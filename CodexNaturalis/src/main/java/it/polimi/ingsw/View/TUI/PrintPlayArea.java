@@ -48,11 +48,11 @@ public class PrintPlayArea {
                 }
                 else if (i == 1 && j == 1) {
                     matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.TOPLEFT)) + ANSIreset;
-                } else if (i == 1 && j == cardWidth-2) {
+                } else if (i == 1 && j == Width-3) {
                     matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.TOPRIGHT)) + ANSIreset;
-                } else if (i == cardHeight-2 && j == 1) {
+                } else if (i == Height-2 && j == 1) {
                     matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.BOTTOMLEFT)) + ANSIreset;
-                }  else if (i == cardHeight-2 && j == cardWidth-2) {
+                }  else if (i == Height-2 && j == Width-3) {
                     matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.BOTTOMRIGHT)) + ANSIreset;
                 }
             }
@@ -62,7 +62,7 @@ public class PrintPlayArea {
 
     public static void DrawOthersPlayArea(PlayArea playArea){
         int rowDimensions=3;
-        int columnDimensions=5;
+        int columnDimensions=10;
         int rows=playArea.getCardsOnArea().size()*rowDimensions+5;
         int columns=playArea.getCardsOnArea().getFirst().size()*columnDimensions+16;
         String[][] playAreaMatrix= new String[rows][columns];
@@ -80,7 +80,7 @@ public class PrintPlayArea {
                 if (cardRowIndex < playArea.getCardsOnArea().size() &&
                         cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
                     if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {
-                        DrawCardCustomDimensions(playAreaMatrix, startRow, startColumn, playArea.getCardInPosition(cardRowIndex, cardColumnIndex), rowDimensions+2, columnDimensions+4);
+                        DrawCardCustomDimensions(playAreaMatrix, startRow, startColumn, playArea.getCardInPosition(cardRowIndex, cardColumnIndex), rowDimensions+3, columnDimensions+6);
                     }
                 }
             }
@@ -98,63 +98,18 @@ public class PrintPlayArea {
     /**Method that prints the corresponding Emoji to the symbol, or to the empty and hidden corners*/
     public static String representCorner(Corner corner) {
         if (corner.isHidden() || corner.isCovered()) {
-            return " \u2004"+ "\u2005"+ "\u2009"+ "\u2009";
+            return " ";
         }
         else {
             if (corner.getSymbol() != null) {
+
                 return GraphicUsage.symbolDictionary.get(corner.getSymbol());
             }
             else
-                return "\u2B1C\u2009";
+                return " ";
         }
     }
 
-
-    /**Method that prints the card of the default dimensions*/
-    public static void DrawCardDefaultDimensions(String[][] matrix, int startRow, int startColumn, SideOfCard card) {
-        int[] rgb = GraphicUsage.getRGBColor(card.getColor());
-        String ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
-        String ANSIreset = "\u001B[0m";
-        Corner currentCorner= null;
-
-        for (int i = 0; i < cardHeight; i++) {
-            for (int j = 0; j < cardWidth; j++) {
-                if (i == 1 && j == 1) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.TOPLEFT)) + ANSIreset;
-                } else if (i == 1 && j == cardWidth-2) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.TOPRIGHT)) + ANSIreset;
-                } else if (i == cardHeight-2 && j == 1) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.BOTTOMLEFT)) + ANSIreset;
-                }  else if (i == cardHeight-2 && j == cardWidth-2) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + representCorner(card.getCornerInPosition(CornerPosition.BOTTOMRIGHT)) + ANSIreset;
-                }
-                else if (i == 0 && j == cardWidth-1) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +  String.valueOf('┐')+ ANSIreset;
-                } else if ((i == 0 && j == 0)) {
-                    matrix[startRow + i][startColumn + j] =  ANSIbackgroundColor + String.valueOf('┌')+ ANSIreset;
-                }
-                else if ((i == cardHeight-1) && (j == cardWidth-1))
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +String.valueOf('┘')+ ANSIreset;
-                else if (i == cardHeight-1 && j == 0) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +String.valueOf('└')+ ANSIreset;
-                }
-
-                else if ((i == 0 || i == cardHeight-1) && (j > 0 && j <cardWidth-1)) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + String.valueOf('─' )+ ANSIreset;
-                }
-                else if ((i > 0 && i < cardWidth-1) && (j == 0 || j == cardWidth-1)) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + String.valueOf('│') + ANSIreset;
-                }
-                else if((i==1 || i==5)&& (j<8 && j>=5)){
-                    matrix[startRow + i][startColumn + j] = "";
-
-                }
-//                else {
-//                    matrix[startRow + i][startColumn + j] = " " ;
-//                }
-            }
-        }
-    }
 
     private static Corner[][] generateCorners() {
         Corner[][] corners = new Corner[2][2];
@@ -242,7 +197,7 @@ public class PrintPlayArea {
         PlayArea playArea=new PlayArea();
         playArea.setCardsOnArea(cardsOnArea);
 
-        //PrintPlayArea.DrawMyPlayArea(playArea);
+        PrintPlayArea.DrawMyPlayArea(playArea);
         PrintPlayArea.DrawOthersPlayArea(playArea);
         //PrintPlayArea.DrawCardDefaultDimensions(new String[7][25], 0, 0, card1);
     }
