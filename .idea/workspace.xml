@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Updated some TUI methods">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,9 +231,9 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Client" />
       <item itemvalue="Application.DesignSupportClass" />
       <item itemvalue="Application.PrintCards" />
-      <item itemvalue="Application.Client" />
       <item itemvalue="Application.ServerManager" />
       <item itemvalue="JUnit.PlayerTest" />
     </list>
@@ -279,14 +277,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00047" summary="Added Exceptions to Corner Constructor, and Corner Constructor Tests">
-      <option name="closed" value="true" />
-      <created>1713452351748</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1713452351748</updated>
     </task>
     <task id="LOCAL-00048" summary="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test">
       <option name="closed" value="true" />
@@ -672,7 +662,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716947188519</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated">
+      <option name="closed" value="true" />
+      <created>1717029821610</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1717029821610</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,7 +714,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Model Tests and solved problems." />
     <MESSAGE value="Added MainController class." />
     <MESSAGE value="Delete enumeration." />
     <MESSAGE value="Removed library." />
@@ -741,7 +738,8 @@
     <MESSAGE value="Fixed bugs in GameListener and changed method inside UserInterface" />
     <MESSAGE value="Fixed bugs in extractPlayerHandCards method" />
     <MESSAGE value="Updated some TUI methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated some TUI methods" />
+    <MESSAGE value="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

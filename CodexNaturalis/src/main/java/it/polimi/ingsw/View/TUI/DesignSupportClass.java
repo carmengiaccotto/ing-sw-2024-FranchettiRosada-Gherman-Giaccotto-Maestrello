@@ -1,10 +1,12 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Cards.GoldCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.ResourceCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
+import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.Symbol;
 
@@ -89,14 +91,11 @@ public class DesignSupportClass {
 
 
 
-
-    //TODO questo si può mettere in TUI direttamente quando stampiamo il playGround
-    public static void printDeck(String[][] matrix , Deck deck, int startRow, int startColumn){
-        PlayCard lastCard= (PlayCard) deck.getCards().getLast();
-        printBackCard(matrix,lastCard,startRow,startColumn);
-
-    }
-    /**Method that prints the front of a card, with the symbols in the corners and the points*/
+    /**Method that prints the front of a card, with the symbols in the corners
+     * @param matrix where we want to print the card
+     * @param card that we want to print
+     * @param startRow row where we want to start to print
+     * @param startColumn column where we want to start to print*/
     public static void printFrontCard(String[][] matrix , PlayCard card, int startRow, int startColumn){
         SideOfCard front=card.getFront();
         CardColors color=card.getColor();
@@ -118,10 +117,6 @@ public class DesignSupportClass {
             }
 
         }
-        //TODO inserisci punteggi
-
-
-
     }
 
     /**Method that draws the outline of the corner of the card.
@@ -175,6 +170,13 @@ public class DesignSupportClass {
         }
     }
 
+    /**method that prints the graphic correspondent to the symbol in the corner of the card.
+     *@param card matrix where we want to print
+     *@param startRow row where we want to start to print
+     *@param startColumn column where we want to start to print
+     *@param symbol that we want to print
+     *@param corner CornerPosition type
+     */
     public static  void printSymbolInCorner(String[][] card, CornerPosition corner, int startRow, int startColumn, Symbol symbol){
         String graphicSymbol=null;
         if (symbol==null)
@@ -202,13 +204,36 @@ public class DesignSupportClass {
 
     }
 
+    /**Method to print the front of resource cards. Uses printFrontCard method, and adds the space for points if the resource card
+     * gives points.
+     * @param matrix where we want to print the card
+     * @param card that we want to print
+     * @param startRow row where we want to start to print
+     * @param startColumn column where we want to start to print*/
+    public static void printResourceFront(String[][] matrix , ResourceCard card, int startRow, int startColumn){
+        boolean points= card.getPoint(Side.FRONT);
+        printFrontCard(matrix,card,startRow,startColumn);//designing a general front with corners and symbols inside it
+        if (points){
+            matrix[startRow][startColumn+ matrix[0].length/2-2]="┬";
+            matrix[startRow][startColumn+ matrix[0].length/2+2]="┬";
+            matrix[startRow+1][startColumn+matrix[0].length/2-2]="└";
+            matrix[startRow+1][startColumn+matrix[0].length/2+2]="┘";
+            matrix[startRow+1][startColumn+matrix[0].length/2-1]="─";
+            matrix[startRow+1][startColumn+matrix[0].length/2+1]="─";
+            matrix[startRow+1][startColumn+matrix[0].length/2]="1";
+        }
+    }
+
 
 
 
     public static void main(String[] args) throws IOException {
         Deck resourceDeck = new Deck(ResourceCard.class);
+        Deck goldDeck = new Deck(GoldCard.class);
+
+        ResourceCard card1= (ResourceCard) resourceDeck.getCards().getLast();
         String[][] playGround = new String[7][25];
-        printDeck(playGround, resourceDeck, 0, 0);
+        printResourceFront(playGround,card1,0,0);
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 25; j++) {
                 System.out.print(playGround[i][j]);
