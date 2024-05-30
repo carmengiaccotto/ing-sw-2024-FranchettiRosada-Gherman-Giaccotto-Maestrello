@@ -293,19 +293,19 @@ public class TUI implements UserInterface {
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 140; j++) {
                 if (i==2 && j==3)
-                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, cards.get(0).getFront());
+                    DesignSupportClass.printResourceFront(playGroundCards, cards.get(0),i,j,7,25);
                 if (i==2 && j==33)
-                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(0).getFront());
+                    DesignSupportClass.printGoldFront(playGroundCards, goldCards.get(0),i,j,7,25);
 
                 if (i==11 && j==3)
-                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, cards.get(1).getFront());
+                    DesignSupportClass.printResourceFront(playGroundCards, cards.get(1),i,j,7,25);
                 if(i==11 && j==33)
-                    PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(1).getFront());
+                    DesignSupportClass.printGoldFront(playGroundCards, goldCards.get(1),i,j,7,25);
 
                 if (i==2 && j==70)
-                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) resourceDeck.getCards().getLast(), i, j, 7, 25);
+                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) resourceDeck.getCards().getLast(), i, j,7,25);
                 if(i==11 && j==70)
-                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) goldDeck.getCards().getLast(), i, j, 7, 25);
+                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) goldDeck.getCards().getLast(), i, j,7,25);
             }
         }
 

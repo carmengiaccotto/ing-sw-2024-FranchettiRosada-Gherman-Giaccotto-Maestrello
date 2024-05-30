@@ -98,7 +98,7 @@ public class DesignSupportClass {
         String ANSIreset = "\u001B[0m";
         String[][] Matrix= DrawGeneralOutline(height,width,matrix, startRow, startColumn, color);
         for(CornerPosition position: CornerPosition.values()){
-            if (!front.getCornerInPosition(position).isHidden()) {
+            if (!(front.getCornerInPosition(position).isHidden() || front.getCornerInPosition(position).isCovered())){
                 cornerOutline(Matrix, position, startRow, startColumn, color, height, width);
                 Symbol symbol=null;
                 if(!front.getCornerInPosition(position).isCovered())
@@ -196,7 +196,9 @@ public class DesignSupportClass {
      * @param matrix where we want to print the card
      * @param card that we want to print
      * @param startRow row where we want to start to print
-     * @param startColumn column where we want to start to print*/
+     * @param startColumn column where we want to start to print
+     * @param h height dimension of the card
+     * @param w width dimension of the card*/
     public static void printResourceFront(String[][] matrix , ResourceCard card, int startRow, int startColumn, int h, int w){
         boolean points= card.getPoint(Side.FRONT);
         printFrontCard(matrix,card,startRow,startColumn,h, w );//designing a general front with corners and symbols inside it
@@ -211,9 +213,18 @@ public class DesignSupportClass {
         }
     }
 
+
+    /**Method that draws the front of Gold Cards, based on how the card gives points when placed
+     *@param matrix where we want to print the card
+     * @param card that we want to print
+     * @param startRow row where we want to start to print
+     * @param startColumn column where we want to start to print
+     * @param h height dimension of the card
+     * @param w width dimension of the card*/
     public static void printGoldFront(String[][] matrix , GoldCard card, int startRow, int startColumn, int h, int w){
         printFrontCard(matrix,card,startRow,startColumn, h, w);
         int points=card.getPoints(Side.FRONT);
+        //todo add requirements
         if (card instanceof PointPerVisibleSymbol)  {
             Symbol goal = ((PointPerVisibleSymbol) card).getGoldGoal();
             matrix[startRow][startColumn+ w/2-2]="┬";
@@ -251,6 +262,10 @@ public class DesignSupportClass {
 
     }
 
+    public static void printSymbolObjectiveCard(String[][] matrix, ObjectiveCard card, int startRow, int startColumn, int h, int w){
+        //TODO implement this method
+    }
+
 
 
 
@@ -269,7 +284,7 @@ public class DesignSupportClass {
                 playGround[i][j]=" ";
             }
         }
-        //printResourceFront(playGround,card1,11,0, 7, 25);
+        printResourceFront(playGround,card1,11,0, 7, 25);
         printGoldFront(playGround,card2,16,0, 7, 25);
         printGoldFront(playGround,card3,0,27, 7, 25);
         printGoldFront(playGround,card4,8,27, 7, 25);
