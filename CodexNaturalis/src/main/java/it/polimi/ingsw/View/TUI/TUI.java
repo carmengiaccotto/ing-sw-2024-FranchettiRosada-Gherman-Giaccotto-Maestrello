@@ -303,9 +303,9 @@ public class TUI implements UserInterface {
                     PrintCard.DrawCardDefaultDimensions(playGroundCards, i, j, goldCards.get(1).getFront());
 
                 if (i==2 && j==70)
-                    PrintCard.PrintDeck(playGroundCards, resourceDeck, i, j);
+                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) resourceDeck.getCards().getLast(), i, j);
                 if(i==11 && j==70)
-                    PrintCard.PrintDeck(playGroundCards, goldDeck, i, j);
+                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) goldDeck.getCards().getLast(), i, j);
             }
         }
 

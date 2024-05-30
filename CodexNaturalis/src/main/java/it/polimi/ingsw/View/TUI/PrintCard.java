@@ -79,40 +79,6 @@ public class PrintCard {
         }
     }
 
-    public static void PrintDeck(String[][] matrix ,Deck deck, int startRow, int startColumn){
-        PlayCard lastCard= (PlayCard) deck.getCards().getLast();
-        CardColors color=lastCard.getColor();
-        int[] rgb = GraphicUsage.getRGBColor(color);
-        String ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
-        String ANSIreset = "\u001B[0m";
-
-        for (int i = 0; i < cardHeight; i++) {
-            for (int j = 0; j < cardWidth; j++) {
-                if (i == 0 && j == cardWidth-1) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +  String.valueOf('┐')+ ANSIreset;
-                } else if ((i == 0 && j == 0)) {
-                    matrix[startRow + i][startColumn + j] =  ANSIbackgroundColor + String.valueOf('┌')+ ANSIreset;
-                }
-                else if ((i == cardHeight-1) && (j == cardWidth-1))
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +String.valueOf('┘')+ ANSIreset;
-                else if (i == cardHeight-1 && j == 0) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor +String.valueOf('└')+ ANSIreset;
-                }
-
-                else if ((i == 0 || i == cardHeight-1) && (j > 0 && j <cardWidth-1)) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + String.valueOf('─' )+ ANSIreset;
-                }
-                else if ((i > 0 && i < cardWidth-1) && (j == 0 || j == cardWidth-1)) {
-                    matrix[startRow + i][startColumn + j] = ANSIbackgroundColor + String.valueOf('│') + ANSIreset;
-                }
-                else {
-                    matrix[startRow + i][startColumn + j] = " " ;
-                }
-            }
-        }
-
-
-    }
 
 
 //    public  static void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
