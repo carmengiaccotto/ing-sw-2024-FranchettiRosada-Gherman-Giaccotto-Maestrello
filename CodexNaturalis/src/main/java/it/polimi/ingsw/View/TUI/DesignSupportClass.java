@@ -70,14 +70,11 @@ public class DesignSupportClass {
      * @param startRow row where we want to start to print
      * @param card whose back we want to draw
      * @param matrix where we want to draw the card*/
-    public static void printBackCard(String[][] matrix , PlayCard card, int startRow, int startColumn){
+    public static void printBackCard(String[][] matrix , PlayCard card, int startRow, int startColumn,  int height, int width){
         CardColors color=card.getColor();
         int[] rgb = GraphicUsage.getRGBColor(color);
         String ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String ANSIreset = "\u001B[0m";
-
-        int height=7;
-        int width=25;
 
         String[][] Matrix= DrawGeneralOutline(height,width,matrix, startRow, startColumn, color);
         String centralChar= GraphicUsage.cardColorDictionary.get(color);
@@ -86,7 +83,7 @@ public class DesignSupportClass {
         Matrix[startRow+height/2][startColumn+width/2+2]=ANSIbackgroundColor+"│"+ANSIreset;
 
         for(CornerPosition position: CornerPosition.values())
-            cornerOutline(Matrix,position,startRow,startColumn, color);
+            cornerOutline(Matrix,position,startRow,startColumn, color, height, width);
     }
 
 
@@ -96,24 +93,21 @@ public class DesignSupportClass {
      * @param card that we want to print
      * @param startRow row where we want to start to print
      * @param startColumn column where we want to start to print*/
-    public static void printFrontCard(String[][] matrix , PlayCard card, int startRow, int startColumn){
+    public static void printFrontCard(String[][] matrix , PlayCard card, int startRow, int startColumn, int height, int width){
         SideOfCard front=card.getFront();
         CardColors color=card.getColor();
         int[] rgb = GraphicUsage.getRGBColor(color);
         String ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String ANSIreset = "\u001B[0m";
-
-        int height=7;
-        int width=25;
         String[][] Matrix= DrawGeneralOutline(height,width,matrix, startRow, startColumn, color);
         for(CornerPosition position: CornerPosition.values()){
             if (!front.getCornerInPosition(position).isHidden()) {
-                cornerOutline(Matrix, position, startRow, startColumn, color);
+                cornerOutline(Matrix, position, startRow, startColumn, color, height, width);
                 Symbol symbol=null;
                 if(!front.getCornerInPosition(position).isCovered())
                     symbol=front.getCornerInPosition(position).getSymbol();
 
-                printSymbolInCorner(Matrix, position, startRow, startColumn,symbol);
+                printSymbolInCorner(Matrix, position, startRow, startColumn,symbol, height, width);
             }
 
         }
@@ -125,12 +119,10 @@ public class DesignSupportClass {
      * @param startRow row where we want to start to print
      * @param corner CornerPosition type
      * @param color of the card*/
-    public static void cornerOutline(String[][] card, CornerPosition corner, int startRow, int startColumn, CardColors color){
+    public static void cornerOutline(String[][] card, CornerPosition corner, int startRow, int startColumn, CardColors color, int h, int w){
         int[] rgb = GraphicUsage.getRGBColor(color);
         String ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String ANSIreset = "\u001B[0m";
-        int h= startRow+card.length;
-        int w= startColumn+card[0].length;
         switch(corner){
             case CornerPosition.TOPLEFT -> {
                 card[startRow][startColumn + 3] = ANSIbackgroundColor+"┬"+ANSIreset;
@@ -177,14 +169,12 @@ public class DesignSupportClass {
      *@param symbol that we want to print
      *@param corner CornerPosition type
      */
-    public static  void printSymbolInCorner(String[][] card, CornerPosition corner, int startRow, int startColumn, Symbol symbol){
+    public static  void printSymbolInCorner(String[][] card, CornerPosition corner, int startRow, int startColumn, Symbol symbol, int h, int w){
         String graphicSymbol=null;
         if (symbol==null)
             graphicSymbol=" ";
         else
             graphicSymbol=GraphicUsage.symbolDictionary.get(symbol);
-        int h= startRow+card.length;
-        int w= startColumn+card[0].length;
         switch(corner){
             case TOPLEFT -> {
                 card[startRow+1][startColumn+2]=graphicSymbol;
@@ -210,18 +200,24 @@ public class DesignSupportClass {
      * @param card that we want to print
      * @param startRow row where we want to start to print
      * @param startColumn column where we want to start to print*/
-    public static void printResourceFront(String[][] matrix , ResourceCard card, int startRow, int startColumn){
+    public static void printResourceFront(String[][] matrix , ResourceCard card, int startRow, int startColumn, int h, int w){
         boolean points= card.getPoint(Side.FRONT);
-        printFrontCard(matrix,card,startRow,startColumn);//designing a general front with corners and symbols inside it
+        printFrontCard(matrix,card,startRow,startColumn,h, w );//designing a general front with corners and symbols inside it
         if (points){
-            matrix[startRow][startColumn+ matrix[0].length/2-2]="┬";
-            matrix[startRow][startColumn+ matrix[0].length/2+2]="┬";
-            matrix[startRow+1][startColumn+matrix[0].length/2-2]="└";
-            matrix[startRow+1][startColumn+matrix[0].length/2+2]="┘";
-            matrix[startRow+1][startColumn+matrix[0].length/2-1]="─";
-            matrix[startRow+1][startColumn+matrix[0].length/2+1]="─";
-            matrix[startRow+1][startColumn+matrix[0].length/2]="1";
+            matrix[startRow][startColumn+ w/2-2]="┬";
+            matrix[startRow][startColumn+ w/2+2]="┬";
+            matrix[startRow+1][startColumn+w/2-2]="└";
+            matrix[startRow+1][startColumn+w/2+2]="┘";
+            matrix[startRow+1][startColumn+w/2-1]="─";
+            matrix[startRow+1][startColumn+w/2+1]="─";
+            matrix[startRow+1][startColumn+w/2]="1";
         }
+    }
+
+    public static void printGoldFront(String[][] matrix , GoldCard card, int startRow, int startColumn, int h, int w){
+        printFrontCard(matrix,card,startRow,startColumn, h, w);
+        int points=card.getPoints(Side.FRONT);
+        matrix[startRow][startColumn+ h/2-2]="┬";
     }
 
 
@@ -232,10 +228,15 @@ public class DesignSupportClass {
         Deck goldDeck = new Deck(GoldCard.class);
 
         ResourceCard card1= (ResourceCard) resourceDeck.getCards().getLast();
-        String[][] playGround = new String[7][25];
-        printResourceFront(playGround,card1,0,0);
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 25; j++) {
+        String[][] playGround = new String[45][90];
+        for (int i = 0; i < 45; i++) {
+            for (int j = 0; j <90; j++) {
+                playGround[i][j]=" ";
+            }
+        }
+        printResourceFront(playGround,card1,15,18, 7, 25);
+        for (int i = 0; i < 45; i++) {
+            for (int j = 0; j <90; j++) {
                 System.out.print(playGround[i][j]);
             }
             System.out.println();

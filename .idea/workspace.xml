@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Print front of resource cards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,14 +278,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00048" summary="Corner Factory Test, all tests passed. Removed EMPTY from Symbol, Updated Corner Test">
-      <option name="closed" value="true" />
-      <created>1713462539365</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1713462539365</updated>
     </task>
     <task id="LOCAL-00049" summary="Renamed JSON for ParseInt purpose, added Javadocs">
       <option name="closed" value="true" />
@@ -670,7 +663,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717029821610</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="Print front of resource cards">
+      <option name="closed" value="true" />
+      <created>1717080140311</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1717080140312</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -714,7 +715,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added MainController class." />
     <MESSAGE value="Delete enumeration." />
     <MESSAGE value="Removed library." />
     <MESSAGE value="Fixed Imports and Updated pom.xml" />
@@ -739,7 +739,8 @@
     <MESSAGE value="Fixed bugs in extractPlayerHandCards method" />
     <MESSAGE value="Updated some TUI methods" />
     <MESSAGE value="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Process of substituting the methods that print the cards, with new methods in DesignSupportClass.  Deck design modified, showCommonCards in TUI updated" />
+    <MESSAGE value="Print front of resource cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="Print front of resource cards" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
