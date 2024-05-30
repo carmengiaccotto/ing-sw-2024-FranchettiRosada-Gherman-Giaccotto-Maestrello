@@ -1,10 +1,7 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Model.CardColors;
-import it.polimi.ingsw.Model.Cards.GoldCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.ResourceCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.PlayGround.Deck;
@@ -217,7 +214,41 @@ public class DesignSupportClass {
     public static void printGoldFront(String[][] matrix , GoldCard card, int startRow, int startColumn, int h, int w){
         printFrontCard(matrix,card,startRow,startColumn, h, w);
         int points=card.getPoints(Side.FRONT);
-        matrix[startRow][startColumn+ h/2-2]="┬";
+        if (card instanceof PointPerVisibleSymbol)  {
+            Symbol goal = ((PointPerVisibleSymbol) card).getGoldGoal();
+            matrix[startRow][startColumn+ w/2-2]="┬";
+            matrix[startRow][startColumn+ w/2+3]="┬";
+            matrix[startRow+1][startColumn+w/2-2]="└";
+            matrix[startRow+1][startColumn+w/2+3]="┘";
+            matrix[startRow+1][startColumn+w/2+3]="┘";
+            matrix[startRow+1][startColumn+w/2-1]="─";
+            matrix[startRow+1][startColumn+w/2+2]="─";
+            matrix[startRow+1][startColumn+w/2]=""+points;
+            matrix[startRow+1][startColumn+w/2+1]=GraphicUsage.symbolDictionary.get(goal);
+
+        }
+        else if(card instanceof PointPerCoveredCorner){
+            matrix[startRow][startColumn+ w/2-2]="┬";
+            matrix[startRow][startColumn+ w/2+3]="┬";
+            matrix[startRow+1][startColumn+w/2-2]="└";
+            matrix[startRow+1][startColumn+w/2+3]="┘";
+            matrix[startRow+1][startColumn+w/2+3]="┘";
+            matrix[startRow+1][startColumn+w/2-1]="─";
+            matrix[startRow+1][startColumn+w/2+2]="─";
+            matrix[startRow+1][startColumn+w/2]=""+points;
+            matrix[startRow+1][startColumn+w/2+1]="■";
+        }
+        else{
+            matrix[startRow][startColumn+ w/2-2]="┬";
+            matrix[startRow][startColumn+ w/2+2]="┬";
+            matrix[startRow+1][startColumn+w/2-2]="└";
+            matrix[startRow+1][startColumn+w/2+2]="┘";
+            matrix[startRow+1][startColumn+w/2-1]="─";
+            matrix[startRow+1][startColumn+w/2+1]="─";
+            matrix[startRow+1][startColumn+w/2]=""+points;
+
+        }
+
     }
 
 
@@ -228,13 +259,20 @@ public class DesignSupportClass {
         Deck goldDeck = new Deck(GoldCard.class);
 
         ResourceCard card1= (ResourceCard) resourceDeck.getCards().getLast();
+        GoldCard card2= (GoldCard) goldDeck.getCards().getFirst();
+        GoldCard card3= (GoldCard) goldDeck.getCards().get(4);
+        GoldCard card4= (GoldCard) goldDeck.getCards().get(7);
+
         String[][] playGround = new String[45][90];
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 playGround[i][j]=" ";
             }
         }
-        printResourceFront(playGround,card1,15,18, 7, 25);
+        //printResourceFront(playGround,card1,11,0, 7, 25);
+        printGoldFront(playGround,card2,16,0, 7, 25);
+        printGoldFront(playGround,card3,0,27, 7, 25);
+        printGoldFront(playGround,card4,8,27, 7, 25);
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 System.out.print(playGround[i][j]);
