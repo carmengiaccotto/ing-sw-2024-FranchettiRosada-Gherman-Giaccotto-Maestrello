@@ -296,6 +296,9 @@ public class DesignSupportClass {
         matrix[startRow+2][startColumn+w/2+2]="─";
         matrix[startRow+2][startColumn+w/2]="─";
         matrix[startRow+1][startColumn+w/2]=""+points;
+        matrix[startRow+h-3][startColumn+w/2]=GraphicUsage.symbolDictionary.get(goalList.getLast());
+        matrix[startRow+h-5][startColumn+w/2-3]=GraphicUsage.symbolDictionary.get(goalList.getFirst());
+        matrix[startRow+h-5][startColumn+w/2+3]=GraphicUsage.symbolDictionary.get(goalList.get(1));
 
     }
 
