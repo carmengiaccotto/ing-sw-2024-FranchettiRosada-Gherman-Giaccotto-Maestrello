@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="GoldCards design">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="SymbolObjectiveCard design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/module-info.java" afterDir="false" />
@@ -163,7 +163,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DesignSupportClass">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
       <module name="PSP22" />
@@ -240,10 +240,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DesignSupportClass" />
-        <item itemvalue="Application.PrintCards" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerManager" />
+        <item itemvalue="Application.DesignSupportClass" />
+        <item itemvalue="Application.PrintCards" />
         <item itemvalue="JUnit.PlayerTest" />
       </list>
     </recent_temporary>
@@ -278,22 +278,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00051" summary="EdgePosition Class modified. All tests passed. &#10;Other classes minor changes">
-      <option name="closed" value="true" />
-      <created>1713806459919</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1713806459919</updated>
-    </task>
-    <task id="LOCAL-00052" summary="EdgePositionsTest and Pair Class overrided functions">
-      <option name="closed" value="true" />
-      <created>1713864887708</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1713864887709</updated>
     </task>
     <task id="LOCAL-00053" summary="Packages">
       <option name="closed" value="true" />
@@ -671,7 +655,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717103315570</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="added requirements print to goldCards">
+      <option name="closed" value="true" />
+      <created>1717192906748</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1717192906748</updated>
+    </task>
+    <task id="LOCAL-00101" summary="SymbolObjectiveCard design">
+      <option name="closed" value="true" />
+      <created>1717193162396</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1717193162396</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,8 +715,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed Imports and Updated pom.xml" />
-    <MESSAGE value="Run method in GameController implemented" />
     <MESSAGE value="Run method in MainController implemented and updated Servermanager" />
     <MESSAGE value="RMI server and RMI client, controller and TUI new Implementations" />
     <MESSAGE value="TUI and UserInterface methods" />
@@ -740,7 +738,9 @@
     <MESSAGE value="Print front of resource cards" />
     <MESSAGE value="fixed card customizable dimensions" />
     <MESSAGE value="GoldCards design" />
-    <option name="LAST_COMMIT_MESSAGE" value="GoldCards design" />
+    <MESSAGE value="added requirements print to goldCards" />
+    <MESSAGE value="SymbolObjectiveCard design" />
+    <option name="LAST_COMMIT_MESSAGE" value="SymbolObjectiveCard design" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
