@@ -157,7 +157,6 @@ public class JsonCardsMapper {
             for (CornerPosition corner : CornerPosition.values()) {
                 if (entry.getKey().toUpperCase().equals(corner.toString())) {
                     position = corner;
-                    break;
                 }
             }
 
@@ -165,7 +164,6 @@ public class JsonCardsMapper {
                 for (UpDownPosition pos : UpDownPosition.values()) {
                     if (entry.getKey().toUpperCase().equals(pos.toString())) {
                         position = pos;
-                        break;
                     }
                 }
             }

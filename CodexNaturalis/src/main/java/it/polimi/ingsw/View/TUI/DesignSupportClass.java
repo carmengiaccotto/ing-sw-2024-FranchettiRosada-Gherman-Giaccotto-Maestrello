@@ -4,7 +4,10 @@ import it.polimi.ingsw.Model.CardColors;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
+import it.polimi.ingsw.Model.Position;
 import it.polimi.ingsw.Model.Symbol;
 
 import java.io.IOException;
@@ -274,6 +277,13 @@ public class DesignSupportClass {
 
     }
 
+    /**Method that prints the SymbolObjectiveCard.
+     *@param matrix where we want to print the card
+     *@param card that we want to print
+     *@param startRow row where we want to start to print
+     *@param startColumn column where we want to start to print
+     *@param h height dimension of the card
+     *@param w width dimension of the card*/
     public static void printSymbolObjectiveCard(String[][] matrix, SymbolObjectiveCard card, int startRow, int startColumn, int h, int w){
         Map<Symbol, Integer> objectives=card.getGoal();
         ArrayList<Symbol> goalList=new ArrayList<>();
@@ -302,6 +312,59 @@ public class DesignSupportClass {
 
     }
 
+    /**support method for the Disposition Design*/
+    public static Pair<Integer, Integer> getStartingPosition(Position p){
+        if(p== CornerPosition.TOPLEFT){
+            return new Pair<>(-1, -4);
+        }else if (p== CornerPosition.TOPRIGHT){
+            return new Pair<>(-1, +4);
+        }else if (p== UpDownPosition.UP){
+            return new Pair<>(-2, 0);
+        } else if (p==CornerPosition.BOTTOMLEFT) {
+            return new Pair<>(1, -4);
+        } else if (p== CornerPosition.BOTTOMRIGHT){
+            return new Pair<>(1, 4);
+        } else if (p== UpDownPosition.DOWN){
+            return new Pair<>(2, 0);
+        }
+        else return new Pair<>(0, 0);
+
+    }
+    /**Method that prints the dispositionObjectiveCard.
+     *@param matrix where we want to print the card
+     *@param card that we want to print
+     *@param startRow row where we want to start to print
+     *@param startColumn column where we want to start to print
+     *@param h height dimension of the card
+     *@param w width dimension of the card
+      */
+    public static void printDispositionObjectiveCard(String[][] matrix, DispositionObjectiveCard card,int startRow, int startColumn, int h, int w){
+        CardColors color=card.getCentralCardColor();
+        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
+        Map<Position, CardColors> neighbors=card.getNeighbors();
+        int centralCardRow=startRow+h/2;
+        int centralCardColumn=startColumn+w/2-2;
+        int height=2;
+        int width=6;
+        DrawGeneralOutline(height, width, matrix, centralCardRow, centralCardColumn, color);
+        for(Position p: neighbors.keySet()){
+            Pair<Integer, Integer> position=getStartingPosition(p);
+            int row=centralCardRow+position.getFirst();
+            int column=centralCardColumn+position.getSecond();
+            DrawGeneralOutline(height, width, matrix, row, column, neighbors.get(p));
+
+        }
+        int points=card.getPoints().getValue();
+        matrix[startRow][startColumn+ w/2-2]="┬";
+        matrix[startRow][startColumn+ w/2+2]="┬";
+        matrix[startRow+1][startColumn+w/2-2]="└";
+        matrix[startRow+1][startColumn+w/2+2]="┘";
+        matrix[startRow+1][startColumn+w/2-1]="─";
+        matrix[startRow+1][startColumn+w/2+1]="─";
+        matrix[startRow+1][startColumn+w/2]=""+points;
+
+    }
+
 
 
 
@@ -326,8 +389,10 @@ public class DesignSupportClass {
 //        printGoldFront(playGround,card4,8,27, 7, 25);
 
         Deck objectiveDeck= new Deck(ObjectiveCard.class);
-        SymbolObjectiveCard card5= (SymbolObjectiveCard) objectiveDeck.getCards().get(10);
-        printSymbolObjectiveCard(playGround,card5, 0, 0, 9, 31);
+        //SymbolObjectiveCard card5= (SymbolObjectiveCard) objectiveDeck.getCards().get(10);
+        //printSymbolObjectiveCard(playGround,card5, 0, 0, 9, 31);
+        DispositionObjectiveCard card6= (DispositionObjectiveCard) objectiveDeck.getCards().get(7);
+        printDispositionObjectiveCard(playGround,card6, 0, 0, 9, 31);
 
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {

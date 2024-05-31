@@ -7,8 +7,8 @@
           "points": 2,
           "CentralCardColor": "RED",
           "NEIGHBORS": {
-            "TOP RIGHT": "RED",
-            "BOTTOM LEFT": "RED"
+            "TOPRIGHT": "RED",
+            "BOTTOMLEFT": "RED"
           }
         },
         {
@@ -16,7 +16,7 @@
           "points": 2,
           "CentralCardColor": "GREEN",
           "NEIGHBORS": {
-            "TOP lEFT": "GREEN",
+            "TOPlEFT": "GREEN",
             "BOTTOM RIGHT": "GREEN"
 
           }
@@ -26,8 +26,8 @@
           "points": 2,
           "CentralCardColor": "BLUE",
           "NEIGHBORS": {
-            "TOP RIGHT": "BLUE",
-            "BOTTOM LEFT": "BLUE"
+            "TOPRIGHT": "BLUE",
+            "BOTTOMLEFT": "BLUE"
 
           }
 
@@ -37,8 +37,8 @@
           "points": 2,
           "CentralCardColor": "PURPLE",
           "NEIGHBORS": {
-            "TOP lEFT": "PURPLE",
-            "BOTTOM RIGHT": "PURPLE"
+            "TOPlEFT": "PURPLE",
+            "BOTTOMRIGHT": "PURPLE"
 
           }
         },
@@ -48,7 +48,7 @@
           "CentralCardColor": "RED",
           "NEIGHBORS": {
             "UP": "RED",
-            "BOTTOM RIGHT": "GREEN"
+            "BOTTOMRIGHT": "GREEN"
 
           }
         },
@@ -58,7 +58,7 @@
           "CentralCardColor": "GREEN",
           "NEIGHBORS": {
             "UP": "GREEN",
-            "BOTTOM LEFT": "PURPLE"
+            "BOTTOMLEFT": "PURPLE"
 
           }
         },
@@ -67,7 +67,7 @@
           "points": 3,
           "CentralCardColor": "BLUE",
           "NEIGHBORS": {
-            "TOP RIGHT": "RED",
+            "TOPRIGHT": "RED",
             "DOWN": "BLUE"
           }
         },
@@ -76,7 +76,7 @@
           "points": 3,
           "CentralCardColor": "PURPLE",
           "NEIGHBORS": {
-            "TOP lEFT": "BLUE",
+            "TOPLEFT": "BLUE",
             "DOWN": "PURPLE"
 
           }

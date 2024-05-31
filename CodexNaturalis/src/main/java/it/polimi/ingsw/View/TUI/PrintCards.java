@@ -6,11 +6,13 @@ import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Cards.SymbolObjectiveCard;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
+import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Position;
 import it.polimi.ingsw.Model.Symbol;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PrintCards {
@@ -131,13 +133,13 @@ public class PrintCards {
 
 
     public static void main(String[] args){
-//        Map<Position, CardColors> neighbors=new HashMap<>();
-//        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
-//        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
-//        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
-//        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
-//        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
-//        printDispositionCard(card);
+        Map<Position, CardColors> neighbors=new HashMap<>();
+        neighbors.put(CornerPosition.BOTTOMLEFT, CardColors.BLUE);
+        neighbors.put(UpDownPosition.UP, CardColors.PURPLE);
+        neighbors.put(CornerPosition.TOPRIGHT, CardColors.BLUE);
+        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
+        DispositionObjectiveCard card=new DispositionObjectiveCard(1, ObjectivePoints.THREE,CardColors.GREEN, neighbors);
+        printDispositionCard(card);
 //
 //        HashMap<Symbol, Integer> requirements=new HashMap<>();
 //        requirements.put(Symbol.ANIMAL, 2);
