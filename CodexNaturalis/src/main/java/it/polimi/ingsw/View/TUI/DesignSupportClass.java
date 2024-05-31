@@ -8,6 +8,8 @@ import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.Symbol;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class DesignSupportClass {
 
@@ -224,7 +226,17 @@ public class DesignSupportClass {
     public static void printGoldFront(String[][] matrix , GoldCard card, int startRow, int startColumn, int h, int w){
         printFrontCard(matrix,card,startRow,startColumn, h, w);
         int points=card.getPoints(Side.FRONT);
-        //todo add requirements
+        ArrayList<Symbol> requirements=new ArrayList<>();
+        for (Symbol symbol: card.getRequirement(Side.FRONT).keySet()){
+            for (int i=0; i<card.getRequirement(Side.FRONT).get(symbol); i++){
+                requirements.add(symbol);
+            }
+        }
+        int offset=w/2- requirements.size()/2;
+        for (int i=offset; i<offset+requirements.size(); i++){
+            matrix[startRow+h-3][startColumn+i]=""+GraphicUsage.symbolDictionary.get(requirements.get(i-offset));
+        }
+
         if (card instanceof PointPerVisibleSymbol)  {
             Symbol goal = ((PointPerVisibleSymbol) card).getGoldGoal();
             matrix[startRow][startColumn+ w/2-2]="┬";
@@ -262,8 +274,29 @@ public class DesignSupportClass {
 
     }
 
-    public static void printSymbolObjectiveCard(String[][] matrix, ObjectiveCard card, int startRow, int startColumn, int h, int w){
-        //TODO implement this method
+    public static void printSymbolObjectiveCard(String[][] matrix, SymbolObjectiveCard card, int startRow, int startColumn, int h, int w){
+        Map<Symbol, Integer> objectives=card.getGoal();
+        ArrayList<Symbol> goalList=new ArrayList<>();
+        for(Symbol s: objectives.keySet()){
+            for(int i=0; i<objectives.get(s); i++){
+                goalList.add(s);
+            }
+        }
+        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
+        int points= card.getPoints().getValue();
+        matrix[startRow][startColumn+ w/2-3]="┬";
+        matrix[startRow][startColumn+ w/2+3]="┬";
+        matrix[startRow+2][startColumn+w/2-3]="└";
+        matrix[startRow+2][startColumn+w/2+3]="┘";
+        matrix[startRow+1][startColumn+w/2-3]="│";
+        matrix[startRow+1][startColumn+w/2+3]="│";
+        matrix[startRow+2][startColumn+w/2-1]="─";
+        matrix[startRow+2][startColumn+w/2+1]="─";
+        matrix[startRow+2][startColumn+w/2-2]="─";
+        matrix[startRow+2][startColumn+w/2+2]="─";
+        matrix[startRow+2][startColumn+w/2]="─";
+        matrix[startRow+1][startColumn+w/2]=""+points;
+
     }
 
 
@@ -284,10 +317,15 @@ public class DesignSupportClass {
                 playGround[i][j]=" ";
             }
         }
-        printResourceFront(playGround,card1,11,0, 7, 25);
-        printGoldFront(playGround,card2,16,0, 7, 25);
-        printGoldFront(playGround,card3,0,27, 7, 25);
-        printGoldFront(playGround,card4,8,27, 7, 25);
+        //printResourceFront(playGround,card1,11,0, 7, 25);
+//        printGoldFront(playGround,card2,16,0, 7, 25);
+//        printGoldFront(playGround,card3,0,27, 7, 25);
+//        printGoldFront(playGround,card4,8,27, 7, 25);
+
+        Deck objectiveDeck= new Deck(ObjectiveCard.class);
+        SymbolObjectiveCard card5= (SymbolObjectiveCard) objectiveDeck.getCards().get(10);
+        printSymbolObjectiveCard(playGround,card5, 0, 0, 9, 31);
+
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 System.out.print(playGround[i][j]);
