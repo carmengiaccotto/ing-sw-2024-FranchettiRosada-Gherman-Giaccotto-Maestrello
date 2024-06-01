@@ -114,8 +114,8 @@ public class TUI implements UserInterface {
     @Override
     public int createOrJoin() {
         System.out.println("Do you want to create a new game or join an existing one? ");
-        System.out.println("[0]: Create new Game ");
-        System.out.println("[1]: Join existing one ");
+        System.out.println(" [0] Create new Game ");
+        System.out.println(" [1] Join existing one ");
         return scanner.nextInt();
 
     }
@@ -128,7 +128,7 @@ public class TUI implements UserInterface {
      */
     @Override
     public int MaxNumPlayers() {
-        System.out.println("How Many Players do you want to have for this match? Please select a Number between 2 and 4");
+        System.out.println("How Many Players do you want to have for this match? Please select a Number between 2 and 4!");
         return scanner.nextInt();
     }
 
@@ -168,7 +168,7 @@ public class TUI implements UserInterface {
     public int displayAvailableColors(ArrayList<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
         for (int i = 0; i < availableColors.size(); i++) {
-            System.out.println("[" + (i + 1) + "]" + availableColors.get(i).toString());
+            System.out.println(" [" + (i + 1) + "]" + availableColors.get(i).toString());
         }
         return (scanner.nextInt());
     }
@@ -210,12 +210,13 @@ public class TUI implements UserInterface {
     @Override
     public Command receiveCommand() {
         System.out.println("Select a command: [MOVE/CHAT]");
-        String command = scanner.nextLine().toUpperCase();
+        String command = "";
         while (!command.equals("MOVE") && !command.equals("CHAT")) {
-            System.out.println("Please insert a valid command: [MOVE/CHAT]");
             command = scanner.nextLine().toUpperCase();
+            if (!command.equals("MOVE") && !command.equals("CHAT")) {
+                System.out.println("Please insert a valid command: [MOVE/CHAT]");
+            }
         }
-
         return Command.valueOf(command.toUpperCase());
     }
 

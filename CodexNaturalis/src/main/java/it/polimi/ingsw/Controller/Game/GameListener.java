@@ -12,11 +12,11 @@ public class GameListener implements Serializable {
 
     private List<ClientControllerInterface> players = new ArrayList<>();
 
-    public void updatePlayers(ClientControllerInterface newPlayer) throws RemoteException {
+
+    public void updatePlayers(String message, ClientControllerInterface currentPlayer) throws RemoteException {
         for (ClientControllerInterface player : players) {
-            if (player != newPlayer) {
-                player.sendUpdateMessage(newPlayer.getNickname() + " joined the game.");
-                //player.addOpponent(newPlayer);
+            if (player != currentPlayer) {
+                player.sendUpdateMessage(message);
             }
         }
     }
@@ -31,6 +31,7 @@ public class GameListener implements Serializable {
     public void updatePlayers(String message) throws RemoteException {
         for (ClientControllerInterface player : players) {
             player.sendUpdateMessage(message);
+
         }
     }
 
@@ -46,7 +47,7 @@ public class GameListener implements Serializable {
             try {
                 player.showBoardAndPlayAreas(model);
             } catch (RemoteException e) {
-                System.out.println("Errore durante la chiamata a showBoardAndPlayAreas: " + e.getMessage());
+                System.out.println("Error during call to showBoardAndPlayAreas: " + e.getMessage());
             }
         }
     }

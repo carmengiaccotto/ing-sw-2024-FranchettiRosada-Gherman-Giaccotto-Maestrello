@@ -182,7 +182,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
         try {
             System.out.println("Notifying players that a new player has joined the game...");
-            getListener().updatePlayers(newPlayer);
+            getListener().updatePlayers(newPlayer.getNickname() + " joined the game.", newPlayer);
         } catch (RemoteException e) {
             System.out.println("An error Occurred during Players update: " + e.getMessage());
             e.printStackTrace();
@@ -226,7 +226,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     turnLock.lock();
                     try {
                         SideOfCard handCard = client.chooseCardToPlay(); //TODO put methods to play the card
-                        listener.updatePlayers(client.getNickname() + "has played a card");
+                        listener.updatePlayers(client.getNickname() + "has played a card", client);
                         listener.updatePlayers(getModel());
                         PlayCard card = client.chooseCardToDraw(model);
                         client.getPlayer().addCardToHand(card);
@@ -235,7 +235,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         listener.updatePlayers(getModel());
                         numOfLastPlayer = (numOfLastPlayer + 1) % listener.getPlayers().size();
                         model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
-                        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+                        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!", listener.getPlayers().get(numOfLastPlayer));
                         startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
                     } finally {
                         turnLock.unlock();
@@ -277,11 +277,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     ArrayList<ObjectiveCard> objectiveList = drawObjectiveCardForPlayer();
                     int indexOfCard = c.choosePersonaObjectiveCard(objectiveList);
                     c.setPersonalObjectiveCard(objectiveList.get(indexOfCard));
-                    listener.updatePlayers(c.getNickname() + "has chosen his personal Objective card.");
+                    listener.updatePlayers(c.getNickname() + " has chosen his personal Objective card.", c);
                     InitialCard card = extractInitialCard();
                     String side = c.chooseSideInitialCard(card);
                     playInitialCard(c, card.chooseSide(Side.valueOf(side)));
-                    listener.updatePlayers(c.getNickname() + "has played his initial card.");
+                    listener.updatePlayers(c.getNickname() + " has played his initial card.", c);
                     listener.updatePlayers(getModel());
                 }
                 setStatus(GameStatus.RUNNING);
@@ -290,23 +290,24 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             case RUNNING -> {
                 numOfLastPlayer = 0;
                 model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
-                listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+                listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!", listener.getPlayers().get(numOfLastPlayer));
                 startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
-                for (ClientControllerInterface c : listener.getPlayers()) {
-                    while(true) {
+                while(true) {
+                    for (ClientControllerInterface c : listener.getPlayers()) {
                         if (scoreMaxReached()) {
+                            setStatus(GameStatus.LAST_CIRCLE);
                             break;
                         }
+                        System.out.println("Sono arrivato qui, e " + c.getNickname() + " sta giocando"); //TODO
                         c.receiveCommand();
                     }
                 }
-                setStatus(GameStatus.LAST_CIRCLE);
 
             }
             case LAST_CIRCLE -> {
                 int adjustedNumOfLastPlayer = ((numOfLastPlayer - 1) + listener.getPlayers().size()) % listener.getPlayers().size();
                 if (adjustedNumOfLastPlayer < (listener.getPlayers().size() - 1)) {
-                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(adjustedNumOfLastPlayer).getNickname() + "has reached the maximum score!");
+                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(adjustedNumOfLastPlayer).getNickname() + "has reached the maximum score!", listener.getPlayers().get(adjustedNumOfLastPlayer));
                     for (ClientControllerInterface c : listener.getPlayers()) {
                     while(true) {
                         if (numOfLastPlayer == listener.getPlayers().size() - 1){
@@ -359,7 +360,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private void passPlayerTurn() throws RemoteException {
         numOfLastPlayer = (numOfLastPlayer + 1) % listener.getPlayers().size();
         model.setCurrentPlayer(listener.getPlayers().get(numOfLastPlayer).getNickname());
-        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!");
+        listener.updatePlayers("It's " + listener.getPlayers().get(numOfLastPlayer).getNickname() + "'s turn!", listener.getPlayers().get(numOfLastPlayer));
         startTurnTimer(listener.getPlayers().get(numOfLastPlayer));
     }
 
