@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class JsonDeckCreator {
     private JsonCardsMapper mapper;
 
-
     /**
      * JSON General Deck Constructor
      *
@@ -22,12 +21,10 @@ public class JsonDeckCreator {
      * @return deck arrayList od cards on the desired type
      * JSON Card files and Card Classes have the sam name, so we use DeckType.getSimpleName() to build the Json path
      */
-    public static ArrayList<? extends Card> createDeckFromJson(Class<? extends Card> DeckType) throws IllegalArgumentException, IOException {
+    public static ArrayList<? extends Card> createDeckFromJson(Class<? extends Card> DeckType, String filePath) throws IllegalArgumentException, IOException {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
-        String filePath = "CodexNaturalis/src/main/resources/" + DeckType.getSimpleName() + ".Json";
-
         try (FileReader fileReader = new FileReader(filePath)) {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);

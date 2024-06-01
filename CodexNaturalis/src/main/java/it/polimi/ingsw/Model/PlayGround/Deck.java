@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**This is the class that implements the generic deck of cards*/
 public class Deck implements Serializable {
     private final ArrayList<? extends Card> deck;
+    private String filepath = "CodexNaturalis/src/main/resources/";
 
 
 
@@ -17,7 +18,8 @@ public class Deck implements Serializable {
 
     /**Class Constructor*/
     public Deck(Class<? extends Card> DeckType) throws IOException {
-        this.deck = JsonDeckCreator.createDeckFromJson(DeckType);
+        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
+        this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
     }
 
 

@@ -11,31 +11,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class JsonDeckCreatorTest {
+    private String filePath="src/main/resources/";
 
     @Test
     public void TestDeckCreatorGoldCards() throws IOException {
-        ArrayList<GoldCard> goldDeck = (ArrayList<GoldCard>) JsonDeckCreator.createDeckFromJson(GoldCard.class);
+        filePath=filePath.concat("GoldCard.json");
+        ArrayList<GoldCard> goldDeck = (ArrayList<GoldCard>) JsonDeckCreator.createDeckFromJson(GoldCard.class, filePath);
         Assertions.assertNotNull(goldDeck);
 
     }
 
     @Test
     public void TestDeckCreatorInitialCard() throws IOException {
-        ArrayList<InitialCard> initialCards = (ArrayList<InitialCard>) JsonDeckCreator.createDeckFromJson(InitialCard.class);
+        filePath=filePath.concat("InitialCard.json");
+        ArrayList<InitialCard> initialCards = (ArrayList<InitialCard>) JsonDeckCreator.createDeckFromJson(InitialCard.class,filePath);
         Assertions.assertNotNull(initialCards);
 
     }
 
     @Test
     public void TestDeckCreatorResourceCard() throws IOException {
-        ArrayList<ResourceCard> resourceDeck = (ArrayList<ResourceCard>) JsonDeckCreator.createDeckFromJson(ResourceCard.class);
+        filePath=filePath.concat("ResourceCard.json");
+        ArrayList<ResourceCard> resourceDeck = (ArrayList<ResourceCard>) JsonDeckCreator.createDeckFromJson(ResourceCard.class, filePath);
         Assertions.assertNotNull(resourceDeck);
 
     }
 
     @Test
     public void TestDeckObjectiveCard() throws IOException {
-        ArrayList<ObjectiveCard> deck = (ArrayList<ObjectiveCard>) JsonDeckCreator.createDeckFromJson(ObjectiveCard.class);
+        filePath=filePath.concat("ObjectiveCard.json");
+        ArrayList<ObjectiveCard> deck = (ArrayList<ObjectiveCard>) JsonDeckCreator.createDeckFromJson(ObjectiveCard.class, filePath);
         Assertions.assertNotNull(deck);
     }
 }
