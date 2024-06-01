@@ -70,4 +70,5 @@ public interface ClientControllerInterface extends Remote {
 
     void setGame(GameControllerInterface game) throws RemoteException;
 
+    ObjectiveCard getPersonalObjectiveCard() throws RemoteException;
 }

@@ -31,6 +31,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         this.game = game;
     }
 
+    @Override
+    public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
+        return player.getPersonalObjectiveCard();
+    }
+
 
     /**getter method for PawnColor attribute in Player attribute
      * @return pawnColor that the player chose when joining the game */
@@ -156,11 +161,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         Command c=  view.receiveCommand();
         game.receiveMessage(c, this);
     }
-
+ //todo qui potremmo chiamare direttamente il metodoplayInitial
     @Override
     public String chooseSideInitialCard(InitialCard c)throws RemoteException {
-        System.out.println("This is your Initial Card!");
-        //todo design initial card
+        view.showInitialCard(c);
         String side = view.chooseSide();
         return side;
     }

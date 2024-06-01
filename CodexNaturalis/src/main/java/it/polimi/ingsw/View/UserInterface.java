@@ -7,6 +7,7 @@ import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public interface UserInterface {
     int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException;
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
-    void playInitialCard(SideOfCard side, PlayArea playArea);
+
+    void showInitialCard(InitialCard card);
 
     int  displayAvailableColors(ArrayList<PawnColor> availableColors);
 
@@ -49,6 +51,8 @@ public interface UserInterface {
 
     void showCardsInHand(ArrayList<PlayCard> cards);
 
+    void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents ) throws RemoteException;
+
     void showOpponentPlayArea(ClientControllerInterface opponent);
 
     void showPlayerInfo(ClientControllerInterface client);
@@ -56,6 +60,7 @@ public interface UserInterface {
     void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck);
 
     void showMyPlayArea(PlayArea playArea);
+
 
 
 }

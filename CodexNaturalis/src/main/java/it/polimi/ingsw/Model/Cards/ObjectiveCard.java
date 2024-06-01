@@ -2,10 +2,12 @@ package it.polimi.ingsw.Model.Cards;
 
 import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 
+import java.io.Serializable;
+
 /** Class that represents the Objective Cards of the game.
  */
 
-public class ObjectiveCard extends Card {
+public class ObjectiveCard extends Card implements Serializable {
     private ObjectivePoints points;
 
     /**Class Constructor*/

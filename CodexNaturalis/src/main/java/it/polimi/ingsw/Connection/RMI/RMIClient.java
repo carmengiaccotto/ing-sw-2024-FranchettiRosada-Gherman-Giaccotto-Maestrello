@@ -246,6 +246,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         controller.setGame(game);
     }
 
+    @Override
+    public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
+        return controller.getPersonalObjectiveCard();
+    }
 
 
 

@@ -7,6 +7,7 @@ import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
+import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.rmi.RemoteException;
@@ -39,7 +40,7 @@ public class TUI implements UserInterface {
     @Override
     public int chooseCardToPlay(ArrayList<PlayCard> cardInHand) {
         System.out.println("Those are the cards in your hand: ");
-        //showCardsInHand(cardInHand);
+        showCardsInHand(cardInHand);
         System.out.println("Which card do you want to play? [1/2/3]");
         int c = Integer.parseInt(scanner.next());
         while ((c != 1) && (c != 2) && (c != 3)) {
@@ -47,6 +48,26 @@ public class TUI implements UserInterface {
             c = Integer.parseInt(scanner.next());
         }
         return c;
+    }
+
+    public void showInitialCard(InitialCard card){
+        System.out.println("This is your initial card: ");
+        String[][] frontBack= new String[11][70];
+        for(int i=0; i<11; i++){
+            for(int j=0; j<70; j++){
+                frontBack[i][j]=" ";
+            }
+        }
+        frontBack[0][10]="FRONT";
+        frontBack[0][40]="BACK";
+        DesignSupportClass.printCard(frontBack, card.getFront(), 0, 0, 10, 34);
+        DesignSupportClass.printCard(frontBack, card.getBack(), 0, 36, 10, 34);
+        for(int i=0; i<11; i++){
+            for(int j=0; j<70; j++){
+                System.out.print(frontBack[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     @Override
@@ -72,11 +93,6 @@ public class TUI implements UserInterface {
     }
 
 
-    @Override
-    public void playInitialCard(SideOfCard s, PlayArea playArea) {
-        PrintPlayArea.DrawMyPlayArea(playArea);
-
-    }
 
     /**
      * Prompts the user to choose a nickname.
@@ -225,14 +241,40 @@ public class TUI implements UserInterface {
     /**Method that shows the player the cards they have in hand and can play during their turn
      * @param cards that the player has in its hand*/
     public void showCardsInHand(ArrayList<PlayCard> cards) {
-        for(int i=0; i<3; i++){
+        for(int i=0; i<cards.size(); i++){
             System.out.println("[" + (i + 1) + "]"); //print the index of the card
             String[][] frontBack= new String[10][70];
+            for(int j=0; j<10; j++){
+                for(int k=0; k<70; k++){
+                    frontBack[j][k]=" ";
+                }
+            }
             DesignSupportClass.printCard(frontBack, cards.get(i).getFront(), 0, 0, 10, 34);
-            DesignSupportClass.printCard(frontBack, cards.get(i).getFront(), 0, 36, 10, 34);
+            DesignSupportClass.printCard(frontBack, cards.get(i).getBack(), 0, 36, 10, 34);
+            for(int j=0; j<10; j++){
+                for(int k=0; k<70; k++){
+                    System.out.print(frontBack[j][k]);
+                }
+                System.out.println();
+            }
 
         }//each player has 3 cards in hand
 
+    }
+
+    @Override
+    public void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents) throws RemoteException {
+        for(ClientControllerInterface opponent: opponents){
+            showPlayerInfo(opponent);
+            showOpponentPlayArea(opponent);
+        }
+        showCommonCards(model.getCommonResourceCards(), model.getCommonGoldCards(), model.getResourceCardDeck(), model.getGoldCardDeck());
+        //todo aggiungi obiettivi comuni
+        showPlayerInfo(me);
+        System.out.println("Your Personal ObjectiveCard: ");
+        printObjectives(me.getPersonalObjectiveCard());
+        showMyPlayArea(me.getPlayer().getPlayArea());
+        //todo aggiungi mappa simboli
     }
 
     /**Method used to show the player info
