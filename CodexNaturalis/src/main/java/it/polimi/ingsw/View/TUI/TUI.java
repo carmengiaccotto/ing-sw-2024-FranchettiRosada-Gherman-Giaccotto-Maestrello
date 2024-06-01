@@ -168,9 +168,9 @@ public class TUI implements UserInterface {
     @Override
     public void printObjectives(ObjectiveCard card) {
         if (card.getClass().equals(DispositionObjectiveCard.class))
-            PrintCards.printDispositionCard((DispositionObjectiveCard) card);
+            DesignSupportClass.printDispositionObjectiveCard((DispositionObjectiveCard) card);
         else if (card.getClass().equals(SymbolObjectiveCard.class))
-            PrintCards.printSymbolObjectiveCard((SymbolObjectiveCard) card);
+           DesignSupportClass.printSymbolObjectiveCard((SymbolObjectiveCard) card);
 
     }
 
@@ -213,20 +213,26 @@ public class TUI implements UserInterface {
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         System.out.println("Please, choose your personal Objective Card");
-        for (int i = 0; i < objectives.size(); i++) {
-            System.out.println("[" + (i + 1) + "]");
-            printObjectives(objectives.get(i));
+            for (int i = 0; i < objectives.size(); i++) {
+                System.out.println("[" + (i + 1) + "]");
+                printObjectives(objectives.get(i));
+                System.out.println();
         }
+
         return (scanner.nextInt() - 1);
     }
 
     /**Method that shows the player the cards they have in hand and can play during their turn
      * @param cards that the player has in its hand*/
     public void showCardsInHand(ArrayList<PlayCard> cards) {
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println("[" + (i + 1) + "]");
-            PrintCards.printCardFrontBack(cards.get(i));
-        }
+        for(int i=0; i<3; i++){
+            System.out.println("[" + (i + 1) + "]"); //print the index of the card
+            String[][] frontBack= new String[10][70];
+            DesignSupportClass.printCard(frontBack, cards.get(i).getFront(), 0, 0, 10, 34);
+            DesignSupportClass.printCard(frontBack, cards.get(i).getFront(), 0, 36, 10, 34);
+
+        }//each player has 3 cards in hand
+
     }
 
     /**Method used to show the player info

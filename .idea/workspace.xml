@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="PrintMyPlayArea and printOtherPlayersPlayArea modified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/PlayCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +166,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PrintPlayArea">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
       <module name="PSP22" />
@@ -242,10 +241,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PrintPlayArea" />
-        <item itemvalue="Application.DesignSupportClass" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerManager" />
+        <item itemvalue="Application.PrintPlayArea" />
+        <item itemvalue="Application.DesignSupportClass" />
         <item itemvalue="Application.PrintCards" />
       </list>
     </recent_temporary>
@@ -280,14 +279,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00055" summary="getNeighborCard method modified. CornerPosition Test, all test passed">
-      <option name="closed" value="true" />
-      <created>1714237145280</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1714237145280</updated>
     </task>
     <task id="LOCAL-00056" summary="UpDownPosition Test">
       <option name="closed" value="true" />
@@ -673,7 +664,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717198307647</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="PrintMyPlayArea and printOtherPlayersPlayArea modified">
+      <option name="closed" value="true" />
+      <created>1717201220129</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1717201220129</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -717,7 +716,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TUI and UserInterface methods" />
     <MESSAGE value="printCards class" />
     <MESSAGE value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
     <MESSAGE value="Updated POM for JavaFX." />
@@ -742,7 +740,8 @@
     <MESSAGE value="SymbolObjectiveCard design" />
     <MESSAGE value="Solved some issues in module-info.java" />
     <MESSAGE value="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile" />
-    <option name="LAST_COMMIT_MESSAGE" value="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile" />
+    <MESSAGE value="PrintMyPlayArea and printOtherPlayersPlayArea modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="PrintMyPlayArea and printOtherPlayersPlayArea modified" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -755,15 +754,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java</url>
-          <line>134</line>
-          <properties class="it.polimi.ingsw.View.TUI.PrintCards" method="main">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java</url>

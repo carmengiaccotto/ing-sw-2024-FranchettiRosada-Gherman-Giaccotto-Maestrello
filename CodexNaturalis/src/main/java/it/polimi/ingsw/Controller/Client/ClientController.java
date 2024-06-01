@@ -9,7 +9,6 @@ import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
-import it.polimi.ingsw.View.TUI.PrintCards;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.rmi.RemoteException;
@@ -161,7 +160,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public String chooseSideInitialCard(InitialCard c)throws RemoteException {
         System.out.println("This is your Initial Card!");
-        PrintCards.printCardFrontBack(c);
+        //todo design initial card
         String side = view.chooseSide();
         return side;
     }

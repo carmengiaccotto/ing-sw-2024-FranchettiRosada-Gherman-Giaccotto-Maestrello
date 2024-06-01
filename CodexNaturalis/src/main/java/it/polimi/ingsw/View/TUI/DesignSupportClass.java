@@ -278,13 +278,8 @@ public class DesignSupportClass {
     }
 
     /**Method that prints the SymbolObjectiveCard.
-     *@param matrix where we want to print the card
-     *@param card that we want to print
-     *@param startRow row where we want to start to print
-     *@param startColumn column where we want to start to print
-     *@param h height dimension of the card
-     *@param w width dimension of the card*/
-    public static void printSymbolObjectiveCard(String[][] matrix, SymbolObjectiveCard card, int startRow, int startColumn, int h, int w){
+     *@param card that we want to print*/
+    public static void printSymbolObjectiveCard( SymbolObjectiveCard card){
         Map<Symbol, Integer> objectives=card.getGoal();
         ArrayList<Symbol> goalList=new ArrayList<>();
         for(Symbol s: objectives.keySet()){
@@ -292,6 +287,11 @@ public class DesignSupportClass {
                 goalList.add(s);
             }
         }
+        int h=9;
+        int w=31;
+        int startRow=0;
+        int startColumn=0;
+        String[][] matrix = new String[h][w];
         DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
         int points= card.getPoints().getValue();
         matrix[startRow][startColumn+ w/2-3]="┬";
@@ -309,6 +309,13 @@ public class DesignSupportClass {
         matrix[startRow+h-3][startColumn+w/2]=GraphicUsage.symbolDictionary.get(goalList.getLast());
         matrix[startRow+h-5][startColumn+w/2-3]=GraphicUsage.symbolDictionary.get(goalList.getFirst());
         matrix[startRow+h-5][startColumn+w/2+3]=GraphicUsage.symbolDictionary.get(goalList.get(1));
+
+        for(int i=0; i<h; i++){
+            for(int j=0; j<w; j++){
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
 
     }
 
@@ -331,16 +338,16 @@ public class DesignSupportClass {
 
     }
     /**Method that prints the dispositionObjectiveCard.
-     *@param matrix where we want to print the card
-     *@param card that we want to print
-     *@param startRow row where we want to start to print
-     *@param startColumn column where we want to start to print
-     *@param h height dimension of the card
-     *@param w width dimension of the card
+      *@param card that we want to print
       */
-    public static void printDispositionObjectiveCard(String[][] matrix, DispositionObjectiveCard card,int startRow, int startColumn, int h, int w){
+    public static void printDispositionObjectiveCard( DispositionObjectiveCard card){
         CardColors color=card.getCentralCardColor();
-        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
+        int h=9;
+        int w=31;
+        int startRow=0;
+        int startColumn=0;
+        String[][] matrix = new String[h][w];
+        DrawGeneralOutline(h, w, matrix,startRow,startColumn, null);
         Map<Position, CardColors> neighbors=card.getNeighbors();
         int centralCardRow=startRow+h/2;
         int centralCardColumn=startColumn+w/2-2;
@@ -362,6 +369,13 @@ public class DesignSupportClass {
         matrix[startRow+1][startColumn+w/2-1]="─";
         matrix[startRow+1][startColumn+w/2+1]="─";
         matrix[startRow+1][startColumn+w/2]=""+points;
+
+        for(int i=0; i<h; i++){
+            for(int j=0; j<w; j++){
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
 
     }
 

@@ -30,10 +30,10 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         switch (choice){
-            case 0:
+            case 1:
                 client.setView(new TUI());
                 break;
-            case 1:
+            case 2:
                 //view = new GUI();
                 break;
             default:
