@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="PrintMyPlayArea and printOtherPlayersPlayArea modified">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="deleted unused class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Controller/Client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/TUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +163,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.DesignSupportClass">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
       <module name="PSP22" />
@@ -241,10 +238,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DesignSupportClass" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerManager" />
         <item itemvalue="Application.PrintPlayArea" />
-        <item itemvalue="Application.DesignSupportClass" />
         <item itemvalue="Application.PrintCards" />
       </list>
     </recent_temporary>
@@ -279,22 +276,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00056" summary="UpDownPosition Test">
-      <option name="closed" value="true" />
-      <created>1714240855063</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1714240855064</updated>
-    </task>
-    <task id="LOCAL-00057" summary="CardColorsTest">
-      <option name="closed" value="true" />
-      <created>1714241422733</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1714241422733</updated>
     </task>
     <task id="LOCAL-00058" summary="PawnColorTest all tests passed">
       <option name="closed" value="true" />
@@ -672,7 +653,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717201220129</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="chooseObjectiveCard TUI method modified">
+      <option name="closed" value="true" />
+      <created>1717202828636</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1717202828636</updated>
+    </task>
+    <task id="LOCAL-00106" summary="deleted unused class">
+      <option name="closed" value="true" />
+      <created>1717202872427</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1717202872427</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,8 +713,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="printCards class" />
-    <MESSAGE value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
     <MESSAGE value="Updated POM for JavaFX." />
     <MESSAGE value="Updated Game Controller and TUI." />
     <MESSAGE value="Print messages in ClientController" />
@@ -741,7 +736,9 @@
     <MESSAGE value="Solved some issues in module-info.java" />
     <MESSAGE value="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile" />
     <MESSAGE value="PrintMyPlayArea and printOtherPlayersPlayArea modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="PrintMyPlayArea and printOtherPlayersPlayArea modified" />
+    <MESSAGE value="chooseObjectiveCard TUI method modified" />
+    <MESSAGE value="deleted unused class" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted unused class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -29,7 +29,7 @@ public class DesignSupportClass {
      * @param outline bigger matrix where the card is placed
      * */
     public static String[][] DrawGeneralOutline(int height, int width, String[][] outline, int startRow, int startColumn, CardColors color ) {
-        String ANSIbackgroundColor =null;
+        String ANSIbackgroundColor;
         String ANSIreset = "\u001B[0m";
         if(color == null){//if color is null, the card is printed in white
             int[] rgb = {255, 255, 255};
@@ -99,8 +99,8 @@ public class DesignSupportClass {
         SideOfCard front=card.getFront();
         CardColors color=card.getColor();
         int[] rgb = GraphicUsage.getRGBColor(color);
-        String ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
-        String ANSIreset = "\u001B[0m";
+        String ANSIbackgroundColor;
+        ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String[][] Matrix= DrawGeneralOutline(height,width,matrix, startRow, startColumn, color);
         for(CornerPosition position: CornerPosition.values()){
             if (!(front.getCornerInPosition(position).isHidden() || front.getCornerInPosition(position).isCovered())){
@@ -122,9 +122,17 @@ public class DesignSupportClass {
      * @param corner CornerPosition type
      * @param color of the card*/
     public static void cornerOutline(String[][] card, CornerPosition corner, int startRow, int startColumn, CardColors color, int h, int w){
-        int[] rgb = GraphicUsage.getRGBColor(color);
-        String ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
+        String ANSIbackgroundColor =null;
         String ANSIreset = "\u001B[0m";
+        if(color == null){//if color is null, the card is printed in white
+            int[] rgb = {255, 255, 255};
+            ANSIbackgroundColor = String.format("\u001B[48;2;%d;%d;%d;m", rgb[0], rgb[1], rgb[2]);
+        }
+        else{ //if the card has a color, the card is printed of the chosen color
+            int[] rgb = GraphicUsage.getRGBColor(color);
+            ANSIbackgroundColor=String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
+
+        }
         switch(corner){
             case CornerPosition.TOPLEFT -> {
                 card[startRow][startColumn + 3] = ANSIbackgroundColor+"┬"+ANSIreset;
@@ -172,26 +180,18 @@ public class DesignSupportClass {
      *@param corner CornerPosition type
      */
     public static  void printSymbolInCorner(String[][] card, CornerPosition corner, int startRow, int startColumn, Symbol symbol, int h, int w){
-        String graphicSymbol=null;
+        String graphicSymbol;
         if (symbol==null)
             graphicSymbol=" ";
         else
             graphicSymbol=GraphicUsage.symbolDictionary.get(symbol);
         switch(corner){
-            case TOPLEFT -> {
-                card[startRow+1][startColumn+2]=graphicSymbol;
-            }
-            case BOTTOMLEFT -> {
-                card[startRow+h-2][startColumn+2]=graphicSymbol;
+            case TOPLEFT -> card[startRow+1][startColumn+2]=graphicSymbol;
+            case BOTTOMLEFT -> card[startRow+h-2][startColumn+2]=graphicSymbol;
+            case TOPRIGHT -> card[startRow+1][startColumn+w-3]=graphicSymbol;
+            case BOTTOMRIGHT -> card[startRow+h-2][startColumn+w-3]=graphicSymbol;
 
-            }
-            case TOPRIGHT -> {
-                card[startRow+1][startColumn+w-3]=graphicSymbol;
-            }
-            case BOTTOMRIGHT -> {
-                card[startRow+h-2][startColumn+w-3]=graphicSymbol;
-
-            }
+            default -> throw new IllegalStateException("Unexpected value: " + corner);
         }
 
     }
@@ -407,6 +407,50 @@ public class DesignSupportClass {
     }
 
 
+    public static void printInitialCardBack(String[][] matrix, InitialCard card, int startRow, int startColumn, int h, int w){
+        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
+        for(CornerPosition corner: CornerPosition.values()){
+            cornerOutline(matrix, corner, startRow, startColumn, null, h, w);
+            printSymbolInCorner(matrix, corner, startRow, startColumn, card.getBack().getCornerInPosition(corner).getSymbol(), h, w);
+
+        }
+
+    }
+
+    public static void printInitialCardFront(String[][] matrix, InitialCard card, int startRow, int startColumn, int h, int w){
+        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
+        for(CornerPosition corner: CornerPosition.values()){
+            cornerOutline(matrix, corner, startRow, startColumn, null, h, w);
+            printSymbolInCorner(matrix, corner, startRow, startColumn, card.getFront().getCornerInPosition(corner).getSymbol(), h, w);
+        }
+        ArrayList <Symbol> symbols= getCentralSymbols(card.getFront());
+        int offset=h/2- symbols.size()/2;
+       //Draw the top line of the box
+        matrix[startRow+offset+symbols.size()][startColumn+w/2] = "─";
+        matrix[startRow+offset-1][startColumn+w/2-1] = "┌";
+        matrix[startRow+offset-1][startColumn+w/2+1] = "┐";
+        //Draw the bottom line of the box
+
+        matrix[startRow+offset-1][startColumn+w/2] =  "─";
+        matrix[startRow+offset+symbols.size()][startColumn+w/2-1] = "└";
+        matrix[startRow+offset+symbols.size()][startColumn+w/2+1] =  "┘";
+
+
+// Draw left and right lines of the box
+        for (int i = offset; i < offset + symbols.size(); i++) {
+            matrix[startRow+i][startColumn + w/2 - symbols.size()/2] = "│";
+            matrix[startRow+i][startColumn + w/2 + symbols.size()/2] = "│";
+        }
+
+// Print symbols inside the box
+        for (int i = offset; i < offset + symbols.size(); i++) {
+            matrix[startRow+i][startColumn+w/2] = "" + GraphicUsage.symbolDictionary.get(symbols.get(i-offset));
+        }
+
+
+    }
+
+
     public static void printCard(String[][] matrix, SideOfCard card, int startRow, int startColumn, int h, int w){
         if(card.getParentCard() instanceof ResourceCard){
             if(isFrontSide(card)){
@@ -419,6 +463,12 @@ public class DesignSupportClass {
                 printGoldFront(matrix, (GoldCard) card.getParentCard(), startRow, startColumn, h, w);
             } else {
                 printBackCard(matrix, card.getParentCard(), startRow, startColumn, h, w);
+            }
+        }else if(card.getParentCard() instanceof InitialCard){
+            if(!isFrontSide(card)){
+                printInitialCardFront(matrix, (InitialCard) card.getParentCard(), startRow, startColumn, h, w);
+            }else{
+                printInitialCardBack(matrix, (InitialCard) card.getParentCard(), startRow, startColumn, h, w);
             }
         }
     }
@@ -434,13 +484,18 @@ public class DesignSupportClass {
         GoldCard card2= (GoldCard) goldDeck.getCards().getFirst();
         GoldCard card3= (GoldCard) goldDeck.getCards().get(4);
         GoldCard card4= (GoldCard) goldDeck.getCards().get(7);
+        Deck initialDeck= new Deck(InitialCard.class);
+
 
         String[][] playGround = new String[45][90];
+
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 playGround[i][j]=" ";
             }
         }
+        //printInitialCardBack(playGround, (InitialCard) initialDeck.getCards().get(0), 0, 0, 7, 25);
+        printInitialCardFront(playGround, (InitialCard) initialDeck.getCards().get(2), 0, 0, 7, 25);
         //printResourceFront(playGround,card1,11,0, 7, 25);
 //        printGoldFront(playGround,card2,16,0, 7, 25);
 //        printGoldFront(playGround,card3,0,27, 7, 25);
@@ -451,7 +506,7 @@ public class DesignSupportClass {
         //printSymbolObjectiveCard(playGround,card5, 0, 0, 9, 31);
 //        DispositionObjectiveCard card6= (DispositionObjectiveCard) objectiveDeck.getCards().get(7);
 //        printDispositionObjectiveCard(playGround,card6, 0, 0, 9, 31);
-        printCard(playGround, card3.getFront(), 0, 0, 7, 25);
+        //printCard(playGround, card3.getFront(), 0, 0, 7, 25);
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 System.out.print(playGround[i][j]);
