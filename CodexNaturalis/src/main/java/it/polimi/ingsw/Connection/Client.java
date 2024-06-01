@@ -26,8 +26,7 @@ public class Client {
 
 
     public void selectView() throws RemoteException {
-        System.out.println("What kind of view would you like to use? ");
-        System.out.println("[0] TUI \n[1] GUI");
+        System.out.print("Select type of view: \n [1] TUI \n [2] GUI \n>>");
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         switch (choice){
@@ -44,7 +43,7 @@ public class Client {
     }
 
     public void selectProtocol() {
-        System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET \n>>");
+        System.out.print("Select network protocol: \n [1] RMI \n [2] SOCKET \n>>");
         Scanner scanner = new Scanner(System.in);
         int protocol = scanner.nextInt();
         switch (protocol) {

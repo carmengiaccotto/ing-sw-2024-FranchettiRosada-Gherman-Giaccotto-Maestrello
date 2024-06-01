@@ -19,11 +19,16 @@ public class PlayCard extends Card {
     public PlayCard(int id,SideOfCard front, SideOfCard back, CardColors color) {
         super(id);
         Front = front;
-        if(front!=null)
+        if(front!=null) {
             front.setColor(color);
+            front.setParentCard(this);
+        }
         Back = back;
-        if(back!=null)
+        if(back!=null) {
             back.setColor(color);
+            back.setParentCard(this);
+        }
+
         this.color = color;
     }
 

@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="Solved some issues in module-info.java">
+    <list default="true" id="648ab619-3dc4-4d3f-9053-657ea3a8fb29" name="Changes" comment="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonCardsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/JsonHandler/JsonCardsMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Connection/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/PlayCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/PlayCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/Model/Cards/SideOfCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/DesignSupportClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintCards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/ObjectiveCard.Json" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/resources/ObjectiveCard.Json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/CodexNaturalis/src/main/java/it/polimi/ingsw/View/TUI/PrintPlayArea.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +72,7 @@
     "Application.HelloApplication.executor": "Run",
     "Application.Player.executor": "Run",
     "Application.PrintCards.executor": "Run",
+    "Application.PrintPlayArea.executor": "Run",
     "Application.ServerManager.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
@@ -165,7 +167,7 @@
       <recent name="CodexNaturalis.src.main.java.it.polimi.ingsw.model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DesignSupportClass">
+  <component name="RunManager" selected="Application.PrintPlayArea">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.Client" />
       <module name="PSP22" />
@@ -205,6 +207,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PrintPlayArea" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.View.TUI.PrintPlayArea" />
+      <module name="PSP22" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.polimi.ingsw.View.TUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ServerManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Connection.ServerManager" />
       <module name="PSP22" />
@@ -218,35 +233,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PSP22" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.polimi.ingsw.Model.PlayGround.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.polimi.ingsw.Model.PlayGround" />
-      <option name="MAIN_CLASS_NAME" value="it.polimi.ingsw.Model.PlayGround.PlayerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="Application.PrintPlayArea" />
       <item itemvalue="Application.Client" />
       <item itemvalue="Application.DesignSupportClass" />
       <item itemvalue="Application.PrintCards" />
       <item itemvalue="Application.ServerManager" />
-      <item itemvalue="JUnit.PlayerTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PrintPlayArea" />
         <item itemvalue="Application.DesignSupportClass" />
-        <item itemvalue="Application.PrintCards" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ServerManager" />
-        <item itemvalue="JUnit.PlayerTest" />
+        <item itemvalue="Application.PrintCards" />
       </list>
     </recent_temporary>
   </component>
@@ -280,14 +280,6 @@
       <workItem from="1716166392118" duration="307000" />
       <workItem from="1716166824536" duration="86000" />
       <workItem from="1716199464491" duration="9158000" />
-    </task>
-    <task id="LOCAL-00054" summary="Added personalObjectiveCard attribute with getter and setter">
-      <option name="closed" value="true" />
-      <created>1714231896075</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1714231896076</updated>
     </task>
     <task id="LOCAL-00055" summary="getNeighborCard method modified. CornerPosition Test, all test passed">
       <option name="closed" value="true" />
@@ -673,7 +665,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717193783293</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile">
+      <option name="closed" value="true" />
+      <created>1717198307647</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1717198307647</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -717,7 +717,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RMI server and RMI client, controller and TUI new Implementations" />
     <MESSAGE value="TUI and UserInterface methods" />
     <MESSAGE value="printCards class" />
     <MESSAGE value="DispositionObjectiveCard print and choosePersonalObjectiveCard UI method" />
@@ -742,7 +741,8 @@
     <MESSAGE value="added requirements print to goldCards" />
     <MESSAGE value="SymbolObjectiveCard design" />
     <MESSAGE value="Solved some issues in module-info.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solved some issues in module-info.java" />
+    <MESSAGE value="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile" />
+    <option name="LAST_COMMIT_MESSAGE" value="DispositionObjectiveCard TUI design and fixed JsonMapper and JsonFile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

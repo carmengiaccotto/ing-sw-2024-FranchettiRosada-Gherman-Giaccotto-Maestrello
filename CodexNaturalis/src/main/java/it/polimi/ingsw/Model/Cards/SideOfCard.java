@@ -17,6 +17,8 @@ public class SideOfCard implements Serializable {
 
     private CardColors color;
 
+    private PlayCard parentCard;
+
 
     /**Map of Symbols of the card. They can be placed in the corner or in the middle*/
     private final HashMap<Symbol, Integer> symbols;
@@ -139,6 +141,11 @@ public class SideOfCard implements Serializable {
     }
 
 
+    public PlayCard getParentCard() {
+        return parentCard;
+    }
 
-
+    public void setParentCard(PlayCard parentCard) {
+        this.parentCard = parentCard;
+    }
 }

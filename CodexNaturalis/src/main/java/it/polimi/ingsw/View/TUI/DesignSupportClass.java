@@ -366,6 +366,50 @@ public class DesignSupportClass {
     }
 
 
+    /**Method that returns the central Symbols of a card, so the symbols that are no one of the corners
+     * @param card sideOfCard to check
+     * @return symbols that are not in the corners but are on the card*/
+    public static ArrayList<Symbol> getCentralSymbols(SideOfCard card){
+        ArrayList<Symbol> symbols=new ArrayList<>();
+        //Adding all the symbols of the map to the arrayList
+        for(Symbol symbol: card.getSymbols().keySet()){
+            for(int i=0; i<card.getSymbols().get(symbol); i++){
+                symbols.add(symbol);
+            }
+        }
+        //Removing all the symbols that are in the corner
+        for(CornerPosition position: CornerPosition.values()){
+            if(!card.getCornerInPosition(position).isHidden() && !card.getCornerInPosition(position).isCovered()){
+                symbols.remove(card.getCornerInPosition(position).getSymbol());
+            }
+        }
+        return symbols;
+    }
+    /**Method that checks if a SideOfCard is a front or a back for Resource and goldCards (InitialCards are reverted).
+     * @param card sideOfCard to check
+     * @return true if the getCentralSymbols generated array is empty. */
+    public static boolean isFrontSide(SideOfCard card){
+        return getCentralSymbols(card).isEmpty();
+    }
+
+
+    public static void printCard(String[][] matrix, SideOfCard card, int startRow, int startColumn, int h, int w){
+        if(card.getParentCard() instanceof ResourceCard){
+            if(isFrontSide(card)){
+                printResourceFront(matrix, (ResourceCard) card.getParentCard(), startRow, startColumn, h, w);
+            }else{
+                printBackCard(matrix, card.getParentCard(), startRow, startColumn, h, w);
+            }
+        }else if(card.getParentCard() instanceof GoldCard) {
+            if (isFrontSide(card)) {
+                printGoldFront(matrix, (GoldCard) card.getParentCard(), startRow, startColumn, h, w);
+            } else {
+                printBackCard(matrix, card.getParentCard(), startRow, startColumn, h, w);
+            }
+        }
+    }
+
+
 
 
     public static void main(String[] args) throws IOException {
@@ -391,9 +435,9 @@ public class DesignSupportClass {
         Deck objectiveDeck= new Deck(ObjectiveCard.class);
         //SymbolObjectiveCard card5= (SymbolObjectiveCard) objectiveDeck.getCards().get(10);
         //printSymbolObjectiveCard(playGround,card5, 0, 0, 9, 31);
-        DispositionObjectiveCard card6= (DispositionObjectiveCard) objectiveDeck.getCards().get(7);
-        printDispositionObjectiveCard(playGround,card6, 0, 0, 9, 31);
-
+//        DispositionObjectiveCard card6= (DispositionObjectiveCard) objectiveDeck.getCards().get(7);
+//        printDispositionObjectiveCard(playGround,card6, 0, 0, 9, 31);
+        printCard(playGround, card3.getFront(), 0, 0, 7, 25);
         for (int i = 0; i < 45; i++) {
             for (int j = 0; j <90; j++) {
                 System.out.print(playGround[i][j]);
@@ -401,6 +445,7 @@ public class DesignSupportClass {
             System.out.println();
         }
     }
+
 
 
     }
