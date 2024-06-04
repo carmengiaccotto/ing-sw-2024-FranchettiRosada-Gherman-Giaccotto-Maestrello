@@ -9,6 +9,7 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainController;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -27,7 +28,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     private static Registry registry = null;
 
     //Interface that contains the methods used in this class
-    private final MainControllerInterface handler;
+    private MainControllerInterface handler;
 
 
     /**
@@ -36,8 +37,14 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      */
     public RMIServer() throws RemoteException {
         super(0);
+
         handler=new MainController(); //TODO: change to MainControllerInterface
 
+    }
+
+    public RMIServer(MainControllerInterface mainController) throws RemoteException {
+        super(0);
+        this.handler = mainController;
     }
 
     /**
@@ -47,7 +54,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     public static RMIServer bind() {
         try {
             serverObject = RMIServer.getInstance();
-            registry = LocateRegistry.createRegistry(8323);
+            registry = LocateRegistry.createRegistry(8344);
             getRegistry().rebind("CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
@@ -105,7 +112,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @param client that is logging in
      * @param name inserted nickname*/
     @Override
-    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
+    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws IOException, ClassNotFoundException {
          return handler.checkUniqueNickName(name, client);
     }
 
@@ -136,6 +143,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
+    }
+
+    public void setHandler(MainControllerInterface handler){
+        this.handler = handler;
     }
 }
 

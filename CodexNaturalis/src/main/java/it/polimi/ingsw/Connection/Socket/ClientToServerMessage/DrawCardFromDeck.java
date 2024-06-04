@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
+package it.polimi.ingsw.Connection.Socket.ClientToServerMessage;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.PlayGround.Deck;

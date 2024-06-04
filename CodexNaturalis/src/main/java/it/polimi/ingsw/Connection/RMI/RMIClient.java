@@ -19,6 +19,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -31,6 +32,8 @@ import java.util.List;
  * The RMIClient class extends the UnicastRemoteObject and implements the ClientMoves interface.
  * It represents a client in the RMI connection.
  */
+
+//estende ConnectionInterface
 public class RMIClient extends UnicastRemoteObject implements Serializable, ClientControllerInterface {
     private MainControllerInterface server;
     private ClientControllerInterface controller;
@@ -45,6 +48,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     public RMIClient() throws RemoteException {
         //this.server=server;
         this.controller=new ClientController();
+    }
+
+    public void setController(ClientControllerInterface clientController){
+        this.controller = clientController;
     }
 
 
@@ -100,7 +107,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public String ChooseNickname() throws RemoteException {
+    public String ChooseNickname() throws IOException, ClassNotFoundException {
         return controller.ChooseNickname();
 
     }
@@ -186,7 +193,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 8323);
+                        registry = LocateRegistry.getRegistry("127.0.0.1", 8344);
                         Object obj = registry.lookup("CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
@@ -202,7 +209,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 if (server != null) {
                     connected = true;
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8323 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8344 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");

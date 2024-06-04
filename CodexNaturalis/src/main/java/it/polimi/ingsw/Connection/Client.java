@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIClient;
+import it.polimi.ingsw.Connection.Socket.SocketClient;
+import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.View.TUI.TUI;
 import it.polimi.ingsw.View.UserInterface;
@@ -12,10 +14,12 @@ import java.util.Scanner;
 
 public class Client {
     private static String serverIp;
+    //private String nickName;
 
     private static UserInterface view;
 
     private ClientControllerInterface client;
+    private ClientController clientController;
 
 
 //    private SocketClient socketClient;
@@ -26,14 +30,15 @@ public class Client {
 
 
     public void selectView() throws RemoteException {
-        System.out.print("Select type of view: \n [1] TUI \n [2] GUI \n>>");
+        System.out.println("What kind of view would you like to use? ");
+        System.out.println("[0] TUI \n[1] GUI");
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         switch (choice){
-            case 1:
+            case 0:
                 client.setView(new TUI());
                 break;
-            case 2:
+            case 1:
                 //view = new GUI();
                 break;
             default:
@@ -43,20 +48,22 @@ public class Client {
     }
 
     public void selectProtocol() {
-        System.out.print("Select network protocol: \n [1] RMI \n [2] SOCKET \n>>");
+        System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET \n>>");
         Scanner scanner = new Scanner(System.in);
         int protocol = scanner.nextInt();
         switch (protocol) {
             case 1:
                 try {
                     this.client = new RMIClient();
+                    ((RMIClient) client).setController(clientController);
 
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case 2:
-                //socketClient=new SocketClient();
+                this.client=new SocketClient();
+                ((SocketClient) client).setController(clientController);
                 break;
             default:
                 System.out.println("Invalid choice, please try again");
@@ -64,6 +71,7 @@ public class Client {
         }
     }
     public void start() throws IOException, NotBoundException {
+        clientController = new ClientController();
         int InterfaceType = 0;
         System.out.println("Insert server ip address:");
         Scanner scan = new Scanner(System.in);

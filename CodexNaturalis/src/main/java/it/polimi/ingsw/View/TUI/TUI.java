@@ -10,11 +10,12 @@ import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.View.UserInterface;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TUI implements UserInterface {
+public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
 
     /**

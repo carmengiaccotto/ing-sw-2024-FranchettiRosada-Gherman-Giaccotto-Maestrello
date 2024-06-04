@@ -1,8 +1,7 @@
 package it.polimi.ingsw.Connection.Socket;
 
 import it.polimi.ingsw.Connection.Socket.ClientToServerMessage.ChooseNickNameMessageServer;
-import it.polimi.ingsw.Connection.Socket.ClientToServerMessage.ClientToControllerMessage;
-import it.polimi.ingsw.Connection.Socket.ClientToServerMessage.ClientToServerMessage;
+import it.polimi.ingsw.Connection.Socket.ServerToClientMessage.ServerToClientMessage;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
@@ -23,83 +22,47 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocketClient implements ClientControllerInterface {
+//Classe che risiede sul server e che è associata a ciscun client per gestire le sue richieste socket.
+public class ClientHandler extends Thread implements ClientControllerInterface {
 
-    private Socket server;
-    private ClientControllerInterface controller;
-    //private Scanner i;
-    //private PrintWriter o;
-    //private String messaggio;
-
-    private ObjectOutputStream out;
+    //Socket associata al client
+    private Socket clientSocket;
     private ObjectInputStream in;
+    private ObjectOutputStream out;
 
-    //nickname del client
-    private String nickname;
+    //GameController associato al gioco
+    private GameControllerInterface gameController;
 
+    //MainController associato ai giochi
     private MainControllerInterface mainController;
 
+    //Istanza di GameListener che contiene la lista dei giocatori da notificare
+    //private GameListener gameListeners;
 
-    public void connect(){
+    //nickname associato alla socket client
+    private String nick = null;
+
+    public ClientHandler(Socket soc) throws IOException {
+        this.clientSocket = soc;
+        this.in = new ObjectInputStream(soc.getInputStream());
+        this.out = new ObjectOutputStream(soc.getOutputStream());
+        //gameListeners = new GameListener ();
+    }
+
+    public void interruptThread() {
+        this.interrupt();
+    }
+
+    public void run() {
         try {
-            Socket server = new Socket(SocketServer.SERVERIP, SocketServer.SERVERPORT);
-            System.out.println("Connected client");
-
-            in = new ObjectInputStream(server.getInputStream());
-            out = new ObjectOutputStream(server.getOutputStream());
-
-            //leggo dal server se mi manda qualcosa
-            ClientToServerMessage messagge = (ClientToServerMessage) in.readObject();
-
-            //messaggio.execute
-
-            switch(messagge.getMessage()){
-                case "ChooseNickname":
-                    String s = ChooseNickname();
-                    ChooseNickNameMessageServer message = new ChooseNickNameMessageServer(s);
-                    out.writeObject(message);
-                    out.flush();
-
-            }
-
-            //in = new Scanner(server.getInputStream());
-            //out = new PrintWriter(server.getOutputStream());
-
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            mainController.connect(this);
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    public void setController(ClientControllerInterface clientController){
-        this.controller = clientController;
-    }
-
-    @Override
-    public void addCardToHand(PlayCard card) throws RemoteException {
-
-    }
-
-    @Override
-    public int getScore() throws RemoteException {
-        return 0;
-    }
-
-    @Override
-    public int getRound() throws RemoteException {
-        return 0;
-    }
-
-    @Override
-    public void setGame(GameControllerInterface game) throws RemoteException {
-
-    }
-
-    @Override
-    public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
-        return null;
+    public void setMainController(MainControllerInterface mainController){
+        this.mainController = mainController;
     }
 
     @Override
@@ -109,10 +72,11 @@ public class SocketClient implements ClientControllerInterface {
 
     @Override
     public void setView(UserInterface view) throws RemoteException {
-        controller.setView(view);
+
     }
 
-    public void disconnect() {
+    @Override
+    public void disconnect() throws RemoteException {
 
     }
 
@@ -143,8 +107,13 @@ public class SocketClient implements ClientControllerInterface {
 
     @Override
     public String ChooseNickname() throws IOException, ClassNotFoundException {
-        String name = controller.ChooseNickname();
-        return name;
+        ServerToClientMessage message = new ServerToClientMessage("ChooseNickname");
+        //ServerToClientMessage message = new ChooseNickNameMessageServer("Lucrezia");
+        out.writeObject(message);
+        out.flush();
+        ChooseNickNameMessageServer receivedMessage = (ChooseNickNameMessageServer) in.readObject();
+
+        return receivedMessage.getNickname();
     }
 
     @Override
@@ -212,14 +181,33 @@ public class SocketClient implements ClientControllerInterface {
 
     }
 
-    public void sendMessage(ClientToControllerMessage m){
-
+    @Override
+    public void connect() throws RemoteException {
 
     }
 
+    @Override
+    public void addCardToHand(PlayCard card) throws RemoteException {
 
-//     public void receiveMessage(ControllerToClientMessages m){
-//
-//
-//     }
+    }
+
+    @Override
+    public int getScore() throws RemoteException {
+        return 0;
+    }
+
+    @Override
+    public int getRound() throws RemoteException {
+        return 0;
+    }
+
+    @Override
+    public void setGame(GameControllerInterface game) throws RemoteException {
+
+    }
+
+    @Override
+    public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
+        return null;
+    }
 }

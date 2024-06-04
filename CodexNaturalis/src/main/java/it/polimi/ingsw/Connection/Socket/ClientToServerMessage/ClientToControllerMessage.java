@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Connection.Socket.ClientToControllerMessage;
+package it.polimi.ingsw.Connection.Socket.ClientToServerMessage;
 
 import it.polimi.ingsw.Connection.Socket.ClientActions;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
