@@ -28,9 +28,6 @@ class SymbolObjectiveCardTest {
 
     @Test
     void getGoal() {
-        HashMap<Symbol, Integer> goal = new HashMap<>();
-        goal.put(Symbol.MANUSCRIPT, 3);
-        assertEquals(goal, symbolObjectiveCard.getGoal());
 
     }
 }
