@@ -91,36 +91,43 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public PlayCard chooseCardToDraw(PlayGround model) throws RemoteException {
+        PlayCard card;
         String draw = view.chooseCardToDraw();
         switch (draw) {
 
             case "GOLD-DECK":
-                GoldCard card = (GoldCard) model.getGoldCardDeck().getCards().getFirst();
-                return card;
+                card = (GoldCard) model.getGoldCardDeck().getCards().getFirst();
+                break;
 
             case "RESOURCE-DECK":
-                ResourceCard card1 = (ResourceCard) model.getResourceCardDeck().getCards().getFirst();
-                return card1;
+                card = (ResourceCard) model.getResourceCardDeck().getCards().getFirst();
+                break;
 
             case "RESOURCE-CARD1":
-                ResourceCard card2 = (ResourceCard) model.getCommonResourceCards().get(0);
-                return card2;
+                card = (ResourceCard) model.getCommonResourceCards().get(0);
+                break;
 
             case "RESOURCE-CARD2":
-                ResourceCard card3 = (ResourceCard) model.getCommonResourceCards().get(1);
-                return card3;
+                card = (ResourceCard) model.getCommonResourceCards().get(1);
+                break;
 
             case "GOLD-CARD1":
-                GoldCard card4 = (GoldCard) model.getCommonGoldCards().get(0);
-                return card4;
+                card = (GoldCard) model.getCommonGoldCards().get(0);
+                break;
 
             case "GOLD-CARD2":
-                GoldCard card5 = (GoldCard) model.getCommonGoldCards().get(1);
-                return card5;
+                card = (GoldCard) model.getCommonGoldCards().get(1);
+                break;
 
-            default:
-                throw new IllegalArgumentException("Invalid draw option: " + draw);
+            default: {
+                view.printMessage("Invalid choice, please select a valid one");
+                chooseCardToDraw(model);
+                card=null;
+                break;
+            }
         }
+        player.addCardToHand(card);
+        return card;
     }
 
     @Override
