@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Model.Cards;
 
 import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.Model.Symbol;
 
@@ -14,6 +16,7 @@ public class PointPerVisibleSymbol extends GoldCard {
     private final Symbol goldGoal;
 
     /**Class Constructor*/
+
     public PointPerVisibleSymbol(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point, Symbol goldGoal) {
         super(id, front, back, color, requirement, point);
         this.goldGoal=goldGoal;
@@ -22,23 +25,28 @@ public class PointPerVisibleSymbol extends GoldCard {
 
 
 
-
-    /**Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints of the card
+    /**
+     * Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints of the card
      * and the number of symbols present in the play area of the current player.
-     * @param currentPlayer The current player whose points are to be increased.
-     * @param point The value by which the points are increased for each matching symbol.
-     * @param goldGoal The symbol for which the points are calculated.
+     *
+     * @param playArea playArea we are checking On
      * @return The total points increased based on the number of matching symbols in the player's play area.
-     **/
-    public int increasePoints(Player currentPlayer, int point, Symbol goldGoal){
-       return currentPlayer.getPlayArea().getNumSymbols(goldGoal) * point;
+     *
+     * */
+
+    public int increasePoints(PlayArea playArea){
+       return playArea.getNumSymbols(goldGoal) * getPoints(Side.FRONT);
     }
+
+
+
 
     /**
      * getter method for the PointPerVisibleSymbol's goal
      *
      * @return goldGoal
      */
+
     public Symbol getGoldGoal(){
         return goldGoal;
     }
