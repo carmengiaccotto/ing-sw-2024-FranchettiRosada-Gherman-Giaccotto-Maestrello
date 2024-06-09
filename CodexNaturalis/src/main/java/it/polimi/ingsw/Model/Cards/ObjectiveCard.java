@@ -16,10 +16,23 @@ public class ObjectiveCard extends Card implements Serializable {
         this.points = points;
     }
 
+
+    /**Getter method fot Points attribute
+     *
+     * @return ObjectivePoints type: ObjectivePoints enum
+     * */
+
     public ObjectivePoints getPoints(){
         return points;
     }
 
+
+
+
+    /**Method that is to be overwritten by SymbolObjectivePoints and DispositionObjectivePoints, that checks how many times
+     * the goal has been reached on the playArea.
+     * @return 0 as a default number
+     * */
 
     public int CheckGoals(){
         return 0;
