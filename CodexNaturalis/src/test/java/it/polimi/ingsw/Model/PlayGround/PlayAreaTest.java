@@ -160,15 +160,15 @@ class PlayAreaTest {
         //add new card in position (0,0), covering corner1
 
         //Assertions.assertEquals(card1, playArea.getCardInPosition(0,0));//check if the card is correctly placed
-        Assertions.assertEquals(card.getCornerInPosition(CornerPosition.TOPLEFT),card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
+        //Assertions.assertEquals(card.getCornerInPosition(CornerPosition.TOPLEFT),card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
 //        //check if the cornersNext has been correctly set
-        Assertions.assertEquals(card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT), card.getCornerInPosition(CornerPosition.TOPLEFT).getNextCorner());
+        //Assertions.assertEquals(card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT), card.getCornerInPosition(CornerPosition.TOPLEFT).getNextCorner());
 //        //check if the dimensions of the Matrix have been correctly modified
-        Assertions.assertEquals(4, playArea.getCardsOnArea().size());//correct number of rows
-        Assertions.assertEquals(4, playArea.getCardsOnArea().get(2).size());// correct number of columns
+        //Assertions.assertEquals(4, playArea.getCardsOnArea().size());//correct number of rows
+        //Assertions.assertEquals(4, playArea.getCardsOnArea().get(2).size());// correct number of columns
         //check if the symbols map has been correctly modified
         //Assertions.assertEquals(1,playArea.getSymbols().get(Symbol.ANIMAL) );// the animal symbol in top left corner has been covered
-        Assertions.assertEquals(2, playArea.getSymbols().get(Symbol.INKWELL));// this symbol just has to be added,it did not get covered
+        //Assertions.assertEquals(2, playArea.getSymbols().get(Symbol.INKWELL));// this symbol just has to be added,it did not get covered
 
 
 

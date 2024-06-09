@@ -11,4 +11,8 @@ class CardTest {
         Card card= new Card(1);
         assertEquals(1,card.getIdCard());
     }
+    @Test
+    void getIdCardNegative() {
+        assertThrows(IllegalArgumentException.class, () -> new Card(-1));
+    }
 }

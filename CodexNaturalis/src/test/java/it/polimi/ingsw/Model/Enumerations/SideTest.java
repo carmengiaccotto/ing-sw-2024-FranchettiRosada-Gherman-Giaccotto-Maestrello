@@ -1,6 +1,5 @@
-package it.polimi.ingsw.Model.Enum;
+package it.polimi.ingsw.Model.Enumerations;
 
-import it.polimi.ingsw.Model.Enumerations.Side;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

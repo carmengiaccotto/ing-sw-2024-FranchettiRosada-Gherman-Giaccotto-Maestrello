@@ -36,10 +36,6 @@ import it.polimi.ingsw.Model.Position;
                 return new Pair<>(r - 1, c - 1);
             }
 
-//            public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
-//                return new Pair<>(currentCard.getPositionOnArea().getFirst()-1,
-//                        currentCard.getPositionOnArea().getSecond()-1);
-//            }
 
 
         },
@@ -49,11 +45,6 @@ import it.polimi.ingsw.Model.Position;
             public CornerPosition CoverCorners(){
                 return TOPRIGHT;
             }
-
-//            public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
-//                return new Pair<>(currentCard.getPositionOnArea().getFirst()+1,
-//                        currentCard.getPositionOnArea().getSecond()-1);
-//            }
             @Override
             public Pair<Integer, Integer> neighborToCheck(int r, int c) {
                 return new Pair<>(r + 1, c - 1);
@@ -81,10 +72,6 @@ import it.polimi.ingsw.Model.Position;
             public CornerPosition CoverCorners(){
                 return BOTTOMLEFT;
             }
-//            public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
-//                return new Pair<>(currentCard.getPositionOnArea().getFirst()-1,
-//                        currentCard.getPositionOnArea().getSecond()+1);
-//            }
 
         @Override
         public Pair<Integer, Integer> neighborToCheck(int r, int c) {
@@ -115,10 +102,6 @@ import it.polimi.ingsw.Model.Position;
                 return TOPLEFT;
             }
 
-//            public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
-//                return new Pair<>(currentCard.getPositionOnArea().getFirst()+1,
-//                        currentCard.getPositionOnArea().getSecond()+1);
-//            }
 
         @Override
         public Pair<Integer, Integer> neighborToCheck(int r, int c) {
@@ -152,12 +135,6 @@ import it.polimi.ingsw.Model.Position;
             return null;
         }
 
-//        /**Method that individuates the position of the newly placed card on the area
-//         * @param currentCard card that is already o the playArea, and is having a corner covered
-//         * @return coordinates of the newly placed card*/
-//        public Pair<Integer, Integer> PositionNewCard(SideOfCard currentCard){
-//            return null;
-//        }
 
     /**Method that individuates the positions to check after the card is placed, to cover the neighbors' corners
      * @param r row where the new card has been placed

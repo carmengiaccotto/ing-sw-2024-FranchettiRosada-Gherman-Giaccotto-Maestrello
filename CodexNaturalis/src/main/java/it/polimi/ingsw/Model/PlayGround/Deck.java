@@ -17,6 +17,7 @@ public class Deck implements Serializable {
 
 
     /**Class Constructor*/
+
     public Deck(Class<? extends Card> DeckType) throws IOException {
         filepath=filepath.concat(DeckType.getSimpleName() + ".json");
         this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
@@ -26,41 +27,42 @@ public class Deck implements Serializable {
 
 
 
-    
+    /**
+     * Returns the Cards that are currently contained in the Deck
+    * @return ArrayList<CardClass>
+     */
 
-    /**Returns the Cards that are currently contained in the Deck
-    * @return ArrayList<CardClass>*/
     public ArrayList<? extends Card> getCards() {
         return deck;
     }
 
 
 
-    /**@return Cards.size() the size of the deck we are considering*/
-    public int getSize(){
+    /**
+     * Method that returns the size of the deck
+     * @return Cards.size() the size of the deck we are considering
+     * */
 
+    public int getSize(){
         return deck.size();
     }
 
 
+    /**
+     * Getter method for filePath attribute
+     * @return filepath
+     * */
 
-//    /**
-//     * Method that is going to be used to draw a Card from the Deck. It returns a card with both sides (front and back)
-//     * The player is later going to choose which side they want to play with
-//     *
-//     * @return PairOfCards the card that is on top of the Deck
-//     */
-//    public <? extends Card> getLastCard() {
-//        if (!deck.isEmpty()) {
-//            return deck.get(deck.size() - 1);
-//        } else {
-//            System.out.println("The Deck is Empty");
-//            return null;
-//        }
-//    }
-
-
-
-
-
+    public String getFilepath() {
+        return filepath;
     }
+
+
+
+    /**Setter method for filePath attribute
+     * @param filepath string of the filepath. Used for testing reasons*/
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+}

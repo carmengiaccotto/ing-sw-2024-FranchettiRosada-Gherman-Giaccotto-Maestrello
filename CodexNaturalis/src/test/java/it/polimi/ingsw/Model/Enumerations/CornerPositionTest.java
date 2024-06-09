@@ -1,8 +1,7 @@
-package it.polimi.ingsw.Model.Enum;
+package it.polimi.ingsw.Model.Enumerations;
 
 import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.Symbol;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CornerPositionTest {
     private static List<List<SideOfCard>> cardsOnArea;
@@ -94,10 +94,18 @@ class CornerPositionTest {
         Assertions.assertEquals(cardsOnArea.get(2).get(0), CornerPosition.BOTTOMLEFT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));
         Assertions.assertEquals(cardsOnArea.get(0).get(2), CornerPosition.TOPRIGHT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));
         Assertions.assertEquals(cardsOnArea.get(0).get(0), CornerPosition.TOPLEFT.getNeighbourCard(cardsOnArea.get(1).get(1), testPlayArea));
-
-
-
-
     }
+
+    @Test
+    void testGetNeighbourCardNull() {
+        PlayArea testPlayArea=new PlayArea();
+        testPlayArea.setCardsOnArea(cardsOnArea);
+
+        assertNull(CornerPosition.BOTTOMRIGHT.getNeighbourCard(cardsOnArea.get(0).get(0), testPlayArea));
+        assertNull(CornerPosition.BOTTOMLEFT.getNeighbourCard(cardsOnArea.get(0).get(2), testPlayArea));
+        assertNull(CornerPosition.TOPRIGHT.getNeighbourCard(cardsOnArea.get(2).get(0), testPlayArea));
+        assertNull(CornerPosition.TOPLEFT.getNeighbourCard(cardsOnArea.get(2).get(2), testPlayArea));
+    }
+
 
 }

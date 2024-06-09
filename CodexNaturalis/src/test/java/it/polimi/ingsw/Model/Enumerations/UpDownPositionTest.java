@@ -1,8 +1,7 @@
-package it.polimi.ingsw.Model.Enum;
+package it.polimi.ingsw.Model.Enumerations;
 
 import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.Symbol;

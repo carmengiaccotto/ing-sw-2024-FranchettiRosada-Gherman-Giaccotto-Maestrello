@@ -1,4 +1,4 @@
-package it.polimi.ingsw.ModelTest.PlayGroundTests;
+package it.polimi.ingsw.Model.PlayGround;
 
 import org.junit.Test;
 
