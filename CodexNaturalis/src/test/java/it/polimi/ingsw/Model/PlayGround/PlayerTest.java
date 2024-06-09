@@ -1,14 +1,17 @@
 package it.polimi.ingsw.Model.PlayGround;
 
 import it.polimi.ingsw.Model.Cards.Corner;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -167,45 +170,14 @@ public class PlayerTest {
         Assertions.assertFalse(testPlayer.getCardsInHand().contains(card));
     }
 
-//    @Test
-//    public void testDrawCardFrom_DrawsCardFromDeck() {
-//        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
-//        ArrayList<PlayCard>testDeck = new ArrayList<>();
-//        testDeck.add(new PlayCard(3, new SideOfCard(null, null),
-//                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));
-//        int initialDeckSize = testDeck.size();
-//        PlayCard drawnCard = testDeck.getFirst();
-//
-//        testPlayer.DrawCardFrom(testDeck, drawnCard);
-//
-//        assertEquals(initialDeckSize - 1, testDeck.size());
-//        assertTrue(testPlayer.getCardsInHand().contains(drawnCard));
-//    }
-
-
-//    @Test
-//    public void testDrawCardFrom_ThrowsIllegalStateException() {
-//        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
-//        ArrayList<PlayCard> emptyDeck = new ArrayList<>();
-//        assertThrows(IllegalStateException.class, () -> {
-//            testPlayer.DrawCardFrom(emptyDeck, new PlayCard(3, new SideOfCard(null, null),
-//                    new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));;
-//        });
-//    }
-//
-//    @Test
-//    public void testDrawCardFrom_ThrowsNoSuchElementException() {
-//        // Setup
-//        Player testPlayer = new Player("user1", PawnColor.RED, 0, 4);
-//        ArrayList<PlayCard> testDeck = new ArrayList<>();
-//        testDeck.add(new PlayCard(7, new SideOfCard(null, null),
-//                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE));
-//        PlayCard Card= new PlayCard(3, new SideOfCard(null, null),
-//                new SideOfCard(null, new Corner[2][2]), CardColors.BLUE);
-//        assertThrows(NoSuchElementException.class, () -> {
-//            testPlayer.DrawCardFrom(testDeck, Card);
-//        });
- //   }
+    @Test
+    public void testGetPersonalObjectiveCard(){
+        Player testPlayer = new Player();
+            ObjectiveCard card=new ObjectiveCard(1, ObjectivePoints.THREE);
+            testPlayer.setPersonalObjectiveCard(card);
+            assertNotNull(testPlayer.getPersonalObjectiveCard());
+            Assertions.assertEquals(card,testPlayer.getPersonalObjectiveCard());
+    }
 
 
 

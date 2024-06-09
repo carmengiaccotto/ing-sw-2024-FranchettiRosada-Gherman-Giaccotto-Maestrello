@@ -16,13 +16,30 @@ public class Player implements Serializable {
      * Every Player has its own playArea.
      */
     private PlayArea playArea;
+
+
     private String nickname;
+
+
     private PawnColor pawnColor;
+
+
     private int score;
+
+
     private final ArrayList<PlayCard> cardsInHand;
+
+
     private ObjectiveCard personalObjectiveCard;
+
+
     private int round;
 
+
+
+    /**
+     * Constructor for the Player class
+     */
 
     public Player() {
         this.playArea = new PlayArea();
@@ -34,18 +51,31 @@ public class Player implements Serializable {
         this.personalObjectiveCard = null;
     }
 
+
+
+
+    /**
+     * SetterMethod for round attribute.
+     * @param r round*/
+
     public void setRound(int r) {
         this.round = r;
     }
 
+
+
+
     /**
-     * getter method for the Player's playArea
+     * Getter method for the Player's playArea
      *
      * @return PlayaArea
      */
+
     public PlayArea getPlayArea() {
         return this.playArea;
     }
+
+
 
 
     /**
@@ -59,15 +89,20 @@ public class Player implements Serializable {
     }
 
 
+
+
     /**
      * Nickname setter Method
      *
      * @param nickname How the player wants to be called in the game
      */
+
     public void setNickname(String nickname) {
 
         this.nickname = nickname;
     }
+
+
 
 
     /**
@@ -75,9 +110,12 @@ public class Player implements Serializable {
      *
      * @return Color
      */
+
     public PawnColor getPawnColor() {
         return pawnColor;
     }
+
+
 
 
     /**
@@ -85,9 +123,12 @@ public class Player implements Serializable {
      *
      * @param pawnColor the type is the enumeration Color
      */
+
     public void setPawnColor(PawnColor pawnColor) {
         this.pawnColor = pawnColor;
     }
+
+
 
 
     /**
@@ -95,18 +136,26 @@ public class Player implements Serializable {
      *
      * @param playArea player's PlayArea
      */
+
     public void setPlayArea(PlayArea playArea) {
         this.playArea = playArea;
     }
+
+
+
+
 
     /**
      * Score getter Method
      *
      * @return int Score
      */
+
     public int getScore() {
         return score;
     }
+
+
 
 
     /**
@@ -114,9 +163,12 @@ public class Player implements Serializable {
      *
      * @param score the current score of the player
      */
+
     public void setScore(int score) {
         this.score = score;
     }
+
+
 
 
     /**
@@ -125,9 +177,12 @@ public class Player implements Serializable {
      * @param points points are the additional points that the player just gained, either during the match
      *               (Resource or Gold Cards) or at the end of the game, when the objective Cards points are to be added
      */
+
     public void increaseScore(int points) {
         score += points;
     }
+
+
 
 
     /**
@@ -135,18 +190,24 @@ public class Player implements Serializable {
      *
      * @return round number of the round the Player already Played
      */
+
     public int getRound() {
         return round;
     }
+
+
 
 
     /**
      * Substitute for Round Setter Method: we never need to set the round to a specific value, we just
      * need to increase it by one once the player has played
      */
+
     public void IncreaseRound() {
         this.round += 1;
     }
+
+
 
 
     /**
@@ -155,9 +216,12 @@ public class Player implements Serializable {
      *
      * @return ArrayList<PairOfCards> cards that the player can currently play with
      */
+
     public ArrayList<PlayCard> getCardsInHand() {
         return cardsInHand;
     }
+
+
 
 
     /**
@@ -165,10 +229,13 @@ public class Player implements Serializable {
      *
      * @param card to add to player's hand
      */
+
     public void addCardToHand(PlayCard card) {
         cardsInHand.add(card);
 
     }
+
+
 
 
     /**
@@ -179,10 +246,13 @@ public class Player implements Serializable {
      * @return chosenSide
      * this is the last time the card gets used as PaiOfCards: from now on it is going to exist in the game just as the side it was played
      */
+
     public SideOfCard ChooseCardToPlay(PlayCard playCardToPlay, Side sideToPlay) {
         cardsInHand.remove(playCardToPlay);
         return playCardToPlay.chooseSide(sideToPlay);
     }
+
+
 
 
     /**
@@ -195,6 +265,8 @@ public class Player implements Serializable {
     }
 
 
+
+
     /**
      * Setter method for personalObjectiveCard attribute
      *
@@ -202,6 +274,7 @@ public class Player implements Serializable {
      *                              to gain more points; It can not be seen by other players,
      *                              and it is different from Player to Player
      */
+
     public void setPersonalObjectiveCard(ObjectiveCard PersonalObjectiveCard) {
         this.personalObjectiveCard = PersonalObjectiveCard;
     }
