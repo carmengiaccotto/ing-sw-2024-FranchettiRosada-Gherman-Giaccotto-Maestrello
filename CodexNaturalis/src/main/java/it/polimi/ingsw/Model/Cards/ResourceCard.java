@@ -17,10 +17,8 @@ public class ResourceCard extends PlayCard {
 
 
 
-
-
     /**
-     * getter method for the ResourceCard's point
+     * Getter method for the ResourceCard's point
      *
      * @return point if the card has been played on the Front Side, false otherwise
      */
