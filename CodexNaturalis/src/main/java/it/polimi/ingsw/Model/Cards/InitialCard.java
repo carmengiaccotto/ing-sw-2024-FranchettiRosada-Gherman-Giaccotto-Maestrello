@@ -10,8 +10,4 @@ public  class InitialCard extends PlayCard {
         super(id, front, back, color);
     }
 
-
-
-
-
 }
