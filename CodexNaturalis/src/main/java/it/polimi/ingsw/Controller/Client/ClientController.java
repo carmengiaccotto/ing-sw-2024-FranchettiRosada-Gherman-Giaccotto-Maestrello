@@ -307,14 +307,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void JoinOrCreateGame() throws RemoteException{
         int choice = view.createOrJoin();
         switch (choice) {
-            case 0 -> {
+            case 1 -> {
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
             }//Ask for desired number of players of the new game before creation
-            case 1 -> {
+            case 2 -> {
                 try {
                     server.DisplayAvailableGames(this);
                 } catch (RemoteException e) {

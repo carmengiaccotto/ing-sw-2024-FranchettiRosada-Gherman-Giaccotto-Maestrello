@@ -115,8 +115,9 @@ public class TUI implements UserInterface, Serializable {
     @Override
     public int createOrJoin() {
         System.out.println("Do you want to create a new game or join an existing one? ");
-        System.out.println(" [0] Create new Game ");
-        System.out.println(" [1] Join existing one ");
+        System.out.println(" 1. Create new Game ");
+        System.out.println(" 2. Join existing one ");
+        System.out.println(">>");
         return scanner.nextInt();
 
     }

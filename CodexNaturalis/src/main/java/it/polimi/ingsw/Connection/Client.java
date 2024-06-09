@@ -30,15 +30,14 @@ public class Client {
 
 
     public void selectView() throws RemoteException {
-        System.out.println("What kind of view would you like to use? ");
-        System.out.println("[0] TUI \n[1] GUI");
+        System.out.print("Select type of view: \n 1. Command Line Interface \n 2. Graphic User Interface \n>>");
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         switch (choice){
-            case 0:
+            case 1:
                 client.setView(new TUI());
                 break;
-            case 1:
+            case 2:
                 //view = new GUI();
                 break;
             default:
@@ -72,7 +71,6 @@ public class Client {
     }
     public void start() throws IOException, NotBoundException {
         clientController = new ClientController();
-        int InterfaceType = 0;
         System.out.println("Insert server ip address:");
         Scanner scan = new Scanner(System.in);
         try {
