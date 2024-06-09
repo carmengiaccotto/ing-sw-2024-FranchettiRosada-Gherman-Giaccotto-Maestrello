@@ -65,8 +65,6 @@ class DispositionObjectiveCardTest {
     @BeforeAll
     public static void CreateTestPlayArea(){
         cardsOnArea=new ArrayList<>();
-
-
         List<SideOfCard> row1 = new ArrayList<>();
         SideOfCard card1= new SideOfCard(null, generateCorners());
         PlayCard fullcard1= new PlayCard(1, card1, card1, CardColors.GREEN);
@@ -196,6 +194,39 @@ class DispositionObjectiveCardTest {
         DispositionObjectiveCard objectiveCard = new DispositionObjectiveCard(1, ObjectivePoints.TWO, centralCardColor, neighbors);
         assertEquals(2, objectiveCard.CheckGoals(playArea));
 
+    }
+    @Test
+    public void testGetNeighbors() {
+        Map<Position, CardColors> neighbors = new HashMap<>();
+        neighbors.put(UpDownPosition.DOWN, CardColors.RED);
+        neighbors.put(CornerPosition.TOPRIGHT, CardColors.GREEN);
+
+        DispositionObjectiveCard card = new DispositionObjectiveCard(1, ObjectivePoints.TWO, CardColors.BLUE, neighbors);
+
+        assertEquals(neighbors, card.getNeighbors());
+    }
+
+    @Test
+    public void testCheckGoalsWithNullNeighborColor() {
+        PlayArea playArea = new PlayArea();
+        playArea.setCardsOnArea(cardsOnArea);
+        CardColors centralCardColor= CardColors.RED;
+        HashMap<Position, CardColors> neighbors=new HashMap<>();
+        neighbors.put(CornerPosition.BOTTOMRIGHT, null); // Set a neighbor color to null
+        DispositionObjectiveCard objectiveCard = new DispositionObjectiveCard(1, ObjectivePoints.TWO, centralCardColor, neighbors);
+        assertEquals(0, objectiveCard.CheckGoals(playArea)); // Expect no valid configurations because of the null neighbor color
+    }
+
+    @Test
+    public void testCheckGoalsWithCardInConfiguration() {
+        PlayArea playArea = new PlayArea();
+        playArea.setCardsOnArea(cardsOnArea);
+        CardColors centralCardColor= CardColors.RED;
+        HashMap<Position, CardColors> neighbors=new HashMap<>();
+        neighbors.put(CornerPosition.BOTTOMRIGHT, CardColors.BLUE);
+        DispositionObjectiveCard objectiveCard = new DispositionObjectiveCard(1, ObjectivePoints.TWO, centralCardColor, neighbors);
+        playArea.getCardInPosition(0, 0).setInConfiguration(true);
+        assertEquals(2, objectiveCard.CheckGoals(playArea));
     }
 
 
