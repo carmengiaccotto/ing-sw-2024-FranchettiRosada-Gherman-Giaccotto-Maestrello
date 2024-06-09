@@ -28,12 +28,14 @@ public class GoldCard extends PlayCard {
      *
      * @return point
      */
+
     public int getPoints(Side chosenSide){
         if(chosenSide.equals(Side.FRONT))
             return point;
         else
             return 0;
     }
+
 
 
 
@@ -44,34 +46,41 @@ public class GoldCard extends PlayCard {
      * @param symbols a map containing symbols and their counts in the player's play area
      * @return true if the requirement is met, false otherwise
      */
+
     public boolean checkRequirement(Map<Symbol, Integer> symbols, Side chosenSide){
-        if(chosenSide.equals(Side.FRONT)){
-            for(Symbol key : requirement.keySet()) {
-                if(!symbols.containsKey(key))
+        if(chosenSide.equals(Side.FRONT)){//only the front side has a requirement to be placed
+            for(Symbol key : requirement.keySet()) {//for each symbol in the requirement map
+                if(!symbols.containsKey(key))//if the symbol is not in the play area symbols map return false
                     return false;
                 else{
-                    if(symbols.get(key)<requirement.get(key))
+                    if(symbols.get(key)<requirement.get(key))//if the number of symbols in the play area is less than the requirement return false
                         return false;
                 }
             }
-            return true;
+            return true;//if all the symbols are in the play area and their number is greater or equal to the requirement return true
         }
-        else return true;
+        else return true;//if the chosen side is the back side return true
     }
+
+
 
 
     /**Method to calculate the points that the placing of the card gives
      * Override in PointPerCoveredCorner and PointPerVisibleSymbol classes
      * @param point points to be added
      * @return int points to add to Player's score*/
+
     public int increasePoints (int point) { return this.point; }
 
 
+
+
     /**
-     * getter method for the GoldCard's requirement
+     * Getter method for the GoldCard's requirement
      *
      * @return requirement
      */
+
     public HashMap<Symbol, Integer> getRequirement(Side chosenSide){
         if(chosenSide.equals(Side.FRONT))
             return requirement;

@@ -58,7 +58,7 @@ class GoldCardTest {
     public void testCheckRequirement_FrontSide_InsufficientSymbols() {
         HashMap<Symbol, Integer>playAreaSymbols=new HashMap<>();
         playAreaSymbols.put(Symbol.FUNGI, 5);
-        playAreaSymbols.put(Symbol.PLANT, 2);
+        playAreaSymbols.put(Symbol.ANIMAL, 1);
         Side chosenSide = Side.FRONT;
         assertFalse(goldCard.checkRequirement(playAreaSymbols, chosenSide));
     }
@@ -71,6 +71,28 @@ class GoldCardTest {
         Side chosenSide = Side.BACK;
         assertTrue(goldCard.checkRequirement(playAreaSymbols, chosenSide));
     }
+
+    @Test
+    void testCheckRequirement_FrontSide_MissingSymbol() {
+        HashMap<Symbol, Integer>playAreaSymbols=new HashMap<>();
+        playAreaSymbols.put(Symbol.FUNGI, 5);
+        // Do not put Symbol.ANIMAL in the map
+        playAreaSymbols.put(Symbol.PLANT, 2);
+        Side chosenSide = Side.FRONT;
+        assertFalse(goldCard.checkRequirement(playAreaSymbols, chosenSide));
+    }
+
+    @Test
+    void testIncreasePoints() {
+        goldCard.increasePoints(5);
+        assertEquals(10, goldCard.getPoints(Side.FRONT));
+    }
+
+    @Test
+    void testGetRequirementsBackSide() {
+        assertNull(goldCard.getRequirement(Side.BACK));
+    }
+
 
 
 
