@@ -1,12 +1,13 @@
 package it.polimi.ingsw.Model.Cards;
 
+import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-class CornerTest { //Test run, all tests passed
+class CornerTest {
     @Test
     public void testCornerConstructorValidInput() {
 
@@ -34,7 +35,6 @@ class CornerTest { //Test run, all tests passed
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Corner(symbol, hidden));
     }
 
-
     @Test
     public void testIsCoveredDefaultFalse(){
         Corner corner= new Corner(Symbol.MANUSCRIPT, false);
@@ -47,8 +47,63 @@ class CornerTest { //Test run, all tests passed
         Assertions. assertTrue(corner.isCovered());
     }
 
+    @Test
+    void isHidden() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        Assertions.assertFalse(corner.isHidden());
+        Corner corner1 = new Corner(null, true);
+        Assertions.assertTrue(corner1.isHidden());
+    }
+
+    @Test
+    void getNextCorner() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        Corner nextCorner = new Corner(Symbol.MANUSCRIPT, false);
+        corner.setNextCorner(nextCorner);
+        assertEquals(nextCorner, corner.getNextCorner());
+    }
+
+    @Test
+    void getSymbol() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        assertEquals(Symbol.ANIMAL, corner.getSymbol());
+    }
+    @Test
+    void getSymbolNull() {
+        Corner corner = new Corner(null, true);
+        assertNull(corner.getSymbol());
+    }
+
+    @Test
+    void setCovered() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        assertFalse(corner.isCovered());
+        corner.setCovered();
+        assertTrue(corner.isCovered());
+    }
 
 
+    @Test
+    void getParentCard() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        Corner[][] corners =  {{null, corner}, {null, null}};
+        SideOfCard sideOfCard = new SideOfCard(null,corners);
+        assertEquals(sideOfCard, corner.getParentCard());
+    }
 
 
+    @Test
+    void getPosition() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        Corner[][] corners =  {{null, corner}, {null, null}};
+        SideOfCard sideOfCard = new SideOfCard(null,corners);
+        assertEquals(CornerPosition.TOPRIGHT, corner.getPosition());
+    }
+
+    @Test
+    void setPosition() {
+        Corner corner = new Corner(Symbol.ANIMAL, false);
+        corner.setPosition(CornerPosition.BOTTOMLEFT);
+        assertEquals(CornerPosition.BOTTOMLEFT, corner.getPosition());
+    }
 }

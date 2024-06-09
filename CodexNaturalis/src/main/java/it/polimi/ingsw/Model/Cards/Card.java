@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**Physical Card*/
 public class Card implements Serializable {
     /**JSON Card ID*/
-    private int idCard;
+    private final int idCard;
 
     /**Class Constructor*/
     public Card(int idCard) {
@@ -23,9 +23,5 @@ public class Card implements Serializable {
         return idCard;
     }
 
-    /**Setter method for Card's ID.
-     * @param idCard assigned to every play Card*/
-    public void setIdCard(int idCard) {
-        this.idCard = idCard;
-    }
+
 }
