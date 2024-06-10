@@ -73,6 +73,7 @@ public class SocketClient implements ClientControllerInterface {
 
     }
 
+
     public void setController(ClientControllerInterface clientController){
         this.controller = clientController;
     }

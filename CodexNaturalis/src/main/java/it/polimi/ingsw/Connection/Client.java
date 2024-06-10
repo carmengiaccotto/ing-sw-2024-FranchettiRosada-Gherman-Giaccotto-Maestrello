@@ -29,6 +29,10 @@ public class Client {
     }
 
 
+
+    /**
+     * Method that allows the client to choose which type of view they want to use when playing
+     * */
     public void selectView() throws RemoteException {
         System.out.print("Select type of view: \n 1. Command Line Interface \n 2. Graphic User Interface \n>>");
         Scanner scanner = new Scanner(System.in);
@@ -46,6 +50,11 @@ public class Client {
         }
     }
 
+
+
+    /**
+     * Method that allows the client to choose which type of protocol they want to use
+     * */
     public void selectProtocol() {
         System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET \n>>");
         Scanner scanner = new Scanner(System.in);

@@ -21,6 +21,7 @@ public class GameListener implements Serializable {
         }
     }
 
+
     /**
      * Sends an update message to all players.
      * This method iterates through each player in the game and sends them the provided message.

@@ -56,12 +56,21 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     /**Method that checks if the Client is trying to choose a nickname that has already been chosen by
      * another client. If the nickname is already taken, the player is sent back to the lobby, in
      * order to choose a new one, else the client's nickname is set to the chosen one
-     * @param name nickname that the client wants to choose*/
+     *
+     * @param name nickname that the client wants to choose.
+     * */
     @Override
     public boolean checkUniqueNickName(String name) throws RemoteException {
         return !nicknames.contains(name);
     }
 
+
+
+    /**
+     * Method that adds the nickname to the list of already used nicknames
+     *
+     * @param name that another player just chose
+     * */
     @Override
     public void addNickname(String name) throws RemoteException  {
         nicknames.add(name);

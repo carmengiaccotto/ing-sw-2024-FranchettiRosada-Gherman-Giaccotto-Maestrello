@@ -191,6 +191,7 @@ public class ClientHandler extends Thread implements ClientControllerInterface {
 
     }
 
+
     @Override
     public int getScore() throws RemoteException {
         return 0;

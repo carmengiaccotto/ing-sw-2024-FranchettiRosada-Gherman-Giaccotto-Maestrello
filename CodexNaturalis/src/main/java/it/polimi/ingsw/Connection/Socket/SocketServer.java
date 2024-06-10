@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class SocketServer extends Thread {
 
     public static final int SERVERPORT = 2970;
+
     public static final String SERVERIP = "localhost";
 
     public static ServerSocket server = null;

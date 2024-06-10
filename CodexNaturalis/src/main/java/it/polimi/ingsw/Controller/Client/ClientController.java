@@ -372,6 +372,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         view.waitingForPlayers();
     }
 
+
+
+
     /**
      * Method used by the player to join the lobby
      * */

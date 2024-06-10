@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -35,7 +32,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private PlayGround model;
 
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -48,6 +45,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @param id The game ID.
      * @throws RemoteException If a remote or network communication error occurs.
      */
+
     public GameController(int numPlayers, int id) throws RemoteException {
         this.numPlayers = numPlayers;
         this.id = id;
@@ -58,9 +56,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             throw new RuntimeException(e);
         }
         availableColors= new ArrayList<>();
-        for (PawnColor color : PawnColor.values()) {
-            availableColors.add(color);
-        }
+        availableColors.addAll(Arrays.asList(PawnColor.values()));
 
     }
 

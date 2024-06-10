@@ -46,6 +46,7 @@ public interface ClientControllerInterface extends Remote, Serializable {
     void updatePlayers(List<ClientControllerInterface> players)throws RemoteException;
 
     void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException;
+
     Player getPlayer() throws RemoteException;
 
     void showBoardAndPlayAreas(PlayGround m) throws RemoteException;

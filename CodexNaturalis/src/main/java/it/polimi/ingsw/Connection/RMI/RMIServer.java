@@ -33,26 +33,36 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     private MainControllerInterface handler;
 
 
+
+
     /**
      * The constructor for the RMIServer class.
      * @throws RemoteException if the remote object cannot be created
      */
+
     public RMIServer() throws RemoteException {
         super(0);
 
-        handler=new MainController(); //TODO: change to MainControllerInterface
+        handler=new MainController();
 
     }
+
+
+
 
     public RMIServer(MainControllerInterface mainController) throws RemoteException {
         super(0);
         this.handler = mainController;
     }
 
+
+
+
     /**
      * Binds the server to the RMI registry.
      * @return RMIServer the singleton instance of the RMIServer
      */
+
     public static RMIServer bind() {
         try {
             serverObject = RMIServer.getInstance();
@@ -67,10 +77,14 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return getInstance();
     }
 
+
+
+
     /**
      * Returns the singleton instance of the RMIServer.
      * @return RMIServer the singleton instance of the RMIServer
      */
+
     public synchronized static RMIServer getInstance() {
         if(serverObject == null) {
             try {
@@ -83,18 +97,24 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return serverObject;
     }
 
+
+
+
     /**
      * Returns the registry associated with the RMI Server.
      * @return Registry the registry associated with the RMI Server
-     * @throws RemoteException if the remote invocation fails
+     * @throws RemoteException          if the remote invocation fails
      */
+
     public  static Registry getRegistry() throws RemoteException {
         return registry;
     }
 
 
+
+
     /**Method that adds the player to a lobby. Uses MainController method
-     * @param client  that just connected*/
+     * @param client       that just connected*/
     @Override
     public void connect(ClientControllerInterface client) throws RemoteException {
         handler.connect(client);
@@ -145,6 +165,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     public GameControllerInterface createGame(ClientControllerInterface client, int n) throws RemoteException {
         return handler.createGame(client, n);
     }
+
 
 
 

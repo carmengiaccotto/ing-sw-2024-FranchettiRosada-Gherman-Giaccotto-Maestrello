@@ -45,6 +45,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
      * The constructor for the RMIClient class.
      * @throws RemoteException if the remote object cannot be created
      */
+
     public RMIClient() throws RemoteException {
         //this.server=server;
         this.controller=new ClientController();
