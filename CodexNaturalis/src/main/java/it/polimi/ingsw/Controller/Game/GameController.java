@@ -6,7 +6,7 @@ import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
-import it.polimi.ingsw.Model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -31,14 +31,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private final int id;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> currentTimer;
-
-
     private final Random random = new Random();
 
     private PlayGround model;
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
-
 
     private final ReentrantLock turnLock = new ReentrantLock();
 

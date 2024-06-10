@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Model.Chat;
 
-import it.polimi.ingsw.Model.DefaultValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +27,8 @@ public class Chat implements Serializable {
      * @param m message param
      */
     public void addMessage(Message m) {
-        if (message.size() > DefaultValue.max_messagesShown)
+        int max_messagesShown = 1000;
+        if (message.size() == max_messagesShown)
             message.remove(0);
         message.add(m);
     }

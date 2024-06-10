@@ -13,9 +13,9 @@ public class Message implements Serializable {
     /**
      * Constructor
      */
-    public Message() {
+    public Message(String text) {
         this.time = null;
-        this.text = null;
+        this.text = text;
         this.sender = null;
     }
 

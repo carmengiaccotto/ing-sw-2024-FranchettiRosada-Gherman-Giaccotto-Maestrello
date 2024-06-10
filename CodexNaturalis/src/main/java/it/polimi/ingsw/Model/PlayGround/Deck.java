@@ -9,18 +9,36 @@ import java.util.ArrayList;
 
 /**This is the class that implements the generic deck of cards*/
 public class Deck implements Serializable {
-    private final ArrayList<? extends Card> deck;
+    private ArrayList<? extends Card> deck;
     private String filepath = "CodexNaturalis/src/main/resources/";
 
 
 
 
 
-    /**Class Constructor*/
+    /**
+     * Class Constructor
+     * */
 
     public Deck(Class<? extends Card> DeckType) throws IOException {
         filepath=filepath.concat(DeckType.getSimpleName() + ".json");
         this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
+    }
+
+
+
+
+    /**
+     * Class Constructor for testing purpose
+     * */
+
+    public Deck(Class<? extends Card> DeckType, String filepath){
+        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
+        try {
+            this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -38,6 +56,8 @@ public class Deck implements Serializable {
 
 
 
+
+
     /**
      * Method that returns the size of the deck
      * @return Cards.size() the size of the deck we are considering
@@ -48,21 +68,4 @@ public class Deck implements Serializable {
     }
 
 
-    /**
-     * Getter method for filePath attribute
-     * @return filepath
-     * */
-
-    public String getFilepath() {
-        return filepath;
-    }
-
-
-
-    /**Setter method for filePath attribute
-     * @param filepath string of the filepath. Used for testing reasons*/
-
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
-    }
 }
