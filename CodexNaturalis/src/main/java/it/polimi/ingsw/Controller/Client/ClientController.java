@@ -130,6 +130,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         return card;
     }
 
+
     @Override
     public SideOfCard chooseCardToPlay() throws RemoteException {
         SideOfCard card = null;

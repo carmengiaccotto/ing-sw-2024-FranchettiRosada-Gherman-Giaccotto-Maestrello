@@ -7,10 +7,11 @@ import it.polimi.ingsw.Model.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PlayAreaTest {
     PlayArea playArea=new PlayArea();
@@ -100,10 +101,6 @@ class PlayAreaTest {
         }
 
 
-    @Test
-    void getCardInPosition() {//TODO
-
-    }
 
     @Test
     void getCardInPositionTest(){
@@ -159,19 +156,105 @@ class PlayAreaTest {
         playArea.addCardOnArea(card1, 0,0);
         //add new card in position (0,0), covering corner1
 
-        //Assertions.assertEquals(card1, playArea.getCardInPosition(0,0));//check if the card is correctly placed
-        //Assertions.assertEquals(card.getCornerInPosition(CornerPosition.TOPLEFT),card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
-//        //check if the cornersNext has been correctly set
-        //Assertions.assertEquals(card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT), card.getCornerInPosition(CornerPosition.TOPLEFT).getNextCorner());
-//        //check if the dimensions of the Matrix have been correctly modified
-        //Assertions.assertEquals(4, playArea.getCardsOnArea().size());//correct number of rows
-        //Assertions.assertEquals(4, playArea.getCardsOnArea().get(2).size());// correct number of columns
+
+        //check if the card is correctly placed. The matrix is expanded, so we check in 1,1
+        Assertions.assertEquals(card1, playArea.getCardInPosition(1,1));
+
+        //check if the cornersNext has been correctly set
+        Assertions.assertEquals(card.getCornerInPosition(CornerPosition.TOPLEFT),card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
+        Assertions.assertEquals(card1.getCornerInPosition(CornerPosition.BOTTOMRIGHT), card.getCornerInPosition(CornerPosition.TOPLEFT).getNextCorner());
+
+
+        //check if the dimensions of the Matrix have been correctly modified
+        Assertions.assertEquals(4, playArea.getCardsOnArea().size());//correct number of rows
+        Assertions.assertEquals(4, playArea.getCardsOnArea().get(2).size());// correct number of columns
+
+
         //check if the symbols map has been correctly modified
-        //Assertions.assertEquals(1,playArea.getSymbols().get(Symbol.ANIMAL) );// the animal symbol in top left corner has been covered
-        //Assertions.assertEquals(2, playArea.getSymbols().get(Symbol.INKWELL));// this symbol just has to be added,it did not get covered
+        Assertions.assertEquals(1,playArea.getSymbols().get(Symbol.ANIMAL) );// the animal symbol in top left corner has been covered
+        Assertions.assertEquals(2, playArea.getSymbols().get(Symbol.INKWELL));// this symbol just has to be added,it did not get covered
+
+    }
+
+    @Test
+    void addCardOnAreaInvalidPosition(){
+        Corner coner1= new Corner(Symbol.ANIMAL, false); //corner1 empty
+        Corner coner2= new Corner(null, false); //corner2
+        Corner coner3= new Corner(Symbol.INKWELL, false); //corner3
+        Corner corner4= new Corner(null, true); //corner4 hidden
+        Corner[][] corners = {{coner1, coner2}, {coner3, corner4}}; //corners of the card
+        HashMap<Symbol, Integer> symbols = new HashMap<>();
+        symbols.put(Symbol.ANIMAL, 1);
+        symbols.put(Symbol.INKWELL, 1);
+
+        SideOfCard card = new SideOfCard(symbols, corners);
 
 
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.addCardOnArea(card, 7, 5);
+        });
 
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.addCardOnArea(card, 0, 5);
+        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.addCardOnArea(card, 7, 0);
+        });
+
+    }
+
+    @Test
+    void resetConfigTest(){
+        Corner coner1= new Corner(Symbol.ANIMAL, false); //corner1 empty
+        Corner coner2= new Corner(null, false); //corner2
+        Corner coner3= new Corner(Symbol.INKWELL, false); //corner3
+        Corner corner4= new Corner(null, true); //corner4 hidden
+        Corner[][] corners = {{coner1, coner2}, {coner3, corner4}}; //corners of the card
+        HashMap<Symbol, Integer> symbols = new HashMap<>();
+        symbols.put(Symbol.ANIMAL, 1);
+        symbols.put(Symbol.INKWELL, 1);
+
+        SideOfCard card = new SideOfCard(symbols, corners);
+        SideOfCard card1 = new SideOfCard(symbols, corners);
+        card1.setInConfiguration(true);
+        SideOfCard card2 = new SideOfCard(symbols, corners);
+
+        playArea.addInitialCardOnArea(card);
+        playArea.addCardOnArea(card1,1,1);
+        playArea.addCardOnArea(card2,1,2);
+        assertTrue(playArea.getCardInPosition(1,1).isInConfiguration());
+        playArea.resetConfig();
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if (playArea.getCardInPosition(i,j)!=null)
+                    assertFalse(playArea.getCardInPosition(i,j).isInConfiguration());
+            }
+        }
+    }
+
+    @Test
+    void setCardsOnAreaTest(){
+        List<List<SideOfCard>>row1=new ArrayList<>();
+        playArea.setCardsOnArea(row1);
+        assertEquals(row1, playArea.getCardsOnArea());
+    }
+
+    @Test
+    void getCardInPositionTestArrayOutOfBound(){
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.getCardInPosition(3, 0);
+        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.getCardInPosition(0, 2);
+        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            playArea.getCardInPosition(3, 2);
+        });
+    }
+
+    @Test
+    void testColumnNotexists(){
+        assertFalse(playArea.columnExists(3));
     }
 
 }

@@ -27,7 +27,6 @@ public class PlayArea implements Serializable {
 
     /**
      * Class Constructor
-
      */
     public PlayArea() {
         cardsOnArea.add(new ArrayList<>()); // Adding an inner list
@@ -36,23 +35,41 @@ public class PlayArea implements Serializable {
     }
 
 
-    /**Getter method for Symbols attribute
-     * @return  symbols  on the playArea*/
+
+
+    /**
+     * Getter method for Symbols attribute
+     * @return  symbols  on the playArea
+     * */
+
     public Map<Symbol, Integer> getSymbols() {
         return symbols;
     }
 
-    /**Returns the number of occurrences of a specified symbol on the playArea
-     * @param symbol whose occurrences we want to check */
+
+
+
+    /**
+     * Returns the number of occurrences of a specified symbol on the playArea
+     * @param symbol whose occurrences we want to check
+     * */
+
     public int getNumSymbols(Symbol symbol) {
         return symbols.get(symbol);
     } //tested
 
 
-    /**Setter method for cardsOnArea attribute. Used for testing purposes*/
+
+
+    /**
+     * Setter method for cardsOnArea attribute. Used for testing purposes
+     * */
+
     public void setCardsOnArea(List<List<SideOfCard>> cards){
         this.cardsOnArea=cards;
-    } //TODO test this
+    }
+
+
 
 
     /**
@@ -60,6 +77,7 @@ public class PlayArea implements Serializable {
      * Populates the map with all the symbols from Symbol enum, and sets all their values to zero
      * @return playAreaMap which is going to be our symbols map
      */
+
     public Map<Symbol, Integer> InitializeSymbolMap() { //tested
         Map<Symbol, Integer> playAreaMap = new HashMap<>();
         for (Symbol symbol : Symbol.values()) {
@@ -69,11 +87,16 @@ public class PlayArea implements Serializable {
 
     }
 
-    /**method to add the initial card to the area. It is used only for the first card of the game.
-    /**method to add the initial card to the area. It is used only for the first card of the game
+
+
+
+    /**
+     * Method to add the initial card to the area. It is used only for the first card of the game
      * Once the card is added, the matrix is expanded, adding a new row before and after, and a new
      * column before and after. The new card is placed in the center of the matrix.
-     * @param card initial card to be added*/
+     * @param card initial card to be added
+     * */
+
     public void addInitialCardOnArea(SideOfCard card){//tested
         cardsOnArea.getFirst().set(0, card);
         AddSymbolsToArea(card);
@@ -93,9 +116,14 @@ public class PlayArea implements Serializable {
         }
     }
 
-    /**Method to get the card that occupies a specified position on the area.
+
+
+    /**
+     * Method to get the card that occupies a specified position on the area.
      * @param  i desired row
-     * @param j desired column*/
+     * @param j desired column
+     * */
+
     public SideOfCard getCardInPosition(int i, int j) { //tested
         if(i<cardsOnArea.size() && j< cardsOnArea.getFirst().size()) {
             List<SideOfCard> internalList = getCardsOnArea().get(i);
@@ -106,15 +134,20 @@ public class PlayArea implements Serializable {
     }
 
 
+
+
     /**
      * Checks if the PlayArea has a column in the given position
      *
      * @param column the column whose existence we have to check
      * @return boolean true if the column exists, false if it doesn't
      */
+
     public boolean columnExists(int column) { //tested
-        return !cardsOnArea.getFirst().isEmpty() && column >= 0 && column < cardsOnArea.getFirst().size();
+        return column >= 0 && column < cardsOnArea.getFirst().size();
     }
+
+
 
 
     /**
@@ -123,9 +156,12 @@ public class PlayArea implements Serializable {
      * @param row the row whose existence we want to check
      * @return exists boolean
      */
+
     public boolean rowExists(int row) {
         return row >= 0 && row < cardsOnArea.size();
     } //tested
+
+
 
 
     /**
@@ -138,8 +174,6 @@ public class PlayArea implements Serializable {
      * @param newCard the card that has just been placed: this method is called after the card has been added to the PlayArea
      */
 
-
-    //TODO Modify this method with new Logic
     public void checkCloseNeighbours(Pair<Integer, Integer>newCardPosition, SideOfCard newCard) {
         for (Corner[] Rowcorner : newCard.getCorners()) {//access the corners lines
             for (Corner corner : Rowcorner) {// access the single corner
@@ -214,17 +248,13 @@ public class PlayArea implements Serializable {
      * @param NewCard       card the player wants to place
 
      */
-    //TODO In controller add checking that we are covering at least a card+
-    // check hidden corners+check not covering two corners same card+ IsEdgeCase expansion
+
     public void  addCardOnArea(SideOfCard NewCard, int r, int c) {
         //check if the desired position exists and is not already occupied
         if(rowExists(r) && columnExists(c)) {
-            System.out.println("prev card: "+getCardInPosition(r,c));
             cardsOnArea.get(r).set(c, NewCard);//addCard in the desired position
-            System.out.println("curr card: "+getCardInPosition(r,c));
-            IsEdgeCase(new Pair<>(r,c));//Expand Area if needed;
             checkCloseNeighbours(new Pair<>(r,c), NewCard);//cover the corners of the surrounding cards
-            System.out.println("new card neighbor: "+ NewCard.getCornerInPosition(CornerPosition.BOTTOMRIGHT).getNextCorner());
+            IsEdgeCase(new Pair<>(r,c));//Expand Area if needed;
             AddSymbolsToArea(NewCard);//update playArea symbols map with the ones of the new card
             //other checks to be done in controller
 
