@@ -72,20 +72,22 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     }
 
-    /**Method that allows the player to choose its pawn color from a list of available ones. Uses ClientController implementation.
-     * @param availableColors colors that have not already been taken by other players*/
+    /**
+     * Method that allows the player to choose its pawn color from a list of available ones. Uses ClientController implementation.
+     */
     @Override
-    public void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException {
-        controller.ChoosePawnColor(availableColors);
+    public void ChoosePawnColor() throws RemoteException {
+        controller.ChoosePawnColor();
     }
 
 
-    /**Method that allows the player to choose which game to join from a list of Games created y other players.
+    /**
+     * Method that allows the player to choose which game to join from a list of Games created y other players.
      * Uses ClientController Implementation
-     * @param availableGames list of games the player can join*/
+     */
     @Override
-    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
-        controller.getGameToJoin(availableGames);
+    public void JoinGame() throws RemoteException {
+        controller.JoinGame();
 
     }
 
@@ -199,6 +201,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                         server = (MainControllerInterface) obj;
                         setServer(server);
                         System.out.println("Client ready");
+
                     } catch (Exception e) {
                         System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");
                     }
@@ -222,12 +225,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
-        }
-
-        try {
-            server.connect(this);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            controller.connect();
         }
     }
 
@@ -258,6 +256,10 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         return controller.getPersonalObjectiveCard();
     }
 
+    @Override
+    public void JoinLobby() throws RemoteException {
+        controller.JoinLobby();
+    }
 
 
 }

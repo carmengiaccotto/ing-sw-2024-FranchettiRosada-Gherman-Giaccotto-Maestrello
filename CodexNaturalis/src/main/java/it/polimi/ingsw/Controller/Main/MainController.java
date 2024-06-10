@@ -6,16 +6,19 @@ import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainController extends UnicastRemoteObject implements MainControllerInterface {
     /**ArrayList of Connected Clients*/
     private final ArrayList<ClientControllerInterface> clients;
+
+    /**HashSet of nicknames that have already been chosen by other clients*/
+    private final HashSet<String> nicknames = new HashSet<>();
 
     /**ArrayList of Games that are currently running on the server*/
     private final ArrayList<GameController> runningGames;
@@ -47,59 +50,21 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     public void connect(ClientControllerInterface client) throws RemoteException {
         System.out.println("New Client Connected");
         clients.add(client);
-        addClientToLobby(client);
-    }
-    /**Method that adds the Client to a lobby.
-     * @param client  new client in the lobby */
-    @Override
-    public void addClientToLobby(ClientControllerInterface client) throws RemoteException {
-        Runnable task=()-> {
-            try {
-                String name = client.ChooseNickname();
-                boolean unique = checkUniqueNickName(name, client);
-                while(!unique){
-                    name = client.ChooseNickname();
-                    unique = checkUniqueNickName(name, client);
-                }
-                client.setNickname(name);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                client.JoinOrCreateGame();
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        };
-        executorBuffer.execute(task);
-
     }
 
 
     /**Method that checks if the Client is trying to choose a nickname that has already been chosen by
      * another client. If the nickname is already taken, the player is sent back to the lobby, in
      * order to choose a new one, else the client's nickname is set to the chosen one
-     * @param client that is currently choosing the nickname
      * @param name nickname that the client wants to choose*/
     @Override
-    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws RemoteException {
-        boolean unique = true;
-        for (ClientControllerInterface c : clients) {
-            try {
-                if (name.equals(c.getNickname())) {
-                    unique = false;
-                    client.sendUpdateMessage("Nickname already taken, please choose another one.");
-                    return unique;
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return unique;
+    public boolean checkUniqueNickName(String name) throws RemoteException {
+        return !nicknames.contains(name);
+    }
+
+    @Override
+    public void addNickname(String name) throws RemoteException  {
+        nicknames.add(name);
     }
 
 
@@ -110,77 +75,67 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @param GameID id of the game the client chose
      * Once the player has been added to the game, the Game gets notified*/
     @Override
-    public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
-        Runnable task=()-> {
+    public GameControllerInterface joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
             GameController gameToJoin=null;
             for(GameController game: runningGames) {
                 try {
                     if(game.getId()==GameID)
                         gameToJoin=game;
+
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
             }
 
             try {
-                gameToJoin.addPlayer(client);
+                if (gameToJoin != null) {
+                    gameToJoin.addPlayer(client);
+                }
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
-            try {
-                client.setGame(gameToJoin);
-                NotifyGamePlayerJoined(gameToJoin, client);
-
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        };
-        executorBuffer.execute(task);
-
-
+        return gameToJoin;
     }
 
 
-    /**Method that gives the Client a list of game it can join. Only games that are waiting to reach the
+    /**
+     * Method that gives the Client a list of game it can join. Only games that are waiting to reach the
      * required number of player are displayed
-     * @param client that wants to see the available games*/
+     *
+     * @return
+     */
     @Override
-    public void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException {
-        Runnable task=()-> {
-            synchronized (new Object()) {
-                ArrayList<GameControllerInterface> availableGames = new ArrayList<>();
-                for (GameController runningGame : runningGames) {
-                    try {
-                        if (runningGame.getStatus().equals(GameStatus.WAITING)) {
-                            availableGames.add(runningGame);
-                        }
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+    public ArrayList<GameControllerInterface> DisplayAvailableGames() throws RemoteException {
+        synchronized (new Object()) {
+            ArrayList<GameControllerInterface> availableGames = new ArrayList<>();
+            for (GameController runningGame : runningGames) {
                 try {
-                    client.getGameToJoin(availableGames); //TODO fix client method
+                    if (runningGame.getStatus().equals(GameStatus.WAITING)) {
+                        availableGames.add(runningGame);
+                    }
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
             }
-        };
-        executorBuffer.execute(task);
+            return availableGames;
+        }
     }
 
 
-    /**method that creates a new game, adds it to the list of running games, and adds the Client
+    /**
+     * method that creates a new game, adds it to the list of running games, and adds the Client
      * that created it to the list of players of said game. Notifies the game that a new player joined
-     * @param client that created the game*/
+     *
+     * @param client that created the game
+     * @return newGame that was created
+     */
     @Override
-    public  synchronized void createGame(ClientControllerInterface client, int n) throws RemoteException {
+    public  synchronized GameControllerInterface createGame(ClientControllerInterface client, int n) throws RemoteException {
         GameController newGame = new GameController(n, runningGames.size()+1);
-
         executor.submit(newGame);
         runningGames.add(newGame);
         newGame.addPlayer(client);
-        client.setGame(newGame);
-        NotifyGamePlayerJoined(newGame, client);
+        return newGame;
     }
 
 
@@ -189,10 +144,11 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      *@param client that joined the game*/
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
-
         game.NotifyNewPlayerJoined(client);
     }
 
 
-
+    public HashSet<String> getNicknames() throws RemoteException{
+        return nicknames;
+    }
 }

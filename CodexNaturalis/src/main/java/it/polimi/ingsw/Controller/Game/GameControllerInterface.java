@@ -59,10 +59,9 @@ public interface GameControllerInterface extends Remote {
     /**
      * Retrieves a list of available pawn colors.
      *
-     * @param clients the list of client controllers.
      * @return a list of available pawn colors.
      */
-    public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients) throws RemoteException;
+    public List<PawnColor> AvailableColors() throws RemoteException;
 
     /**
      * Notifies that a new player has joined the game.
@@ -100,4 +99,7 @@ public interface GameControllerInterface extends Remote {
      * @param model the new model of the playground.
      */
     public void setModel(PlayGround model) throws RemoteException;
+
+
+    void removeAvailableColor(PawnColor color) throws RemoteException;
 }

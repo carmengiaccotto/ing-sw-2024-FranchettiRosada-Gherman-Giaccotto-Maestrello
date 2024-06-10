@@ -103,6 +103,11 @@ public class SocketClient implements ClientControllerInterface {
     }
 
     @Override
+    public void JoinLobby() throws RemoteException {
+
+    }
+
+    @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
 
     }
@@ -117,12 +122,12 @@ public class SocketClient implements ClientControllerInterface {
     }
 
     @Override
-    public void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException {
+    public void ChoosePawnColor() throws RemoteException {
 
     }
 
     @Override
-    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
+    public void JoinGame() throws RemoteException {
 
     }
 

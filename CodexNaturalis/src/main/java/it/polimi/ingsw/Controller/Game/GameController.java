@@ -7,6 +7,7 @@ import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.Exceptions.NotReadyToRunException;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
@@ -24,6 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
     private GameListener listener = new GameListener();
+    private ArrayList<PawnColor> availableColors;
     private GameStatus status;
     private final int numPlayers;
     private final int id;
@@ -57,6 +59,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             model = new PlayGround(this.id);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        availableColors= new ArrayList<>();
+        for (PawnColor color : PawnColor.values()) {
+            availableColors.add(color);
         }
 
     }
@@ -131,47 +137,36 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
         else{
-            for(ClientControllerInterface client: listener.getPlayers()){
-                try {
-                    client.Wait();
-                } catch (RemoteException e) {
-                    System.out.println("Problem connecting to view");
-                }
+            listener.updatePlayers("Waiting for more players to join the game...");
             }
 
         }
 
-    }
+
+
+
 
     /**
      * Returns a list of available pawn colors for a player to choose from.
-     * The method iterates through the list of players in the game and extracts the pawn color of each player.
-     * It then checks the available colors and returns a list of colors that are not already taken by other players.
-     *
-     * @param clients The list of clients in the game.
      * @return A list of available pawn colors for a new player to choose from.
      */
-    public List<PawnColor> AvailableColors(List<ClientControllerInterface> clients) throws RemoteException {
 
-        List<PawnColor> colors = clients.stream()
-                .map(client -> {
-                    try {
-                        return client.getPawnColor();
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .toList();
-
-        List<PawnColor> available = new ArrayList<>();
-
-        for (PawnColor color : PawnColor.values()) {
-            if (!colors.contains(color)) {
-                available.add(color);
-            }
-        }
-        return available;
+    public ArrayList<PawnColor> AvailableColors() throws RemoteException {
+       return this.availableColors;
     }
+
+
+    /**
+     * Method used to remove a color from the list of the available ones, once the color has been
+     * chosen by a player
+     * @param color chosen by the player
+     * */
+    public void removeAvailableColor(PawnColor color) throws RemoteException {
+        availableColors.remove(color);
+    }
+
+
+
 
     /**
      * Notifies all players that a new player has joined the game.
@@ -180,18 +175,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * If the maximum number of players has been reached, the method checks if the game is ready to run.
      */
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
-        try {
-            System.out.println("Notifying players that a new player has joined the game...");
-            getListener().updatePlayers(newPlayer.getNickname() + " joined the game.", newPlayer);
-        } catch (RemoteException e) {
-            System.out.println("An error Occurred during Players update: " + e.getMessage());
-            e.printStackTrace();
-        }
-        try {
-            newPlayer.ChoosePawnColor((ArrayList<PawnColor>) AvailableColors(listener.getPlayers()));
-        } catch (RemoteException e) {
-            System.out.println("An error occured");
-        }
+        System.out.println("Notifying players that a new player has joined the game...");
         CheckMaxNumPlayerReached();
     }
 
@@ -653,29 +637,24 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
     }
-//
-//    /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
-//     * @return  true id the position is valid, false otherWise
-//     * @param playArea of the current player
-//     * @param column1 chosen column where to place the card
-//     * @param row1 chosen row where to place the card*/
-//    public boolean ValidTwoCornersSameCard(PlayArea playArea, int row1, int column1){
-//        //Graphic playArea is shown with one more column and one more row at the beginning and at the end
-//        //compared to the actual PlayArea, to give the Player the opportunity to choose the position,
-//        //rather than the card and the corner
-//        int r = row1 - 1;
-//        int c = column1 - 1;
-//        for (int i=r-1; i<=r+1; i++){
-//            for (int j=c-1; j<=c+1; c++){
-//                if(i==r || j==c){
-//                    if (playArea.getCardInPosition(i,j)!=null) // if we have cards in the adjacent positions
-//                        //we are trying to cover two corners of the same card
-//                        return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
+
+    /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
+     * @return  true id the position is valid, false otherWise
+     * @param playArea of the current player
+     * @param column chosen column where to place the card
+     * @param row chosen row where to place the card*/
+    public boolean ValidTwoCornersSameCard(PlayArea playArea, int row, int column){
+        for (int i=row-1; i<=row+1; i++){
+            for (int j=column-1; j<=column+1; column++){
+                if(i==row || j==column){
+                    if (playArea.getCardInPosition(i,j)!=null) // if we have cards in the adjacent positions
+                        //we are trying to cover two corners of the same card
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
 //
 //    //Method still to revise and test
 //    /**Method that allows the Player to choose the position where to place the card in a more UserFriendly way*/

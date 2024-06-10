@@ -56,6 +56,7 @@ public class Client {
                     this.client = new RMIClient();
                     ((RMIClient) client).setController(clientController);
 
+
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
@@ -78,10 +79,10 @@ public class Client {
         } catch (Exception e) {
             serverIp = "localhost";
         }
-
         selectProtocol();
         selectView();
-        client.connect();
+        this.client.connect();
+
     }
 
 }

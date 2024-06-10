@@ -25,9 +25,9 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     void disconnect() throws RemoteException;
 
-    void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException;
+    void ChoosePawnColor() throws RemoteException;
 
-    void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException;
+    void JoinGame() throws RemoteException;
 
     String getNickname() throws RemoteException;
 
@@ -73,4 +73,6 @@ public interface ClientControllerInterface extends Remote, Serializable {
     void setGame(GameControllerInterface game) throws RemoteException;
 
     ObjectiveCard getPersonalObjectiveCard() throws RemoteException;
+
+    void JoinLobby() throws RemoteException;
 }

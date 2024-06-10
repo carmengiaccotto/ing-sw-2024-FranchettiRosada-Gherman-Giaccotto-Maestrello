@@ -11,6 +11,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -189,8 +190,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public void connect() throws RemoteException {
-        System.out.println("You are reaching this method");
-
+        server.connect(this);
+        System.out.println("Connected to the server");
+        JoinLobby();
     }
 
     @Override
@@ -232,16 +234,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
          * * @param availableColors colors that haven't already been taken*/
 
         @Override
-        public void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException {
-            int choice =view.displayAvailableColors(availableColors);
-            if(choice<=0 || choice> availableColors.size()){
-                System.out.println( "Invalid color, please select a new One");
-                ChoosePawnColor(availableColors);
+        public void ChoosePawnColor() throws RemoteException {
+            ArrayList<PawnColor> availableColors = (ArrayList<PawnColor>) this.game.AvailableColors();
+            int choice = view.displayAvailableColors(availableColors);
+            if(choice <= 0 || choice > availableColors.size()){
+                System.out.println("Invalid color, please select a new One");
+                ChoosePawnColor();
+            } else {
+                player.setPawnColor(availableColors.get(choice - 1));
+                game.removeAvailableColor(availableColors.get(choice - 1));
             }
-            else
-                player.setPawnColor(availableColors.get(choice-1));
-
-
         }
 
 /**
@@ -255,14 +257,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
 
-    /**Method that allows the player to choose the game they want to join between a list of available ones.
+    /**
+     * Method that allows the player to choose the game they want to join between a list of available ones.
      * availableGames are provided by MainController DisplayAvailableGames method.
      * If there are no available games to join, createGame method is called.
      * If the player chooses a game that is not on the list (control needed for TUI),
      * the player gets to choose again if they want to create a new game or join an existing one.
-     * @param availableGames games the player can join. Only the ones that do not already have all the needed players*/
+     */
     @Override
-    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
+    public void JoinGame() throws RemoteException {
+        ArrayList<GameControllerInterface> availableGames = server.DisplayAvailableGames();
         if (availableGames.isEmpty()) {
             System.out.println("Sorry, there are no Available games, you have to start a new one");
             try {
@@ -284,12 +288,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
             } else {
 
-                game=availableGames.get(chosenGame - 1); //TODO check this
+                game=availableGames.get(chosenGame - 1);
                 try {
-                    server.joinGame(this,game.getId()); //TODO check this
+                    this.game=server.joinGame(this,game.getId());
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
+                ChoosePawnColor();
+                server.NotifyGamePlayerJoined(game, this);
             }
         }
 
@@ -324,7 +330,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }//Ask for desired number of players of the new game before creation
             case 2 -> {
                 try {
-                    server.DisplayAvailableGames(this);
+                    JoinGame();
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
@@ -347,7 +353,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void newGameSetUp() throws RemoteException {
         int n=view.MaxNumPlayers();
         if(n>=2 && n<=4) {
-            server.createGame(this, n);
+            this.game=server.createGame(this, n);
+            ChoosePawnColor();
+            server.NotifyGamePlayerJoined(game, this);
         }
         else{
             System.out.println("Invalid number of players");
@@ -362,6 +370,31 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public void Wait() throws RemoteException {
         view.waitingForPlayers();
+    }
+
+    /**
+     * Method used by the player to join the lobby
+     * */
+    @Override
+    public void JoinLobby() throws RemoteException {
+       String name = ChooseNickname();
+        try {
+            boolean ok=server.checkUniqueNickName(name);
+            if(ok){
+                setNickname(name);
+                server.addNickname(name);
+
+            }
+            else{
+                System.out.println("Nickname already taken, please choose a new one");
+                JoinLobby();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+           System.out.println("Error in the connection");
+        }
+        JoinOrCreateGame();
     }
 
 }

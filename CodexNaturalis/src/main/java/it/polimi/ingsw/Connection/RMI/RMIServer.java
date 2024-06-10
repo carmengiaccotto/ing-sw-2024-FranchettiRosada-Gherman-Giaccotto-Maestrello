@@ -14,6 +14,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * The RMIServer class extends the UnicastRemoteObject and implements the GameInterface interface.
@@ -100,20 +102,11 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
 
-    /**Method that adds the Client to a lobby. Uses MainController method
-     * @param client  new client in the lobby */
-    @Override
-    public  void addClientToLobby(ClientControllerInterface client) throws RemoteException {
-        handler.addClientToLobby(client);
-
-    }
-
     /**Method that checks if the chosen Nickname is already taken. Uses MainController method
-     * @param client that is logging in
      * @param name inserted nickname*/
     @Override
-    public boolean checkUniqueNickName(String name, ClientControllerInterface client) throws IOException, ClassNotFoundException {
-         return handler.checkUniqueNickName(name, client);
+    public boolean checkUniqueNickName(String name) throws IOException, ClassNotFoundException {
+         return handler.checkUniqueNickName(name);
     }
 
 
@@ -121,28 +114,54 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @param client that is joining a new game
      * @param GameID chosen game to join*/
     @Override
-    public synchronized void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
-        handler.joinGame(client,GameID);
+    public synchronized GameControllerInterface joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
+        return handler.joinGame(client,GameID);
     }
 
-    /**Method that gives the Client a list of games it can join. Uses MainController method
-     * @param client that requests to see the available games*/
+
+
+
+    /**
+     * Method that gives the Client a list of games it can join. Uses MainController method
+     *
+     * @return
+     */
     @Override
-    public void DisplayAvailableGames(ClientControllerInterface client) throws RemoteException{
-       handler.DisplayAvailableGames(client);
+    public ArrayList<GameControllerInterface> DisplayAvailableGames() throws RemoteException{
+       return handler.DisplayAvailableGames();
 
     }
 
-    /**Method that creates a new game when requested by a player. Uses MainControllerMethod
-     * @param client that wants to create a new game*/
+
+
+
+    /**
+     * Method that creates a new game when requested by a player. Uses MainControllerMethod
+     *
+     * @param client that wants to create a new game
+     * @return
+     */
     @Override
-    public void createGame(ClientControllerInterface client, int n) throws RemoteException {
-        handler.createGame(client, n);
+    public GameControllerInterface createGame(ClientControllerInterface client, int n) throws RemoteException {
+        return handler.createGame(client, n);
     }
+
+
+
 
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
+    }
+
+    @Override
+    public HashSet<String> getNicknames() throws RemoteException {
+        return handler.getNicknames();
+    }
+
+    @Override
+    public void addNickname(String name) throws RemoteException {
+        handler.addNickname(name);
     }
 
     public void setHandler(MainControllerInterface handler){

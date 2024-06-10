@@ -81,12 +81,12 @@ public class ClientHandler extends Thread implements ClientControllerInterface {
     }
 
     @Override
-    public void ChoosePawnColor(ArrayList<PawnColor> availableColors) throws RemoteException {
+    public void ChoosePawnColor() throws RemoteException {
 
     }
 
     @Override
-    public void getGameToJoin(ArrayList<GameControllerInterface> availableGames) throws RemoteException {
+    public void JoinGame() throws RemoteException {
 
     }
 
@@ -209,5 +209,10 @@ public class ClientHandler extends Thread implements ClientControllerInterface {
     @Override
     public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
         return null;
+    }
+
+    @Override
+    public void JoinLobby() throws RemoteException {
+
     }
 }
