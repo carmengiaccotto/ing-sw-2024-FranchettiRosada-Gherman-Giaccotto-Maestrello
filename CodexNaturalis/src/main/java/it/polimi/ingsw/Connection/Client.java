@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection;
 
 import it.polimi.ingsw.Connection.RMI.RMIClient;
-import it.polimi.ingsw.Connection.Socket.SocketClient;
+import it.polimi.ingsw.Connection.Socket.Client.SocketClient;
 import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.View.TUI.TUI;

@@ -2,7 +2,7 @@ package it.polimi.ingsw.Connection;
 
 
 import it.polimi.ingsw.Connection.RMI.RMIServer;
-import it.polimi.ingsw.Connection.Socket.SocketServer;
+import it.polimi.ingsw.Connection.Socket.Server.SocketServer;
 import it.polimi.ingsw.Controller.Main.MainController;
 
 import java.io.IOException;

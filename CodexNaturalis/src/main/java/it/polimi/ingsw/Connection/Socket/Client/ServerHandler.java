@@ -34,51 +34,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public void run() {
-        String s;
-        GenericMessage message;
-        while(true) {
-            try {
-                GenericMessage messagge = (GenericMessage) in.readObject();
-
-                switch (messagge.getMessage()) {
-                    case "ChooseNickname":
-                        s = clientController.ChooseNickname();
-                        message = new GenericMessage("ChooseNickname");
-                        message.setObject(s);
-                        sendMessage(message);
-                        break;
-                    case "SendUpdateMessage":
-                        String m = (String) messagge.getObject();
-                        clientController.sendUpdateMessage(m);
-                        break;
-                    case "GetNickname":
-                        s = clientController.getNickname();
-                        message = new GenericMessage("GetNickname");
-                        message.setObject(s);
-                        sendMessage(message);
-                        break;
-                    case "SetNickname":
-                        String l = (String) messagge.getObject();
-                        clientController.setNickname(l);
-                        break;
-                    case "JoinOrCreateGame":
-                        clientController.JoinOrCreateGame();
-                        break;
-                    case "GetGameToJoin":
-                        //ArrayList<GameControllerInterface> availableGames = (ArrayList<GameControllerInterface>) messagge.getObject();
-                        //clientController.getGameToJoin((ArrayList<GameControllerInterface>) messagge.getObject());
-                        break;
-                    case "SetGame" :
-                        GameControllerInterface game = (GameControllerInterface) messagge.getObject();
-                        clientController.setGame(game);
-                        break;
-
-                }
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            clientController.connect();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
     public void setClientController(ClientControllerInterface clientController){this.clientController = clientController;}
@@ -156,24 +116,40 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public void connect(ClientControllerInterface client) throws RemoteException {
-
-    }
-
-    @Override
-    public boolean checkUniqueNickName(String name) throws RemoteException, IOException, ClassNotFoundException {
-        return false;
-    }
-
-
-    @Override
-    public GameControllerInterface joinGame(ClientControllerInterface client, int GameID) {
-        GenericMessage message = new GenericMessage("JoinGame");
-        message.setObject(GameID);
+        GenericMessage message = new GenericMessage("Connect");
         try {
             sendMessage(message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean checkUniqueNickName(String name) throws RemoteException{
+        boolean ok = false;
+        GenericMessage message = new GenericMessage("CheckUniqueNickName");
+        message.setObject(name);
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            GenericMessage receiveMessage = (GenericMessage) in.readObject();
+            if (receiveMessage.getMessage().equals("CheckUniqueNickName2")){
+                ok = (boolean) receiveMessage.getObject();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return ok;
+    }
+
+
+    @Override
+    public GameControllerInterface joinGame(ClientControllerInterface client, int GameID) {
+
         return null;
     }
 
@@ -185,6 +161,7 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public GameControllerInterface createGame(ClientControllerInterface client, int n) {
+        GameControllerInterface game;
         GenericMessage message = new GenericMessage("CreateGame");
         message.setObject(n);
         try {
@@ -192,12 +169,35 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        try {
+            GenericMessage receiveMessage = (GenericMessage) in.readObject();
+            game = (GameControllerInterface) receiveMessage.getObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return game;
     }
 
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
+        GenericMessage message = new GenericMessage("NotifyGamePlayerJoined");
+        message.setObject(game);
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        GenericMessage mess = null;
+        try {
+            mess = (GenericMessage) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String m = (String) mess.getObject();
+        clientController.sendUpdateMessage(m);
     }
 
     @Override
@@ -207,7 +207,13 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public void addNickname(String name) throws RemoteException {
-
+        GenericMessage message = new GenericMessage("AddNickname");
+        message.setObject(name);
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
