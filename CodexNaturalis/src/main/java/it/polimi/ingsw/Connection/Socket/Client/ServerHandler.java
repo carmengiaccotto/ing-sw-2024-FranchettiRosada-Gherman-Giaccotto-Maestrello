@@ -161,7 +161,7 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public GameControllerInterface createGame(ClientControllerInterface client, int n) {
-        GameControllerInterface game;
+        GameControllerInterface game = null;
         GenericMessage message = new GenericMessage("CreateGame");
         message.setObject(n);
         try {
@@ -171,12 +171,13 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         }
         try {
             GenericMessage receiveMessage = (GenericMessage) in.readObject();
-            game = (GameControllerInterface) receiveMessage.getObject();
+            if(receiveMessage.getMessage().equals("CreateGame")){
+                game = (GameControllerInterface) receiveMessage.getObject();
+            }
 
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         return game;
     }
 

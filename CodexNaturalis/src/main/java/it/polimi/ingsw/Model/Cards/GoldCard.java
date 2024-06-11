@@ -4,11 +4,12 @@ import it.polimi.ingsw.Model.CardColors;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.Symbol;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /** This subclass represents the Gold Cards and extends the SideOfCard class*/
-public class GoldCard extends PlayCard {
+public class GoldCard extends PlayCard implements Serializable {
     private final HashMap<Symbol, Integer> requirement;
     private int point;
 

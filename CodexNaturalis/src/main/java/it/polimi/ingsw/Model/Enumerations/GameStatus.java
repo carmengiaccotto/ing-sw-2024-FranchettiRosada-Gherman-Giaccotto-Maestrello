@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Model.Enumerations;
 
-public enum GameStatus {
+import java.io.Serializable;
+
+public enum GameStatus implements Serializable {
     WAITING,
     RUNNING,
     SETUP,

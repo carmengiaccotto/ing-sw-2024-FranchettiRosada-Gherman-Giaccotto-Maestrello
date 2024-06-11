@@ -3,9 +3,11 @@ package it.polimi.ingsw.Model.Cards;
 import it.polimi.ingsw.Model.CardColors;
 import it.polimi.ingsw.Model.Enumerations.Side;
 
+import java.io.Serializable;
+
 
 /** This subclass represents the Resource Cards and extends the SideOfCard class*/
-public class ResourceCard extends PlayCard {
+public class ResourceCard extends PlayCard implements Serializable {
     private boolean point;
 
     /**Class Constructor*/

@@ -12,6 +12,8 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,13 +28,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private GameStatus status;
     private final int numPlayers;
     private final int id;
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private ScheduledFuture<?> currentTimer;
+    private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private transient ScheduledFuture<?> currentTimer;
     private final Random random = new Random();
 
     private PlayGround model;
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -58,6 +60,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         availableColors= new ArrayList<>();
         availableColors.addAll(Arrays.asList(PawnColor.values()));
 
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.scheduler = Executors.newScheduledThreadPool(1);
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
 

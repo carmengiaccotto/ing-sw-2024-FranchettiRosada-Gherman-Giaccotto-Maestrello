@@ -16,17 +16,18 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClientHandler implements Runnable, ClientControllerInterface {
+public class ClientHandler implements Runnable, ClientControllerInterface, Serializable {
 
-    private Socket clientSocket;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private transient Socket clientSocket;
+    private transient ObjectInputStream in;
+    private transient ObjectOutputStream out;
 
     //GameController associato al gioco
     private GameControllerInterface gameController;

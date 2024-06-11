@@ -6,6 +6,7 @@ import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * This interface defines the contract for a GameController.
  * It extends the Remote interface to support remote method invocation.
  */
-public interface GameControllerInterface extends Remote {
+public interface GameControllerInterface extends Remote, Serializable {
 
     /**
      * Retrieves the game listener.

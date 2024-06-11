@@ -24,7 +24,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     private final ArrayList<GameController> runningGames;
 
     /**Thread pool for Multi-Game advanced feature*/
-    private ExecutorService executor;
+    private transient ExecutorService executor;
     /** Thread pool for async communication and task management*/
     private final ExecutorBuffer executorBuffer = new ExecutorBuffer();
 
