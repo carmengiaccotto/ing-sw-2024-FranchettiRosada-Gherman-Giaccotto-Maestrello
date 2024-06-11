@@ -73,6 +73,19 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                         GameControllerInterface game = (GameControllerInterface) message.getObject();
                         mainController.NotifyGamePlayerJoined(game, this);
                         break;
+                    case "DisplayAvailableGames":
+                        ArrayList<GameControllerInterface> gameAvailable = mainController.DisplayAvailableGames();
+                        GenericMessage mes = new GenericMessage("DisplayAvailableGames");
+                        mes.setObject(gameAvailable);
+                        sendMessage(mes);
+                        break;
+                    case "JoinGame":
+                        int ID = (int) message.getObject();
+                        GameControllerInterface game2 = mainController.joinGame(this, ID);
+                        GenericMessage newMessage = new GenericMessage("JoinGame");
+                        newMessage.setObject(game2);
+                        sendMessage(newMessage);
+                        break;
                 }
 
             } catch (IOException | ClassNotFoundException e) {

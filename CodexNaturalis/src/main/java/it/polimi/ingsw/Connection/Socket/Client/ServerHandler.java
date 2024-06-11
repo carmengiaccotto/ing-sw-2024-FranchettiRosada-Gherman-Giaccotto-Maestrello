@@ -149,13 +149,41 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public GameControllerInterface joinGame(ClientControllerInterface client, int GameID) {
+        GameControllerInterface game;
+        GenericMessage message = new GenericMessage("JoinGame");
+        message.setObject(GameID);
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            GenericMessage response = (GenericMessage) in.readObject();
+            game = (GameControllerInterface) response.getObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-        return null;
+        return game;
     }
 
     @Override
     public ArrayList<GameControllerInterface> DisplayAvailableGames() throws RemoteException {
-        return null;
+        ArrayList<GameControllerInterface> gameAvailable;
+        GenericMessage message = new GenericMessage("DisplayAvailableGames");
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            GenericMessage response = (GenericMessage) in.readObject();
+            gameAvailable = (ArrayList<GameControllerInterface>) response.getObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return gameAvailable;
     }
 
 
