@@ -236,7 +236,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
         @Override
         public void ChoosePawnColor() throws RemoteException {
-            ArrayList<PawnColor> availableColors = (ArrayList<PawnColor>) this.game.AvailableColors();
+            List<PawnColor> availableColors = game.getAvailableColors();
             int choice = view.displayAvailableColors(availableColors);
             if(choice <= 0 || choice > availableColors.size()){
                 System.out.println("Invalid color, please select a new One");

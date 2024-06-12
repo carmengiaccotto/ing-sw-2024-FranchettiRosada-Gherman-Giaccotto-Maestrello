@@ -11,6 +11,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface UserInterface {
@@ -40,7 +41,7 @@ public interface UserInterface {
 
     void showInitialCard(InitialCard card);
 
-    int  displayAvailableColors(ArrayList<PawnColor> availableColors);
+    int  displayAvailableColors(List<PawnColor> availableColors);
 
     void waitingForPlayers();
 

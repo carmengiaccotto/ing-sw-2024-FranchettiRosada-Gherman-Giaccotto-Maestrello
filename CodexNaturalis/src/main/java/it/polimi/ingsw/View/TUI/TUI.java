@@ -13,6 +13,7 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -172,7 +173,7 @@ public class TUI implements UserInterface, Serializable {
      * @return An integer representing the index of the chosen color in the list.
      */
     @Override
-    public int displayAvailableColors(ArrayList<PawnColor> availableColors) {
+    public int displayAvailableColors(List<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
         for (int i = 0; i < availableColors.size(); i++) {
             System.out.println(" [" + (i + 1) + "]" + availableColors.get(i).toString());

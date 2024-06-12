@@ -135,7 +135,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @return Map of available games, with the id of the game as key, and the list of players in the game as value
      */
     @Override
-    public Map DisplayAvailableGames() throws RemoteException {
+    public Map<Integer, ArrayList<String>>  DisplayAvailableGames() throws RemoteException {
         Map<Integer, ArrayList<String>> availableGames;
         synchronized (new Object()) {
             availableGames = new HashMap<>();

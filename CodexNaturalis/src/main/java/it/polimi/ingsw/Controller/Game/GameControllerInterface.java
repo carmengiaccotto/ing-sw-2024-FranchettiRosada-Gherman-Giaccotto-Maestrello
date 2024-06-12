@@ -9,6 +9,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,4 +104,7 @@ public interface GameControllerInterface extends Remote, Serializable {
 
 
     void removeAvailableColor(PawnColor color) throws RemoteException;
+
+    List<PawnColor> getAvailableColors() throws RemoteException;
+
 }

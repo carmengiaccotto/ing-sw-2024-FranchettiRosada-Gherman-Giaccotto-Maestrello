@@ -9,6 +9,7 @@ import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
@@ -65,14 +66,10 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                         break;
                     case "CreateGame":
                         int n = (int) message.getObject();
-                        GameControllerInterface c = mainController.createGame(this, n);
-                        GenericMessage mess = new GenericMessage("CreateGame");
-                        mess.setObject(c);
-                        sendMessage(mess);
+                        mainController.createGame(this, n);
                         break;
-                    case "NotifyGamePlayerJoined":
-                        GameControllerInterface game = (GameControllerInterface) message.getObject();
-                        mainController.NotifyGamePlayerJoined(game, this);
+                    case "NotifyNewPlayerJoined":
+                        gameController.NotifyNewPlayerJoined(this);
                         break;
                     case "DisplayAvailableGames":
                         Map<Integer, ArrayList<String>> gameAvailable = mainController.DisplayAvailableGames();
@@ -81,12 +78,24 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                         sendMessage(mes);
                         break;
                     case "JoinGame":
-//                        int ID = (int) message.getObject();
-//                        GameControllerInterface game2 = mainController.joinGame(this, ID);
-//                        GenericMessage newMessage = new GenericMessage("JoinGame");
-//                        newMessage.setObject(game2);
-//                        sendMessage(newMessage);
-//                        break;
+                        int ID = (int) message.getObject();
+                        mainController.joinGame(this, ID);
+                        break;
+                    case "NumRequiredPlayers":
+                        ArrayList<Pair<Integer, Integer>> num = mainController.numRequiredPlayers();
+                        GenericMessage mess = new GenericMessage("NumRequiredPlayers");
+                        mess.setObject(num);
+                        sendMessage(mess);
+                        break;
+                    case "NotifyGamePlayerJoined":
+                        mainController.NotifyGamePlayerJoined(this.gameController, this);
+                        break;
+                    case "GetAvailableColors":
+                        List<PawnColor> colors = gameController.getAvailableColors();
+                        GenericMessage r = new GenericMessage("GetAvailableColors");
+                        r.setObject(colors);
+                        sendMessage(r);
+                        break;
                 }
 
             } catch (IOException | ClassNotFoundException e) {
@@ -133,6 +142,20 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     @Override
     public String getNickname() throws RemoteException {
+//        GenericMessage message = new GenericMessage("GetNickname");
+//        try {
+//            sendMessage(message);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        GenericMessage recived = null;
+//        try {
+//            recived = (GenericMessage) in.readObject();
+//        } catch (IOException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        String name = (String) recived.getObject();
+//        return name;
         return null;
     }
 
@@ -245,6 +268,7 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
+        this.gameController = game;
 
     }
 

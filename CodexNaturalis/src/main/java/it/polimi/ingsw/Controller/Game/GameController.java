@@ -24,7 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
     private GameListener listener = new GameListener();
-    private ArrayList<PawnColor> availableColors;
+    private List<PawnColor> availableColors;
     private GameStatus status;
     private final int numPlayers;
     private final int id;
@@ -160,7 +160,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @return A list of available pawn colors for a new player to choose from.
      */
 
-    public ArrayList<PawnColor> AvailableColors() throws RemoteException {
+    public List<PawnColor> AvailableColors() throws RemoteException {
        return this.availableColors;
     }
 
@@ -663,6 +663,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
         return true;
+    }
+
+    @Override
+    public List<PawnColor> getAvailableColors() throws RemoteException{
+        return this.availableColors;
     }
 //
 //    //Method still to revise and test
