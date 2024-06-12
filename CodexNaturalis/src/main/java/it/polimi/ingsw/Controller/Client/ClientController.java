@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface{
     private UserInterface view;
@@ -266,7 +267,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     @Override
     public void JoinGame() throws RemoteException {
-        ArrayList<GameControllerInterface> availableGames = server.DisplayAvailableGames();
+        Map<Integer, ArrayList<String>> availableGames= server.DisplayAvailableGames();
         if (availableGames.isEmpty()) {
             System.out.println("Sorry, there are no Available games, you have to start a new one");
             try {
@@ -275,7 +276,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 throw new RuntimeException(e);
             }
         } else {
-            int chosenGame = view.displayavailableGames(availableGames);
+            int chosenGame = view.displayavailableGames(availableGames, server.numRequiredPlayers());
             if (chosenGame == 0) {
                 try {
                     newGameSetUp();
@@ -287,13 +288,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 JoinOrCreateGame();
 
             } else {
-
-                game=availableGames.get(chosenGame - 1);
-                try {
-                    this.game=server.joinGame(this,game.getId());
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+                server.joinGame(this, chosenGame-1);
                 ChoosePawnColor();
                 server.NotifyGamePlayerJoined(game, this);
             }
@@ -353,7 +348,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void newGameSetUp() throws RemoteException {
         int n=view.MaxNumPlayers();
         if(n>=2 && n<=4) {
-            this.game=server.createGame(this, n);
+            server.createGame(this,n);
             ChoosePawnColor();
             server.NotifyGamePlayerJoined(game, this);
         }

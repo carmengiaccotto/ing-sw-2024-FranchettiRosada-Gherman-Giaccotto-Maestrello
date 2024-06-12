@@ -1,16 +1,17 @@
 package it.polimi.ingsw.View;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface UserInterface {
 
@@ -33,7 +34,7 @@ public interface UserInterface {
 
     int MaxNumPlayers();
 
-    int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException;
+    int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException;
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 

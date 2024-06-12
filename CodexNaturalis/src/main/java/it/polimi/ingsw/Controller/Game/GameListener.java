@@ -113,6 +113,11 @@ public class GameListener implements Serializable {
      * @return A list of ClientControllerInterface objects representing the players.
      */
     public List<ClientControllerInterface> getPlayers() {
-        return players;
+        if(players != null)
+            return players;
+        else {
+            System.out.println("Warning: Players list is null");
+            return  null;
+        }
     }
 }

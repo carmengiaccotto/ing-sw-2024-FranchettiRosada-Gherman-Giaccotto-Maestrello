@@ -8,6 +8,7 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.io.IOException;
@@ -16,8 +17,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public class ServerHandler implements Runnable, MainControllerInterface, GameControllerInterface {
 
@@ -115,6 +116,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     }
 
     @Override
+    public ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
+        return null;
+    }
+
+    @Override
     public void connect(ClientControllerInterface client) throws RemoteException {
         GenericMessage message = new GenericMessage("Connect");
         try {
@@ -148,7 +154,7 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
 
     @Override
-    public GameControllerInterface joinGame(ClientControllerInterface client, int GameID) {
+    public void joinGame(ClientControllerInterface client, int GameID) {
         GameControllerInterface game;
         GenericMessage message = new GenericMessage("JoinGame");
         message.setObject(GameID);
@@ -164,26 +170,26 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
             throw new RuntimeException(e);
         }
 
-        return game;
     }
 
     @Override
-    public ArrayList<GameControllerInterface> DisplayAvailableGames() throws RemoteException {
-        ArrayList<GameControllerInterface> gameAvailable;
-        GenericMessage message = new GenericMessage("DisplayAvailableGames");
-        try {
-            sendMessage(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            GenericMessage response = (GenericMessage) in.readObject();
-            gameAvailable = (ArrayList<GameControllerInterface>) response.getObject();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return gameAvailable;
+    public Map DisplayAvailableGames() throws RemoteException {
+//        ArrayList<GameControllerInterface> gameAvailable;
+//        GenericMessage message = new GenericMessage("DisplayAvailableGames");
+//        try {
+//            sendMessage(message);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try {
+//            GenericMessage response = (GenericMessage) in.readObject();
+//            gameAvailable = (Map<Integer, ArrayList<String>>) response.getObject();
+//        } catch (IOException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return gameAvailable;
+        return null;
     }
 
 
@@ -229,10 +235,7 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         clientController.sendUpdateMessage(m);
     }
 
-    @Override
-    public HashSet<String> getNicknames() throws RemoteException {
-        return null;
-    }
+
 
     @Override
     public void addNickname(String name) throws RemoteException {

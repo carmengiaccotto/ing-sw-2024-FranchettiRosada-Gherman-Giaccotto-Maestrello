@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Class that represents a generic pair of two objects.
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @param <U> the type of the second element in the pair
  */
 
-public class Pair<T, U> {
+public class Pair<T, U> implements Serializable {
     private T first;
     private U second;
 

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -13,6 +13,7 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class TUI implements UserInterface, Serializable {
@@ -144,14 +145,18 @@ public class TUI implements UserInterface, Serializable {
      * @throws RemoteException If a communication-related exception occurs during the execution of a remote method call.
      */
     @Override
-    public int displayavailableGames(ArrayList<GameControllerInterface> games) throws RemoteException {
+    public int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException {
         System.out.println("Please choose one of the following games");
         for (int i = 0; i < games.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Game" + (i + 1) + "   Needed players to start the match: " + games.get(i).getNumPlayers());
+            System.out.println("[" + (i + 1) + "] Game" +"     number of players needed: " + numPlayers.get(i).getSecond() );
             System.out.println("Current players: ");
-            for (ClientControllerInterface client : games.get(i).getListener().getPlayers()) {
-                System.out.println(client.getNickname());
+            if(games.get(i)!=null)
+                for (String name: games.get(i)) {
+
+                System.out.println("      "+name);
             }
+            else
+                System.out.println("          No players yet");
         }
         System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert 0 (zero)");
         return (scanner.nextInt());

@@ -21,6 +21,7 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class ClientHandler implements Runnable, ClientControllerInterface, Serializable {
@@ -74,18 +75,18 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                         mainController.NotifyGamePlayerJoined(game, this);
                         break;
                     case "DisplayAvailableGames":
-                        ArrayList<GameControllerInterface> gameAvailable = mainController.DisplayAvailableGames();
+                        Map<Integer, ArrayList<String>> gameAvailable = mainController.DisplayAvailableGames();
                         GenericMessage mes = new GenericMessage("DisplayAvailableGames");
                         mes.setObject(gameAvailable);
                         sendMessage(mes);
                         break;
                     case "JoinGame":
-                        int ID = (int) message.getObject();
-                        GameControllerInterface game2 = mainController.joinGame(this, ID);
-                        GenericMessage newMessage = new GenericMessage("JoinGame");
-                        newMessage.setObject(game2);
-                        sendMessage(newMessage);
-                        break;
+//                        int ID = (int) message.getObject();
+//                        GameControllerInterface game2 = mainController.joinGame(this, ID);
+//                        GenericMessage newMessage = new GenericMessage("JoinGame");
+//                        newMessage.setObject(game2);
+//                        sendMessage(newMessage);
+//                        break;
                 }
 
             } catch (IOException | ClassNotFoundException e) {

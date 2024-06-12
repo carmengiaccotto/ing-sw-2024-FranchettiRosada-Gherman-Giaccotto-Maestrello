@@ -8,6 +8,7 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainController;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Model.Pair;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -15,7 +16,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Map;
 
 /**
  * The RMIServer class extends the UnicastRemoteObject and implements the GameInterface interface.
@@ -111,7 +112,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
 
-
+    @Override
+    public ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
+        return handler.numRequiredPlayers();
+    }
 
     /**Method that adds the player to a lobby. Uses MainController method
      * @param client       that just connected*/
@@ -130,12 +134,15 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
 
-    /**method that adds the player to the chosen game and notifies the game. Uses MainController method
+    /**
+     * method that adds the player to the chosen game and notifies the game. Uses MainController method
+     *
      * @param client that is joining a new game
-     * @param GameID chosen game to join*/
+     * @param GameID chosen game to join
+     */
     @Override
-    public synchronized GameControllerInterface joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
-        return handler.joinGame(client,GameID);
+    public synchronized void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
+        handler.joinGame(client,GameID);
     }
 
 
@@ -147,7 +154,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @return
      */
     @Override
-    public ArrayList<GameControllerInterface> DisplayAvailableGames() throws RemoteException{
+    public Map DisplayAvailableGames() throws RemoteException{
        return handler.DisplayAvailableGames();
 
     }
@@ -175,10 +182,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         handler.NotifyGamePlayerJoined(game,client);
     }
 
-    @Override
-    public HashSet<String> getNicknames() throws RemoteException {
-        return handler.getNicknames();
-    }
 
     @Override
     public void addNickname(String name) throws RemoteException {

@@ -99,6 +99,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     /**Method that returns the GameListener of the game
      * @return the GameListener of the game*/
     public GameListener getListener() throws RemoteException {
+        if (listener == null) {
+            System.out.println("Listener is null");
+            listener = new GameListener();
+        }
         return listener;
     }
 
