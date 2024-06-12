@@ -1,4 +1,4 @@
-package com.example.demo1.Controllers;
+package it.polimi.ingsw.View.GUI.Controllers;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.control.Button;

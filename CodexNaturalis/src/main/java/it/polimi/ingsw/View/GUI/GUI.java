@@ -1,6 +1,5 @@
 package it.polimi.ingsw.View.GUI;
 
-import com.example.demo1.Controllers.NicknameScene;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
@@ -9,6 +8,7 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.View.GUI.Controllers.NicknameScene;
 import it.polimi.ingsw.View.UserInterface;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,8 +26,6 @@ public class GUI extends Application implements UserInterface {
     private StackPane root;
     private Stage primaryStage;
 
-    //Configura l'interfaccia utente
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("nickname.fxml"));
@@ -36,11 +34,6 @@ public class GUI extends Application implements UserInterface {
         primaryStage.show();
     }
 
-
-    //Metodo per lanciare l'applicazione JavaFX:
-    //Inizializza javaFx
-    //crea il thread UI che è separato dal treadh principale
-    //chiama il metodo start
 
     public static void main(String[] args){
         launch(args);

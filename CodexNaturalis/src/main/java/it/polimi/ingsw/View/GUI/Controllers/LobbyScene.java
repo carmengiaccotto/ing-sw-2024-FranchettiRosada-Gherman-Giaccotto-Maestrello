@@ -1,4 +1,4 @@
-package com.example.demo1.Controllers;
+package it.polimi.ingsw.View.GUI.Controllers;
 
 public class LobbyScene {
 

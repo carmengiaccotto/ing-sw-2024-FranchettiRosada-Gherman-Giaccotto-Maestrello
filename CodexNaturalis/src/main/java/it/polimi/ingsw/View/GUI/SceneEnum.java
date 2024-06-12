@@ -1,4 +1,4 @@
-package com.example.demo1;
+package it.polimi.ingsw.View.GUI;
 
 public enum SceneEnum {
         MENU("/Menu.fxml"),
