@@ -68,4 +68,15 @@ public class Deck implements Serializable {
     }
 
 
+    /**Method used to draw a card from a deck. Returns the drawn Card and removes it from the deck
+     * @return drawn card*/
+    public Card drawCard(){
+        if(deck.isEmpty())
+            throw new RuntimeException("Deck is empty");
+        Card card=deck.getLast();
+        deck.remove(card);
+        return card;
+    }
+
+
 }

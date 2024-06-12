@@ -25,4 +25,23 @@ class DeckTest {
             new Deck(ResourceCard.class, "invalid/file/path/");
         });
     }
+
+    @Test
+    void testDrawCard(){
+        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+        int size = deck.getSize();
+        ResourceCard card= (ResourceCard) deck.drawCard();
+        assertEquals(size - 1, deck.getSize());
+        assertNotNull(card);
+
+    }
+
+    @Test
+    void testDrawCardEmptyDeck(){
+        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+        for (int i = 0; i < 40; i++) {
+            deck.drawCard();
+        }
+        assertThrows(RuntimeException.class, deck::drawCard);
+    }
 }
