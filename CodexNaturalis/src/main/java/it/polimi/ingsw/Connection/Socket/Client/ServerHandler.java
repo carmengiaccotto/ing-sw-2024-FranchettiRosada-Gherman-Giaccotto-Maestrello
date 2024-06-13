@@ -119,7 +119,13 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public void removeAvailableColor(PawnColor color) throws RemoteException {
-
+        GenericMessage message = new GenericMessage("RemoveAvailableColor");
+        message.setObject(color);
+        try {
+            sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -165,7 +171,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
             if (receiveMessage.getMessage().equals("CheckUniqueNickName2")){
                 ok = (boolean) receiveMessage.getObject();
             }
-
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -175,7 +180,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     @Override
     public void joinGame(ClientControllerInterface client, int GameID) {
-        GameControllerInterface game;
         GenericMessage message = new GenericMessage("JoinGame");
         message.setObject(GameID);
         try {
@@ -193,23 +197,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//        try {
-//            GenericMessage receiveMessage2 = (GenericMessage) in.readObject();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String nickname = clientController.getNickname();
-//        GenericMessage newmessage = new GenericMessage("GetNickname");
-//        newmessage.setObject(nickname);
-//        try {
-//            sendMessage(newmessage);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
         GenericMessage receiveMessage = null;
         try {
             receiveMessage = (GenericMessage) in.readObject();
@@ -217,7 +204,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
             throw new RuntimeException(e);
         }
         Map<Integer, ArrayList<String>> games = (Map<Integer, ArrayList<String>>) receiveMessage.getObject();
-
         return games;
     }
 
@@ -232,16 +218,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
             throw new RuntimeException(e);
         }
         return null;
-//        try {
-//            GenericMessage receiveMessage = (GenericMessage) in.readObject();
-//            if(receiveMessage.getMessage().equals("CreateGame")){
-//                game = (GameControllerInterface) receiveMessage.getObject();
-//            }
-//
-//        } catch (IOException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return game;
     }
 
     @Override

@@ -2,6 +2,7 @@ package it.polimi.ingsw.Connection.Socket.Server;
 
 import it.polimi.ingsw.Connection.Socket.GenericMessage;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
@@ -30,10 +31,9 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     private transient Socket clientSocket;
     private transient ObjectInputStream in;
     private transient ObjectOutputStream out;
-
-    //GameController associato al gioco
     private GameControllerInterface gameController;
     private MainControllerInterface mainController;
+    public String nickName;
 
 
     public ClientHandler(Socket soc) throws IOException {
@@ -56,6 +56,9 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                     case "CheckUniqueNickName":
                         String name = (String) message.getObject();
                         Boolean ok = mainController.checkUniqueNickName(name);
+                        if(ok){
+                            this.nickName = name;
+                        }
                         GenericMessage m = new GenericMessage("CheckUniqueNickName2");
                         m.setObject(ok);
                         sendMessage(m);
@@ -95,6 +98,10 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
                         GenericMessage r = new GenericMessage("GetAvailableColors");
                         r.setObject(colors);
                         sendMessage(r);
+                        break;
+                    case "RemoveAvailableColor":
+                        PawnColor color = (PawnColor) message.getObject();
+                        gameController.removeAvailableColor(color);
                         break;
                 }
 
@@ -142,21 +149,7 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     @Override
     public String getNickname() throws RemoteException {
-//        GenericMessage message = new GenericMessage("GetNickname");
-//        try {
-//            sendMessage(message);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        GenericMessage recived = null;
-//        try {
-//            recived = (GenericMessage) in.readObject();
-//        } catch (IOException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String name = (String) recived.getObject();
-//        return name;
-        return null;
+        return this.nickName;
     }
 
     @Override
@@ -269,7 +262,6 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.gameController = game;
-
     }
 
     @Override
