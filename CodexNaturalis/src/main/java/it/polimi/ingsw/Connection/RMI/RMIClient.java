@@ -10,7 +10,6 @@ import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
-import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -25,7 +24,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -157,8 +155,8 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public PlayCard chooseCardToDraw(PlayGround m) throws RemoteException {
-        return controller.chooseCardToDraw(m);
+    public void chooseCardToDraw(PlayGround m) throws RemoteException {
+        controller.chooseCardToDraw(m);
     }
 
     @Override
@@ -171,15 +169,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         controller.receiveCommand();
     }
 
-    @Override
-    public String chooseSideInitialCard(InitialCard c) {
-        return null;
-    }
-
-    @Override
-    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
-        return 0;
-    }
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException {
@@ -260,6 +249,11 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     @Override
     public void JoinLobby() throws RemoteException {
         controller.JoinLobby();
+    }
+
+    @Override
+    public void WhatDoIDoNow(String doThis) throws RemoteException {
+        controller.WhatDoIDoNow(doThis);
     }
 
 

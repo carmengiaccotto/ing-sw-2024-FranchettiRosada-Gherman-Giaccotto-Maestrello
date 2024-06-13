@@ -316,19 +316,7 @@ public class PlayGround implements Serializable {
         }
     }
 
-    /**
-     * Method to be called by the first Player present in the lobby
-     */
-    private void chooseNumOfPlayers() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter how many players you want to play with: ");
-        this.numOfPlayers = scan.nextInt();
-        if ((numOfPlayers > 4) || (numOfPlayers <= 1)) {
 
-            throw new IllegalArgumentException("Invalid number of players.");
-
-        }
-    }
 
     /**
      * Sends a message
@@ -338,6 +326,25 @@ public class PlayGround implements Serializable {
 
     public void sentMessage(Message m) {
         chat.addMessage(m);
+    }
+
+
+
+
+/**
+ * Method that substitutes the drawn card from the playGround
+ * @param card that the player wants to draw
+ * @param i index of the card. Used to substitute the card in the right position.
+ * */
+    public void drawCardFromPlayground(int i, PlayCard card){
+        if (card instanceof GoldCard){
+            commonGoldCards.remove(card);
+            commonGoldCards.add(i,(GoldCard) GoldCardDeck.drawCard());
+
+    }else{
+            commonResourceCards.remove(card);
+            commonResourceCards.add(i,(ResourceCard) ResourceCardDeck.drawCard());
+        }
     }
 
 

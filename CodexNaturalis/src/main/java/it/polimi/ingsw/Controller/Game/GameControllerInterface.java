@@ -1,6 +1,9 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -105,6 +108,13 @@ public interface GameControllerInterface extends Remote, Serializable {
 
     void removeAvailableColor(PawnColor color) throws RemoteException;
 
+
+    ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException;
+
     List<PawnColor> getAvailableColors() throws RemoteException;
 
+    ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException;
+
+
+    InitialCard extractInitialCard() throws RemoteException;
 }

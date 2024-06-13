@@ -221,7 +221,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         SideOfCard handCard = client.chooseCardToPlay(); //TODO put methods to play the card
                         listener.updatePlayers(client.getNickname() + "has played a card", client);
                         listener.updatePlayers(getModel());
-                        PlayCard card = client.chooseCardToDraw(model);
+                        PlayCard card = (PlayCard) model.getGoldCardDeck().drawCard();//todo change this
                         client.getPlayer().addCardToHand(card);
                         updatePlayground(card);
                         listener.updatePlayers("This is the current Playground: ");
@@ -256,27 +256,34 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             case SETUP -> {
                 try {
                     initializeGame();
+                    List<Thread> threads = new ArrayList<>();
                     listener.updatePlayers("This is the initial board of the game: \n");
                     listener.updatePlayers(model);
+                    for (ClientControllerInterface c: listener.getPlayers()) {
+                        Thread thread = new Thread(() -> {
+                            try {
+                                c.WhatDoIDoNow("INITIALIZE");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        threads.add(thread);
+                        thread.start();
+                    }
+
+                    for (Thread thread : threads) {
+                        thread.join();
+                    }
                     System.out.println("Game is ready to run!");
                     setStatus(GameStatus.INITIAL_CIRCLE);
-                } catch (NotReadyToRunException e) {
+                } catch (NotReadyToRunException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
             }
             case INITIAL_CIRCLE -> {
-                for (ClientControllerInterface c : listener.getPlayers()) {
-                    ArrayList<ObjectiveCard> objectiveList = drawObjectiveCardForPlayer();
-                    int indexOfCard = c.choosePersonaObjectiveCard(objectiveList);
-                    c.setPersonalObjectiveCard(objectiveList.get(indexOfCard));
-                    listener.updatePlayers(c.getNickname() + " has chosen his personal Objective card.", c);
-                    InitialCard card = extractInitialCard();
-                    String side = c.chooseSideInitialCard(card);
-                    playInitialCard(c, card.chooseSide(Side.valueOf(side)));
-                    listener.updatePlayers(c.getNickname() + " has played his initial card.", c);
-                    listener.updatePlayers(getModel());
-                }
+
+                listener.sendGameAction("INITIAL");
                 setStatus(GameStatus.RUNNING);
 
             }
@@ -363,11 +370,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * After extracting a card, it is removed from the objective card deck.
      */
     public void extractCommonObjectiveCards() {
-        while (model.getCommonObjectivesCards().size() < 2) {
-            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
-            ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
-            model.addCommonCard(c);
-            model.removeCardFromDeck(c, model.getObjectiveCardDeck());
+        synchronized (model) {
+            while (model.getCommonObjectivesCards().size() < 2) {
+                int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
+                ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
+                model.addCommonCard(c);
+                model.removeCardFromDeck(c, model.getObjectiveCardDeck());
+            }
         }
     }
 
@@ -377,33 +386,31 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * After a card is extracted, it is removed from its respective deck.
      */
     public void extractCommonPlaygroundCards() {
-        while (model.getCommonGoldCards().size() < 2) {
-            int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
-            GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
-            model.addCommonCard(c);
-            model.removeCardFromDeck(c, model.getGoldCardDeck());
-        }
-        while (model.getCommonResourceCards().size() < 2) {
-            int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
-            ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
-            model.addCommonCard(c);
-            model.removeCardFromDeck(c, model.getResourceCardDeck());
+        synchronized (model) {
+            while (model.getCommonGoldCards().size() < 2) {
+                int cardExtracted = random.nextInt(model.getGoldCardDeck().getSize() - 1);
+                GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().get(cardExtracted);
+                model.addCommonCard(c);
+                model.removeCardFromDeck(c, model.getGoldCardDeck());
+            }
+            while (model.getCommonResourceCards().size() < 2) {
+                int cardExtracted = random.nextInt(model.getResourceCardDeck().getSize() - 1);
+                ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().get(cardExtracted);
+                model.addCommonCard(c);
+                model.removeCardFromDeck(c, model.getResourceCardDeck());
+            }
         }
     }
 
     /**
-     * Extracts an initial card from the deck.
-     * The method randomly selects a card from the deck, removes it from the deck, and returns it.
+     * Method that draws and initial Card from the deck
      *
      * @return The extracted initial card.
      */
-    public InitialCard extractInitialCard(){
-        int cardExtracted = random.nextInt(model.getInitialCardDeck().getSize() - 1);
-        InitialCard c = (InitialCard) model.getInitialCardDeck().getCards().get(cardExtracted);
-        model.removeCardFromDeck(c, model.getInitialCardDeck());
-
-        return c;
-
+    public InitialCard extractInitialCard() throws RemoteException{
+        synchronized (model.getInitialCardDeck()) {
+            return (InitialCard) model.getInitialCardDeck().drawCard();
+        }
     }
 
     /**
@@ -486,7 +493,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     public synchronized void initializeGame() throws NotReadyToRunException, RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
-        extractPlayerHandCards();
     }
 
     /**
@@ -531,24 +537,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
         listener.updatePlayers(winners);
 
-    }
-
-    /**
-     * Draws two objective cards for a player.
-     * This method randomly selects two objective cards from the objective card deck and adds them to a list.
-     * The cards are then removed from the objective card deck.
-     *
-     * @return A list of two objective cards drawn for the player.
-     */
-    public ArrayList<ObjectiveCard> drawObjectiveCardForPlayer() {
-        ArrayList<ObjectiveCard> listCard = new ArrayList<ObjectiveCard>();
-        while (listCard.size() < 2) {
-            int cardExtracted = random.nextInt(model.getObjectiveCardDeck().getSize() - 1);
-            ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().getCards().get(cardExtracted);
-            listCard.add(c);
-            model.removeCardFromDeck(c, model.getObjectiveCardDeck());
-        }
-        return listCard;
     }
 
     /**
@@ -602,50 +590,42 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
     /**
-     * Method that extracts the cards for each player and adds them to their hand*/
-    public void extractPlayerHandCards() throws RemoteException {
-        System.out.println("Extracting cards for each player...");
-        for (ClientControllerInterface client : listener.getPlayers()) {
-            while (client.getPlayer().getCardsInHand().size() < 3) {
-                System.out.println("Extracting cards for " + client.getNickname());
-                if (!model.getResourceCardDeck().getCards().isEmpty()) {
-                    Collections.shuffle(model.getResourceCardDeck().getCards());
-                    ResourceCard c = (ResourceCard) model.getResourceCardDeck().getCards().getLast();
-                    model.removeCardFromDeck(c, model.getResourceCardDeck());
-                    client.addCardToHand(c);
-                    System.out.println(client.getPawnColor());
-                }
-            }
-            if (!model.getGoldCardDeck().getCards().isEmpty()) {
-                Collections.shuffle(model.getGoldCardDeck().getCards());
-                GoldCard c = (GoldCard) model.getGoldCardDeck().getCards().remove(model.getGoldCardDeck().getCards().size() - 1);
-                client.getPlayer().addCardToHand(c);
-            }
-        }
+     * Method that extracts the cards for the first hand of the player
+     *
+     * @return the hand of cards
+     */
+    @Override
+    public ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException {
+        System.out.println("extracting cards");
+        ArrayList<PlayCard> hand= new ArrayList<>();
+        ResourceCard card1= (ResourceCard) model.getResourceCardDeck().drawCard();
+        hand.add(card1);
+        ResourceCard card2=(ResourceCard) model.getResourceCardDeck().drawCard();
+        hand.add(card2);
+        GoldCard card3=(GoldCard) model.getGoldCardDeck().drawCard();
+        hand.add(card3);
+        return hand;
     }
 
-    /**Method that returns the personal objective card of a player
-     * @param nickname the nickname of the player
-     * @return the personal objective card of the player*/
-    public ObjectiveCard getPersonalObjective(String nickname) throws RemoteException {
-        for (ClientControllerInterface client : listener.getPlayers()) {
-            if (client.getNickname().equals(nickname)) {
-                return client.getPlayer().getPersonalObjectiveCard();
-            }
-        }
-        return null;
+    /**
+     * Method that returns the personal objective card of a player
+     *
+     * @return the personal objective card of the player
+     */
+    @Override
+    public synchronized ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException {
+        ArrayList<ObjectiveCard> ObjectiveOptions=new ArrayList<>();
+        System.out.println(model.getObjectiveCardDeck().getSize());
+        ObjectiveCard card1= (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
+        System.out.println(model.getObjectiveCardDeck().getSize());
+        ObjectiveCard card2=(ObjectiveCard) model.getObjectiveCardDeck().drawCard();
+        System.out.println(model.getObjectiveCardDeck().getSize());
+        ObjectiveOptions.add(card1);
+        ObjectiveOptions.add(card2);
+        return ObjectiveOptions;
     }
 
-    /**Method that adds the initialCard to the playArea of the client
-     * @param client the client that is currently Playing
-     * @param initialCard side of the initialCard that the Player chose to Play */
-    public void  playInitialCard(ClientControllerInterface client, SideOfCard initialCard) throws RemoteException {
-        for(Player p: model.getPlayers()){
-            if(p.getNickname().equals(client.getNickname())){
-                p.getPlayArea().addInitialCardOnArea(initialCard);
-            }
-        }
-    }
+
 
     /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
      * @return  true id the position is valid, false otherWise
@@ -668,6 +648,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     @Override
     public List<PawnColor> getAvailableColors() throws RemoteException{
         return this.availableColors;
+    }
+
+    public void sendGameAction(String action){
+        listener.sendGameAction(action);
     }
 //
 //    //Method still to revise and test

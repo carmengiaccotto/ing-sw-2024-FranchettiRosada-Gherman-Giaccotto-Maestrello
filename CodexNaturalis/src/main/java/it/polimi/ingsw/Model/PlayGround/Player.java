@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Model.PlayGround;
 
+import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -35,6 +36,8 @@ public class Player implements Serializable {
 
     private int round;
 
+    private InitialCard initialCard;
+
 
 
     /**
@@ -46,9 +49,10 @@ public class Player implements Serializable {
         this.nickname = null;
         this.pawnColor = null;
         this.score = 0;
-        this.cardsInHand = new ArrayList<>(); //Play Ground initializer will add the elements to this list for the first round
+        this.cardsInHand = new ArrayList<>();//Play Ground initializer will add the elements to this list for the first round
         this.round = 0;
         this.personalObjectiveCard = null;
+        this.initialCard=null;
     }
 
 
@@ -279,6 +283,13 @@ public class Player implements Serializable {
         this.personalObjectiveCard = PersonalObjectiveCard;
     }
 
+    public InitialCard getInitialCard() {
+        return initialCard;
+    }
+
+    public void setInitialCard(InitialCard initialCard) {
+        this.initialCard = initialCard;
+    }
 }
 
 

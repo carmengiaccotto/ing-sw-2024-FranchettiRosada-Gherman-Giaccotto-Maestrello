@@ -92,33 +92,38 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     @Override
-    public PlayCard chooseCardToDraw(PlayGround model) throws RemoteException {
+    public void chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
         String draw = view.chooseCardToDraw();
         switch (draw) {
 
             case "GOLD-DECK":
-                card = (GoldCard) model.getGoldCardDeck().getCards().getFirst();
+                card = (GoldCard) model.getGoldCardDeck().drawCard();
+
                 break;
 
             case "RESOURCE-DECK":
-                card = (ResourceCard) model.getResourceCardDeck().getCards().getFirst();
+                card = (ResourceCard) model.getResourceCardDeck().drawCard();
                 break;
 
             case "RESOURCE-CARD1":
-                card = (ResourceCard) model.getCommonResourceCards().get(0);
+                card =  model.getCommonResourceCards().get(0);
+                model.drawCardFromPlayground(0,card);
                 break;
 
             case "RESOURCE-CARD2":
-                card = (ResourceCard) model.getCommonResourceCards().get(1);
+                card =  model.getCommonResourceCards().get(1);
+                model.drawCardFromPlayground(1,card);
                 break;
 
             case "GOLD-CARD1":
-                card = (GoldCard) model.getCommonGoldCards().get(0);
+                card =  model.getCommonGoldCards().get(0);
+                model.drawCardFromPlayground(0,card);
                 break;
 
             case "GOLD-CARD2":
-                card = (GoldCard) model.getCommonGoldCards().get(1);
+                card =  model.getCommonGoldCards().get(1);
+                model.drawCardFromPlayground(1,card);
                 break;
 
             default: {
@@ -129,7 +134,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         }
         player.addCardToHand(card);
-        return card;
     }
 
 
@@ -171,18 +175,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         Command c=  view.receiveCommand();
         game.receiveMessage(c, this);
     }
- //todo qui potremmo chiamare direttamente il metodoplayInitial
-    @Override
-    public String chooseSideInitialCard(InitialCard c)throws RemoteException {
-        view.showInitialCard(c);
-        String side = view.chooseSide();
-        return side;
-    }
 
-    @Override
-    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
-        return view.choosePersonaObjectiveCard(objectives);
-    }
+
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException{
@@ -394,5 +388,65 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         }
         JoinOrCreateGame();
     }
+
+    @Override
+    public void WhatDoIDoNow(String doThis) throws RemoteException {
+        switch(doThis){
+            case("INITIALIZE")->{ //the player gets its hand of cards, chooses its personalObjective, and gets its InitialCard.
+                getMyObjectiveCard();
+                getMyHandOfCards();
+                player.setInitialCard(game.extractInitialCard());
+                //Now we are ready to start Playing
+            }
+            case("INITIAL")->{ //the player plays its initial card
+                try {
+                    playMyInitialCard();
+                } catch (RemoteException e) {
+                    System.out.println("An error occurred when playing the initial card");
+                }
+            }
+        }
+
+    }
+
+
+    /**
+     * Method that allows the player to choose its private Objective as per game rules.
+     * A list of two cards is given, and the player sets its personal objective to the one it chooses.
+     * */
+    private synchronized void getMyObjectiveCard(){
+        try {
+            ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
+            int n=view.choosePersonaObjectiveCard(objectives);
+            player.setPersonalObjectiveCard(objectives.get(n));
+        } catch (RemoteException e) {
+            System.out.println("an error occurred when extracting the personal objective card");
+        }
+
+    }
+
+
+    /**
+     * Method that distributes the initial hand of cards to the player.
+     * */
+    private synchronized void getMyHandOfCards(){
+        try {
+            for(PlayCard card: game.extractPlayerHandCards())
+                player.addCardToHand(card);
+        } catch (RemoteException e) {
+            System.out.println("an error occurred when extracting the initial hand of cards");
+            //todo add error handling
+        }
+
+    }
+
+    private void playMyInitialCard() throws RemoteException {
+        view.showInitialCard(player.getInitialCard());
+        Side side = Side.valueOf(view.chooseSide());
+        getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
+        game.getListener().updatePlayers(getNickname()+ " has played the initial card ");
+    }
+
+
 
 }

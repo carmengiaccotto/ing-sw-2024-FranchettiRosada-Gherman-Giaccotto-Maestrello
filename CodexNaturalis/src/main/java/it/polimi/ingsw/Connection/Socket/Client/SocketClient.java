@@ -5,7 +5,6 @@ import it.polimi.ingsw.Connection.Socket.Server.SocketServer;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
-import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -15,11 +14,8 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SocketClient extends Thread implements ClientControllerInterface {
@@ -74,6 +70,11 @@ public class SocketClient extends Thread implements ClientControllerInterface {
 
     @Override
     public void JoinLobby() throws RemoteException {
+
+    }
+
+    @Override
+    public void WhatDoIDoNow(String doThis) throws RemoteException {
 
     }
 
@@ -157,8 +158,8 @@ public class SocketClient extends Thread implements ClientControllerInterface {
     }
 
     @Override
-    public PlayCard chooseCardToDraw(PlayGround m) throws RemoteException {
-        return null;
+    public void chooseCardToDraw(PlayGround m) throws RemoteException {
+
     }
 
     @Override
@@ -171,15 +172,6 @@ public class SocketClient extends Thread implements ClientControllerInterface {
 
     }
 
-    @Override
-    public String chooseSideInitialCard(InitialCard c) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
-        return 0;
-    }
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException {

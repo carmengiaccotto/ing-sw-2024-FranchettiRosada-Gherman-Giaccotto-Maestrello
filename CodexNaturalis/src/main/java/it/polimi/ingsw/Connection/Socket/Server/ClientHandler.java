@@ -5,7 +5,6 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
-import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -203,8 +202,8 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     }
 
     @Override
-    public PlayCard chooseCardToDraw(PlayGround m) throws RemoteException {
-        return null;
+    public void chooseCardToDraw(PlayGround m) throws RemoteException {
+
     }
 
     @Override
@@ -217,15 +216,8 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     }
 
-    @Override
-    public String chooseSideInitialCard(InitialCard c) throws RemoteException {
-        return null;
-    }
 
-    @Override
-    public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException {
-        return 0;
-    }
+
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException {
@@ -271,6 +263,11 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     @Override
     public void JoinLobby() throws RemoteException {
+
+    }
+
+    @Override
+    public void WhatDoIDoNow(String doThis) throws RemoteException {
 
     }
 }

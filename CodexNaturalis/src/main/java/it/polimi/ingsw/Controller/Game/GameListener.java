@@ -120,4 +120,14 @@ public class GameListener implements Serializable {
             return  null;
         }
     }
+
+    public void sendGameAction(String action){
+        for(ClientControllerInterface c: getPlayers()) {
+            try {
+                c.WhatDoIDoNow(action);
+            } catch (RemoteException e) {
+                System.out.println("Unable to reach clients");
+            }
+        }
+    }
 }

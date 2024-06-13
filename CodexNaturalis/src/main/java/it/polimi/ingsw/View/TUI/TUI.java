@@ -31,7 +31,7 @@ public class TUI implements UserInterface, Serializable {
     public String chooseCardToDraw() {
         String draw;
         do {
-            System.out.println("Choose where you want to draw the card from: [GOLD-DECK / RESOURCE-DECK / RESOURCE-CARD1 / RESOURCE-CARD2 / GOLD-CARD1 / GOLD-CARD2]");
+            System.out.println("Do you want to draw a card from a deck or to choose one of the cards on the Board?\n [1]Board \n [2]Deck \n >>" );
             draw = scanner.next().toUpperCase();
             if (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2")) {
                 System.out.println("Invalid option! Please choose a valid option!");

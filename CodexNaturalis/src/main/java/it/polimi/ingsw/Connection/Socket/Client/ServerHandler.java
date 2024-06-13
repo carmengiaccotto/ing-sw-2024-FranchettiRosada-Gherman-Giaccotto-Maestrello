@@ -5,6 +5,9 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameListener;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -115,6 +118,21 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     @Override
     public void setModel(PlayGround model) throws RemoteException {
 
+    }
+
+    @Override
+    public ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public InitialCard extractInitialCard() throws RemoteException {
+        return null;
     }
 
     @Override

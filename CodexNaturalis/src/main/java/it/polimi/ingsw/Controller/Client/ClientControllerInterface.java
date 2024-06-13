@@ -2,7 +2,6 @@ package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
-import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ClientControllerInterface extends Remote, Serializable {
@@ -51,15 +49,12 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     void showBoardAndPlayAreas(PlayGround m) throws RemoteException;
 
-    PlayCard chooseCardToDraw(PlayGround m) throws RemoteException;
+    void chooseCardToDraw(PlayGround m) throws RemoteException;
 
     SideOfCard chooseCardToPlay() throws RemoteException;
 
     void receiveCommand() throws RemoteException;
 
-    String chooseSideInitialCard(InitialCard c) throws RemoteException;
-
-    int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) throws RemoteException;
 
     void sendUpdateMessage(String message) throws RemoteException;
 
@@ -76,4 +71,6 @@ public interface ClientControllerInterface extends Remote, Serializable {
     ObjectiveCard getPersonalObjectiveCard() throws RemoteException;
 
     void JoinLobby() throws RemoteException;
+
+    void WhatDoIDoNow (String doThis) throws RemoteException;
 }

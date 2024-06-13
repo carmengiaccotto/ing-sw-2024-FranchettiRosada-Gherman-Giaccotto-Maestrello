@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GUI extends Application implements UserInterface {
@@ -107,9 +108,10 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public int displayAvailableColors(ArrayList<PawnColor> availableColors) {
+    public int displayAvailableColors(List<PawnColor> availableColors) {
         return 0;
     }
+
 
     @Override
     public void waitingForPlayers() {
