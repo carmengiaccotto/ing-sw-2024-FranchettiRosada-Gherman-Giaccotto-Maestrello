@@ -20,6 +20,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
@@ -527,6 +528,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void ItsNotMyTurn(){
+
         //TODO implement this
         //client can only chat
     }

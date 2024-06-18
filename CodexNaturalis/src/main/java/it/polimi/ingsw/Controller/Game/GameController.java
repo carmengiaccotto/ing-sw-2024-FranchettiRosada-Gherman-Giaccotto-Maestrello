@@ -30,7 +30,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private transient ScheduledFuture<?> currentTimer;
-    private final Random random = new Random();
 
     private String currentPlayerNickname;
 
@@ -56,7 +55,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         this.currentPlayerNickname = "";
         this.status = GameStatus.WAITING;
         try {
-            model = new PlayGround(this.id);
+            model = new PlayGround();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -138,45 +137,46 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
             }
             case INITIAL_CIRCLE -> {
-                listener.sendGameAction("INITIAL");
+                for (ClientControllerInterface c : listener.getPlayers()) {
+                    try {
+                        c.WhatDoIDoNow("INITIAL");
+                    } catch (Exception e) {
+                        //todo handle exception
+                    }
+                }
                 setStatus(GameStatus.RUNNING);
 
             }
-            case RUNNING -> {//TODO change currentPlayerUpdate and synchronize everything
-                    System.out.println("Game is running!");
+            case RUNNING -> {//
+                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname()+"index: "+currentPlayerIndex);
+                while(status.equals(GameStatus.RUNNING)) {
+                    ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
+                    try {
+                        startTurnTimer(currentPlayer);
+                        currentPlayer.WhatDoIDoNow("PLAY-TURN");
+                    } catch (Exception e) {
+                        //todo handle exception
+                    }
 
-                    System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname()+"index: "+currentPlayerIndex);
-                    while(status.equals(GameStatus.RUNNING)) {
-
-                        // Ottieni il giocatore corrente
-                        ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
-                        //todo delete this
-                        System.out.println("Current player that doesn't work: " + currentPlayerNickname);
-
-                        // Gestisci il turno del giocatore corrente
-                        try {
-                            startTurnTimer(currentPlayer);
-                            currentPlayer.WhatDoIDoNow("PLAY-TURN");
-                        } catch (Exception e) {
-                            // Gestisci l'eccezione
-                        }
-
-                        // Passa al turno del prossimo giocatore
-                        passPlayerTurn(currentPlayerIndex);
-
-                        // Notifica a tutti gli altri giocatori che non è il loro turno
+                    new Thread(() -> {
                         for (ClientControllerInterface c : listener.getPlayers()) {
-                            if (!c.getNickname().equals(currentPlayerNickname)) {
-                                try {
-                                    c.WhatDoIDoNow("NOT-MY-TURN");
-                                    c.sendUpdateMessage("It's "+ currentPlayerNickname + "'s turn!");
-                                } catch (Exception e) {
-                                    // Gestisci l'eccezione
+                            try {
+                                if (!c.getNickname().equals(currentPlayerNickname)) {
+                                    try {
+                                        c.WhatDoIDoNow("NOT-MY-TURN");
+                                        c.sendUpdateMessage("It's "+ currentPlayerNickname + "'s turn!");
+                                    } catch (Exception e) {
+                                        //todo handle exception
+                                    }
                                 }
+                            } catch (RemoteException e) {
+                                //todo handle exception
                             }
                         }
-                        currentPlayerIndex=passPlayerTurn(currentPlayerIndex);
-                    }
+                    }).start();
+
+                    currentPlayerIndex=passPlayerTurn(currentPlayerIndex);
+                }
 
 
             }
