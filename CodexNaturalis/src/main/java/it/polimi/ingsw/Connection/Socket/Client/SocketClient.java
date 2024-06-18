@@ -167,10 +167,6 @@ public class SocketClient extends Thread implements ClientControllerInterface {
         return null;
     }
 
-    @Override
-    public void receiveCommand() throws RemoteException {
-
-    }
 
 
     @Override

@@ -51,7 +51,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * Method that returns an association between the Game ID and the number of players that can join that game
      * @return association */
     @Override
-    public ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
+    public synchronized ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
         ArrayList<Pair<Integer, Integer>> numPlayers = new ArrayList<>();
         for(GameControllerInterface game:gamesInWaiting()){
             Pair<Integer, Integer> pair= new Pair<>(game.getId(),game.getNumPlayers());
@@ -77,7 +77,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @param name nickname that the client wants to choose.
      * */
     @Override
-    public boolean checkUniqueNickName(String name) throws RemoteException {
+    public synchronized boolean checkUniqueNickName(String name) throws RemoteException {
         return !nicknames.contains(name);
     }
 
@@ -89,7 +89,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @param name that another player just chose
      * */
     @Override
-    public void addNickname(String name) throws RemoteException  {
+    public synchronized void addNickname(String name) throws RemoteException  {
         nicknames.add(name);
     }
 
@@ -106,24 +106,26 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     @Override
     public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
             GameController gameToJoin=null;
-            for(GameController game: runningGames) {
-                try {
-                    if(game.getId()==GameID) {
-                        gameToJoin = game;
-                        client.setGame(gameToJoin);
-                    }
+            synchronized (new Object()) {
+                for (GameController game : runningGames) {
+                    try {
+                        if (game.getId() == GameID) {
+                            gameToJoin = game;
+                            client.setGame(gameToJoin);
+                        }
 
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                try {
+                    if (gameToJoin != null) {
+                        gameToJoin.addPlayer(client);
+                    }
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
-            }
-
-            try {
-                if (gameToJoin != null) {
-                    gameToJoin.addPlayer(client);
-                }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
             }
     }
 
@@ -182,7 +184,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      *@param game to be notified
      *@param client that joined the game*/
     @Override
-    public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
+    public synchronized void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         game.NotifyNewPlayerJoined(client);
     }
 
@@ -193,7 +195,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @return games
      * */
 
-    private ArrayList<GameControllerInterface> gamesInWaiting(){
+    private synchronized ArrayList<GameControllerInterface> gamesInWaiting(){
         ArrayList<GameControllerInterface> games = new ArrayList<>();
         for(GameController game: runningGames){
             try {

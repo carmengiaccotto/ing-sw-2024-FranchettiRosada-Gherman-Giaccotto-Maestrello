@@ -58,7 +58,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea) {
+    public Pair<Integer, Integer> choosePositionCardOnArea(PlayArea playArea) {
         return null;
     }
 
@@ -160,6 +160,11 @@ public class GUI extends Application implements UserInterface {
 
     @Override
     public void showMyPlayArea(PlayArea playArea) {
+
+    }
+
+    @Override
+    public void viewChat() {
 
     }
 }

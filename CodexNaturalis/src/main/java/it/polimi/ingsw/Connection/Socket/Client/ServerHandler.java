@@ -8,10 +8,12 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.io.IOException;
@@ -84,10 +86,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
 
     }
 
-    @Override
-    public List<PawnColor> AvailableColors() throws RemoteException {
-        return null;
-    }
 
 
     @Override
@@ -105,10 +103,6 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         return 0;
     }
 
-    @Override
-    public void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException{
-
-    }
 
     @Override
     public PlayGround getModel() throws RemoteException {
@@ -133,6 +127,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     @Override
     public InitialCard extractInitialCard() throws RemoteException {
         return null;
+    }
+
+    @Override
+    public boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException {
+        return false;
     }
 
     @Override

@@ -6,6 +6,7 @@ import it.polimi.ingsw.Model.JsonHandler.JsonDeckCreator;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**This is the class that implements the generic deck of cards*/
 public class Deck implements Serializable {
@@ -79,4 +80,10 @@ public class Deck implements Serializable {
     }
 
 
+    /**
+     * Method used to shuffle the cards
+     * */
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
 }

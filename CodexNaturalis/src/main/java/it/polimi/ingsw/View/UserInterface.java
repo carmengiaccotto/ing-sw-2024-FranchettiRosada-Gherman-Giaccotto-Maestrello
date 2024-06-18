@@ -27,7 +27,7 @@ public interface UserInterface {
     int chooseCardToPlay(ArrayList<PlayCard> cardInHand);
     String chooseSide();
 
-    public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea);
+    Pair<Integer, Integer> choosePositionCardOnArea(PlayArea playArea);
 
     String selectNickName();
 
@@ -64,5 +64,5 @@ public interface UserInterface {
     void showMyPlayArea(PlayArea playArea);
 
 
-
+    void viewChat();
 }

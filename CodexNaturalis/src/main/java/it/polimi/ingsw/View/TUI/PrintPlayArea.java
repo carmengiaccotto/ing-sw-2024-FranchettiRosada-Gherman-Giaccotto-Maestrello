@@ -65,8 +65,8 @@ public class PrintPlayArea {
     }
 
     public static void DrawMyPlayArea(PlayArea playArea){
-        int rows=(playArea.getCardsOnArea().size()+2)*(RowDimensions)+10;
-        int columns=(playArea.getCardsOnArea().getFirst().size()+2)*(ColumnDimensions)+32;
+        int rows=(playArea.getCardsOnArea().size())*(RowDimensions)+10;
+        int columns=(playArea.getCardsOnArea().getFirst().size())*(ColumnDimensions)+32;
         String[][] playAreaMatrix= new String[rows][columns];
         //InitializeMatrix
         for(int i=0; i<rows;i++ )
@@ -74,8 +74,8 @@ public class PrintPlayArea {
                 playAreaMatrix[i][j]=" ";
 
         //Add indexes
-        for(int i=0; i<rows;i++ )
-            for(int j=0; j<columns; j++){
+        for(int i=0; i<rows-1;i++ )
+            for(int j=0; j<columns-1; j++){
                 if (i==0 && (j+ColumnDimensions/2)%ColumnDimensions==0){
                     playAreaMatrix[i][j]=String.valueOf(j/ColumnDimensions);
                 } else if (j==0 && (i+RowDimensions/2)%RowDimensions==0){
@@ -90,8 +90,9 @@ public class PrintPlayArea {
             for (int j = 0; j < columns - 1; j++) {//leaving one column free ad the beginning plus space for index
                 int cardRowIndex = i/ RowDimensions; //Equivalent of the row in the playArea
                 int cardColumnIndex = j / ColumnDimensions;//Equivalent of the column in the playArea
-                int startRow = (cardRowIndex+1) * RowDimensions;
-                int startColumn = (cardColumnIndex+1) * ColumnDimensions;
+                int startRow = (cardRowIndex) * RowDimensions;
+                int startColumn = (cardColumnIndex
+                ) * ColumnDimensions;
                 if (cardRowIndex < playArea.getCardsOnArea().size() &&
                         cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
                     if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {

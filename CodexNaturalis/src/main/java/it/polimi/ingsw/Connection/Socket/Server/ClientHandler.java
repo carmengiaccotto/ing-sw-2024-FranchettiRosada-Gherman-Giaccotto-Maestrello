@@ -41,77 +41,10 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
         this.out = new ObjectOutputStream(soc.getOutputStream());
     }
 
-@Override
+    @Override
     public void run() {
-    try {
-        while (true) {
-            try {
-                GenericMessage message = (GenericMessage) in.readObject();
-
-                switch (message.getMessage()) {
-                    case "Connect":
-                        mainController.connect(this);
-                        break;
-                    case "CheckUniqueNickName":
-                        String name = (String) message.getObject();
-                        Boolean ok = mainController.checkUniqueNickName(name);
-                        if(ok){
-                            this.nickName = name;
-                        }
-                        GenericMessage m = new GenericMessage("CheckUniqueNickName2");
-                        m.setObject(ok);
-                        sendMessage(m);
-                        break;
-                    case "AddNickname":
-                        String name2 = (String) message.getObject();
-                        mainController.addNickname(name2);
-                        break;
-                    case "CreateGame":
-                        int n = (int) message.getObject();
-                        mainController.createGame(this, n);
-                        break;
-                    case "NotifyNewPlayerJoined":
-                        gameController.NotifyNewPlayerJoined(this);
-                        break;
-                    case "DisplayAvailableGames":
-                        Map<Integer, ArrayList<String>> gameAvailable = mainController.DisplayAvailableGames();
-                        GenericMessage mes = new GenericMessage("DisplayAvailableGames");
-                        mes.setObject(gameAvailable);
-                        sendMessage(mes);
-                        break;
-                    case "JoinGame":
-                        int ID = (int) message.getObject();
-                        mainController.joinGame(this, ID);
-                        break;
-                    case "NumRequiredPlayers":
-                        ArrayList<Pair<Integer, Integer>> num = mainController.numRequiredPlayers();
-                        GenericMessage mess = new GenericMessage("NumRequiredPlayers");
-                        mess.setObject(num);
-                        sendMessage(mess);
-                        break;
-                    case "NotifyGamePlayerJoined":
-                        mainController.NotifyGamePlayerJoined(this.gameController, this);
-                        break;
-                    case "GetAvailableColors":
-                        List<PawnColor> colors = gameController.getAvailableColors();
-                        GenericMessage r = new GenericMessage("GetAvailableColors");
-                        r.setObject(colors);
-                        sendMessage(r);
-                        break;
-                    case "RemoveAvailableColor":
-                        PawnColor color = (PawnColor) message.getObject();
-                        gameController.removeAvailableColor(color);
-                        break;
-                }
-
-            } catch (IOException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    } catch (RuntimeException e) {
-        throw new RuntimeException(e);
+        
     }
-}
     public void sendMessage(GenericMessage m) throws IOException {
         out.writeObject(m);
         out.flush();
@@ -211,11 +144,6 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
         return null;
     }
 
-    @Override
-    public void receiveCommand() throws RemoteException {
-
-    }
-
 
 
 
@@ -269,5 +197,15 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     @Override
     public void WhatDoIDoNow(String doThis) throws RemoteException {
 
+    }
+
+    private void listenToServer() throws IOException {
+        String message;
+        while ((message = in.readLine()) != null) {
+            handleServerMessage(message);
+        }
+    }
+
+    private void handleServerMessage(String message) {
     }
 }

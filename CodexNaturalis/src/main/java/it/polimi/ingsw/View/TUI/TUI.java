@@ -85,13 +85,12 @@ public class TUI implements UserInterface, Serializable {
     }
 
     @Override
-    public ArrayList<Integer> choosePositionCardOnArea(PlayArea playArea) {
-        ArrayList<Integer> position = new ArrayList<Integer>();
+    public Pair<Integer, Integer> choosePositionCardOnArea(PlayArea playArea) {
+        showMyPlayArea(playArea);
         System.out.println("Choose the row and column in which you want to place the card: [row] [column]");
         int row = scanner.nextInt();
         int column = scanner.nextInt();
-        position.add(row);
-        position.add(column);
+        Pair<Integer, Integer> position = new Pair<>(row, column);
         return position;
     }
 
@@ -217,14 +216,14 @@ public class TUI implements UserInterface, Serializable {
      */
     @Override
     public Command receiveCommand() {
-        System.out.println("Select a command: [MOVE/CHAT]");
+        System.out.println("Select a command: [MOVE/CHAT/VIEWCHAT]");
         String command = "";
-        while (!command.equals("MOVE") && !command.equals("CHAT")) {
+        do{
             command = scanner.nextLine().toUpperCase();
-            if (!command.equals("MOVE") && !command.equals("CHAT")) {
-                System.out.println("Please insert a valid command: [MOVE/CHAT]");
-            }
-        }
+//            if (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT")) {
+//                System.out.println("Please insert a valid command: [MOVE/CHAT]");
+//            }
+        } while (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT"));
         return Command.valueOf(command.toUpperCase());
     }
 
@@ -243,8 +242,15 @@ public class TUI implements UserInterface, Serializable {
                 printObjectives(objectives.get(i));
                 System.out.println();
         }
-
-        return (scanner.nextInt() - 1);
+        int choice;
+        do {
+            choice = scanner.nextInt();
+            if (choice != 1 && choice != 2) {
+                System.out.println("Invalid option! Please choose 1 or 2.");
+            }
+        } while (choice != 1 && choice != 2);
+        System.out.println("Waiting for other players to choose their Objective Cards...");
+        return choice - 1;
     }
 
     /**Method that shows the player the cards they have in hand and can play during their turn
@@ -273,6 +279,7 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents) throws RemoteException {
+
         for(ClientControllerInterface opponent: opponents){
             showPlayerInfo(opponent);
             showOpponentPlayArea(opponent);
@@ -383,6 +390,11 @@ public class TUI implements UserInterface, Serializable {
             PrintPlayArea.DrawMyPlayArea(playArea); //if playArea has cards, draw the cards
         else
             System.out.println(" ");//else draw an empty space
+    }
+
+    @Override
+    public void viewChat() {
+
     }
 }
 

@@ -4,9 +4,11 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
 import java.io.Serializable;
@@ -61,12 +63,7 @@ public interface GameControllerInterface extends Remote, Serializable {
      */
     void CheckMaxNumPlayerReached() throws RemoteException;
 
-    /**
-     * Retrieves a list of available pawn colors.
-     *
-     * @return a list of available pawn colors.
-     */
-    List<PawnColor> AvailableColors() throws RemoteException;
+
 
     /**
      * Notifies that a new player has joined the game.
@@ -82,14 +79,6 @@ public interface GameControllerInterface extends Remote, Serializable {
      */
     int getId() throws RemoteException;
 
-    /**
-     * Receives a message from a client.
-     *
-     * @param c the command received.
-     * @param client the client controller that sent the command.
-     * @throws RemoteException if a remote or network communication error occurs.
-     */
-    void receiveMessage(Command c, ClientControllerInterface client) throws RemoteException;
 
     /**
      * Retrieves the model of the playground.
@@ -117,4 +106,6 @@ public interface GameControllerInterface extends Remote, Serializable {
 
 
     InitialCard extractInitialCard() throws RemoteException;
+
+    boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException;
 }

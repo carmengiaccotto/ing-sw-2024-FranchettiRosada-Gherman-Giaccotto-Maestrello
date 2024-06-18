@@ -164,10 +164,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
         return controller.chooseCardToPlay();
     }
 
-    @Override
-    public void receiveCommand() throws RemoteException{
-        controller.receiveCommand();
-    }
 
 
     @Override

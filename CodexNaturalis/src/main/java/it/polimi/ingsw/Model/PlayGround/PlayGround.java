@@ -4,12 +4,10 @@ package it.polimi.ingsw.Model.PlayGround;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
-import it.polimi.ingsw.Exceptions.GameEndedException;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * GameModel class
@@ -20,73 +18,47 @@ import java.util.Scanner;
 
 public class PlayGround implements Serializable {
 
-    /**
-     * It contains the list of all players, online and offline
-     */
-    private ArrayList<Player> players;
-
-    /**
-     * It contains the list of online players
-     */
-    private ArrayList<Player> onlinePlayers;
 
     /**
      * It contains Decks
      */
-    private Deck GoldCardDeck;
-    private Deck ResourceCardDeck;
-    private Deck ObjectiveCardDeck;
-    private Deck InitialCardDeck;
+    private final Deck GoldCardDeck;
+    private final Deck ResourceCardDeck;
+    private final Deck ObjectiveCardDeck;
+    private final Deck InitialCardDeck;
 
     /**
      * It contains the list of common resourceCards, goldCard and objective card
      */
-    private ArrayList<ResourceCard> commonResourceCards;
-    private ArrayList<GoldCard> commonGoldCards;
-    private ArrayList<ObjectiveCard> commonObjectivesCards;
+    private final ArrayList<ResourceCard> commonResourceCards;
+    private final ArrayList<GoldCard> commonGoldCards;
+    private final ArrayList<ObjectiveCard> commonObjectivesCards;
 
-    /**
-     * It contains the id of the game
-     */
-    private Integer gameId;
-
-    private Integer numOfPlayers;
-
-    /**
-     * It contains the nickname of the current player that is playing
-     */
-    private String currentPlayer;
 
     /**
      * It contains the chat of the game
      */
     private Chat chat;
 
-    /**
-     * It contains the status of the game
-     */
 
     /**
      * Constructor
      */
-    public PlayGround(Integer gameId) throws IOException {
-        players = new ArrayList<Player>();
-        onlinePlayers = new ArrayList<Player>();
+    public PlayGround() throws IOException {
 
         GoldCardDeck = new Deck(GoldCard.class);
+        GoldCardDeck.shuffle();
         ResourceCardDeck = new Deck(ResourceCard.class);
+        ResourceCardDeck.shuffle();
         ObjectiveCardDeck = new Deck(ObjectiveCard.class);
+        ObjectiveCardDeck.shuffle();
         InitialCardDeck = new Deck(InitialCard.class);
+        InitialCardDeck.shuffle();
 
-        commonResourceCards = new ArrayList<ResourceCard>();
-        commonGoldCards = new ArrayList<GoldCard>();
-        commonObjectivesCards = new ArrayList<ObjectiveCard>();
+        commonResourceCards = new ArrayList<>();
+        commonGoldCards = new ArrayList<>();
+        commonObjectivesCards = new ArrayList<>();
 
-        this.gameId = gameId;
-
-        currentPlayer = null;
-        chat = new Chat();
-        numOfPlayers = 0;
     }
 
     /**
@@ -103,9 +75,6 @@ public class PlayGround implements Serializable {
         return InitialCardDeck;
     }
 
-    public void setNumOfPlayers(int numOfPlayers){
-        this.numOfPlayers = numOfPlayers;
-    }
 
     /**
      * @return the ObjectiveCardDeck
@@ -121,135 +90,26 @@ public class PlayGround implements Serializable {
         return ResourceCardDeck;
     }
 
-    /**
-     * @return the number of total players
-     */
-    public int getNumOfCurrentPlayers() {
-        return players.size();
-    }
-
-    /**
-     * @return the maximum number of players
-     */
-    public int getNumOfPlayers() {
-        return numOfPlayers;
-    }
 
 
-    /**
-     * @return the number of online players
-     */
-    public int getNumOfOnlinePlayers() {
-        return onlinePlayers.size();
-    }
 
-    /**
-     * @return the number of players required by the game
-     */
-    public int getSpecificNumOfPlayers() {
-        return numOfPlayers;
-    }
-
-    /**
-     * @return player's list
-     */
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    /**
-     * @return online player's list
-     */
-    public ArrayList<Player> getOnlinePlayers() {
-        return onlinePlayers;
-    }
-
-    /**
-     * @return the number of commonPlayCards extracted
-     */
-    public int getNumOfCommonPlayCards() {
-        return commonResourceCards.size();
-    }
-
-    /**
-     * @param i index of common resource card
-     * @return common resource card corresponding to said index
-     */
-    public PlayCard getCommonResourceCards(int i) {
-        return commonResourceCards.get(i);
-    }
-
-    /**
-     * @param nickname of the player to check
-     * @return the player's card goal
-     */
-    public ObjectiveCard getPlayerObjectiveCard(String nickname) {
-        for (Player name : players) {
-            if (name.getNickname().equals(nickname))
-                return name.getPersonalObjectiveCard();
-        }
-        throw new IllegalArgumentException("The player doesn't exist");
-    }
 
     /**
      * Add a card to GameModel
      *
-     * @param c
+     * @param c card
      */
     public void addCommonCard(Card c) {
 
-        if (c instanceof GoldCard) {
-            commonGoldCards.add((GoldCard) c);
-        } else if (c instanceof ResourceCard) {
-            commonResourceCards.add((ResourceCard) c);
-        } else if (c instanceof ObjectiveCard) {
-            commonObjectivesCards.add((ObjectiveCard) c);
-        } else {
-            throw new IllegalArgumentException("Unsupported card type");
+        switch (c) {
+            case GoldCard goldCard -> commonGoldCards.add(goldCard);
+            case ResourceCard resourceCard -> commonResourceCards.add(resourceCard);
+            case ObjectiveCard objectiveCard -> commonObjectivesCards.add(objectiveCard);
+            case null, default -> throw new IllegalArgumentException("Unsupported card type");
         }
     }
 
-    /**
-     * Remove card from deck d
-     *
-     * @param d
-     */
-    public void removeCardFromDeck(Card c, Deck d) {
 
-        d.getCards().remove(c);
-    }
-
-    /**
-     * @return the game id
-     */
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    /**
-     * Set game id
-     *
-     * @param gameId new game id
-     */
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
-    /**
-     * @return nickname of current player playing
-     */
-    public String getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    /**
-     * Sets the current player
-     *
-     * @param currentPlayer active playing player
-     */
-    public void setCurrentPlayer(String currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
 
     /**
      * @return the chat
@@ -281,40 +141,6 @@ public class PlayGround implements Serializable {
     }
 
 
-    /**
-     * @return true if every player in the game has a personal goal assigned
-     */
-    public boolean doAllPlayersHaveObjecvtiveCard() {
-        for (Player p : players) {
-            if (p.getPersonalObjectiveCard() == null)
-                return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * @return true if the player in turn is online
-     */
-    private boolean isTheCurrentPlayerOnline() {
-
-        return onlinePlayers.contains(currentPlayer);
-
-    }
-
-
-    /**
-     * Reconnect a player to the Game unless the game is already over
-     */
-
-    public void reconnectPlayer(Player p) throws GameEndedException {
-
-        if (players.contains(p) && (!onlinePlayers.contains(p))) {
-            onlinePlayers.add(p);
-        } else {
-            System.out.println("ERROR: Trying to reconnect a online player or a player not logged in the game");
-        }
-    }
 
 
 

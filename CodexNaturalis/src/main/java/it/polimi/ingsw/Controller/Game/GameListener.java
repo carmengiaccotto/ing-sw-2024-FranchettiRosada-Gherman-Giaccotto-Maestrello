@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameListener implements Serializable {
 
@@ -15,7 +16,7 @@ public class GameListener implements Serializable {
 
     public void updatePlayers(String message, ClientControllerInterface currentPlayer) throws RemoteException {
         for (ClientControllerInterface player : players) {
-            if (player != currentPlayer) {
+            if (!Objects.equals(player.getNickname(), currentPlayer.getNickname())) {
                 player.sendUpdateMessage(message);
             }
         }

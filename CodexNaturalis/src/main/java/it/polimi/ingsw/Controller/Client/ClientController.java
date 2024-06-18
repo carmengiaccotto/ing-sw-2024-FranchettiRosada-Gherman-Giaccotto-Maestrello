@@ -2,10 +2,13 @@ package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Controller.Observer;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.Command;
+import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ClientController extends UnicastRemoteObject implements ClientControllerInterface{
+public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
     private GameControllerInterface game;
     private Player player = new Player();
@@ -27,6 +30,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public ClientController() throws RemoteException {
         game=null;
         view=null;
+    }
+    @Override
+    public void connect() throws RemoteException {
+        server.connect(this);
+        System.out.println("Connected to the server");
+        JoinLobby();
     }
 
     public void setGame(GameControllerInterface game) throws RemoteException {
@@ -71,7 +80,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
         //Printing opponents areas and informations (nickname, score, round)
         for(ClientControllerInterface player: game.getListener().getPlayers()){
-            if(player.getNickname()!= this.getNickname()){ //this is done only for the opponents
+            if(player.getNickname()!= getNickname()){ //this is done only for the opponents
                 view.showPlayerInfo(player);
                 view.showOpponentPlayArea(player);
             }
@@ -92,7 +101,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     @Override
-    public void chooseCardToDraw(PlayGround model) throws RemoteException {
+    public void chooseCardToDraw(PlayGround model) throws RemoteException {// todo modify this to make it more user friendly
         PlayCard card;
         String draw = view.chooseCardToDraw();
         switch (draw) {
@@ -107,7 +116,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 break;
 
             case "RESOURCE-CARD1":
-                card =  model.getCommonResourceCards().get(0);
+                card =  model.getCommonResourceCards().getFirst();
                 model.drawCardFromPlayground(0,card);
                 break;
 
@@ -117,7 +126,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 break;
 
             case "GOLD-CARD1":
-                card =  model.getCommonGoldCards().get(0);
+                card =  model.getCommonGoldCards().getFirst();
                 model.drawCardFromPlayground(0,card);
                 break;
 
@@ -163,17 +172,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         } while (!requirements);
 
         return card;
-    }
 
-    public ArrayList<Integer> choosePositionCard() throws RemoteException { //TODO check this
-        return view.choosePositionCardOnArea(getPlayer().getPlayArea());
-    }
-
-    @Override
-    public void receiveCommand() throws RemoteException {
-
-        Command c=  view.receiveCommand();
-        game.receiveMessage(c, this);
     }
 
 
@@ -183,23 +182,30 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         view.printMessage(message);
     }
 
-    @Override
-    public void connect() throws RemoteException {
-        server.connect(this);
-        System.out.println("Connected to the server");
-        JoinLobby();
-    }
-
+    /**
+     * Method used to add a card to a player's hand of cards.
+     * Uses Model class Player
+     * @param card to be added to the hand of cards
+     * */
     @Override
     public void addCardToHand(PlayCard card) throws RemoteException {
         player.addCardToHand(card);
     }
 
+
+    /**
+     * Player's Score getter method
+     * @return score
+     * */
     @Override
     public int getScore() {
         return player.getScore();
     }
 
+    /**
+     * Player's Round getter method
+     * @return round
+     * */
     @Override
     public int getRound() {
         return player.getRound();
@@ -218,15 +224,22 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         this.view=view;
     }
 
-    /**Method that disconnects the player*/
+
+
+    /**
+     * Method that disconnects the player
+     * */
         @Override
-        public void disconnect() throws RemoteException {
+        public void disconnect() throws RemoteException {//todo do we need this?
         //TODO implement disconnection
         }
 
-        /**Method that allows the player to choose a player from a list of the available colors,
+
+
+        /**
+         * Method that allows the player to choose a player from a list of the available colors,
          * so the colors that have not already been taken by other players in the same game
-         * * @param availableColors colors that haven't already been taken*/
+         * */
 
         @Override
         public void ChoosePawnColor() throws RemoteException {
@@ -241,14 +254,17 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         }
 
-/**
- * Method that allows the player to set their nickname once the server verified that
- * no other player has already chosen it
- */
-    @Override
-    public String ChooseNickname() throws RemoteException {
-        return view.selectNickName();
-    }
+    /**
+     * Method that allows the player to set their nickname once the server verified that
+     * no other player has already chosen it.
+     *
+     * @return nickname chosen by the player
+     *
+     */
+        @Override
+        public String ChooseNickname() throws RemoteException {
+            return view.selectNickName();
+        }
 
 
 
@@ -259,6 +275,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * If the player chooses a game that is not on the list (control needed for TUI),
      * the player gets to choose again if they want to create a new game or join an existing one.
      */
+
     @Override
     public void JoinGame() throws RemoteException {
         Map<Integer, ArrayList<String>> availableGames= server.DisplayAvailableGames();
@@ -405,6 +422,32 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                     System.out.println("An error occurred when playing the initial card");
                 }
             }
+            case("PLAY-TURN")->{ //the player plays a card
+                sendUpdateMessage("It's your turn!");
+                Command c= view.receiveCommand();
+                switch(c){
+                    case MOVE -> playMyTurn();
+                    case CHAT -> sendChatMessage();
+                    case VIEWCHAT -> view.viewChat();
+                }
+                if (getScore()>=20){
+                    game.setStatus(GameStatus.LAST_CIRCLE);
+                }
+            }
+            case("NOT-MY-TURN")->{ //the player can only chat
+                ItsNotMyTurn();
+            }
+            case("OBJECTIVE COUNT")->{ //the player has to count its personal objective
+                //return the count to the server
+            }
+            case("WINNER")->{ //the player has won
+                //TODO schermata carina per il vincitore
+                view.printMessage("Congratulations, you have won the game!");
+            }
+            case("LOSER")->{ //the player has lost
+                //TODO schermata carina per il perdente, con classifica
+                view.printMessage("Sorry, you have lost the game!");
+            }
         }
 
     }
@@ -419,6 +462,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
             int n=view.choosePersonaObjectiveCard(objectives);
             player.setPersonalObjectiveCard(objectives.get(n));
+            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card ", this);
         } catch (RemoteException e) {
             System.out.println("an error occurred when extracting the personal objective card");
         }
@@ -444,7 +488,47 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         view.showInitialCard(player.getInitialCard());
         Side side = Side.valueOf(view.chooseSide());
         getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
-        game.getListener().updatePlayers(getNickname()+ " has played the initial card ");
+        game.getListener().updatePlayers(getNickname()+ " has played the initial card ", this);
+    }
+
+
+
+    private void playMyCard(){
+        view.showCardsInHand(player.getCardsInHand());
+        int n= view.chooseCardToPlay(player.getCardsInHand());
+        PlayCard card= player.getCardsInHand().get(n);
+        Side side = Side.valueOf(view.chooseSide());
+        SideOfCard sideOfCard= card.chooseSide(side);
+        Pair<Integer, Integer> position= view.choosePositionCardOnArea(player.getPlayArea());
+        try {
+            if (game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)){
+                player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
+            }
+            else{
+                view.printMessage("Invalid move, please try again");
+                playMyCard();
+            }
+        } catch (RemoteException e) {
+            //todo add error handling
+        }
+    }
+
+
+    private void playMyTurn(){//todo modify this. It has to include also the card drawing
+        playMyCard();
+        //client has all the options: move, chat, view full chat
+    }
+
+    private void sendChatMessage() {
+        //todo implement this
+        //method in view that returns a string
+        //method in view that returns a nickname or an "all" string for broadcast message
+        //method in server that sends the message to all the players
+    }
+
+    private void ItsNotMyTurn(){
+        //TODO implement this
+        //client can only chat
     }
 
 
