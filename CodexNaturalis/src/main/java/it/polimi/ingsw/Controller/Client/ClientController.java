@@ -495,7 +495,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     private void playMyCard(){
-        view.showCardsInHand(player.getCardsInHand());
         int n= view.chooseCardToPlay(player.getCardsInHand());
         PlayCard card= player.getCardsInHand().get(n);
         Side side = Side.valueOf(view.chooseSide());
@@ -507,7 +506,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
             else{
                 view.printMessage("Invalid move, please try again");
-                playMyCard();
+                playMyCard();//todo change this and ask only for the position
             }
         } catch (RemoteException e) {
             //todo add error handling

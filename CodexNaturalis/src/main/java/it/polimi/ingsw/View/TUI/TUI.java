@@ -236,6 +236,7 @@ public class TUI implements UserInterface, Serializable {
      */
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
+        String[][] matrix= new String[10][70];
         System.out.println("Please, choose your personal Objective Card");
             for (int i = 0; i < objectives.size(); i++) {
                 System.out.println("[" + (i + 1) + "]");
@@ -256,6 +257,7 @@ public class TUI implements UserInterface, Serializable {
     /**Method that shows the player the cards they have in hand and can play during their turn
      * @param cards that the player has in its hand*/
     public void showCardsInHand(ArrayList<PlayCard> cards) {
+        System.out.println("\r");
         for(int i=0; i<cards.size(); i++){
             System.out.println("[" + (i + 1) + "]"); //print the index of the card
             String[][] frontBack= new String[10][70];
@@ -279,6 +281,7 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents) throws RemoteException {
+        System.out.println("\r");
 
         for(ClientControllerInterface opponent: opponents){
             showPlayerInfo(opponent);
@@ -296,6 +299,7 @@ public class TUI implements UserInterface, Serializable {
     /**Method used to show the player info
      * @param client whose info we want to show*/
     public void showPlayerInfo(ClientControllerInterface client) {
+        System.out.println("\r");
         try {
             PawnColor color = client.getPawnColor();
             String ANSIcolor = GraphicUsage.pawnColorDictionary.get(color);
@@ -310,6 +314,7 @@ public class TUI implements UserInterface, Serializable {
     /**Method to print the opponent play areas. Prints an empty space if no card has been added to the area.
      * @param opponent other player whose playArea we are printing*/
     public void showOpponentPlayArea(ClientControllerInterface opponent){
+        System.out.println("\r");
         try {
             if((opponent.getPlayer().getPlayArea().getCardsOnArea().size()>1))
                 PrintPlayArea.DrawOthersPlayArea(opponent.getPlayer().getPlayArea());
@@ -386,6 +391,7 @@ public class TUI implements UserInterface, Serializable {
     /**Method used to show  tha playArea of the player that is calling the method*/
     @Override
     public void showMyPlayArea(PlayArea playArea) {
+        System.out.println("\r");
         if (playArea.getCardsOnArea().size() > 1)
             PrintPlayArea.DrawMyPlayArea(playArea); //if playArea has cards, draw the cards
         else

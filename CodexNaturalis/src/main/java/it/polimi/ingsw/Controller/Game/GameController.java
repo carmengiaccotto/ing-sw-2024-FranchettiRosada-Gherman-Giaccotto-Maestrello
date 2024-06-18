@@ -17,6 +17,7 @@ import java.util.concurrent.*;
 
 
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
+
     private GameListener listener = new GameListener();
 
     private final List<PawnColor> availableColors;
