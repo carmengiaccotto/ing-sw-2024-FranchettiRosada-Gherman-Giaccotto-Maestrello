@@ -31,8 +31,27 @@ public class TUI implements UserInterface, Serializable {
     public String chooseCardToDraw() {
         String draw;
         do {
-            System.out.println("Do you want to draw a card from a deck or to choose one of the cards on the Board?\n [1]Board \n [2]Deck \n >>" );
+            System.out.println("Do you want to draw a card from a deck or from the Board?\n [1]Board \n [2]Deck \n >>" );
             draw = scanner.next().toUpperCase();
+            if(draw.equals("1")){
+                System.out.println("Which card would you like to draw?\n [1]Resource Card1 \n [2]Resource Card2 \n [3]Gold Card1 \n [4]Gold Card2 \n >>" );
+                draw = scanner.next().toUpperCase();
+                if(draw.equals("1"))
+                    draw="RESOURCE-CARD1";
+                if(draw.equals("2"))
+                    draw="RESOURCE-CARD2";
+                if(draw.equals("3"))
+                    draw="GOLD-CARD1";
+                if(draw.equals("4"))
+                    draw="GOLD-CARD2";
+            }else{
+                System.out.println("Which deck would you like to draw from?\n [1]Resource Deck \n [2]Gold Deck \n >>" );
+                draw = scanner.next().toUpperCase();
+                if(draw.equals("1"))
+                    draw="RESOURCE-DECK";
+                if(draw.equals("2"))
+                    draw="GOLD-DECK";
+            }
             if (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2")) {
                 System.out.println("Invalid option! Please choose a valid option!");
             }
