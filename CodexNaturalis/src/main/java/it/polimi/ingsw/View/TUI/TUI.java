@@ -421,6 +421,17 @@ public class TUI implements UserInterface, Serializable {
     public void viewChat() {
 
     }
+
+    @Override
+    public void showString(String s){
+        if(s == "WIN"){
+            printMessage(GraphicUsage.you_win);
+        }else if(s == "GAME_OVER"){
+            printMessage(GraphicUsage.game_over);
+        }else if(s == "CODEX_NATURALIS"){
+            printMessage(GraphicUsage.codex_naturalis_string);
+        }
+    }
 }
 
 

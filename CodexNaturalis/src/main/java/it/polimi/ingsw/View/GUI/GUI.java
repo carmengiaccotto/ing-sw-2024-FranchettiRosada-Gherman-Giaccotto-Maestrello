@@ -167,4 +167,9 @@ public class GUI extends Application implements UserInterface {
     public void viewChat() {
 
     }
+
+    @Override
+    public void showString(String s) {
+
+    }
 }

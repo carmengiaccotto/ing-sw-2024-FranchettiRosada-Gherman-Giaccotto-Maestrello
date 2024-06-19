@@ -326,6 +326,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * join one that has already been created by another player*/
     @Override
     public void JoinOrCreateGame() throws RemoteException{
+        view.showString("CODEX_NATURALIS");
         int choice = view.createOrJoin();
         switch (choice) {
             case 1 -> {
@@ -442,8 +443,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 //return the count to the server
             }
             case("WINNER")->{ //the player has won
-                //TODO schermata carina per il vincitore
-                view.printMessage("Congratulations, you have won the game!");
+                view.showString("WIN");
             }
             case("LOSER")->{ //the player has lost
                 //TODO schermata carina per il perdente, con classifica
@@ -522,7 +522,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
 
-    private void playMyTurn() throws RemoteException {//todo modify this. It has to include also the card drawing and the playground update
+    private void playMyTurn() throws RemoteException {
         playMyCard();
         game.getListener().updatePlayers(getNickname() + " has played a card ", this);
         chooseCardToDraw(game.getModel());
