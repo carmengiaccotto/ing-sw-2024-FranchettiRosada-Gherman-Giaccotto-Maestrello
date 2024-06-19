@@ -15,6 +15,7 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -112,6 +113,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     @Override
     public void setModel(PlayGround model) throws RemoteException {
 
+    }
+
+    @Override
+    public ArrayList<Player> getPlayers() throws RemoteException {
+        return null;
     }
 
     @Override

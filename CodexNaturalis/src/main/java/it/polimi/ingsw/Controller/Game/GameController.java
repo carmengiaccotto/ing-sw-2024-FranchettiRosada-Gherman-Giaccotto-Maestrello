@@ -7,6 +7,7 @@ import it.polimi.ingsw.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.*;
 import java.rmi.RemoteException;
@@ -112,8 +113,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                     initializeGame();
                     List<Thread> threads = new ArrayList<>();
-                    listener.updatePlayers("This is the initial board of the game: \n");
-                    listener.updatePlayers(model);
                     for (ClientControllerInterface c: listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
                             try {
@@ -270,8 +269,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         this.model = model;
     }
 
-
-
+    @Override
+    public ArrayList<Player> getPlayers() throws RemoteException {
+        ArrayList<Player> players = new ArrayList<>();
+        for(ClientControllerInterface c: listener.getPlayers()){
+            players.add(c.getPlayer());
+        }
+        return players;
+    }
 
 
     /**Method that returns the number of players in the game

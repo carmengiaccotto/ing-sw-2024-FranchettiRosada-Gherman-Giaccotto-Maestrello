@@ -8,6 +8,7 @@ import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -45,25 +46,13 @@ public interface UserInterface {
 
     void waitingForPlayers();
 
-    void printObjectives(ObjectiveCard card);
 
     void printMessage(String message);
 
     Command receiveCommand();
 
-    void showCardsInHand(ArrayList<PlayCard> cards);
 
-    void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents ) throws RemoteException;
-
-    void showOpponentPlayArea(ClientControllerInterface opponent);
-
-    void showPlayerInfo(ClientControllerInterface client);
-
-    void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck);
-
-    void showMyPlayArea(PlayArea playArea);
-
-
+    void printBoard(PlayGround model, ArrayList<Player> opponents, Player me);
     void viewChat();
 
     void showString(String s);

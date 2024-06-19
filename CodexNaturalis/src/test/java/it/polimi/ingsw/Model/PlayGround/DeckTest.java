@@ -4,7 +4,8 @@ import it.polimi.ingsw.Model.Cards.ResourceCard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class DeckTest {
+class
+DeckTest {
 
     @Test
     void getCards() {

@@ -79,19 +79,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     @Override
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
-        //Printing opponents areas and informations (nickname, score, round)
-        for(ClientControllerInterface player: game.getListener().getPlayers()){
-            if(player.getNickname()!= getNickname()){ //this is done only for the opponents
-                view.showPlayerInfo(player);
-                view.showOpponentPlayArea(player);
+        ArrayList<Player> opponents= getOpponents();
+            view.printBoard(model, opponents, this.player);
+    }
+
+    private ArrayList<Player> getOpponents() throws RemoteException {
+        ArrayList<Player> opponents= new ArrayList<>();
+        for(Player p: game.getPlayers()){
+            if(!(p.getNickname().equals(this.player.getNickname()))){
+                opponents.add(p);
             }
         }
-        //Showing the common board
-        view.showCommonCards(model.getCommonResourceCards(), model.getCommonGoldCards(), model.getResourceCardDeck(), model.getGoldCardDeck());
-
-        //Showing the player's area
-        view.showPlayerInfo(this);
-        view.showMyPlayArea(getPlayArea());
+        return opponents;
     }
 
     /**Getter method for Player's playArea attribute
@@ -412,6 +411,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void WhatDoIDoNow(String doThis) throws RemoteException {
         switch(doThis){
             case("INITIALIZE")->{//the player gets its hand of cards, chooses its personalObjective, and gets its InitialCard.
+                view.printBoard(game.getModel(), getOpponents(), player);
                 getMyObjectiveCard();
                 getMyHandOfCards();
                 player.setInitialCard(game.extractInitialCard());
@@ -426,6 +426,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
             case("PLAY-TURN")->{ //the player plays a card
                 sendUpdateMessage("It's your turn!");
+                view.printBoard(game.getModel(), getOpponents(), player);
                 Command c= view.receiveCommand();
                 switch(c){
                     case MOVE -> playMyTurn();
