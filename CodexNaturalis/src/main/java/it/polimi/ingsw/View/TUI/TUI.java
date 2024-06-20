@@ -1,24 +1,22 @@
 package it.polimi.ingsw.View.TUI;
 
-import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
+import it.polimi.ingsw.Model.Chat.PrivateMessage;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass;
+import it.polimi.ingsw.View.TUI.TUIUtilis.GraphicUsage;
 import it.polimi.ingsw.View.TUI.TUIUtilis.TUIComponents;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
@@ -218,37 +216,48 @@ public class TUI implements UserInterface, Serializable {
         System.out.println(message);
     }
 
+
+
     /**
      * Prompts the user to select a command from the available options.
      * The user can choose either the "MOVE" or "CHAT" command.
      * The method will keep asking until a valid command is chosen.
      *
-     * @return A Command enum representing the chosen command by the user.
+     * @return               A Command enum representing the chosen command by the user.
+     *
      */
+
     @Override
     public Command receiveCommand() {
-        System.out.println("Select a command: [MOVE/CHAT/VIEWCHAT]");
+        System.out.println("Select a command: [MOVE/CHAT]");
         String command = "";
         do{
             command = scanner.nextLine().toUpperCase();
 //            if (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT")) {
 //                System.out.println("Please insert a valid command: [MOVE/CHAT]");
 //            }
-        } while (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT"));
+        } while (!command.equals("MOVE") && !command.equals("CHAT"));
         return Command.valueOf(command.toUpperCase());
     }
 
     @Override
-    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
+        String ANSI_CYAN = "\u001B[36m";
+        StringBuilder opponentsInfo = new StringBuilder();
         for(Player p: opponents){
             if(p!=me)
-                System.out.println(TUIComponents.showOpponent(p));
+                opponentsInfo.append(TUIComponents.showOpponent(p)).append("\n");
         }
-
+        String opp= TUIComponents.createBoxWithSpace( opponentsInfo.toString(), "\033[30m", 0);
+        ArrayList<String> chatMessages = viewChat(myChat, me);
+        String Chat= TUIComponents.formatStringList( chatMessages);
+        String chatBox= TUIComponents.createBoxWithSpace(Chat, ANSI_CYAN, 0);
+        String finalOutput = TUIComponents.concatString(opp, chatBox, 30);
+        System.out.println(finalOutput);
+        System.out.println();
         System.out.println(TUIComponents.showCommonCards(model));
-
+        System.out.println();
         System.out.println(TUIComponents.showMySelf(me));
-
     }
 
 
@@ -258,8 +267,8 @@ public class TUI implements UserInterface, Serializable {
      * Prompts the user to choose a personal Objective Card from a list of available objective cards.
      * The user can choose an objective card by entering the corresponding number.
      *
-     * @param objectives An ArrayList of ObjectiveCard objects representing the available objective cards.
-     * @return An integer representing the index of the chosen objective card in the list.
+     * @param               objectives An ArrayList of ObjectiveCard objects representing the available objective cards.
+     * @return              An integer representing the index of the chosen objective card in the list.
      */
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
@@ -285,10 +294,47 @@ public class TUI implements UserInterface, Serializable {
 
 
 
-
+    /**
+     *
+     * Method that returns an array of strings representing the messages the player can see in the chatBox.
+     *
+     * @param player            that is visualizing the chat.
+     * @param myChat            messages in this player's chat
+     *
+     * @return messages         String representation of the chat messages
+     *
+     * */
     @Override
-    public void viewChat() {
+    public ArrayList<String> viewChat(ArrayList<Message> myChat, Player player) {
+        String bold = "\033[1m";
+        String reset = "\033[0m";
+        ArrayList<String> messages = new ArrayList<>();// creating a new arraylist of strings
+        for (Message m : myChat) { // for each message in the chat
+            String sender; //initialize sender
+            String receiver = "ALL";//initialize receiver. If the message is not a private message, the receiver is everyone
+            if (m.getSender().getNickname().equals(player.getNickname())) { //if i'm the sender
+                sender = "YOU";
+            } else {
+                sender = m.getSender().getNickname(); //else the sender is the nickname of the sender
+            }
+            if (m instanceof PrivateMessage) { //if the message is a private message
+                receiver = ((PrivateMessage) m).getReceiver(); //retrieve the receiver
+                if (receiver.equals(player.getNickname())) { //if player is the receiver
+                    receiver = "YOU"; //receiver is you
+                }
+            }
+            String message = bold + "[" + sender + "] to [" + receiver + "]:" + reset + m.getText();
+            messages.add(message);
+        }
+        Collections.reverse(messages); //we want to print the messages in order from the most recent ones to the oldest ones,
+                                        // so we reverse the order of the arraylist
 
+        // Limit the size of the list to 20
+        if (messages.size() > 20) {
+            return new ArrayList<>(messages.subList(0, 20));
+        } else {
+            return messages;
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
@@ -115,11 +116,8 @@ public interface GameControllerInterface extends Remote, Serializable {
 
     boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException;
 
-
+    void addMessageToChat(Message message) throws RemoteException;
+    Chat getChat() throws RemoteException;
 
     void sendPrivateMessage(Message message, String first) throws RemoteException;
-
-    int getPlayersWhoChoseObjective() throws RemoteException;
-
-    public void incrementPlayersWhoChoseObjective() throws RemoteException;
 }

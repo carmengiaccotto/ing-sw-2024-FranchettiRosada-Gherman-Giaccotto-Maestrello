@@ -17,7 +17,7 @@
           "CentralCardColor": "GREEN",
           "NEIGHBORS": {
             "TOPlEFT": "GREEN",
-            "BOTTOM RIGHT": "GREEN"
+            "BOTTOMRIGHT": "GREEN"
 
           }
         },

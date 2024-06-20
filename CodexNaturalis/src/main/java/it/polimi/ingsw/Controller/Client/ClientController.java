@@ -5,6 +5,7 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Controller.Observer;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Message;
+import it.polimi.ingsw.Model.Chat.PrivateMessage;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -21,8 +22,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
@@ -75,7 +74,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
         ArrayList<Player> opponents= getOpponents();
-            view.printBoard(model, opponents, this.player);
+            view.printBoard(model, opponents, this.player,viewMyChat() );
     }
 
     private ArrayList<Player> getOpponents() throws RemoteException {
@@ -408,7 +407,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void WhatDoIDoNow(String doThis) throws RemoteException {
         switch(doThis){
             case("INITIALIZE")->{//the player gets its hand of cards, chooses its personalObjective, and gets its InitialCard.
-                view.printBoard(game.getModel(), getOpponents(), player);
+                view.printBoard(game.getModel(), getOpponents(), player, viewMyChat());
                 getMyObjectiveCard();
                 getMyHandOfCards();
                 player.setInitialCard(game.extractInitialCard());
@@ -418,19 +417,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     playMyInitialCard();
                 } catch (RemoteException e) {
-                    System.out.println("An error occurred when playing the initial card.");
+                    System.out.println("An error occurred when playing the initial card");
                 }
             }
             case("PLAY-TURN")->{ //the player plays a card
                 sendUpdateMessage("It's your turn!");
-                view.printBoard(game.getModel(), getOpponents(), player);
+                view.printBoard(game.getModel(), getOpponents(), player, viewMyChat());
                 Command c;
                 do {
                     c = view.receiveCommand();
                     switch (c) {
                         case MOVE -> playMyTurn();
                         case CHAT -> sendChatMessage();
-                        case VIEWCHAT -> view.viewChat();
                     }
                 }while(c!=Command.MOVE);
                 if (getScore()>=20){
@@ -460,6 +458,33 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     /**
+     * Method that shows the Player only the message they sent or that was intended for them
+     *
+     * @return          ArrayList of Messages that are either sent by the player
+     *                  or are private messages directed to this player
+     */
+
+    private ArrayList<Message> viewMyChat() {
+        try {
+            ArrayList<Message> chat= game.getChat().getMessage(); //retrieve the list of messages from the game chat
+            ArrayList<Message> myChat= new ArrayList<>();   // create a new ArrayList for the messages I can see:
+                                                            // some messages are private not directed to me
+            for(Message m: chat) {//Iterate through the chat messages
+                if(!(m instanceof PrivateMessage) || //if the message is a broadcast message
+                        ((PrivateMessage) m).getReceiver().equals(getNickname()) ||  // if it is a private message and I'm the receiver
+                         m.getSender().getNickname().equals(player.getNickname())){ //  I'm the sender
+                    myChat.add(m);//add the message to the list of messages I can see
+                }
+            }
+            return myChat; //return the list of messages I can see
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    /**
      * Method that allows the player to choose its private Objective as per game rules.
      * A list of two cards is given, and the player sets its personal objective to the one it chooses.
      * */
@@ -468,14 +493,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
             int n=view.choosePersonaObjectiveCard(objectives);
             player.setPersonalObjectiveCard(objectives.get(n));
-            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card.", this);
-            game.incrementPlayersWhoChoseObjective();
-            if(game.getPlayersWhoChoseObjective() < game.getPlayers().size()){
-                view.printMessage("Waiting for other players to choose their personal objective card...");
-            }
-            else{
-                game.getListener().updatePlayers("All players have chosen their personal objective card.");
-            }
+            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card ", this);
         } catch (RemoteException e) {
             System.out.println("an error occurred when extracting the personal objective card");
         }
@@ -483,9 +501,13 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
 
+
     /**
+     *
      * Method that distributes the initial hand of cards to the player.
+
      * */
+
     private synchronized void getMyHandOfCards(){
         try {
             for(PlayCard card: game.extractPlayerHandCards())
@@ -498,12 +520,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void playMyInitialCard() throws RemoteException {
-        view.printMessage("It's your turn to play the initial card!");
-        game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
         view.showInitialCard(player.getInitialCard());
         Side side = Side.valueOf(view.chooseSide());
         getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
-        game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
+        game.getListener().updatePlayers(getNickname()+ " has played the initial card ", this);
     }
 
 
@@ -556,18 +576,22 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         char envelope = '\u2709';
         String bold = "\033[1m";
         String reset = "\033[0m";
-        String s1= message.getSender().getNickname();
         String s2= message.getText();
         if(mex.getFirst().equals("everyone")){
             try {
                 game.getListener().updatePlayers("\n"+ANSI_CYAN+bold+envelope+"["+ this.getNickname()+"] to [ALL] : "+s2+"\n"+reset+ANSI_RESET, this);
+                game.addMessageToChat(message);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
         }
         else{
             try {
+                PrivateMessage privateMessage= new PrivateMessage(mex.getSecond());
+                privateMessage.setSender(player);
+                privateMessage.setReceiver(mex.getFirst());
                 game.sendPrivateMessage(message, mex.getFirst());
+                game.addMessageToChat(privateMessage);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }

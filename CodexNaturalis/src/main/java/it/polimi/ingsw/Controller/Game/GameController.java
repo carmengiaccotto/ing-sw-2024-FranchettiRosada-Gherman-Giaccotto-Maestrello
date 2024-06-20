@@ -2,6 +2,7 @@ package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Exceptions.NotReadyToRunException;
@@ -40,6 +41,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private int playersWhoChoseObjective = 0;
 
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    private Chat chat=new Chat();
 
     //private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -750,5 +753,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
+    public Chat getChat() {
+        return chat;
+    }
 
+
+    @Override
+    public void addMessageToChat(Message message) {
+        chat.addMessage(message);
+    }
 }
