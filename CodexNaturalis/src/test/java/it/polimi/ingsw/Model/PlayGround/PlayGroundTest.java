@@ -39,4 +39,47 @@ public class PlayGroundTest {
 
     }
 
+    @org.junit.jupiter.api.Test
+    void getGoldCardDeck() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getInitialCardDeck() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getObjectiveCardDeck() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getResourceCardDeck() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void addCommonCard() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getChat() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getCommonResourceCards() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getCommonObjectivesCards() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getCommonGoldCards() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void sentMessage() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void drawCardFromPlayground() {
+    }
 }

@@ -5,7 +5,7 @@ module it.polimi.ingsw {
     requires com.google.gson;
     requires java.rmi;
     requires java.desktop;
-    requires jdk.unsupported.desktop;
+    //requires jdk.unsupported.desktop;
     exports it.polimi.ingsw.Controller.Main to java.rmi;
     exports it.polimi.ingsw.Controller.Client to java.rmi;
     exports it.polimi.ingsw.Controller.Game to java.rmi;

@@ -8,6 +8,7 @@ import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.GUI.Controllers.NicknameScene;
 import it.polimi.ingsw.View.UserInterface;
 import javafx.application.Application;
@@ -118,10 +119,6 @@ public class GUI extends Application implements UserInterface {
 
     }
 
-    @Override
-    public void printObjectives(ObjectiveCard card) {
-
-    }
 
     @Override
     public void printMessage(String message) {
@@ -134,34 +131,12 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public void showCardsInHand(ArrayList<PlayCard> cards) {
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
 
     }
 
-    @Override
-    public void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents) throws RemoteException {
 
-    }
 
-    @Override
-    public void showOpponentPlayArea(ClientControllerInterface opponent) {
-
-    }
-
-    @Override
-    public void showPlayerInfo(ClientControllerInterface client) {
-
-    }
-
-    @Override
-    public void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
-
-    }
-
-    @Override
-    public void showMyPlayArea(PlayArea playArea) {
-
-    }
 
     @Override
     public void viewChat() {

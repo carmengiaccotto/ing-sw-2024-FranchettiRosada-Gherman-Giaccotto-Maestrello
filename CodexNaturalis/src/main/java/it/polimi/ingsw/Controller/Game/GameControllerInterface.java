@@ -10,6 +10,7 @@ import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.Serializable;
 import java.rmi.Remote;
@@ -93,6 +94,10 @@ public interface GameControllerInterface extends Remote, Serializable {
      * @param model the new model of the playground.
      */
     void setModel(PlayGround model) throws RemoteException;
+
+
+
+    ArrayList<Player> getPlayers() throws RemoteException;;
 
 
     void removeAvailableColor(PawnColor color) throws RemoteException;

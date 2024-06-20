@@ -8,6 +8,9 @@ import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
+import it.polimi.ingsw.Model.PlayGround.Player;
+import it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass;
+import it.polimi.ingsw.View.TUI.TUIUtilis.TUIComponents;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.Serializable;
@@ -61,8 +64,6 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public int chooseCardToPlay(ArrayList<PlayCard> cardInHand) {
-        System.out.println("Those are the cards in your hand: ");
-        showCardsInHand(cardInHand);
         System.out.println("Which card do you want to play? [1/2/3]");
         int c = Integer.parseInt(scanner.next());
         while ((c != 1) && (c != 2) && (c != 3)) {
@@ -105,7 +106,6 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public Pair<Integer, Integer> choosePositionCardOnArea(PlayArea playArea) {
-        showMyPlayArea(playArea);
         System.out.println("Choose the row and column in which you want to place the card: [row] [column]");
         int row = scanner.nextInt();
         int column = scanner.nextInt();
@@ -207,14 +207,6 @@ public class TUI implements UserInterface, Serializable {
         System.out.println("Waiting for other players to Join...");
     }
 
-    @Override
-    public void printObjectives(ObjectiveCard card) {
-        if (card.getClass().equals(DispositionObjectiveCard.class))
-            DesignSupportClass.printDispositionObjectiveCard((DispositionObjectiveCard) card);
-        else if (card.getClass().equals(SymbolObjectiveCard.class))
-           DesignSupportClass.printSymbolObjectiveCard((SymbolObjectiveCard) card);
-
-    }
 
     /**
      * Prints a given message to the console.
@@ -246,6 +238,22 @@ public class TUI implements UserInterface, Serializable {
         return Command.valueOf(command.toUpperCase());
     }
 
+    @Override
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
+        for(Player p: opponents){
+            if(p!=me)
+                System.out.println(TUIComponents.showOpponent(p));
+        }
+
+        System.out.println(TUIComponents.showCommonCards(model));
+
+        System.out.println(TUIComponents.showMySelf(me));
+
+    }
+
+
+
+
     /**
      * Prompts the user to choose a personal Objective Card from a list of available objective cards.
      * The user can choose an objective card by entering the corresponding number.
@@ -255,13 +263,15 @@ public class TUI implements UserInterface, Serializable {
      */
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
+        String s="";
         String[][] matrix= new String[10][70];
         System.out.println("Please, choose your personal Objective Card");
             for (int i = 0; i < objectives.size(); i++) {
-                System.out.println("[" + (i + 1) + "]");
-                printObjectives(objectives.get(i));
-                System.out.println();
-        }
+                s=TUIComponents.concatString(s,TUIComponents.printObjectives(objectives.get(i)), 4);
+            }
+            System.out.println(TUIComponents.concatString("[1]","[2]", 40));
+            System.out.println(s);
+
         int choice;
         do {
             choice = scanner.nextInt();
@@ -273,149 +283,9 @@ public class TUI implements UserInterface, Serializable {
         return choice - 1;
     }
 
-    /**Method that shows the player the cards they have in hand and can play during their turn
-     * @param cards that the player has in its hand*/
-    public void showCardsInHand(ArrayList<PlayCard> cards) {
-        System.out.println("\r");
-        for(int i=0; i<cards.size(); i++){
-            System.out.println("[" + (i + 1) + "]"); //print the index of the card
-            String[][] frontBack= new String[10][70];
-            for(int j=0; j<10; j++){
-                for(int k=0; k<70; k++){
-                    frontBack[j][k]=" ";
-                }
-            }
-            DesignSupportClass.printCard(frontBack, cards.get(i).getFront(), 0, 0, 10, 34);
-            DesignSupportClass.printCard(frontBack, cards.get(i).getBack(), 0, 36, 10, 34);
-            for(int j=0; j<10; j++){
-                for(int k=0; k<70; k++){
-                    System.out.print(frontBack[j][k]);
-                }
-                System.out.println();
-            }
-
-        }//each player has 3 cards in hand
-
-    }
-
-    @Override
-    public void showBoardAndPlayers(ClientControllerInterface me, PlayGround model, ArrayList<ClientControllerInterface> opponents) throws RemoteException {
-        System.out.println("\r");
-
-        for(ClientControllerInterface opponent: opponents){
-            showPlayerInfo(opponent);
-            showOpponentPlayArea(opponent);
-        }
-        showCommonCards(model.getCommonResourceCards(), model.getCommonGoldCards(), model.getResourceCardDeck(), model.getGoldCardDeck());
-        //todo aggiungi obiettivi comuni
-        showPlayerInfo(me);
-        System.out.println("Your Personal ObjectiveCard: ");
-        printObjectives(me.getPersonalObjectiveCard());
-        showMyPlayArea(me.getPlayer().getPlayArea());
-        //todo aggiungi mappa simboli
-    }
-
-    /**Method used to show the player info
-     * @param client whose info we want to show*/
-    public void showPlayerInfo(ClientControllerInterface client) {
-        System.out.println("\r");
-        try {
-            PawnColor color = client.getPawnColor();
-            String ANSIcolor = GraphicUsage.pawnColorDictionary.get(color);
-            String ANSIreset = "\u001B[0m";
-            System.out.println(ANSIcolor + "Player: " + client.getNickname() +ANSIreset);
-            System.out.println(ANSIcolor + "Score: " + client.getScore() + ANSIreset);
-            System.out.println(ANSIcolor + "Round: " + client.getRound() + ANSIreset);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    /**Method to print the opponent play areas. Prints an empty space if no card has been added to the area.
-     * @param opponent other player whose playArea we are printing*/
-    public void showOpponentPlayArea(ClientControllerInterface opponent){
-        System.out.println("\r");
-        try {
-            if((opponent.getPlayer().getPlayArea().getCardsOnArea().size()>1))
-                PrintPlayArea.DrawOthersPlayArea(opponent.getPlayer().getPlayArea());
-            else
-                System.out.println(" ");
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public  void showCommonCards(ArrayList<ResourceCard> cards, ArrayList<GoldCard> goldCards, Deck resourceDeck, Deck goldDeck) {
-        String[][] playGroundCards = new String[20][140]; //To adjust if we want the dimensions of the cards to be bigger
-        // fill the playGroundCards with empty spaces
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 140; j++) {
-                playGroundCards[i][j] = " ";
-            }
-        }
-        //Add caption
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 140; j++) {
-                if (i==0 && j==7){
-                    playGroundCards[i][j] = "RESOURCE CARDS";
-                }
-                if (i==0 && j==27){
-                    playGroundCards[i][j] = "GOLD CARDS";
-                }
-
-                if((i==1 && j==0) || (i==1 && j==30)){
-                    playGroundCards[i][j] = "[1]";
-                }
-                if((i==10 && j==0) || (i==10 && j==30)){
-                    playGroundCards[i][j] = "[2]";
-                }
-                if(i==1 && j==72){
-                    playGroundCards[i][j] = "RESOURCE DECK";
-                }
-                if (i==10 && j==74){
-                    playGroundCards[i][j] = "GOLD DECK";
-                }
-
-            }
-        }
-        //AddCards
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 140; j++) {
-                if (i==2 && j==3)
-                    DesignSupportClass.printResourceFront(playGroundCards, cards.get(0),i,j,7,25);
-                if (i==2 && j==33)
-                    DesignSupportClass.printGoldFront(playGroundCards, goldCards.get(0),i,j,7,25);
-
-                if (i==11 && j==3)
-                    DesignSupportClass.printResourceFront(playGroundCards, cards.get(1),i,j,7,25);
-                if(i==11 && j==33)
-                    DesignSupportClass.printGoldFront(playGroundCards, goldCards.get(1),i,j,7,25);
-
-                if (i==2 && j==70)
-                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) resourceDeck.getCards().getLast(), i, j,7,25);
-                if(i==11 && j==70)
-                    DesignSupportClass.printBackCard(playGroundCards, (PlayCard) goldDeck.getCards().getLast(), i, j,7,25);
-            }
-        }
-
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 140; j++) {
-                System.out.print(playGroundCards[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
 
 
-    /**Method used to show  tha playArea of the player that is calling the method*/
-    @Override
-    public void showMyPlayArea(PlayArea playArea) {
-        System.out.println("\r");
-        if (playArea.getCardsOnArea().size() > 1)
-            PrintPlayArea.DrawMyPlayArea(playArea); //if playArea has cards, draw the cards
-        else
-            System.out.println(" ");//else draw an empty space
-    }
+
 
     @Override
     public void viewChat() {
