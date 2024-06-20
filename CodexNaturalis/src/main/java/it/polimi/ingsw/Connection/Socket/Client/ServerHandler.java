@@ -147,6 +147,16 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     }
 
     @Override
+    public int getPlayersWhoChoseObjective() {
+        return 0;
+    }
+
+    @Override
+    public void incrementPlayersWhoChoseObjective() throws RemoteException {
+
+    }
+
+    @Override
     public void removeAvailableColor(PawnColor color) throws RemoteException {
         GenericMessage message = new GenericMessage("RemoveAvailableColor");
         message.setObject(color);

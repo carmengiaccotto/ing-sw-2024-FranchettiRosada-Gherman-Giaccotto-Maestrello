@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
@@ -417,7 +418,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     playMyInitialCard();
                 } catch (RemoteException e) {
-                    System.out.println("An error occurred when playing the initial card");
+                    System.out.println("An error occurred when playing the initial card.");
                 }
             }
             case("PLAY-TURN")->{ //the player plays a card
@@ -467,7 +468,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
             int n=view.choosePersonaObjectiveCard(objectives);
             player.setPersonalObjectiveCard(objectives.get(n));
-            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card ", this);
+            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card.", this);
+            game.incrementPlayersWhoChoseObjective();
+            if(game.getPlayersWhoChoseObjective() < game.getPlayers().size()){
+                view.printMessage("Waiting for other players to choose their personal objective card...");
+            }
+            else{
+                game.getListener().updatePlayers("All players have chosen their personal objective card.");
+            }
         } catch (RemoteException e) {
             System.out.println("an error occurred when extracting the personal objective card");
         }
@@ -490,10 +498,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void playMyInitialCard() throws RemoteException {
+        view.printMessage("It's your turn to play the initial card!");
+        game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
         view.showInitialCard(player.getInitialCard());
         Side side = Side.valueOf(view.chooseSide());
         getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
-        game.getListener().updatePlayers(getNickname()+ " has played the initial card ", this);
+        game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
     }
 
 

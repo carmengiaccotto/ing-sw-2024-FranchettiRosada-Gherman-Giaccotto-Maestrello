@@ -265,7 +265,7 @@ public class TUI implements UserInterface, Serializable {
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         String s="";
         String[][] matrix= new String[10][70];
-        System.out.println("Please, choose your personal Objective Card");
+        System.out.println("Please, choose your personal Objective Card!");
             for (int i = 0; i < objectives.size(); i++) {
                 s=TUIComponents.concatString(s,TUIComponents.printObjectives(objectives.get(i)), 4);
             }
@@ -279,7 +279,6 @@ public class TUI implements UserInterface, Serializable {
                 System.out.println("Invalid option! Please choose 1 or 2.");
             }
         } while (choice != 1 && choice != 2);
-        System.out.println("Waiting for other players to choose their Objective Cards...");
         return choice - 1;
     }
 

@@ -37,6 +37,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private PlayGround model;
 
+    private int playersWhoChoseObjective = 0;
+
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     //private final ReentrantLock turnLock = new ReentrantLock();
@@ -148,7 +150,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
             }
             case RUNNING -> {//
-                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname()+"index: "+currentPlayerIndex);
+                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname()+" index: "+currentPlayerIndex);
                 while(status.equals(GameStatus.RUNNING)) {
                     ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
                     try {
@@ -485,6 +487,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
+    public int getPlayersWhoChoseObjective() throws RemoteException{
+        return playersWhoChoseObjective;
+    }
+
+    public void incrementPlayersWhoChoseObjective() throws RemoteException{
+        playersWhoChoseObjective++;
+    }
+
 
 
 
@@ -623,7 +633,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     @Override
     public synchronized ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException {
-        System.out.println("extracting cards");
         ArrayList<PlayCard> hand= new ArrayList<>();
         ResourceCard card1= (ResourceCard) model.getResourceCardDeck().drawCard();
         hand.add(card1);
@@ -647,11 +656,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     @Override
     public synchronized ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException {
         ArrayList<ObjectiveCard> ObjectiveOptions=new ArrayList<>();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveCard card1= (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveCard card2=(ObjectiveCard) model.getObjectiveCardDeck().drawCard();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveOptions.add(card1);
         ObjectiveOptions.add(card2);
         return ObjectiveOptions;

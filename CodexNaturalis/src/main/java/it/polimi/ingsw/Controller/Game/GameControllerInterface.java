@@ -118,4 +118,8 @@ public interface GameControllerInterface extends Remote, Serializable {
 
 
     void sendPrivateMessage(Message message, String first) throws RemoteException;
+
+    int getPlayersWhoChoseObjective() throws RemoteException;
+
+    public void incrementPlayersWhoChoseObjective() throws RemoteException;
 }
