@@ -113,11 +113,7 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     public PawnColor getPawnColor() throws RemoteException {
         return null;
     }
-
-    @Override
-    public void updatePlayers(List<ClientControllerInterface> players) throws RemoteException {
-
-    }
+    
 
     @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {

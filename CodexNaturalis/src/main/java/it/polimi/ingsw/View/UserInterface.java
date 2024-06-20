@@ -56,4 +56,6 @@ public interface UserInterface {
     void viewChat();
 
     void showString(String s);
+
+    Pair<String, String> sendChatMessage();
 }

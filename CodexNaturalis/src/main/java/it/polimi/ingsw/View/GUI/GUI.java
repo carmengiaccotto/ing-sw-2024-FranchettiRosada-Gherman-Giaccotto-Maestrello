@@ -147,4 +147,9 @@ public class GUI extends Application implements UserInterface {
     public void showString(String s) {
 
     }
+
+    @Override
+    public Pair<String, String> sendChatMessage() {
+        return null;
+    }
 }

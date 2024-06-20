@@ -2,6 +2,7 @@ package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.Pair;
@@ -701,6 +702,27 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         return covering;
         }
+
+
+
+    @Override
+    public void sendPrivateMessage(Message message, String receiver) throws RemoteException {
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RESET = "\u001B[0m";
+        char envelope = '\u2709';
+        String bold = "\033[1m";
+        String reset = "\033[0m";
+        String receiverName =receiver;
+        for(ClientControllerInterface c: listener.getPlayers()){
+            if(c.getNickname().equals(receiverName)){
+                try {
+                    c.sendUpdateMessage("\n"+ANSI_CYAN+bold+envelope+"["+ message.getSender().getNickname()+"] to [YOU] : "+message.getText()+"\n"+reset+ANSI_RESET);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
 
 
     /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card

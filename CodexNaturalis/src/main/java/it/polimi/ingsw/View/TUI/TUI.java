@@ -302,6 +302,25 @@ public class TUI implements UserInterface, Serializable {
             printMessage(GraphicUsage.codex_naturalis_string);
         }
     }
+
+    @Override
+    public Pair<String, String> sendChatMessage() {
+            String receiver="";
+            String text="";
+            System.out.println("Do you want to send a message to everyone? [Y/N]");
+            String choice = scanner.next().toUpperCase();
+            scanner.nextLine(); // Aggiungi questa linea per consumare il resto della riga
+            if(choice.equals("Y")){
+                receiver="everyone";
+            }else{
+                System.out.println("Insert the nickname of the receiver: ");
+                receiver=scanner.nextLine(); // Modifica questa linea
+            }
+            System.out.println("Insert the text of the message: ");
+            text=scanner.nextLine(); // Modifica questa linea
+            Pair<String, String> message = new Pair<>(receiver, text);
+            return message;
+    }
 }
 
 

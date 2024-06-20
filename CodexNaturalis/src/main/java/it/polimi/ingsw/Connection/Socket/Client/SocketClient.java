@@ -137,10 +137,7 @@ public class SocketClient extends Thread implements ClientControllerInterface {
         return null;
     }
 
-    @Override
-    public void updatePlayers(List<ClientControllerInterface> players) throws RemoteException {
 
-    }
 
     @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {

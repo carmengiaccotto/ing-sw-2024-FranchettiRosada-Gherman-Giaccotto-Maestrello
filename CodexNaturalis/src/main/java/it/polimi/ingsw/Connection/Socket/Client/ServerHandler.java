@@ -9,6 +9,7 @@ import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -138,6 +139,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     @Override
     public boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException {
         return false;
+    }
+
+    @Override
+    public void sendPrivateMessage(Message message, String first) throws RemoteException {
+
     }
 
     @Override

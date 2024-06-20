@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Controller.Observer;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -422,12 +423,15 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             case("PLAY-TURN")->{ //the player plays a card
                 sendUpdateMessage("It's your turn!");
                 view.printBoard(game.getModel(), getOpponents(), player);
-                Command c= view.receiveCommand();
-                switch(c){
-                    case MOVE -> playMyTurn();
-                    case CHAT -> sendChatMessage();
-                    case VIEWCHAT -> view.viewChat();
-                }
+                Command c;
+                do {
+                    c = view.receiveCommand();
+                    switch (c) {
+                        case MOVE -> playMyTurn();
+                        case CHAT -> sendChatMessage();
+                        case VIEWCHAT -> view.viewChat();
+                    }
+                }while(c!=Command.MOVE);
                 if (getScore()>=20){
                     game.setStatus(GameStatus.LAST_CIRCLE);
                 }
@@ -534,10 +538,30 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     private void sendChatMessage() {
-        //todo implement this
-        //method in view that returns a string
-        //method in view that returns a nickname or an "all" string for broadcast message
-        //method in server that sends the message to all the players
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_RESET = "\u001B[0m";
+        Pair<String, String> mex= view.sendChatMessage();
+        Message message= new Message(mex.getSecond());
+        message.setSender(player);
+        char envelope = '\u2709';
+        String bold = "\033[1m";
+        String reset = "\033[0m";
+        String s1= message.getSender().getNickname();
+        String s2= message.getText();
+        if(mex.getFirst().equals("everyone")){
+            try {
+                game.getListener().updatePlayers("\n"+ANSI_CYAN+bold+envelope+"["+ this.getNickname()+"] to [ALL] : "+s2+"\n"+reset+ANSI_RESET, this);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            try {
+                game.sendPrivateMessage(message, mex.getFirst());
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void ItsNotMyTurn(){
