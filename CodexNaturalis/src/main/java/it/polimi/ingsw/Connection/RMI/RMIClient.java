@@ -132,13 +132,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public void updatePlayers(List<ClientControllerInterface> players) throws RemoteException {
-        controller.updatePlayers(players);
-
-    }
-
-
-    @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         controller.setPersonalObjectiveCard(objectiveCard);
 
@@ -186,7 +179,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
                         setServer(server);
-                        System.out.println("Client ready");
 
                     } catch (Exception e) {
                         System.out.println("[ERROR] Connecting to server: \n\tClient exception: " + e + "\n");

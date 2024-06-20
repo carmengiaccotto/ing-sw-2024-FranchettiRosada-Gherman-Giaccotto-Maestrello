@@ -41,8 +41,6 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     PawnColor getPawnColor() throws RemoteException;
 
-    void updatePlayers(List<ClientControllerInterface> players)throws RemoteException;
-
     void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException;
 
     Player getPlayer() throws RemoteException;

@@ -56,13 +56,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
 
-
-    @Override
-    public void updatePlayers(List<ClientControllerInterface> players)  throws RemoteException{
-        //TODO implement this
-    }
-
-
     /**method that sets the PersonalObjective card of the client.
      * @param objectiveCard chosen objective card*/
     @Override
@@ -102,8 +95,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     @Override
-    public void chooseCardToDraw(PlayGround model) throws RemoteException {// todo modify this to make it more user friendly
+    public void chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
+        view.printMessage("This is the Playground: ");
+        showBoardAndPlayAreas(model);
         String draw = view.chooseCardToDraw();
         switch (draw) {
 
@@ -444,10 +439,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
             case("WINNER")->{ //the player has won
                 view.showString("WIN");
+                view.printMessage("Here's the final ranking: ");
             }
             case("LOSER")->{ //the player has lost
-                //TODO schermata carina per il perdente, con classifica
+                //TODO schermata con classifica
+                view.showString("GAME_OVER");
                 view.printMessage("Sorry, you have lost the game!");
+                view.printMessage("Here's the final ranking: ");
+
             }
         }
 
@@ -524,7 +523,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     private void playMyTurn() throws RemoteException {
         playMyCard();
-        game.getListener().updatePlayers(getNickname() + " has played a card ", this);
+        game.getListener().updatePlayers(getNickname() + " has played a card.", this);
         chooseCardToDraw(game.getModel());
         game.getListener().updatePlayers("This is the current Playground: ");
         game.getListener().updatePlayers(game.getModel());
