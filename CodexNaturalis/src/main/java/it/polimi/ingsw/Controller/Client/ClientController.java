@@ -22,12 +22,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
     private GameControllerInterface game;
     private Player player = new Player();
     private MainControllerInterface server;
+    private boolean ItsMyTurn;
 
     public ClientController() throws RemoteException {
         game=null;
@@ -40,6 +42,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         JoinLobby();
     }
 
+
+    @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.game = game;
     }
@@ -52,13 +56,17 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     /**getter method for PawnColor attribute in Player attribute
      * @return pawnColor that the player chose when joining the game */
+    @Override
     public PawnColor getPawnColor() throws RemoteException{
         return player.getPawnColor();
     }
 
 
-    /**method that sets the PersonalObjective card of the client.
-     * @param objectiveCard chosen objective card*/
+    /**
+     * method that sets the PersonalObjective card of the client.
+     *
+     * @param objectiveCard chosen objective card
+     * */
     @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         player.setPersonalObjectiveCard(objectiveCard);
@@ -392,12 +400,13 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 }
             }
             case("PLAY-TURN")->{ //the player plays a card
+                ItsMyTurn=true;
                 sendUpdateMessage("It's your turn!");
                 player.IncreaseRound();
                 view.printBoard(game.getModel(), getOpponents(), player, viewMyChat());
                 Command c;
                 do {
-                    c = view.receiveCommand();
+                    c = view.receiveCommand(true);
                     switch (c) {
                         case MOVE -> playMyTurn();
                         case CHAT -> sendChatMessage();
@@ -407,8 +416,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                     game.setStatus(GameStatus.LAST_CIRCLE);
                 }
             }
-            case("NOT-MY-TURN")->{ //the player can only chat
+            case("NOT-MY-TURN")-> {
                 ItsNotMyTurn();
+
             }
             case("OBJECTIVE-COUNT")->{ //the player has to count its personal objective
                 addCommonObjectiveCardsPoints();
@@ -554,7 +564,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         game.getListener().updatePlayers("This is the current Playground: ");
         game.getListener().updatePlayers(game.getModel());
 
-        //client has all the options: move, chat, view full chat
+
     }
 
 
@@ -630,10 +640,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         }
     }
 
-    private void ItsNotMyTurn(){
-
-        //TODO implement this
-        //client can only chat
+    private void ItsNotMyTurn() throws RemoteException {
+        Command c = view.receiveCommand(false);
+        while(c==Command.CHAT){
+            sendChatMessage();
+            c = view.receiveCommand(false);
+        }
     }
 
 

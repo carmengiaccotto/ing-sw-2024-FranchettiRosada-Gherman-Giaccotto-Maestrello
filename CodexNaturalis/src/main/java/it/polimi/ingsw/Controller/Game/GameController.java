@@ -159,29 +159,38 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " index: " + currentPlayerIndex);
                 while (status.equals(GameStatus.RUNNING)) {
                     ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
-                    try {
-                        startTurnTimer(currentPlayer);
-                        currentPlayer.WhatDoIDoNow("PLAY-TURN");
-                    } catch (Exception e) {
-                        //todo handle exception
-                    }
+                    currentPlayerNickname = currentPlayer.getNickname();
 
-                    new Thread(() -> {
-                        for (ClientControllerInterface c : listener.getPlayers()) {
+                    List<Thread> threads = new ArrayList<>();
+                    CountDownLatch latch = new CountDownLatch(1);
+
+                    for (ClientControllerInterface c : listener.getPlayers()) {
+                        Thread thread = new Thread(() -> {
                             try {
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
-                                    try {
-                                        c.WhatDoIDoNow("NOT-MY-TURN");
                                         c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
-                                    } catch (Exception e) {
-                                        //todo handle exception
-                                    }
+                                        c.WhatDoIDoNow("NOT-MY-TURN");
+
+                                } else {
+                                    c.WhatDoIDoNow("PLAY-TURN");
+                                    latch.countDown();
                                 }
                             } catch (RemoteException e) {
                                 //todo handle exception
                             }
+                        });
+                        threads.add(thread);
+                        thread.start();
+                    }
+
+
+                    for (Thread thread : threads) {
+                        try {
+                            latch.await(); // wait for the current player to finish
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
-                    }).start();
+                    }
 
                     currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
                 }
@@ -199,9 +208,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
 
                 }
-                setStatus(GameStatus.FINILIZE);
+                setStatus(GameStatus.FINLIZE);
             }
-            case FINILIZE -> {
+            case FINLIZE -> {
                 try {
                     List<Thread> threads = new ArrayList<>();
                     for (ClientControllerInterface c : listener.getPlayers()) {
@@ -732,12 +741,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
 
     public Chat getChat() {
-        return chat;
+        synchronized (chat) {
+            return chat;
+        }
     }
 
 
     @Override
     public void addMessageToChat(Message message) {
-        chat.addMessage(message);
+        synchronized (chat) {
+            chat.addMessage(message);
+        }
     }
 }
