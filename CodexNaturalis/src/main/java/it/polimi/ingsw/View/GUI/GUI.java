@@ -149,7 +149,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public Pair<String, String> sendChatMessage() {
+    public Pair<String, String> sendChatMessage(ArrayList<Player> players) {
         return null;
     }
 }

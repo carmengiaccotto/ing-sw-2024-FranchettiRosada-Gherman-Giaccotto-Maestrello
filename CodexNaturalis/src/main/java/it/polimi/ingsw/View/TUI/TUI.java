@@ -348,8 +348,13 @@ public class TUI implements UserInterface, Serializable {
         }
     }
 
+
     @Override
-    public Pair<String, String> sendChatMessage() {
+    public Pair<String, String> sendChatMessage(ArrayList<Player> opponents) {
+            ArrayList<String> players = new ArrayList<>();
+            for (Player p : opponents) {
+                players.add(p.getNickname());
+            }
             String receiver="";
             String text="";
             System.out.println("Do you want to send a message to everyone? [Y/N]");
@@ -358,11 +363,20 @@ public class TUI implements UserInterface, Serializable {
             if(choice.equals("Y")){
                 receiver="everyone";
             }else{
-                System.out.println("Insert the nickname of the receiver: ");
-                receiver=scanner.nextLine(); // Modifica questa linea
+                do{
+                    String message="Insert the nickname of the receiver: ";
+                    for (String p : players) {
+                        message+="["+p+"]";
+                    }
+                    System.out.println(message);
+                    receiver=scanner.nextLine();
+                    if(!players.contains(receiver)){
+                    System.out.println("There is no player with such nickname in the game! Please insert a valid nickname.");
+                }
+                    }while (!players.contains(receiver));
             }
             System.out.println("Insert the text of the message: ");
-            text=scanner.nextLine(); // Modifica questa linea
+            text=scanner.nextLine();
             Pair<String, String> message = new Pair<>(receiver, text);
             return message;
     }

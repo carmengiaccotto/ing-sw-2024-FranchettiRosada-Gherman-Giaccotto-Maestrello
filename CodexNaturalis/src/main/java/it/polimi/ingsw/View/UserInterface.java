@@ -56,5 +56,5 @@ public interface UserInterface {
 
     void showString(String s);
 
-    Pair<String, String> sendChatMessage();
+    Pair<String, String> sendChatMessage(ArrayList<Player> players);
 }

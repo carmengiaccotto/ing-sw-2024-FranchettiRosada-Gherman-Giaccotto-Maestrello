@@ -567,10 +567,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
 
-    private void sendChatMessage() {
+    private void sendChatMessage() throws RemoteException {
         String ANSI_CYAN = "\u001B[36m";
         String ANSI_RESET = "\u001B[0m";
-        Pair<String, String> mex= view.sendChatMessage();
+        Pair<String, String> mex= view.sendChatMessage(getOpponents());
         Message message= new Message(mex.getSecond());
         message.setSender(player);
         char envelope = '\u2709';
