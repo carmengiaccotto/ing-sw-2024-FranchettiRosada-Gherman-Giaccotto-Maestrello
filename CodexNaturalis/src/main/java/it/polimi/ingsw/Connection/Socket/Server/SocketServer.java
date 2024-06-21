@@ -1,13 +1,12 @@
 package it.polimi.ingsw.Connection.Socket.Server;
 
-import it.polimi.ingsw.Connection.Socket.Server.ClientHandler;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainController;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SocketServer extends Thread {
 
@@ -15,24 +14,27 @@ public class SocketServer extends Thread {
     public static final String SERVERIP = "localhost";
 
     public static ServerSocket server;
-    private ArrayList<ClientHandler> clientHandler;
-    private MainController handler;
+    private ArrayList<ServerCallsToClient> clients;
+    private MainController mainController;
 
 
     public void startServer() throws IOException {
         try {
             server = new ServerSocket(SERVERPORT);
             System.out.println("socket server ready on port: " + SERVERPORT);
-            clientHandler = new ArrayList<>();
+            clients = new ArrayList<>();
 
             while(true) {
                 try {
-                    Socket s = server.accept();
-                    ClientHandler c = new ClientHandler(s);
-                    clientHandler.add(c);
-                    c.setMainController(handler);
-                    Thread thread = new Thread(c);
-                    thread.start();
+                    Socket socket = server.accept();
+                    ServerCallsToClient client = new ServerCallsToClient(socket, mainController);
+                    clients.add(client);
+
+//                    ClientHandler c = new ClientHandler(s);
+//                    clientHandler.add(c);
+//                    c.setMainController(handler);
+//                    Thread thread = new Thread(c);
+//                    thread.start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -43,7 +45,7 @@ public class SocketServer extends Thread {
         server.close();
     }
 
-    public void setHandler(MainController handler){this.handler = handler;}
+    public void setMainController(MainController mainController){this.mainController = mainController;}
 
 //    public void stopConnection() {
 //        if (clientHandler != null)

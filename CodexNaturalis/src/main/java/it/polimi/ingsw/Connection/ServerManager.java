@@ -29,7 +29,7 @@ public class ServerManager {
         rmiServer = RMIServer.getInstance();
         rmiServer.setHandler(mainController);
         socketServer = new SocketServer();
-        socketServer.setHandler(mainController);
+        socketServer.setMainController(mainController);
     }
     public static void main(String[] args) throws IOException {
         ServerManager manager=new ServerManager();

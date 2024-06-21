@@ -64,8 +64,6 @@ public class Client {
                 try {
                     this.client = new RMIClient();
                     ((RMIClient) client).setController(clientController);
-
-
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

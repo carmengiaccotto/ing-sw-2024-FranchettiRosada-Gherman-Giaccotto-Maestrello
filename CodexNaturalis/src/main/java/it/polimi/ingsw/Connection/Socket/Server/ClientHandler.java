@@ -1,15 +1,13 @@
 package it.polimi.ingsw.Connection.Socket.Server;
 
-import it.polimi.ingsw.Connection.Socket.GenericMessage;
+import it.polimi.ingsw.Connection.Socket.Messages.GenericMessage;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
-import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
@@ -20,9 +18,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 public class ClientHandler implements Runnable, ClientControllerInterface, Serializable {
@@ -145,13 +140,13 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException {
-        GenericMessage mess = new GenericMessage("SendUpdateMessage");
-        mess.setObject(message);
-        try {
-            sendMessage(mess);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        GenericMessage mess = new GenericMessage("SendUpdateMessage");
+//        mess.setObject(message);
+//        try {
+//            sendMessage(mess);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
