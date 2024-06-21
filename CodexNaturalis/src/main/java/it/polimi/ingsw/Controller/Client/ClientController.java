@@ -438,18 +438,20 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             case("NOT-MY-TURN")->{ //the player can only chat
                 ItsNotMyTurn();
             }
-            case("OBJECTIVE COUNT")->{ //the player has to count its personal objective
-                //return the count to the server
+            case("OBJECTIVE-COUNT")->{ //the player has to count its personal objective
+                addCommonObjectiveCardsPoints();
+                addPersonalObjectiveCardPoints();
             }
             case("WINNER")->{ //the player has won
                 view.showString("WIN");
                 view.printMessage("Here's the final ranking: ");
+                view.printMessage(game.finalRanking());
             }
             case("LOSER")->{ //the player has lost
-                //TODO schermata con classifica
-                view.showString("GAME_OVER");
                 view.printMessage("Sorry, you have lost the game!");
                 view.printMessage("Here's the final ranking: ");
+                view.printMessage(game.finalRanking());
+                view.showString("GAME_OVER");
 
             }
         }
@@ -493,12 +495,20 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
             int n=view.choosePersonaObjectiveCard(objectives);
             player.setPersonalObjectiveCard(objectives.get(n));
-            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card ", this);
+            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card.", this);
+            game.incrementPlayersWhoChoseObjective();
+            if(game.getPlayersWhoChoseObjective() < game.getPlayers().size()){
+                view.printMessage("Waiting for other players to choose their personal objective card...");
+            }
+            else{
+                game.getListener().updatePlayers("All players have chosen their personal objective card.");
+            }
         } catch (RemoteException e) {
             System.out.println("an error occurred when extracting the personal objective card");
         }
 
     }
+
 
 
 
@@ -520,10 +530,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void playMyInitialCard() throws RemoteException {
+        view.printMessage("It's your turn to play the initial card!");
+        game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
         view.showInitialCard(player.getInitialCard());
         Side side = Side.valueOf(view.chooseSide());
         getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
-        game.getListener().updatePlayers(getNickname()+ " has played the initial card ", this);
+        game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
     }
 
 
@@ -595,6 +607,47 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+   /**
+     * Method that adds the Common Objective Cards points scored by the player.
+     * */
+
+    public void addCommonObjectiveCardsPoints() throws RemoteException {
+        for (ObjectiveCard card : game.getModel().getCommonObjectivesCards()) {
+            if (card instanceof SymbolObjectiveCard s) {
+                int numOfGoals = s.CheckGoals(getPlayer().getPlayArea().getSymbols());
+                int points = s.calculatePoints(numOfGoals);
+                getPlayer().increaseScore(points);
+            } else {
+                DispositionObjectiveCard s = (DispositionObjectiveCard) card;
+                int numOfGoals = s.CheckGoals(getPlayer().getPlayArea());
+                int points = s.calculatePoints(numOfGoals);
+                getPlayer().increaseScore(points);
+            }
+        }
+    }
+
+    /**
+     * Calculates and adds the points from the personal objective card to each player's score.
+     * If the card is a SymbolObjectiveCard, it calculates the number of goals the player has achieved and the points they have earned.
+     * If the card is a DispositionObjectiveCard, it calculates the number of dispositions the player has got and the points they have earned.
+     * The points are then added to the player's score.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
+
+    public void addPersonalObjectiveCardPoints() throws RemoteException {
+        if (getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard card) {
+            int numOfGoals = card.CheckGoals(getPlayer().getPlayArea().getSymbols());
+            int points = card.calculatePoints(numOfGoals);
+            getPlayer().increaseScore(points);
+        } else {
+            DispositionObjectiveCard card = (DispositionObjectiveCard) getPlayer().getPersonalObjectiveCard();
+            int numOfGoals = card.CheckGoals(getPlayer().getPlayArea());
+            int points = card.calculatePoints(numOfGoals);
+            getPlayer().increaseScore(points);
         }
     }
 

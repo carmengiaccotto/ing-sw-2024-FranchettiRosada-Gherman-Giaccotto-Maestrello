@@ -138,6 +138,16 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
     }
 
     @Override
+    public int getPlayersWhoChoseObjective() throws RemoteException {
+        return 0;
+    }
+
+    @Override
+    public void incrementPlayersWhoChoseObjective() throws RemoteException {
+
+    }
+
+    @Override
     public boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException {
         return false;
     }
@@ -157,6 +167,11 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         return null;
     }
 
+
+    @Override
+    public String finalRanking() throws RemoteException {
+        return null;
+    }
 
     @Override
     public void removeAvailableColor(PawnColor color) throws RemoteException {
