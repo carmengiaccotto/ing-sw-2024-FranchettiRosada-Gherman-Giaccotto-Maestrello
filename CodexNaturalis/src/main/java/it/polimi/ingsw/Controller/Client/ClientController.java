@@ -95,7 +95,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     @Override
-    public void chooseCardToDraw(PlayGround model) throws RemoteException {
+    public PlayGround chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
         view.printMessage("This is the Playground: ");
         showBoardAndPlayAreas(model);
@@ -139,38 +139,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         }
         player.addCardToHand(card);
+
+        return model;
     }
-
-
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
-        SideOfCard card = null;
-        boolean requirements = false;
-
-        do {
-            int indexOfCard = (view.chooseCardToPlay(getPlayer().getCardsInHand())) - 1;
-            String side = view.chooseSide();
-
-            PlayCard playCard = getPlayer().getCardsInHand().get(indexOfCard);
-
-            card = getPlayer().ChooseCardToPlay(playCard, Side.valueOf(side));
-
-            if ((playCard) instanceof GoldCard){
-                GoldCard goldCard = (GoldCard) playCard;
-                if (!(goldCard.checkRequirement(getPlayer().getPlayArea().getSymbols(), Side.valueOf(side)))) {
-                    view.printMessage("You can't play this card, the requirement is not met!");
-                } else {
-                    requirements= true;
-                }
-            } else {
-                requirements = true;
-            }
-        } while (!requirements);
-
-        return card;
-
-    }
-
 
 
     @Override
@@ -542,7 +513,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     private void playMyCard(){
         int n= view.chooseCardToPlay(player.getCardsInHand());
-        PlayCard card= player.getCardsInHand().get(n);
+        PlayCard card= player.getCardsInHand().get(n-1);
         Side side = Side.valueOf(view.chooseSide());
         SideOfCard sideOfCard= card.chooseSide(side);
         if(card instanceof GoldCard){
@@ -556,6 +527,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             while(true) {
                 if (game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)) {
                     player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
+                    //player.getCardsInHand().remove(n-1);
                     break;
                 } else {
                     view.printMessage("Oops, the position is not correct according to the game rules. Please choose a valid position.");
@@ -571,7 +543,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private void playMyTurn() throws RemoteException {
         playMyCard();
         game.getListener().updatePlayers(getNickname() + " has played a card.", this);
-        chooseCardToDraw(game.getModel());
+        PlayGround model  = chooseCardToDraw(game.getModel());
+        game.setModel(model);
         game.getListener().updatePlayers("This is the current Playground: ");
         game.getListener().updatePlayers(game.getModel());
 

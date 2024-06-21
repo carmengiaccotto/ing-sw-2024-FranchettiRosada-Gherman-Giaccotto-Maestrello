@@ -47,9 +47,7 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     void showBoardAndPlayAreas(PlayGround m) throws RemoteException;
 
-    void chooseCardToDraw(PlayGround m) throws RemoteException;
-
-    SideOfCard chooseCardToPlay() throws RemoteException;
+    PlayGround chooseCardToDraw(PlayGround m) throws RemoteException;
 
     void sendUpdateMessage(String message) throws RemoteException;
 
