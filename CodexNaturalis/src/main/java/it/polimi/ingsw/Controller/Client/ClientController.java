@@ -97,8 +97,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     @Override
     public PlayGround chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
-        view.printMessage("This is the Playground: ");
-        showBoardAndPlayAreas(model);
+//        view.printMessage("This is the Playground: ");
+//        showBoardAndPlayAreas(model);
         String draw = view.chooseCardToDraw();
         switch (draw) {
 
@@ -512,31 +512,35 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     private void playMyCard(){
+        Boolean isValidPlay= true;
         int n= view.chooseCardToPlay(player.getCardsInHand());
         PlayCard card= player.getCardsInHand().get(n-1);
         Side side = Side.valueOf(view.chooseSide());
-        SideOfCard sideOfCard= card.chooseSide(side);
-        if(card instanceof GoldCard){
-            if(!((GoldCard) card).checkRequirement(player.getPlayArea().getSymbols(), side)){
-                view.printMessage("You can't play this card, the requirement is not met!");
-                playMyCard();
-            }
+        if (card instanceof GoldCard){
+            isValidPlay=((GoldCard) card).checkRequirement(player.getPlayArea().getSymbols(), side);
+
         }
-        Pair<Integer, Integer> position= view.choosePositionCardOnArea(player.getPlayArea());
-        try {
-            while(true) {
-                if (game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)) {
-                    player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
-                    //player.getCardsInHand().remove(n-1);
-                    break;
-                } else {
-                    view.printMessage("Oops, the position is not correct according to the game rules. Please choose a valid position.");
+        if(!isValidPlay){
+            view.printMessage("Sorry, insufficient resources on the playArea, please choose another card");
+            playMyCard();
+        }
+        else{
+            SideOfCard sideOfCard=player.ChooseCardToPlay(card, side);// player method that already removes the card from the hand
+            Pair<Integer, Integer> position;
+            try {
+                do{
                     position = view.choosePositionCardOnArea(player.getPlayArea());
-                }
+                    if(!game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)){
+                        view.printMessage("Oops, the position is not correct according to the game rules. Please choose a valid position.");
+                    }
+                }while(!game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard));
+                player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
+            } catch (RemoteException e) {
+                //todo add error handling
             }
-        } catch (RemoteException e) {
-            //todo add error handling
+
         }
+
     }
 
 
@@ -629,6 +633,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         //TODO implement this
         //client can only chat
     }
+
 
 
 

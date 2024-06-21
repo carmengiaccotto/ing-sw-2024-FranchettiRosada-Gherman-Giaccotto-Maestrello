@@ -164,7 +164,7 @@ public class TUIComponents {
         String commonResources=concatString(concatString ( printCommonCard(cards.get(0), Side.FRONT), printCommonCard(cards.get(1), Side.FRONT),
                 3),printCommonCard((PlayCard) resourceDeck.getCards().getLast(),Side.BACK),3);
         matrix[1][0]=concatString(printObjectives(commonObjectives.get(0)),commonResources, 20);
-        String commonGold= concatString(DesignSupportClass.concatString ( printCommonCard(goldCards.get(0), Side.FRONT), printCommonCard(goldCards.get(1), Side.FRONT),
+        String commonGold= concatString(concatString ( printCommonCard(goldCards.get(0), Side.FRONT), printCommonCard(goldCards.get(1), Side.FRONT),
                 3),printCommonCard((PlayCard) goldDeck.getCards().getLast(),Side.BACK),3);
         matrix[2][0]=header2;
         matrix[3][0]=concatString(printObjectives(commonObjectives.get(1)),commonGold, 20);

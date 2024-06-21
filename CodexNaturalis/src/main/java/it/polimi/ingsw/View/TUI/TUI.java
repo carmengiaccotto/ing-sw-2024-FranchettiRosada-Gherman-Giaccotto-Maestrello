@@ -22,6 +22,8 @@ public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
     private static final String bold = "\033[1m";
     private static final String reset = "\033[0m";
+    private static final String ANSIreset = "\u001B[0m";
+
 
 
     /**
@@ -131,7 +133,7 @@ public class TUI implements UserInterface, Serializable {
      * Prompts the user to either create a new game or join an existing one.
      * The user can choose to create a new game by entering 0 or join an existing game by entering 1.
      *
-     * @return An integer representing the user's choice. 0 for creating a new game, 1 for joining an existing game.
+     * @return  An integer representing the user's choice. 0 for creating a new game, 1 for joining an existing game.
      */
     @Override
     public int createOrJoin() {
@@ -200,7 +202,7 @@ public class TUI implements UserInterface, Serializable {
     public int displayAvailableColors(List<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
         for (int i = 0; i < availableColors.size(); i++) {
-            System.out.println(" [" + (i + 1) + "]" + availableColors.get(i).toString());
+            System.out.println(GraphicUsage.pawnColorDictionary.get(availableColors.get(i))+" [" + (i + 1) + "]" + availableColors.get(i).toString()+ANSIreset);
         }
         return (scanner.nextInt());
     }

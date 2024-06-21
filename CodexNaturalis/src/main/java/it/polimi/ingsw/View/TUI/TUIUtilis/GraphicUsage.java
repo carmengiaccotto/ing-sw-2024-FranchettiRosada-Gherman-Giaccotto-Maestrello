@@ -95,7 +95,7 @@ public class GraphicUsage {
         pawnColorDictionary.put(PawnColor.RED,"\u001B[31m");
         pawnColorDictionary.put(PawnColor.GREEN,"\u001B[32m");
         pawnColorDictionary.put(PawnColor.BLUE,"\u001B[34m");
-        pawnColorDictionary.put(PawnColor.YELLOW,"\u001B[33m");
+        pawnColorDictionary.put(PawnColor.YELLOW,"\033[33m");
     }
 
 }

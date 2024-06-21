@@ -1,85 +1,24 @@
 package it.polimi.ingsw.Model.PlayGround;
 
-import org.junit.Test;
+import it.polimi.ingsw.Model.Cards.GoldCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.ResourceCard;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class PlayGroundTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    @Test
-    public void testPlayGroundConstructor() {
+class PlayGroundTest {
+    private PlayGround playGround;
 
+
+    @BeforeEach
+    void setUp() throws IOException {
+        playGround = new PlayGround();
     }
 
-    @Test
-    public void testGetGoldCardDeck() throws IOException {
-//        PlayGround playGround = new PlayGround(1);
-//        Deck goldCardDeck = playGround.getGoldCardDeck();
-//        assertNotNull(goldCardDeck);
 
-    }
 
-    @Test
-    public void testGetInitialCardDeck(){
-
-    }
-
-    @Test
-    public void testGetObjectiveCardDeck(){
-
-    }
-
-    @Test
-    public void testGetResourceCardDeck(){
-
-    }
-
-    @Test
-    public void testAddCommonCard(){
-
-    }
-
-    @org.junit.jupiter.api.Test
-    void getGoldCardDeck() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getInitialCardDeck() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getObjectiveCardDeck() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getResourceCardDeck() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void addCommonCard() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getChat() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getCommonResourceCards() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getCommonObjectivesCards() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getCommonGoldCards() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void sentMessage() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void drawCardFromPlayground() {
-    }
 }
