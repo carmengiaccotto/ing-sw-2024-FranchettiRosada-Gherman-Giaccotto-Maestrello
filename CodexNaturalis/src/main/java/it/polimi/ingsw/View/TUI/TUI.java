@@ -20,6 +20,9 @@ import java.util.*;
 
 public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
+    private static final String bold = "\033[1m";
+    private static final String reset = "\033[0m";
+
 
     /**
      * Prompts the user to choose where to draw a card from.
@@ -116,7 +119,7 @@ public class TUI implements UserInterface, Serializable {
     /**
      * Prompts the user to choose a nickname.
      *
-     * @return A string representing the chosen nickname.
+     * @return  nickname               A string representing the chosen nickname.
      */
     @Override
     public String selectNickName() {
@@ -164,17 +167,22 @@ public class TUI implements UserInterface, Serializable {
     @Override
     public int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException {
         System.out.println("Please choose one of the following games");
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < games.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Game" +"     number of players needed: " + numPlayers.get(i).getSecond() );
-            System.out.println("Current players: ");
-            if(games.get(i)!=null)
-                for (String name: games.get(i)) {
-
-                System.out.println("      "+name);
+            s.append("   ").append("\n" + bold +bold+ "  LOBBY " + reset).append(bold).append(i + 1).append(reset).append("\n");
+            s.append("─────────────────").append("\n");
+            s.append("needed: ").append(numPlayers.get(i).getSecond());
+            if(games.get(i)!=null) {
+                for (String name : games.get(i)) {
+                    s.append("\n").append("      ").append(bold).append("• ").append(name).append(reset);
+                }
             }
             else
-                System.out.println("          No players yet");
+                s.append("\nNo players in this lobby");
+            s.append("\n\n");
+
         }
+        System.out.println(s);
         System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert 0 (zero)");
         return (scanner.nextInt());
 
