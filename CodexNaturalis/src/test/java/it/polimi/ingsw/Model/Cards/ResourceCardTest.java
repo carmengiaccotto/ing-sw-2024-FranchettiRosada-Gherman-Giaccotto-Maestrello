@@ -15,7 +15,7 @@ class ResourceCardTest {
         boolean frontPoint = true;
         ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
 
-        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
+        assertEquals(1, resourceCard.getPoints(chosenSide));
     }
 
     @Test
@@ -23,7 +23,7 @@ class ResourceCardTest {
         Side chosenSide = Side.BACK;
         boolean frontPoint = false;
         ResourceCard resourceCard = new ResourceCard(2, null, null, CardColors.BLUE, frontPoint);
-        assertEquals(frontPoint, resourceCard.getPoint(chosenSide));
+        assertEquals(0, resourceCard.getPoints(chosenSide));
     }
 
 

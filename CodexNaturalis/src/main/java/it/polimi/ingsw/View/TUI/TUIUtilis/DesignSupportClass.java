@@ -197,9 +197,9 @@ public class DesignSupportClass {
     }
 
     public static void printResourceFront(String[][] matrix, ResourceCard card, int startRow, int startColumn, int h, int w) {
-        boolean points = card.getPoint(Side.FRONT);
+        int  points = card.getPoints(Side.FRONT);
         printFrontCard(matrix, card, startRow, startColumn, h, w);
-        if (points) {
+        if (points==1) {
             drawPoints(matrix, startRow, startColumn, w, "1");
         }
     }

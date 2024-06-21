@@ -24,9 +24,10 @@ public class ResourceCard extends PlayCard implements Serializable {
      *
      * @return point if the card has been played on the Front Side, false otherwise
      */
-    public boolean getPoint(Side chosenSide){
+    @Override
+    public int getPoints(Side chosenSide){
         if(chosenSide.equals(Side.FRONT))
-            return this.point;
-        else return false;
+            return this.point? 1 : 0;
+        else return 0;
     }
 }

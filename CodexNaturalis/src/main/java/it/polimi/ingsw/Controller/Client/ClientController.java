@@ -393,6 +393,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
             case("PLAY-TURN")->{ //the player plays a card
                 sendUpdateMessage("It's your turn!");
+                player.IncreaseRound();
                 view.printBoard(game.getModel(), getOpponents(), player, viewMyChat());
                 Command c;
                 do {
@@ -535,6 +536,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                     }
                 }while(!game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard));
                 player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
+                player.increaseScore(card.getPoints(side));
             } catch (RemoteException e) {
                 //todo add error handling
             }

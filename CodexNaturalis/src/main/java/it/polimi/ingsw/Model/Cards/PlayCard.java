@@ -8,12 +8,12 @@ import it.polimi.ingsw.Model.Enumerations.Side;
  */
 public class PlayCard extends Card {
 
-    private SideOfCard Front;
-    private  SideOfCard Back;
+    private final SideOfCard Front;
+    private final SideOfCard Back;
 
 
 
-    private CardColors color;
+    private final CardColors color;
 
 
     public PlayCard(int id,SideOfCard front, SideOfCard back, CardColors color) {
@@ -64,6 +64,10 @@ public class PlayCard extends Card {
 
     public SideOfCard getBack() {
         return Back;
+    }
+
+    public int getPoints(Side chosenSide){
+        return 0;
     }
 }
 
