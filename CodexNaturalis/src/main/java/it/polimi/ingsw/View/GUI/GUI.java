@@ -1,11 +1,10 @@
 package it.polimi.ingsw.View.GUI;
 
-import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -99,6 +98,11 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
+
+    }
+
+    @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         return 0;
     }
@@ -130,17 +134,13 @@ public class GUI extends Application implements UserInterface {
         return null;
     }
 
-    @Override
-    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
-
-    }
 
 
 
 
     @Override
-    public void viewChat() {
-
+    public ArrayList<String> viewChat(ArrayList<Message> myChat, Player player) {
+        return null;
     }
 
     @Override
@@ -149,7 +149,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public Pair<String, String> sendChatMessage() {
+    public Pair<String, String> sendChatMessage(ArrayList<Player> players) {
         return null;
     }
 }

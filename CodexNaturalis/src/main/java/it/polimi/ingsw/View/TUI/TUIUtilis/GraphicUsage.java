@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.TUI;
+package it.polimi.ingsw.View.TUI.TUIUtilis;
 
 
 import it.polimi.ingsw.Model.CardColors;

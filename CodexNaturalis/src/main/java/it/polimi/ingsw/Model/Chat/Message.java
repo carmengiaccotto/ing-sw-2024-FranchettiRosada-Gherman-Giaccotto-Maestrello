@@ -51,26 +51,4 @@ public class Message implements Serializable {
         this.sender = sender;
     }
 
-    /**
-     *
-     * @return the message's time of sending
-     */
-    public LocalTime getTime() {
-        return time;
-    }
-
-    /**
-     * Sets the message time to the parameter
-     * @param time param
-     */
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    /**
-     *
-     * @return "everyone" (everyone is a receiver)
-     */
-    public void whoIsReceiver() {
-    }
 }

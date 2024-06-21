@@ -8,7 +8,6 @@ import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.Position;
 import it.polimi.ingsw.Model.Symbol;
-import it.polimi.ingsw.View.TUI.GraphicUsage;
 
 import java.util.ArrayList;
 import java.util.Arrays;

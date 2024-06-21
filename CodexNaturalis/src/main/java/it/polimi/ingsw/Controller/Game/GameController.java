@@ -2,6 +2,7 @@ package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Exceptions.NotReadyToRunException;
@@ -37,7 +38,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private PlayGround model;
 
+    private int playersWhoChoseObjective = 0;
+
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    private Chat chat=new Chat();
 
     //private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -89,11 +94,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
         try {
-            FinalizeGame();
-        } catch (RemoteException | NotReadyToRunException e) {
+            listener.disconnectPlayers();
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-    } /**
+
+    }
+
+    /**
      * This method performs actions based on the current game status.
      *
      * @param status The current status of the game. It can be one of the following:
@@ -114,7 +122,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                     initializeGame();
                     List<Thread> threads = new ArrayList<>();
-                    for (ClientControllerInterface c: listener.getPlayers()) {
+                    for (ClientControllerInterface c : listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
                             try {
                                 c.WhatDoIDoNow("INITIALIZE");
@@ -148,8 +156,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
             }
             case RUNNING -> {//
-                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname()+"index: "+currentPlayerIndex);
-                while(status.equals(GameStatus.RUNNING)) {
+                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " index: " + currentPlayerIndex);
+                while (status.equals(GameStatus.RUNNING)) {
                     ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
                     try {
                         startTurnTimer(currentPlayer);
@@ -164,7 +172,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
                                     try {
                                         c.WhatDoIDoNow("NOT-MY-TURN");
-                                        c.sendUpdateMessage("It's "+ currentPlayerNickname + "'s turn!");
+                                        c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
                                     } catch (Exception e) {
                                         //todo handle exception
                                     }
@@ -175,12 +183,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         }
                     }).start();
 
-                    currentPlayerIndex=passPlayerTurn(currentPlayerIndex);
+                    currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
                 }
 
 
             }
-            case LAST_CIRCLE -> {//todo change this
+            case LAST_CIRCLE -> {
                 int adjustedNumOfLastPlayer = ((currentPlayerIndex - 1) + listener.getPlayers().size()) % listener.getPlayers().size();
                 if (adjustedNumOfLastPlayer < (listener.getPlayers().size() - 1)) {
                     listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(adjustedNumOfLastPlayer).getNickname() + "has reached the maximum score!", listener.getPlayers().get(adjustedNumOfLastPlayer));
@@ -191,6 +199,69 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
 
                 }
+                setStatus(GameStatus.FINILIZE);
+            }
+            case FINILIZE -> {
+                try {
+                    List<Thread> threads = new ArrayList<>();
+                    for (ClientControllerInterface c : listener.getPlayers()) {
+                        Thread thread = new Thread(() -> {
+                            try {
+                                c.WhatDoIDoNow("OBJECTIVE-COUNT");
+                            } catch (Exception e) {
+                                //todo handle exception
+                            }
+                        });
+                        threads.add(thread);
+                        thread.start();
+                    }
+                    for (Thread thread : threads) {
+                        thread.join();
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                ArrayList<ClientControllerInterface> winners = decreeWinner();
+                List<ClientControllerInterface> losers = new ArrayList<>(listener.getPlayers());
+                losers.removeAll(winners);
+
+                List<Thread> winnerThreads = new ArrayList<>();
+                for (ClientControllerInterface winner : winners) {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            winner.WhatDoIDoNow("WINNER");
+                        } catch (Exception e) {
+                            //todo handle exception
+                        }
+                    });
+                    winnerThreads.add(thread);
+                    thread.start();
+                }
+
+                List<Thread> loserThreads = new ArrayList<>();
+                for (ClientControllerInterface loser : losers) {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            loser.WhatDoIDoNow("LOSER");
+                        } catch (Exception e) {
+                            //todo handle exception
+                        }
+                    });
+                    loserThreads.add(thread);
+                    thread.start();
+                }
+
+                try {
+                    for (Thread thread : winnerThreads) {
+                        thread.join();
+                    }
+                    for (Thread thread : loserThreads) {
+                        thread.join();
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
                 setStatus(GameStatus.ENDED);
             }
         }
@@ -404,8 +475,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 } catch (RemoteException e) {
                     //todo handle exception
                 }
-            }, 60, TimeUnit.SECONDS);
-        }, 60, TimeUnit.SECONDS);
+            }, 120, TimeUnit.SECONDS);
+        }, 120, TimeUnit.SECONDS);
     }
 
 
@@ -421,7 +492,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RemoteException If a remote or network communication error occurs.
      */
 
-    private int passPlayerTurn(int currentPlayerIndex) throws RemoteException {//todo change
+    private int passPlayerTurn(int currentPlayerIndex) throws RemoteException {
         currentPlayerIndex = (currentPlayerIndex + 1) % listener.getPlayers().size();
         setCurrentPlayerNickname(listener.getPlayers().get(currentPlayerIndex).getNickname());
         return currentPlayerIndex;
@@ -485,65 +556,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
-
-
-
-
-    /**
-     * Calculates and adds the points from the personal objective card to each player's score.
-     * This method iterates through each player in the game and checks their personal objective card.
-     * If the card is a SymbolObjectiveCard, it calculates the number of goals the player has achieved and the points they have earned.
-     * If the card is a DispositionObjectiveCard, it calculates the number of dispositions the player has got and the points they have earned.
-     * The points are then added to the player's score.
-     *
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-
-    public void addPersonalObjectiveCardPoints() throws RemoteException {
-        for (ClientControllerInterface c : listener.getPlayers()) {
-            if (c.getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard card) {
-                int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
-                int points = card.calculatePoints(numOfGoals);
-                c.getPlayer().increaseScore(points);
-            } else {
-                DispositionObjectiveCard card = (DispositionObjectiveCard) c.getPlayer().getPersonalObjectiveCard();
-                int numOfGoals = card.CheckGoals(c.getPlayer().getPlayArea());
-                int points = card.calculatePoints(numOfGoals);
-                c.getPlayer().increaseScore(points);
-
-            }
-        }
+    public int getPlayersWhoChoseObjective() throws RemoteException{
+        return playersWhoChoseObjective;
     }
 
-
-
-
-
-    /**
-     * Calculates and adds the points from the common objective cards to each player's score.
-     * This method iterates through each player in the game and for each common objective card,
-     * it checks the type of the card (SymbolObjectiveCard or DispositionObjectiveCard), calculates the number of goals
-     * the player has achieved and the points they have earned based on the card's rules.
-     * The points are then added to the player's score.
-     *
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-
-    public void addCommonObjectiveCardsPoints() throws RemoteException {//todo move this method to be called by each player during a final state
-        for (ClientControllerInterface c : listener.getPlayers()) {
-            for (ObjectiveCard card : model.getCommonObjectivesCards()) {
-                if (card instanceof SymbolObjectiveCard s) {
-                    int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea().getSymbols());
-                    int points = s.calculatePoints(numOfGoals);
-                    c.getPlayer().increaseScore(points);
-                } else {
-                    DispositionObjectiveCard s = (DispositionObjectiveCard) card;
-                    int numOfGoals = s.CheckGoals(c.getPlayer().getPlayArea());
-                    int points = s.calculatePoints(numOfGoals);
-                    c.getPlayer().increaseScore(points);
-                }
-            }
-        }
+    public void incrementPlayersWhoChoseObjective() throws RemoteException{
+        playersWhoChoseObjective++;
     }
 
 
@@ -562,40 +580,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
-
-
-    /**
-     * Finalizes the game by adding the points from the personal objective cards and the common objective cards to each player's score.
-     * It then determines the winner of the game based on the player with the highest score.
-     * Finally, it sends a message to all players with the final scores and disconnects all players from the game.
-     *
-     * @throws NotReadyToRunException If the game is not ready to run.
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-
-    public void FinalizeGame() throws NotReadyToRunException, RemoteException {//todo modify this and move it to the client
-        addPersonalObjectiveCardPoints();
-        addCommonObjectiveCardsPoints();
-        listener.updatePlayers("Those are the final scores: \n");
-        listener.updatePlayers();
-        decreeWinner();
-        listener.updatePlayers("The game is over!");
-        listener.disconnectPlayers();
-    }
-
-
-
-    /**
-     * Determines the winner of the game based on the player with the highest score.
-     * If there is only one player with the highest score, they are declared the winner.
-     * If there are multiple players with the highest score, a tie is declared between them.
-     * The method then sends a message to all players with the winner or the list of players in a tie.
-     *
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    public void decreeWinner() throws RemoteException {//todo change
-
-        List<ClientControllerInterface> winners = new ArrayList<>();
+    public ArrayList<ClientControllerInterface> decreeWinner() throws RemoteException {
+        ArrayList<ClientControllerInterface> winners = new ArrayList<>();
         int score = Integer.MIN_VALUE;
 
         for (ClientControllerInterface c : listener.getPlayers()) {
@@ -607,13 +593,28 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 winners.add(c);
             }
         }
-        listener.updatePlayers(winners);
 
+        return winners;
     }
 
+    public String finalRanking() throws RemoteException {
+        List<ClientControllerInterface> players = listener.getPlayers();
 
+        players.sort((player1, player2) -> {
+            try {
+                return Integer.compare(player2.getPlayer().getScore(), player1.getPlayer().getScore());
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
+        StringBuilder scores = new StringBuilder();
+        for (ClientControllerInterface player : players) {
+            scores.append(player.getNickname()).append(" : ").append(player.getPlayer().getScore()).append("\n");
+        }
 
+        return scores.toString();
+    }
 
     /**
      * Method that extracts the cards for the first hand of the player
@@ -623,7 +624,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     @Override
     public synchronized ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException {
-        System.out.println("extracting cards");
         ArrayList<PlayCard> hand= new ArrayList<>();
         ResourceCard card1= (ResourceCard) model.getResourceCardDeck().drawCard();
         hand.add(card1);
@@ -635,9 +635,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
-
-
-
     /**
      * Method that returns the personal objective card of a player
      *
@@ -647,20 +644,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     @Override
     public synchronized ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException {
         ArrayList<ObjectiveCard> ObjectiveOptions=new ArrayList<>();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveCard card1= (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveCard card2=(ObjectiveCard) model.getObjectiveCardDeck().drawCard();
-        System.out.println(model.getObjectiveCardDeck().getSize());
         ObjectiveOptions.add(card1);
         ObjectiveOptions.add(card2);
         return ObjectiveOptions;
     }
-
-
-
-
-
 
     @Override
     public boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException {
@@ -703,8 +692,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return covering;
         }
 
-
-
     @Override
     public void sendPrivateMessage(Message message, String receiver) throws RemoteException {
         String ANSI_CYAN = "\u001B[36m";
@@ -744,5 +731,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
+    public Chat getChat() {
+        return chat;
+    }
 
+
+    @Override
+    public void addMessageToChat(Message message) {
+        chat.addMessage(message);
+    }
 }

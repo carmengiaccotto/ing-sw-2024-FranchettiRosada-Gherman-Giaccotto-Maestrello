@@ -33,9 +33,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     //Interface that contains the methods used in this class
     private MainControllerInterface handler;
 
-
-
-
     /**
      * The constructor for the RMIServer class.
      * @throws RemoteException if the remote object cannot be created
@@ -48,16 +45,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
 
     }
 
-
-
-
     public RMIServer(MainControllerInterface mainController) throws RemoteException {
         super(0);
         this.handler = mainController;
     }
-
-
-
 
     /**
      * Binds the server to the RMI registry.
@@ -78,9 +69,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return getInstance();
     }
 
-
-
-
     /**
      * Returns the singleton instance of the RMIServer.
      * @return RMIServer the singleton instance of the RMIServer
@@ -97,9 +85,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         }
         return serverObject;
     }
-
-
-
 
     /**
      * Returns the registry associated with the RMI Server.
@@ -145,9 +130,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         handler.joinGame(client,GameID);
     }
 
-
-
-
     /**
      * Method that gives the Client a list of games it can join. Uses MainController method
      *
@@ -158,9 +140,6 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
        return handler.DisplayAvailableGames();
 
     }
-
-
-
 
     /**
      * Method that creates a new game when requested by a player. Uses MainControllerMethod
@@ -173,15 +152,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return handler.createGame(client, n);
     }
 
-
-
-
-
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
     }
-
 
     @Override
     public void addNickname(String name) throws RemoteException {

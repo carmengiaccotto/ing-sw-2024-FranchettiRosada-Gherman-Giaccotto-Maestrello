@@ -1,11 +1,10 @@
 package it.polimi.ingsw.View;
 
-import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -38,6 +37,8 @@ public interface UserInterface {
 
     int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException;
 
+    void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat);
+
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 
     void showInitialCard(InitialCard card);
@@ -51,11 +52,9 @@ public interface UserInterface {
 
     Command receiveCommand();
 
-
-    void printBoard(PlayGround model, ArrayList<Player> opponents, Player me);
-    void viewChat();
+    ArrayList<String> viewChat(ArrayList<Message> myChat, Player player);
 
     void showString(String s);
 
-    Pair<String, String> sendChatMessage();
+    Pair<String, String> sendChatMessage(ArrayList<Player> players);
 }

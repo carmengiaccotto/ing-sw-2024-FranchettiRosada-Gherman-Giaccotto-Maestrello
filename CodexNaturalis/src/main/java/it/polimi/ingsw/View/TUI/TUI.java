@@ -1,27 +1,28 @@
 package it.polimi.ingsw.View.TUI;
 
-import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Chat.Message;
+import it.polimi.ingsw.Model.Chat.PrivateMessage;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass;
+import it.polimi.ingsw.View.TUI.TUIUtilis.GraphicUsage;
 import it.polimi.ingsw.View.TUI.TUIUtilis.TUIComponents;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
+    private static final String bold = "\033[1m";
+    private static final String reset = "\033[0m";
+
 
     /**
      * Prompts the user to choose where to draw a card from.
@@ -118,7 +119,7 @@ public class TUI implements UserInterface, Serializable {
     /**
      * Prompts the user to choose a nickname.
      *
-     * @return A string representing the chosen nickname.
+     * @return  nickname               A string representing the chosen nickname.
      */
     @Override
     public String selectNickName() {
@@ -166,17 +167,22 @@ public class TUI implements UserInterface, Serializable {
     @Override
     public int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException {
         System.out.println("Please choose one of the following games");
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < games.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Game" +"     number of players needed: " + numPlayers.get(i).getSecond() );
-            System.out.println("Current players: ");
-            if(games.get(i)!=null)
-                for (String name: games.get(i)) {
-
-                System.out.println("      "+name);
+            s.append("   ").append("\n" + bold +bold+ "  LOBBY " + reset).append(bold).append(i + 1).append(reset).append("\n");
+            s.append("─────────────────").append("\n");
+            s.append("needed: ").append(numPlayers.get(i).getSecond());
+            if(games.get(i)!=null) {
+                for (String name : games.get(i)) {
+                    s.append("\n").append("      ").append(bold).append("• ").append(name).append(reset);
+                }
             }
             else
-                System.out.println("          No players yet");
+                s.append("\nNo players in this lobby");
+            s.append("\n\n");
+
         }
+        System.out.println(s);
         System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert 0 (zero)");
         return (scanner.nextInt());
 
@@ -218,37 +224,48 @@ public class TUI implements UserInterface, Serializable {
         System.out.println(message);
     }
 
+
+
     /**
      * Prompts the user to select a command from the available options.
      * The user can choose either the "MOVE" or "CHAT" command.
      * The method will keep asking until a valid command is chosen.
      *
-     * @return A Command enum representing the chosen command by the user.
+     * @return               A Command enum representing the chosen command by the user.
+     *
      */
+
     @Override
     public Command receiveCommand() {
-        System.out.println("Select a command: [MOVE/CHAT/VIEWCHAT]");
+        System.out.println("Select a command: [MOVE/CHAT]");
         String command = "";
         do{
             command = scanner.nextLine().toUpperCase();
 //            if (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT")) {
 //                System.out.println("Please insert a valid command: [MOVE/CHAT]");
 //            }
-        } while (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT"));
+        } while (!command.equals("MOVE") && !command.equals("CHAT"));
         return Command.valueOf(command.toUpperCase());
     }
 
     @Override
-    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
+        String ANSI_CYAN = "\u001B[36m";
+        StringBuilder opponentsInfo = new StringBuilder();
         for(Player p: opponents){
             if(p!=me)
-                System.out.println(TUIComponents.showOpponent(p));
+                opponentsInfo.append(TUIComponents.showOpponent(p)).append("\n");
         }
-
+        String opp= TUIComponents.createBoxWithSpace( opponentsInfo.toString(), "\033[30m", 0);
+        ArrayList<String> chatMessages = viewChat(myChat, me);
+        String Chat= TUIComponents.formatStringList( chatMessages);
+        String chatBox= TUIComponents.createBoxWithSpace(Chat, ANSI_CYAN, 0);
+        String finalOutput = TUIComponents.concatString(opp, chatBox, 30);
+        System.out.println(finalOutput);
+        System.out.println();
         System.out.println(TUIComponents.showCommonCards(model));
-
+        System.out.println();
         System.out.println(TUIComponents.showMySelf(me));
-
     }
 
 
@@ -258,14 +275,14 @@ public class TUI implements UserInterface, Serializable {
      * Prompts the user to choose a personal Objective Card from a list of available objective cards.
      * The user can choose an objective card by entering the corresponding number.
      *
-     * @param objectives An ArrayList of ObjectiveCard objects representing the available objective cards.
-     * @return An integer representing the index of the chosen objective card in the list.
+     * @param               objectives An ArrayList of ObjectiveCard objects representing the available objective cards.
+     * @return              An integer representing the index of the chosen objective card in the list.
      */
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         String s="";
         String[][] matrix= new String[10][70];
-        System.out.println("Please, choose your personal Objective Card");
+        System.out.println("Please, choose your personal Objective Card!");
             for (int i = 0; i < objectives.size(); i++) {
                 s=TUIComponents.concatString(s,TUIComponents.printObjectives(objectives.get(i)), 4);
             }
@@ -279,17 +296,53 @@ public class TUI implements UserInterface, Serializable {
                 System.out.println("Invalid option! Please choose 1 or 2.");
             }
         } while (choice != 1 && choice != 2);
-        System.out.println("Waiting for other players to choose their Objective Cards...");
         return choice - 1;
     }
 
 
 
 
-
+    /**
+     *
+     * Method that returns an array of strings representing the messages the player can see in the chatBox.
+     *
+     * @param player            that is visualizing the chat.
+     * @param myChat            messages in this player's chat
+     *
+     * @return messages         String representation of the chat messages
+     *
+     * */
     @Override
-    public void viewChat() {
+    public ArrayList<String> viewChat(ArrayList<Message> myChat, Player player) {
+        String bold = "\033[1m";
+        String reset = "\033[0m";
+        ArrayList<String> messages = new ArrayList<>();// creating a new arraylist of strings
+        for (Message m : myChat) { // for each message in the chat
+            String sender; //initialize sender
+            String receiver = "ALL";//initialize receiver. If the message is not a private message, the receiver is everyone
+            if (m.getSender().getNickname().equals(player.getNickname())) { //if i'm the sender
+                sender = "YOU";
+            } else {
+                sender = m.getSender().getNickname(); //else the sender is the nickname of the sender
+            }
+            if (m instanceof PrivateMessage) { //if the message is a private message
+                receiver = ((PrivateMessage) m).getReceiver(); //retrieve the receiver
+                if (receiver.equals(player.getNickname())) { //if player is the receiver
+                    receiver = "YOU"; //receiver is you
+                }
+            }
+            String message = bold + "[" + sender + "] to [" + receiver + "]:" + reset + m.getText();
+            messages.add(message);
+        }
+        Collections.reverse(messages); //we want to print the messages in order from the most recent ones to the oldest ones,
+                                        // so we reverse the order of the arraylist
 
+        // Limit the size of the list to 20
+        if (messages.size() > 20) {
+            return new ArrayList<>(messages.subList(0, 20));
+        } else {
+            return messages;
+        }
     }
 
     @Override
@@ -303,8 +356,13 @@ public class TUI implements UserInterface, Serializable {
         }
     }
 
+
     @Override
-    public Pair<String, String> sendChatMessage() {
+    public Pair<String, String> sendChatMessage(ArrayList<Player> opponents) {
+            ArrayList<String> players = new ArrayList<>();
+            for (Player p : opponents) {
+                players.add(p.getNickname());
+            }
             String receiver="";
             String text="";
             System.out.println("Do you want to send a message to everyone? [Y/N]");
@@ -313,11 +371,20 @@ public class TUI implements UserInterface, Serializable {
             if(choice.equals("Y")){
                 receiver="everyone";
             }else{
-                System.out.println("Insert the nickname of the receiver: ");
-                receiver=scanner.nextLine(); // Modifica questa linea
+                do{
+                    String message="Insert the nickname of the receiver: ";
+                    for (String p : players) {
+                        message+="["+p+"]";
+                    }
+                    System.out.println(message);
+                    receiver=scanner.nextLine();
+                    if(!players.contains(receiver)){
+                    System.out.println("There is no player with such nickname in the game! Please insert a valid nickname.");
+                }
+                    }while (!players.contains(receiver));
             }
             System.out.println("Insert the text of the message: ");
-            text=scanner.nextLine(); // Modifica questa linea
+            text=scanner.nextLine();
             Pair<String, String> message = new Pair<>(receiver, text);
             return message;
     }

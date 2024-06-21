@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller.Main;
 
-import it.polimi.ingsw.Connection.ExecutorBuffer;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
@@ -28,8 +27,6 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**Thread pool for Multi-Game advanced feature*/
     private transient ExecutorService executor;
-    /** Thread pool for async communication and task management*/
-    private final ExecutorBuffer executorBuffer = new ExecutorBuffer();
 
     private static MainController instance = null;
 

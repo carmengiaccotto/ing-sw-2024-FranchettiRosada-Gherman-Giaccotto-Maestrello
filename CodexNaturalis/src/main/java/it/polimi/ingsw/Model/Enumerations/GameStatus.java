@@ -8,5 +8,6 @@ public enum GameStatus implements Serializable {
     SETUP,
     INITIAL_CIRCLE,
     LAST_CIRCLE,
+    FINILIZE,
     ENDED
 }
