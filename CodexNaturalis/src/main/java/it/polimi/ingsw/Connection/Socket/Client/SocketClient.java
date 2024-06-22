@@ -66,6 +66,11 @@ public class SocketClient extends Thread implements ClientControllerInterface {
     }
 
     @Override
+    public void setRound(int round) throws RemoteException {
+
+    }
+
+    @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
 
     }

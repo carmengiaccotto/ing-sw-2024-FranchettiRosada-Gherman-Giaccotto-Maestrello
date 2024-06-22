@@ -163,6 +163,11 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     }
 
     @Override
+    public void setRound(int round) throws RemoteException {
+
+    }
+
+    @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.gameController = game;
     }

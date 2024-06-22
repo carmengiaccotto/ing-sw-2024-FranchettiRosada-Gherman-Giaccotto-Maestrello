@@ -645,11 +645,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void ItsNotMyTurn() throws RemoteException {
-            Command c = view.receiveCommand(false);
-            while (c == Command.CHAT) {
-                sendChatMessage();
-                c = view.receiveCommand(false);
-            }
+//            Command c = view.receiveCommand(false);
+//            while (c == Command.CHAT) {
+//                sendChatMessage();
+//                c = view.receiveCommand(false);
+//            }
     }
 
 

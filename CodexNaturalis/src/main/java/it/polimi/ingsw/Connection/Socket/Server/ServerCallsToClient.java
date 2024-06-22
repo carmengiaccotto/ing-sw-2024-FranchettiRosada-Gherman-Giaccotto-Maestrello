@@ -335,6 +335,11 @@ public class ServerCallsToClient implements ClientControllerInterface {
         return 0;
     }
 
+    @Override
+    public void setRound(int round) throws RemoteException {
+
+    }
+
     /**
      * @param game
      * @throws RemoteException
