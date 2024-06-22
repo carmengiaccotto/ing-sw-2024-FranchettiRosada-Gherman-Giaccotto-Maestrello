@@ -78,6 +78,10 @@ public class GameListener implements Serializable {
         }
     }
 
+    public void setPlayers(List<ClientControllerInterface> players) {
+        this.players = players;
+    }
+
     public void sendGameAction(String action){
         for(ClientControllerInterface c: getPlayers()) {
             try {

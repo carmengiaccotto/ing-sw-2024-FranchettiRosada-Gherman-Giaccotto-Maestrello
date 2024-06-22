@@ -59,6 +59,8 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     int getRound() throws RemoteException;
 
+    void setRound(int round) throws RemoteException;
+
     void setGame(GameControllerInterface game) throws RemoteException;
 
     ObjectiveCard getPersonalObjectiveCard() throws RemoteException;

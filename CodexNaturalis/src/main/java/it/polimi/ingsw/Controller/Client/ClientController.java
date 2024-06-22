@@ -182,8 +182,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * @return round
      * */
     @Override
-    public int getRound() {
+    public int getRound() throws RemoteException {
         return player.getRound();
+    }
+
+    public void setRound(int round) throws RemoteException{
+        player.setRound(round);
     }
 
     @Override
