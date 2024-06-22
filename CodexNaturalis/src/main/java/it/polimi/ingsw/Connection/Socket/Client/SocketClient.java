@@ -162,15 +162,9 @@ public class SocketClient extends Thread implements ClientControllerInterface {
     }
 
     @Override
-    public void chooseCardToDraw(PlayGround m) throws RemoteException {
-
-    }
-
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
+    public PlayGround chooseCardToDraw(PlayGround m) throws RemoteException {
         return null;
     }
-
 
 
     @Override

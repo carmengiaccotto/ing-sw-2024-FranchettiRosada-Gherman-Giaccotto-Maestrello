@@ -50,7 +50,7 @@ public interface UserInterface {
 
     void printMessage(String message);
 
-    Command receiveCommand();
+    Command receiveCommand(Boolean IsMyTurn);
 
     ArrayList<String> viewChat(ArrayList<Message> myChat, Player player);
 

@@ -20,7 +20,7 @@ public class PlayGround implements Serializable {
 
 
     /**
-     * It contains Decks
+     *  Decks
      */
     private final Deck GoldCardDeck;
     private final Deck ResourceCardDeck;
@@ -28,17 +28,13 @@ public class PlayGround implements Serializable {
     private final Deck InitialCardDeck;
 
     /**
-     * It contains the list of common resourceCards, goldCard and objective card
+     * ist of common resourceCards, goldCard and objective card
      */
     private final ArrayList<ResourceCard> commonResourceCards;
     private final ArrayList<GoldCard> commonGoldCards;
     private final ArrayList<ObjectiveCard> commonObjectivesCards;
 
 
-    /**
-     * It contains the chat of the game
-     */
-    private Chat chat;
 
 
     /**
@@ -111,12 +107,6 @@ public class PlayGround implements Serializable {
 
 
 
-    /**
-     * @return the chat
-     */
-    public Chat getChat() {
-        return chat;
-    }
 
 
     /**
@@ -143,16 +133,6 @@ public class PlayGround implements Serializable {
 
 
 
-
-    /**
-     * Sends a message
-     *
-     * @param m message sent
-     */
-
-    public void sentMessage(Message m) {
-        chat.addMessage(m);
-    }
 
 
 

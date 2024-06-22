@@ -9,7 +9,7 @@ class GameStatusTest {
     @Test
     void values() {
         GameStatus[] statuses = GameStatus.values();
-        assertEquals(6, statuses.length);
+        assertEquals(7, statuses.length);
         assertEquals(GameStatus.WAITING, statuses[0]);
         assertEquals(GameStatus.RUNNING, statuses[1]);
         assertEquals(GameStatus.SETUP, statuses[2]);

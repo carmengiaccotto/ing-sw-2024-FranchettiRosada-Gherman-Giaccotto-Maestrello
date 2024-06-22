@@ -22,12 +22,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
     private UserInterface view;
     private GameControllerInterface game;
     private Player player = new Player();
     private MainControllerInterface server;
+    private boolean ItsMyTurn;
 
     public ClientController() throws RemoteException {
         game=null;
@@ -40,6 +42,8 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         JoinLobby();
     }
 
+
+    @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.game = game;
     }
@@ -52,13 +56,17 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     /**getter method for PawnColor attribute in Player attribute
      * @return pawnColor that the player chose when joining the game */
+    @Override
     public PawnColor getPawnColor() throws RemoteException{
         return player.getPawnColor();
     }
 
 
-    /**method that sets the PersonalObjective card of the client.
-     * @param objectiveCard chosen objective card*/
+    /**
+     * method that sets the PersonalObjective card of the client.
+     *
+     * @param objectiveCard chosen objective card
+     * */
     @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         player.setPersonalObjectiveCard(objectiveCard);
@@ -95,10 +103,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     @Override
-    public void chooseCardToDraw(PlayGround model) throws RemoteException {
+    public PlayGround chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
-        view.printMessage("This is the Playground: ");
-        showBoardAndPlayAreas(model);
+//        view.printMessage("This is the Playground: ");
+//        showBoardAndPlayAreas(model);
         String draw = view.chooseCardToDraw();
         switch (draw) {
 
@@ -139,38 +147,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         }
         player.addCardToHand(card);
+
+        return model;
     }
-
-
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
-        SideOfCard card = null;
-        boolean requirements = false;
-
-        do {
-            int indexOfCard = (view.chooseCardToPlay(getPlayer().getCardsInHand())) - 1;
-            String side = view.chooseSide();
-
-            PlayCard playCard = getPlayer().getCardsInHand().get(indexOfCard);
-
-            card = getPlayer().ChooseCardToPlay(playCard, Side.valueOf(side));
-
-            if ((playCard) instanceof GoldCard){
-                GoldCard goldCard = (GoldCard) playCard;
-                if (!(goldCard.checkRequirement(getPlayer().getPlayArea().getSymbols(), Side.valueOf(side)))) {
-                    view.printMessage("You can't play this card, the requirement is not met!");
-                } else {
-                    requirements= true;
-                }
-            } else {
-                requirements = true;
-            }
-        } while (!requirements);
-
-        return card;
-
-    }
-
 
 
     @Override
@@ -421,11 +400,13 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 }
             }
             case("PLAY-TURN")->{ //the player plays a card
+                ItsMyTurn=true;
                 sendUpdateMessage("It's your turn!");
+                player.IncreaseRound();
                 view.printBoard(game.getModel(), getOpponents(), player, viewMyChat());
                 Command c;
                 do {
-                    c = view.receiveCommand();
+                    c = view.receiveCommand(true);
                     switch (c) {
                         case MOVE -> playMyTurn();
                         case CHAT -> sendChatMessage();
@@ -435,8 +416,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                     game.setStatus(GameStatus.LAST_CIRCLE);
                 }
             }
-            case("NOT-MY-TURN")->{ //the player can only chat
+            case("NOT-MY-TURN")-> {
                 ItsNotMyTurn();
+
             }
             case("OBJECTIVE-COUNT")->{ //the player has to count its personal objective
                 addCommonObjectiveCardsPoints();
@@ -541,41 +523,48 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
 
     private void playMyCard(){
+        Boolean isValidPlay= true;
         int n= view.chooseCardToPlay(player.getCardsInHand());
-        PlayCard card= player.getCardsInHand().get(n);
+        PlayCard card= player.getCardsInHand().get(n-1);
         Side side = Side.valueOf(view.chooseSide());
-        SideOfCard sideOfCard= card.chooseSide(side);
-        if(card instanceof GoldCard){
-            if(!((GoldCard) card).checkRequirement(player.getPlayArea().getSymbols(), side)){
-                view.printMessage("You can't play this card, the requirement is not met!");
-                playMyCard();
-            }
+        if (card instanceof GoldCard){
+            isValidPlay=((GoldCard) card).checkRequirement(player.getPlayArea().getSymbols(), side);
+
         }
-        Pair<Integer, Integer> position= view.choosePositionCardOnArea(player.getPlayArea());
-        try {
-            while(true) {
-                if (game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)) {
-                    player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
-                    break;
-                } else {
-                    view.printMessage("Oops, the position is not correct according to the game rules. Please choose a valid position.");
+        if(!isValidPlay){
+            view.printMessage("Sorry, insufficient resources on the playArea, please choose another card");
+            playMyCard();
+        }
+        else{
+            SideOfCard sideOfCard=player.ChooseCardToPlay(card, side);// player method that already removes the card from the hand
+            Pair<Integer, Integer> position;
+            try {
+                do{
                     position = view.choosePositionCardOnArea(player.getPlayArea());
-                }
+                    if(!game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard)){
+                        view.printMessage("Oops, the position is not correct according to the game rules. Please choose a valid position.");
+                    }
+                }while(!game.isValidMove(getPlayArea(), position.getFirst(), position.getSecond(), sideOfCard));
+                player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
+                player.increaseScore(card.getPoints(side));
+            } catch (RemoteException e) {
+                //todo add error handling
             }
-        } catch (RemoteException e) {
-            //todo add error handling
+
         }
+
     }
 
 
     private void playMyTurn() throws RemoteException {
         playMyCard();
         game.getListener().updatePlayers(getNickname() + " has played a card.", this);
-        chooseCardToDraw(game.getModel());
+        PlayGround model  = chooseCardToDraw(game.getModel());
+        game.setModel(model);
         game.getListener().updatePlayers("This is the current Playground: ");
         game.getListener().updatePlayers(game.getModel());
 
-        //client has all the options: move, chat, view full chat
+
     }
 
 
@@ -651,11 +640,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         }
     }
 
-    private void ItsNotMyTurn(){
-
-        //TODO implement this
-        //client can only chat
+    private void ItsNotMyTurn() throws RemoteException {
+        Command c = view.receiveCommand(false);
+        while(c==Command.CHAT){
+            sendChatMessage();
+            c = view.receiveCommand(false);
+        }
     }
+
 
 
 

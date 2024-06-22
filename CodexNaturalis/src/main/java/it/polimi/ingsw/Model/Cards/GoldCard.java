@@ -29,7 +29,7 @@ public class GoldCard extends PlayCard implements Serializable {
      *
      * @return point
      */
-
+    @Override
     public int getPoints(Side chosenSide){
         if(chosenSide.equals(Side.FRONT))
             return point;

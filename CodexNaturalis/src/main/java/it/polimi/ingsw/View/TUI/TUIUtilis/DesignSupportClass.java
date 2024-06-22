@@ -197,9 +197,9 @@ public class DesignSupportClass {
     }
 
     public static void printResourceFront(String[][] matrix, ResourceCard card, int startRow, int startColumn, int h, int w) {
-        boolean points = card.getPoint(Side.FRONT);
+        int  points = card.getPoints(Side.FRONT);
         printFrontCard(matrix, card, startRow, startColumn, h, w);
-        if (points) {
+        if (points==1) {
             drawPoints(matrix, startRow, startColumn, w, "1");
         }
     }
@@ -468,30 +468,6 @@ public class DesignSupportClass {
         }
     }
 
-    public static String concatString(String s1, String s2, int space) {
-        String[] s1Lines = s1.split("\n");
-        String[] s2Lines = s2.split("\n");
-        StringBuilder sb = new StringBuilder();
-        String[] shortS = s1Lines.length > s2Lines.length ? s2Lines : s1Lines;
-        String[] longS = s1Lines.length < s2Lines.length ? s2Lines : s1Lines;
-
-        for (int i = 0; i < shortS.length; i++) {
-            sb.append(s1Lines[i]);
-            sb.append(" ".repeat(Math.max(0, space)));
-            sb.append(s2Lines[i]).append("\n");
-        }
-
-        for (int i = shortS.length; i < longS.length; i++) {
-            if (s1Lines == longS) {
-                sb.append(s1Lines[i]).append("\n");
-            } else {
-                sb.append(" ".repeat(Math.max(0, s1Lines[0].length() + space)));
-                sb.append(s2Lines[i]).append("\n");
-            }
-        }
-
-        return sb.toString();
-    }
 
 }
 

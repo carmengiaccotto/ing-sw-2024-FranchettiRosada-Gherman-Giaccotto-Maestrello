@@ -130,7 +130,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public Command receiveCommand() {
+    public Command receiveCommand(Boolean IsMyTurn) {
         return null;
     }
 

@@ -148,16 +148,9 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public void chooseCardToDraw(PlayGround m) throws RemoteException {
-        controller.chooseCardToDraw(m);
+    public PlayGround chooseCardToDraw(PlayGround m) throws RemoteException {
+        return null;
     }
-
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
-        return controller.chooseCardToPlay();
-    }
-
-
 
     @Override
     public void sendUpdateMessage(String message) throws RemoteException {

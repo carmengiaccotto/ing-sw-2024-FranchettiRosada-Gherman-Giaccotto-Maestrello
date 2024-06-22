@@ -22,6 +22,7 @@ public class TUI implements UserInterface, Serializable {
     Scanner scanner = new Scanner(System.in);
     private static final String bold = "\033[1m";
     private static final String reset = "\033[0m";
+    private static final String ANSIreset = "\u001B[0m";
 
 
     /**
@@ -35,26 +36,26 @@ public class TUI implements UserInterface, Serializable {
     public String chooseCardToDraw() {
         String draw;
         do {
-            System.out.println("Do you want to draw a card from a deck or from the Board?\n [1]Board \n [2]Deck \n >>" );
+            System.out.println("Do you want to draw a card from a deck or from the Board?\n [1]Board \n [2]Deck \n >>");
             draw = scanner.next().toUpperCase();
-            if(draw.equals("1")){
-                System.out.println("Which card would you like to draw?\n [1]Resource Card1 \n [2]Resource Card2 \n [3]Gold Card1 \n [4]Gold Card2 \n >>" );
+            if (draw.equals("1")) {
+                System.out.println("Which card would you like to draw?\n [1]Resource Card1 \n [2]Resource Card2 \n [3]Gold Card1 \n [4]Gold Card2 \n >>");
                 draw = scanner.next().toUpperCase();
-                if(draw.equals("1"))
-                    draw="RESOURCE-CARD1";
-                if(draw.equals("2"))
-                    draw="RESOURCE-CARD2";
-                if(draw.equals("3"))
-                    draw="GOLD-CARD1";
-                if(draw.equals("4"))
-                    draw="GOLD-CARD2";
-            }else{
-                System.out.println("Which deck would you like to draw from?\n [1]Resource Deck \n [2]Gold Deck \n >>" );
+                if (draw.equals("1"))
+                    draw = "RESOURCE-CARD1";
+                if (draw.equals("2"))
+                    draw = "RESOURCE-CARD2";
+                if (draw.equals("3"))
+                    draw = "GOLD-CARD1";
+                if (draw.equals("4"))
+                    draw = "GOLD-CARD2";
+            } else {
+                System.out.println("Which deck would you like to draw from?\n [1]Resource Deck \n [2]Gold Deck \n >>");
                 draw = scanner.next().toUpperCase();
-                if(draw.equals("1"))
-                    draw="RESOURCE-DECK";
-                if(draw.equals("2"))
-                    draw="GOLD-DECK";
+                if (draw.equals("1"))
+                    draw = "RESOURCE-DECK";
+                if (draw.equals("2"))
+                    draw = "GOLD-DECK";
             }
             if (!draw.equals("GOLD-DECK") && !draw.equals("RESOURCE-DECK") && !draw.equals("RESOURCE-CARD1") && !draw.equals("RESOURCE-CARD2") && !draw.equals("GOLD-CARD1") && !draw.equals("GOLD-CARD2")) {
                 System.out.println("Invalid option! Please choose a valid option!");
@@ -74,20 +75,20 @@ public class TUI implements UserInterface, Serializable {
         return c;
     }
 
-    public void showInitialCard(InitialCard card){
+    public void showInitialCard(InitialCard card) {
         System.out.println("This is your initial card: ");
-        String[][] frontBack= new String[11][70];
-        for(int i=0; i<11; i++){
-            for(int j=0; j<70; j++){
-                frontBack[i][j]=" ";
+        String[][] frontBack = new String[11][70];
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 70; j++) {
+                frontBack[i][j] = " ";
             }
         }
-        frontBack[0][10]="FRONT";
-        frontBack[0][40]="BACK";
+        frontBack[0][10] = "FRONT";
+        frontBack[0][40] = "BACK";
         DesignSupportClass.printCard(frontBack, card.getFront(), 0, 0, 10, 34);
         DesignSupportClass.printCard(frontBack, card.getBack(), 0, 36, 10, 34);
-        for(int i=0; i<11; i++){
-            for(int j=0; j<70; j++){
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 70; j++) {
                 System.out.print(frontBack[i][j]);
             }
             System.out.println();
@@ -115,11 +116,10 @@ public class TUI implements UserInterface, Serializable {
     }
 
 
-
     /**
      * Prompts the user to choose a nickname.
      *
-     * @return  nickname               A string representing the chosen nickname.
+     * @return nickname               A string representing the chosen nickname.
      */
     @Override
     public String selectNickName() {
@@ -169,15 +169,14 @@ public class TUI implements UserInterface, Serializable {
         System.out.println("Please choose one of the following games");
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < games.size(); i++) {
-            s.append("   ").append("\n" + bold +bold+ "  LOBBY " + reset).append(bold).append(i + 1).append(reset).append("\n");
+            s.append("   ").append("\n" + bold + bold + "  LOBBY " + reset).append(bold).append(i + 1).append(reset).append("\n");
             s.append("─────────────────").append("\n");
             s.append("needed: ").append(numPlayers.get(i).getSecond());
-            if(games.get(i)!=null) {
+            if (games.get(i) != null) {
                 for (String name : games.get(i)) {
                     s.append("\n").append("      ").append(bold).append("• ").append(name).append(reset);
                 }
-            }
-            else
+            } else
                 s.append("\nNo players in this lobby");
             s.append("\n\n");
 
@@ -200,7 +199,7 @@ public class TUI implements UserInterface, Serializable {
     public int displayAvailableColors(List<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
         for (int i = 0; i < availableColors.size(); i++) {
-            System.out.println(" [" + (i + 1) + "]" + availableColors.get(i).toString());
+            System.out.println(GraphicUsage.pawnColorDictionary.get(availableColors.get(i)) + " [" + (i + 1) + "]" + availableColors.get(i).toString() + ANSIreset);
         }
         return (scanner.nextInt());
     }
@@ -225,28 +224,45 @@ public class TUI implements UserInterface, Serializable {
     }
 
 
-
     /**
      * Prompts the user to select a command from the available options.
      * The user can choose either the "MOVE" or "CHAT" command.
      * The method will keep asking until a valid command is chosen.
      *
-     * @return               A Command enum representing the chosen command by the user.
-     *
+     * @return A Command enum representing the chosen command by the user.
      */
 
     @Override
-    public Command receiveCommand() {
+    public Command receiveCommand(Boolean IsMyTurn) {
+        if(IsMyTurn){
         System.out.println("Select a command: [MOVE/CHAT]");
-        String command = "";
-        do{
+        String command ;
+        do {
             command = scanner.nextLine().toUpperCase();
-//            if (!command.equals("MOVE") && !command.equals("CHAT") && !command.equals("VIEWCHAT")) {
+//            if (!command.equals("MOVE") && !command.equals("CHAT")) {
 //                System.out.println("Please insert a valid command: [MOVE/CHAT]");
 //            }
         } while (!command.equals("MOVE") && !command.equals("CHAT"));
         return Command.valueOf(command.toUpperCase());
     }
+        else {
+            System.out.println("Write [CHAT] to send a message");
+            String command;
+            do {
+                command = scanner.nextLine().toUpperCase();
+//                if ( !command.equals("CHAT")) {
+//                    if(command.equals("MOVE")){
+//                        System.out.println("it's not your turn");
+//                    }
+//                    else{
+//                        System.out.println("Please insert your [CHAT] command if you want to send a message");
+//                    }
+//                }
+            } while (!command.equals("CHAT"));
+            return Command.valueOf(command.toUpperCase());
+
+        }
+}
 
     @Override
     public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
