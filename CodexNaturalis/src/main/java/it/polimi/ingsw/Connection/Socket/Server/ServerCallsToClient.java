@@ -231,34 +231,39 @@ public class ServerCallsToClient implements ClientControllerInterface {
         }
     }
 
-    /**
-     * @param playGround
-     * @throws RemoteException
-     */
     @Override
-    public void chooseCardToDraw(PlayGround playGround) throws RemoteException {
-        try {
-            sendMessage(new ChooseCardToDrawMessage(playGround));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * @return
-     * @throws RemoteException
-     */
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
-        try {
-            sendMessage(new ChooseCardToPlayMessage());
-            ChooseCardToPlayResponse response = serverListener.chooseCardToPlayResponse();
-            return response.getSideOfCard();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    public PlayGround chooseCardToDraw(PlayGround m) throws RemoteException {
         return null;
     }
+
+//    /**
+//     * @param playGround
+//     * @throws RemoteException
+//     */
+//    @Override
+//    public void chooseCardToDraw(PlayGround playGround) throws RemoteException {
+//        try {
+//            sendMessage(new ChooseCardToDrawMessage(playGround));
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+
+//    /**
+//     * @return
+//     * @throws RemoteException
+//     */
+//    @Override
+//    public SideOfCard chooseCardToPlay() throws RemoteException {
+//        try {
+//            sendMessage(new ChooseCardToPlayMessage());
+//            ChooseCardToPlayResponse response = serverListener.chooseCardToPlayResponse();
+//            return response.getSideOfCard();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * @param message
