@@ -7,4 +7,8 @@ public class CheckUniqueNickNameMessage extends GenericMessage {
         super();
         this.nickname = nickname;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

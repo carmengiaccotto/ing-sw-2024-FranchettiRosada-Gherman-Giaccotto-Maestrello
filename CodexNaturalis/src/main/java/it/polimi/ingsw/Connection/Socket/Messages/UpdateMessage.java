@@ -5,6 +5,7 @@ public class UpdateMessage extends GenericMessage {
 
     public UpdateMessage(String message) {
         super();
+        this.message = message;
     }
 
     public String getMessage() {

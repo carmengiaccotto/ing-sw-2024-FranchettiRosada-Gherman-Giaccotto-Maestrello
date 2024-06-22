@@ -13,23 +13,26 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
 public class ServerCallsToClient implements ClientControllerInterface {
-
-    private final Socket socket;
     private final ObjectOutputStream oos;
     private ServerListener serverListener;
 
-
-    public ServerCallsToClient(Socket socket, MainControllerInterface mainController) throws IOException {
-        this.socket = socket;
-        this.oos = new ObjectOutputStream(socket.getOutputStream());
+    private MainControllerInterface mainController;
+    private GameControllerInterface gameController;
 
 
-        serverListener = new ServerListener(socket, this, mainController);
+
+    public ServerCallsToClient(ObjectOutputStream oos, ObjectInputStream ois, MainControllerInterface mainController) throws IOException {
+        this.oos = oos;
+        this.mainController = mainController;
+
+
+        serverListener = new ServerListener(oos, ois, this, mainController);
         serverListener.start();
     }
 
@@ -97,7 +100,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
         try {
             sendMessage(new GetNickNameMessage());
             GetNickNameResponse response = serverListener.getNicknameResponse();
-            return response.getNickname();
+            return response.getNickName();
         } catch (IOException ex) {
             ex.printStackTrace();;
         }
@@ -333,11 +336,8 @@ public class ServerCallsToClient implements ClientControllerInterface {
      */
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
-        try {
-            sendMessage(new SetGameMessage());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        this.gameController = game;
+        serverListener.setGamecontroller(game);
     }
 
     /**

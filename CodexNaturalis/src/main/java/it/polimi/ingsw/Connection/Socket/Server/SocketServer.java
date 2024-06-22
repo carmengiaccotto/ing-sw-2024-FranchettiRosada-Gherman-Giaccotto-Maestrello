@@ -4,6 +4,8 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainController;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -24,10 +26,12 @@ public class SocketServer extends Thread {
             System.out.println("socket server ready on port: " + SERVERPORT);
             clients = new ArrayList<>();
 
-            while(true) {
+            while (true) {
                 try {
                     Socket socket = server.accept();
-                    ServerCallsToClient client = new ServerCallsToClient(socket, mainController);
+                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                    ServerCallsToClient client = new ServerCallsToClient(oos, ois, mainController);
                     clients.add(client);
 
 //                    ClientHandler c = new ClientHandler(s);
@@ -45,7 +49,9 @@ public class SocketServer extends Thread {
         server.close();
     }
 
-    public void setMainController(MainController mainController){this.mainController = mainController;}
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
 //    public void stopConnection() {
 //        if (clientHandler != null)

@@ -385,7 +385,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * */
     public synchronized void addPlayer(ClientControllerInterface client) throws RemoteException{
         listener.getPlayers().add(client);
-        System.out.println(client.getNickname());
+//        System.out.println(client.getNickname());
     }
 
 

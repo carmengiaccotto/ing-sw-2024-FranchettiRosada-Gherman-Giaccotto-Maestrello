@@ -15,21 +15,23 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 import it.polimi.ingsw.View.UserInterface;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
 public class SocketClient extends Thread implements ClientControllerInterface {
-
-    private Socket socket;
     private ClientController controller;
     private ServerHandler serverHandler;
 
     public void connect(){
         try {
-            socket = new Socket(SocketServer.SERVERIP, SocketServer.SERVERPORT);
-
-            ClientCallsToServer server = new ClientCallsToServer(socket, controller);
+            Socket socket = new Socket(SocketServer.SERVERIP, SocketServer.SERVERPORT);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ClientCallsToServer server = new ClientCallsToServer(oos, ois, controller);
             controller.setServer(server);
+            controller.setGame(server);
             server.connect();
 
 //            serverHandler = new ServerHandler(server);

@@ -2,7 +2,9 @@ package it.polimi.ingsw.Connection.Socket.Server;
 
 import it.polimi.ingsw.Connection.Socket.Messages.*;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
+import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
 
 import java.io.IOException;
@@ -10,14 +12,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ServerListener extends Thread {
     private final ClientControllerInterface client;
+    private GameControllerInterface gamecontroller;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private final MainControllerInterface mainController;
     private GetNickNameResponse getNicknameResponse;
+    private Object getNicknameResponseLockObject = new Object();
     private ChooseNicknameResponse chooseNicknameResponse;
     private GetPawnColorResponse getPawnColorResponse;
     private ChooseCardToPlayResponse chooseCardToPlayResponse;
@@ -26,15 +31,15 @@ public class ServerListener extends Thread {
     private GetRoundResponse getRoundResponse;
     private GetPersonalObjectiveCardResponse getPersonalObjectiveCardResponse;
 
-    public ServerListener(Socket socket, ClientControllerInterface client, MainControllerInterface mainController) {
+    public ServerListener(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface client, MainControllerInterface mainController) {
         this.client = client;
         this.mainController = mainController;
-        try {
-            this.inputStream = new ObjectInputStream(socket.getInputStream());
-            this.outputStream = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.outputStream = oos;
+        this.inputStream = ois;
+    }
+
+    public void setGamecontroller(GameControllerInterface game){
+        this.gamecontroller = game;
     }
 
 
@@ -52,6 +57,9 @@ public class ServerListener extends Thread {
                     sendMessage(new NumRequiredPlayersResponse(numRequiredPlayers));
                 } else if (message instanceof ConnectMessage) {
                     mainController.connect(client);
+                } else if (message instanceof GetAvailableColorsMessage) {
+                    List<PawnColor> color = gamecontroller.getAvailableColors();
+                    sendMessage(new GetAvailableColorsResponse(color));
                 } else if (message instanceof CheckUniqueNickNameMessage) {
                     boolean isUnique = mainController.checkUniqueNickName(((CheckUniqueNickNameMessage) message).getNickname());
                     sendMessage(new CheckUniqueNickNameResponse(isUnique));
@@ -63,13 +71,16 @@ public class ServerListener extends Thread {
                 } else if(message instanceof CreateGameMessage) {
                     mainController.createGame(client, ((CreateGameMessage)message).getMaxNumberOfPlayers());
                 }  else if(message instanceof NotifyGamePlayerJoinedMessage) {
-//                    mainController.NotifyGamePlayerJoined();
+                   mainController.NotifyGamePlayerJoined(gamecontroller, client);
                 }   else if(message instanceof AddNicknameMessage) {
                     mainController.addNickname(((AddNicknameMessage)message).getNickname());
-                } else if (message instanceof GetNickNameResponse) {
-                    synchronized (this) {
+                } else if(message instanceof RemoveAvailableColorMessage) {
+                    gamecontroller.removeAvailableColor(((RemoveAvailableColorMessage) message).getColor());
+                }
+                else if (message instanceof GetNickNameResponse) {
+                    synchronized (getNicknameResponseLockObject) {
                         getNicknameResponse = (GetNickNameResponse) message;
-                        getNicknameResponse.notify();
+                        getNicknameResponseLockObject.notify();
                     }
                 } else if (message instanceof ChooseNicknameResponse) {
                     synchronized (this) {
@@ -114,10 +125,12 @@ public class ServerListener extends Thread {
     }
 
     public GetNickNameResponse getNicknameResponse() {
-        try {
-            getNicknameResponse.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        synchronized (getNicknameResponseLockObject) {
+            try {
+                getNicknameResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         return getNicknameResponse;
     }
