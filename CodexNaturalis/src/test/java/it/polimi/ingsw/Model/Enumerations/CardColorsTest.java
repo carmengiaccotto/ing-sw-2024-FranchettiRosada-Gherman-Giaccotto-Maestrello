@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Model.Enumerations;
 
-import it.polimi.ingsw.Model.CardColors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

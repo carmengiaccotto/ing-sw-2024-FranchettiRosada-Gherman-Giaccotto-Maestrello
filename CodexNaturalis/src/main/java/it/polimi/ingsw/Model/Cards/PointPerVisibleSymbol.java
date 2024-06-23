@@ -1,10 +1,9 @@
 package it.polimi.ingsw.Model.Cards;
 
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
-import it.polimi.ingsw.Model.PlayGround.Player;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 
 import java.util.HashMap;
 

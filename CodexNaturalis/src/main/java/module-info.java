@@ -13,4 +13,5 @@ module it.polimi.ingsw {
     opens it.polimi.ingsw.Model to com.google.gson;
     exports it.polimi.ingsw.View.GUI to javafx.graphics;
     opens it.polimi.ingsw.View.GUI to javafx.fxml, javafx.graphics;
+    opens it.polimi.ingsw.Model.Enumerations to com.google.gson;
 }

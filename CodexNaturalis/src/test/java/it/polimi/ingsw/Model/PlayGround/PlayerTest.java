@@ -4,14 +4,13 @@ import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;

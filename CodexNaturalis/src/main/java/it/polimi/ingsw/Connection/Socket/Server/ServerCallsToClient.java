@@ -6,7 +6,6 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -15,7 +14,6 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.rmi.RemoteException;
 
 public class ServerCallsToClient implements ClientControllerInterface {
@@ -231,23 +229,20 @@ public class ServerCallsToClient implements ClientControllerInterface {
         }
     }
 
+    /**
+     * @param playGround
+     * @return
+     * @throws RemoteException
+     */
     @Override
-    public PlayGround chooseCardToDraw(PlayGround m) throws RemoteException {
-        return null;
+    public PlayGround chooseCardToDraw(PlayGround playGround) throws RemoteException {
+        try {
+            sendMessage(new ChooseCardToDrawMessage(playGround));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return playGround;
     }
-
-//    /**
-//     * @param playGround
-//     * @throws RemoteException
-//     */
-//    @Override
-//    public void chooseCardToDraw(PlayGround playGround) throws RemoteException {
-//        try {
-//            sendMessage(new ChooseCardToDrawMessage(playGround));
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
 
 //    /**
 //     * @return

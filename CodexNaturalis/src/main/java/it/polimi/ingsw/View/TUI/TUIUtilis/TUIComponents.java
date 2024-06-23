@@ -1,17 +1,24 @@
 package it.polimi.ingsw.View.TUI.TUIUtilis;
 
 import it.polimi.ingsw.Model.Cards.*;
+import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
+
+//import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
+
 
 public class TUIComponents {
     private static final String bold = "\033[1m";
@@ -235,8 +242,8 @@ public class TUIComponents {
             for(int j=0; j<columns; j++)
                 playAreaMatrix[i][j]=" ";
         //Add Cards
-        for (int i = 0; i < rows - 1; i++) {
-            for (int j = 0; j < columns - 1; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 int cardRowIndex = i / rowDimensions;
                 int cardColumnIndex = j / columnDimensions;
                 int startRow = cardRowIndex * rowDimensions;
@@ -244,7 +251,7 @@ public class TUIComponents {
                 if (cardRowIndex < playArea.getCardsOnArea().size() &&
                         cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
                     if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {
-                        printCard(playAreaMatrix,  playArea.getCardInPosition(cardRowIndex, cardColumnIndex),startRow, startColumn, rowDimensions+3, columnDimensions+4);
+                        DesignSupportClass.printCard(playAreaMatrix,  playArea.getCardInPosition(cardRowIndex, cardColumnIndex),startRow, startColumn, rowDimensions+3, columnDimensions+4 );
                     }
                 }
             }
@@ -296,7 +303,7 @@ public class TUIComponents {
                 if (cardRowIndex < playArea.getCardsOnArea().size() &&
                         cardColumnIndex < playArea.getCardsOnArea().getFirst().size()) {
                     if (playArea.getCardInPosition(cardRowIndex, cardColumnIndex) != null) {
-                        printCard(playAreaMatrix,  playArea.getCardInPosition(cardRowIndex, cardColumnIndex),startRow, startColumn, cardHeight, cardWidth);
+                        DesignSupportClass.printCard(playAreaMatrix,  playArea.getCardInPosition(cardRowIndex, cardColumnIndex), startRow, startColumn, cardHeight, cardWidth);
                     }
                 }
             }
@@ -441,69 +448,39 @@ public class TUIComponents {
         return output.toString();
     }
 
-//    public static void main(String[] args) throws IOException {
-//
-//        String ANSI_CYAN = "\u001B[36m";
-//        Deck resourceDeck= new Deck (ResourceCard.class);
-//        Deck ObjectiveDeck= new Deck (ObjectiveCard.class);
-//        Player player1= new Player();
-//        player1.setNickname("Player1");
-//        player1.setPawnColor(PawnColor.BLUE);
-//        player1.addCardToHand((ResourceCard) resourceDeck.drawCard());
-//        player1.addCardToHand((PlayCard) resourceDeck.drawCard());
-//        player1.addCardToHand((PlayCard) resourceDeck.drawCard());
-//        player1.setPersonalObjectiveCard((ObjectiveCard) ObjectiveDeck.drawCard());
-//        System.out.println(showMySelf(player1));
-//        System.out.println(showOpponent(player1));
-//
-//        ArrayList<String> strings = new ArrayList<>();
-//        strings.add("This is a test string");
-//        strings.add("This is another test string to see how the box behaves with multiple lines of text");
-//        strings.add("This is a third test string");
-//        strings.add("This is a fourth test string");
-//        strings.add("This is a fifth test string because i really really want to see how the box behaves with multiple lines of text");
-//        strings.add("This is a sixth test string");
-//        strings.add("This is a seventh test string");
-//        strings.add("This is an eighth test string");
-//        String header= concatString(" ", "CHAT",10);
-//
-//        List<List<SideOfCard>> cardsOnArea= new ArrayList<>();
-//        List<SideOfCard> row1 = new ArrayList<>();
-//        Deck goldDeck = new Deck(GoldCard.class);
-//        ResourceCard fullCard1= (ResourceCard) resourceDeck.getCards().get(21);
-//        SideOfCard card1= fullCard1.chooseSide(Side.FRONT);
-//        card1.setPositionOnArea(new Pair<>(0, 0));
-//        row1.add(card1);
-//        row1.add(null);
-//        row1.add(card1);
-//        cardsOnArea.add(row1);
-//        List<SideOfCard> row2 = new ArrayList<>();
-//        PlayCard fullCard2= (GoldCard) goldDeck.getCards().get(3);
-//        SideOfCard card2= fullCard2.chooseSide(Side.FRONT);
-//        card2.getCornerInPosition(CornerPosition.TOPLEFT).setCovered();
-//        row2.add(null);
-//        card2.setPositionOnArea(new Pair<>(1, 0));
-//        row2.add(card2);
-//        row2.add(null);
-//        cardsOnArea.add(row2);
-//        List<SideOfCard> row3 = new ArrayList<>();
-//        PlayCard fullCard3= (GoldCard) goldDeck.getCards().get(9);
-//        SideOfCard card3= fullCard3.chooseSide(Side.BACK);
-//        row3.add(card3);
-//        row3.add(null);
-//        row3.add(null);
-//        cardsOnArea.add(row3);
-//        PlayArea playArea=new PlayArea();
-//        playArea.setCardsOnArea(cardsOnArea);
-//        player1.setPlayArea(playArea);
-//
-//        String area=createBoxWithSpace(showOpponent(player1)+showOpponent(player1), "\033[30m", 0);
-//        //int numberOfLines1 = area.split("\n").length;
-//        String chat=createBoxWithSpace(formatStringList(strings), ANSI_CYAN, 0);
-////        System.out.println(chat);
-////        System.out.println(area);
-//        String areaChat=concatString(area, chat, 20);
-//        System.out.println(areaChat);
-//        //int numberOfLines = area.split("\n").length;
-//    }
+    public static void main(String[] args) throws IOException {
+        PlayArea playArea = new PlayArea();
+        Deck resourceDeck= new Deck(ResourceCard.class);
+        Deck initialDeck= new Deck(InitialCard.class);
+        initialDeck.shuffle();
+        resourceDeck.shuffle();
+        ResourceCard card1= (ResourceCard) resourceDeck.drawCard();
+        ResourceCard card2= (ResourceCard) resourceDeck.drawCard();
+        ResourceCard card3= (ResourceCard) resourceDeck.drawCard();
+        ResourceCard card4= (ResourceCard) resourceDeck.drawCard();
+        InitialCard card5= (InitialCard) initialDeck.drawCard();
+
+        playArea.addInitialCardOnArea(card5.getBack());
+        //System.out.println("r:"+ playArea.getCardsOnArea().size()+" c:"+playArea.getCardsOnArea().getFirst().size());
+        playArea.addCardOnArea(card1.getBack(), 2, 0);
+        //playArea.addCardOnArea(card2.getFront(), 0, 3);
+        playArea.addCardOnArea(card3.getBack(), 4, 2);
+        //playArea.addCardOnArea(card2.getBack(), 2, 0);
+        //System.out.println(card1.getColor());
+        //System.out.println(playArea.getCardInPosition(1,1).getColor());
+        //playArea.addCardOnArea(card3.getFront(), 0, 0);
+       // playArea.addCardOnArea(card4.getFront(), 0, 2);
+
+//        if(card1.getBack().getCornerInPosition(CornerPosition.TOPLEFT).isCovered())
+//            System.out.println("CORNER MATCHES");
+//        else
+//            System.out.println("CORNER DOES NOT MATCH");
+
+        System.out.println(DrawMyPlayArea(playArea));
+        System.out.println(DrawOthersPlayArea(playArea));
+
+
+
+    }
+
 }

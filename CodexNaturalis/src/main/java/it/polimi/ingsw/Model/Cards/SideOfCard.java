@@ -1,9 +1,9 @@
 package it.polimi.ingsw.Model.Cards;
 
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 
 import java.io.Serializable;
 import java.util.HashMap;

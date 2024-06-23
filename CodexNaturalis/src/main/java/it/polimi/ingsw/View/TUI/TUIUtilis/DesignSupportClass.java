@@ -1,213 +1,225 @@
 package it.polimi.ingsw.View.TUI.TUIUtilis;
 
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Enumerations.CornerPosition;
-import it.polimi.ingsw.Model.Enumerations.Side;
-import it.polimi.ingsw.Model.Enumerations.UpDownPosition;
 import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.Position;
-import it.polimi.ingsw.Model.Symbol;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
 public class DesignSupportClass {
 
+        private static final String ANSI_RESET = "\u001B[0m";
+        private static final String ANSI_COLOR_FORMAT = "\u001B[38;2;%d;%d;%dm";
+        private static final String CORNER_TOP_LEFT = "┌";
+        private static final String CORNER_TOP_RIGHT = "┐";
+        private static final String CORNER_BOTTOM_LEFT = "└";
+        private static final String CORNER_BOTTOM_RIGHT = "┘";
+        private static final String HORIZONTAL_LINE = "─";
+        private static final String VERTICAL_LINE = "│";
+        private static final String SPACE = " ";
 
-    /**
-     * Support method used to design the general outline of a card inside another matrix.
-     * This other matrix can be a playArea, but also a playground or a player's hand
-     * Dimensions can be customized basing on the necessities
-     *
-     * @param height      height of the card
-     * @param width       width of the card
-     * @param startColumn column where the card starts
-     * @param startRow    row where the card starts
-     * @param outline     bigger matrix where the card is placed
-     * @return matrix that represents the outline of the card inside the bigger matrix.
-     */
-    public static String[][] DrawGeneralOutline(int height, int width, String[][] outline, int startRow, int startColumn, CardColors color) {
-        String ANSIreset = "\u001B[0m";
-        String ANSIbackgroundColor;
-        if (color == null) {
-            int[] rgb = {255, 255, 255};
-            ANSIbackgroundColor = String.format("\u001B[48;2;%d;%d;%d;m", rgb[0], rgb[1], rgb[2]);
-        } else {
-            int[] rgb = GraphicUsage.getRGBColor(color);
-            ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
+        private static String getAnsiColor(CardColors color) {
+            int[] rgb = color == null ? new int[]{255, 255, 255} : GraphicUsage.getRGBColor(color);
+            return String.format(ANSI_COLOR_FORMAT, rgb[0], rgb[1], rgb[2]);
         }
 
-        String coloredSpace = ANSIbackgroundColor + " " + ANSIreset;
-        String coloredLine = ANSIbackgroundColor + "─" + ANSIreset;
-        String coloredPipe = ANSIbackgroundColor + "│" + ANSIreset;
-
-        // First row
-        outline[startRow][startColumn] = ANSIbackgroundColor + "┌" + ANSIreset;
-        Arrays.fill(outline[startRow], startColumn + 1, startColumn + width - 1, coloredLine);
-        outline[startRow][startColumn + width - 1] = ANSIbackgroundColor + "┐" + ANSIreset;
-
-        // Middle rows
-        for (int i = 1; i < height - 1; i++) {
-            outline[startRow + i][startColumn] = coloredPipe;
-            Arrays.fill(outline[startRow + i], startColumn + 1, startColumn + width - 1, coloredSpace);
-            outline[startRow + i][startColumn + width - 1] = coloredPipe;
+    public static Pair<Integer, Integer> getStartForCorner(CornerPosition corner, int h, int w){
+        switch (corner){
+            case TOPLEFT:
+                return new Pair<>(h-3, w-4);
+            case TOPRIGHT:
+                return new Pair<>(h-3, -w+4);
+            case BOTTOMLEFT:
+                return new Pair<>(-h+3, w-4);
+            case BOTTOMRIGHT:
+                return new Pair<>(-h+3, -w+4);
+            default:
+                return new Pair<>(0, 0);
         }
+    }
 
-        // Last row
-        outline[startRow + height - 1][startColumn] = ANSIbackgroundColor + "└" + ANSIreset;
-        Arrays.fill(outline[startRow + height - 1], startColumn + 1, startColumn + width - 1, coloredLine);
-        outline[startRow + height - 1][startColumn + width - 1] = ANSIbackgroundColor + "┘" + ANSIreset;
-
-        return outline;
+    public static String[][] drawPlayCard(String[][] matrix, SideOfCard card, int h, int w, int startRow, int startColumn){
+        CardColors color = card.getColor();
+        String ANSIbackgroundColor = getAnsiColor(color);
+        String ANSIreset = ANSI_RESET;
+        for(int i=startRow; i<startRow+h; i++){
+            for(int j=startColumn; j<startColumn+w; j++){
+                if((i==startRow  || (i==startRow+h-1))&&j>startColumn+3 && j<startColumn+w-4) {
+                    matrix[i][j] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                }else if((j==startColumn || j==startColumn+w-1) && i>startRow+2 && i<startRow+h-3) {
+                    matrix[i][j] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                }else
+                    matrix[i][j] = ANSIbackgroundColor + SPACE + ANSIreset;
+            }
+        }
+        for(Corner[] corners: card.getCorners()){
+            for(Corner corner: corners){
+                if(!corner.isHidden()) {
+                    if (!corner.isCovered()) {
+                        drawCorner(matrix, corner.getPosition(), h, w, startRow, startColumn, color, corner.getSymbol());
+                    } else {
+                        Pair<Integer, Integer> offset = getStartForCorner(corner.getNextCorner().getPosition(), h, w);
+                        drawCorner(matrix, corner.getNextCorner().getPosition(), h, w, startRow + offset.getFirst(),
+                                startColumn + offset.getSecond(), corner.getNextCorner().getParentCard().getColor(), corner.getNextCorner().getSymbol());
+                    }
+                }else{
+                    drawHiddenOutline(matrix, corner.getPosition(), h, w, startRow, startColumn, color);
+                }
+            }
+        }
+        return matrix;
     }
 
 
-    /**
-     * Method that prints the back of a PlayCard that is not an InitialCard (Initial cards are a little different, because the back has more symbols to it).
-     *
-     * @param startColumn column where we want to start to print
-     * @param startRow    row where we want to start to print
-     * @param card        whose back we want to draw
-     * @param matrix      where we want to draw the card
-     */
-    public static void printBackCard(String[][] matrix, PlayCard card, int startRow, int startColumn, int height, int width) {
+
+    public static void drawCorner(String[][] matrix, CornerPosition corner, int h, int w, int startRow, int startColumn, CardColors color, Symbol symbol){
+        String ANSIbackgroundColor = getAnsiColor(color);
+        String ANSIreset = ANSI_RESET;
+        String graphicSymbol;
+        if(symbol!=null)
+            graphicSymbol=ANSIbackgroundColor+GraphicUsage.symbolDictionary.get(symbol)+ANSIreset;
+        else
+            graphicSymbol=ANSIbackgroundColor+SPACE+ANSIreset;
+
+        int[][] offsets;
+        String[][] symbols;
+
+        switch (corner) {
+            case TOPLEFT:
+                offsets = new int[][]{
+                        {0, 3}, {1, 0}, {1, 1}, {1, 2}, {1, 3}, {2, 0}, {2, 1}, {2, 2}, {2, 3},{0, 0},{0,1},{0,2}
+                };
+                symbols = new String[][]{
+                        {"┬"}, {VERTICAL_LINE}, {graphicSymbol}, {SPACE}, {VERTICAL_LINE},
+                        {"├"}, {HORIZONTAL_LINE}, {HORIZONTAL_LINE}, {CORNER_BOTTOM_RIGHT},
+                        {CORNER_TOP_LEFT},{HORIZONTAL_LINE},{HORIZONTAL_LINE}
+                };
+                break;
+            case TOPRIGHT:
+                offsets = new int[][]{
+                        {0, w-4}, {1, w-4}, {1, w-3}, {1, w-2}, {1, w-1}, {2, w-4}, {2, w-3}, {2, w-2}, {2, w-1}, {0, w-1},{0, w-2},{0, w-3}
+                };
+                symbols = new String[][]{
+                        {"┬"}, {VERTICAL_LINE}, {SPACE}, {graphicSymbol}, {VERTICAL_LINE},
+                        {CORNER_BOTTOM_LEFT}, {HORIZONTAL_LINE}, {HORIZONTAL_LINE},
+                        {"┤"},{CORNER_TOP_RIGHT},{HORIZONTAL_LINE},{HORIZONTAL_LINE}
+                };
+                break;
+            case BOTTOMLEFT:
+                offsets = new int[][]{
+                        {h-3, 0}, {h-3, 1}, {h-3, 2}, {h-3, 3}, {h-2, 0}, {h-2, 1}, {h-2, 2}, {h-2, 3}, {h-1, 3},{h-1, 0},{h-1, 1},{h-1, 2}
+                };
+                symbols = new String[][]{
+                        {"├"}, {HORIZONTAL_LINE}, {HORIZONTAL_LINE}, {CORNER_TOP_RIGHT},
+                        {VERTICAL_LINE}, {graphicSymbol}, {SPACE}, {VERTICAL_LINE},
+                        {"┴"},{CORNER_BOTTOM_LEFT},{HORIZONTAL_LINE},{HORIZONTAL_LINE}
+                };
+                break;
+            case BOTTOMRIGHT:
+                offsets = new int[][]{
+                        {h-3, w-4}, {h-3, w-3}, {h-3, w-2}, {h-3, w-1}, {h-2, w-4}, {h-2, w-3}, {h-2, w-2}, {h-2, w-1}, {h-1, w-4},{h-1, w-1},{h-1, w-2},{h-1, w-3}
+                };
+                symbols = new String[][]{
+                        {CORNER_TOP_LEFT}, {HORIZONTAL_LINE}, {HORIZONTAL_LINE},
+                        {"┤"}, {VERTICAL_LINE}, {graphicSymbol}, {SPACE}, {VERTICAL_LINE},
+                        {"┴"},{CORNER_BOTTOM_RIGHT},{HORIZONTAL_LINE},{HORIZONTAL_LINE}
+                };
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid corner position");
+        }
+
+        for (int i = 0; i < offsets.length; i++) {
+            int row = startRow + offsets[i][0];
+            int col = startColumn + offsets[i][1];
+            matrix[row][col] = ANSIbackgroundColor + symbols[i][0] + ANSIreset;
+        }
+    }
+
+    public static void drawHiddenOutline(String[][] matrix, CornerPosition corner, int h, int w, int startRow, int startColumn, CardColors color){
+        String ANSIbackgroundColor = getAnsiColor(color);
+        String ANSIreset = ANSI_RESET;
+        switch (corner) {
+            case TOPLEFT:
+                matrix[startRow][startColumn] = ANSIbackgroundColor + CORNER_TOP_LEFT + ANSIreset;
+                matrix[startRow] [startColumn +1] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow][startColumn +2] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow][startColumn +3] = ANSIbackgroundColor + HORIZONTAL_LINE+ ANSIreset;
+
+                matrix[startRow + 1][startColumn] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                matrix[startRow + 2][startColumn] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+
+                break;
+
+            case TOPRIGHT:
+                matrix[startRow][startColumn +w-4] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow][startColumn + w-3] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow][startColumn + w-2] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow][startColumn + w-1] = ANSIbackgroundColor + CORNER_TOP_RIGHT + ANSIreset;
+
+                matrix[startRow + 1][startColumn + w-1] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                matrix[startRow + 2][startColumn + w-1] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                break;
+            case BOTTOMRIGHT:
+                matrix[startRow+h-1][startColumn+w-4] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow+h-1][startColumn+w-3] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow+h-1][startColumn +w-2] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow+h-1][startColumn +w-1] = ANSIbackgroundColor + CORNER_BOTTOM_RIGHT + ANSIreset;
+
+                matrix[startRow+h-2][startColumn +w-1] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                matrix[startRow+h-3][startColumn +w-1] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                break;
+            case BOTTOMLEFT:
+                matrix[startRow+h-1][startColumn] = ANSIbackgroundColor + CORNER_BOTTOM_LEFT + ANSIreset;
+                matrix[startRow+h-1][startColumn +1] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow+h-1][startColumn +2] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+                matrix[startRow+h-1][startColumn +3] = ANSIbackgroundColor + HORIZONTAL_LINE + ANSIreset;
+
+                matrix[startRow+h-2][startColumn] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                matrix[startRow+h-3][startColumn] = ANSIbackgroundColor + VERTICAL_LINE + ANSIreset;
+                break;
+
+
+    }
+        }
+
+
+    public static void printBackCentral(String[][] matrix, PlayCard card, int startRow, int startColumn, int h, int w) {
         CardColors color = card.getColor();
         int[] rgb = GraphicUsage.getRGBColor(color);
         String ANSIbackgroundColor = String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]);
         String ANSIreset = "\u001B[0m";
-
-        String[][] Matrix = DrawGeneralOutline(height, width, matrix, startRow, startColumn, color);
         String centralChar = GraphicUsage.cardColorDictionary.get(color);
-        Matrix[startRow + height / 2][startColumn + width / 2] = ANSIbackgroundColor + centralChar + ANSIreset;
-        Matrix[startRow + height / 2][startColumn + width / 2 - 2] = ANSIbackgroundColor + "│" + ANSIreset;
-        Matrix[startRow + height / 2][startColumn + width / 2 + 2] = ANSIbackgroundColor + "│" + ANSIreset;
-
-        for (CornerPosition position : CornerPosition.values())
-            cornerOutline(Matrix, position, startRow, startColumn, color, height, width);
+        matrix[startRow + h/ 2][startColumn + w / 2] = ANSIbackgroundColor + centralChar + ANSIreset;
+        matrix[startRow + h / 2][startColumn + w / 2 - 2] = ANSIbackgroundColor + "│" + ANSIreset;
+        matrix[startRow + h / 2][startColumn + w / 2 + 2] = ANSIbackgroundColor + "│" + ANSIreset;
     }
 
 
-    /**
-     * Method that prints the front of a card, with the symbols in the corners
-     *
-     * @param matrix      where we want to print the card
-     * @param card        that we want to print
-     * @param startRow    row where we want to start to print
-     * @param startColumn column where we want to start to print
-     */
-    public static void printFrontCard(String[][] matrix, PlayCard card, int startRow, int startColumn, int height, int width) {
-        SideOfCard front = card.getFront();
-        CardColors color = card.getColor();
-        int[] rgb = GraphicUsage.getRGBColor(color);
-        String[][] Matrix = DrawGeneralOutline(height, width, matrix, startRow, startColumn, color);
-        for (CornerPosition position : CornerPosition.values()) {
-            if (!(front.getCornerInPosition(position).isHidden() || front.getCornerInPosition(position).isCovered())) {
-                cornerOutline(Matrix, position, startRow, startColumn, color, height, width);
-                Symbol symbol = null;
-                if (!front.getCornerInPosition(position).isCovered())
-                    symbol = front.getCornerInPosition(position).getSymbol();
-
-                printSymbolInCorner(Matrix, position, startRow, startColumn, symbol, height, width);
+    public static void printResourceCard(String[][] matrix, ResourceCard card, int startRow, int startColumn, int h, int w, Side side) {
+            if(side.equals(Side.FRONT)) {
+                drawPlayCard(matrix, card.getFront(), h, w, startRow, startColumn);
+                int points = card.getPoints(Side.FRONT);
+                if (points==1) {
+                    drawPoints(matrix, startRow, startColumn, w, "1");
+                }
             }
-
-        }
+        else{
+            drawPlayCard(matrix, card.getBack(), h, w, startRow, startColumn);
+            printBackCentral(matrix, card, startRow, startColumn, h, w);
+            }
     }
 
-    /**
-     * Method that draws the outline of the corner of the card.
-     *
-     * @param card        matrix where we want to print
-     * @param startColumn column where we want to start to print
-     * @param startRow    row where we want to start to print
-     * @param corner      CornerPosition type
-     * @param color       of the card
-     */
-    public static void cornerOutline(String[][] card, CornerPosition corner, int startRow, int startColumn, CardColors color, int h, int w) {
-        StringBuilder sb = new StringBuilder();
-        String ANSIreset = "\u001B[0m";
-        if (color == null) {
-            int[] rgb = {255, 255, 255};
-            sb.append(String.format("\u001B[48;2;%d;%d;%d;m", rgb[0], rgb[1], rgb[2]));
-        } else {
-            int[] rgb = GraphicUsage.getRGBColor(color);
-            sb.append(String.format("\u001B[38;2;%d;%d;%dm", rgb[0], rgb[1], rgb[2]));
-        }
-        String ANSIbackgroundColor = sb.toString();
-
-        switch (corner) {
-            case CornerPosition.TOPLEFT -> {
-                card[startRow][startColumn + 3] = ANSIbackgroundColor + "┬" + ANSIreset;
-                card[startRow + 2][startColumn] = ANSIbackgroundColor + "├" + ANSIreset;
-                card[startRow + 2][startColumn + 3] = ANSIbackgroundColor + "┘" + ANSIreset;
-                Arrays.fill(card[startRow + 2], startColumn + 1, startColumn + 3, ANSIbackgroundColor + "─" + ANSIreset);
-                card[startRow + 1][startColumn + 3] = ANSIbackgroundColor + "│" + ANSIreset;
-            }
-            case CornerPosition.BOTTOMLEFT -> {
-                card[startRow + h - 1][startColumn + 3] = ANSIbackgroundColor + "┴" + ANSIreset;
-                card[startRow + h - 3][startColumn] = ANSIbackgroundColor + "├" + ANSIreset;
-                card[startRow + h - 3][startColumn + 3] = ANSIbackgroundColor + "┐" + ANSIreset;
-                Arrays.fill(card[startRow + h - 3], startColumn + 1, startColumn + 3, ANSIbackgroundColor + "─" + ANSIreset);
-                card[startRow + h - 2][startColumn + 3] = ANSIbackgroundColor + "│" + ANSIreset;
-
-            }
-            case CornerPosition.TOPRIGHT -> {
-                card[startRow][startColumn + w - 4] = ANSIbackgroundColor + "┬" + ANSIreset;
-                card[startRow + 2][startColumn + w - 1] = ANSIbackgroundColor + "┤" + ANSIreset;
-                card[startRow + 2][startColumn + w - 4] = ANSIbackgroundColor + "└" + ANSIreset;
-                Arrays.fill(card[startRow + 2], startColumn + w - 3, startColumn + w - 1, ANSIbackgroundColor + "─" + ANSIreset);
-                card[startRow + 1][startColumn + w - 4] = ANSIbackgroundColor + "│" + ANSIreset;
-            }
-            case CornerPosition.BOTTOMRIGHT -> {
-                card[startRow + h - 1][startColumn + w - 4] = ANSIbackgroundColor + "┴" + ANSIreset;
-                card[startRow + h - 3][startColumn + w - 1] = ANSIbackgroundColor + "┤" + ANSIreset;
-                card[startRow + h - 3][startColumn + w - 4] = ANSIbackgroundColor + "┌" + ANSIreset;
-                Arrays.fill(card[startRow + h - 3], startColumn + w - 3, startColumn + w - 1, ANSIbackgroundColor + "─" + ANSIreset);
-                card[startRow + h - 2][startColumn + w - 4] = ANSIbackgroundColor + "│" + ANSIreset;
-
-            }
-        }
-    }
-
-    /**
-     * method that prints the graphic correspondent to the symbol in the corner of the card.
-     *
-     * @param card        matrix where we want to print
-     * @param startRow    row where we want to start to print
-     * @param startColumn column where we want to start to print
-     * @param symbol      that we want to print
-     * @param corner      CornerPosition type
-     */
-    public static void printSymbolInCorner(String[][] card, CornerPosition corner, int startRow, int startColumn, Symbol symbol, int h, int w) {
-        String graphicSymbol;
-        if (symbol == null)
-            graphicSymbol = " ";
-        else
-            graphicSymbol = GraphicUsage.symbolDictionary.get(symbol);
-        switch (corner) {
-            case TOPLEFT -> card[startRow + 1][startColumn + 2] = graphicSymbol;
-            case BOTTOMLEFT -> card[startRow + h - 2][startColumn + 2] = graphicSymbol;
-            case TOPRIGHT -> card[startRow + 1][startColumn + w - 3] = graphicSymbol;
-            case BOTTOMRIGHT -> card[startRow + h - 2][startColumn + w - 3] = graphicSymbol;
-
-            default -> throw new IllegalStateException("Unexpected value: " + corner);
-        }
-
-    }
-
-    public static void printResourceFront(String[][] matrix, ResourceCard card, int startRow, int startColumn, int h, int w) {
-        int  points = card.getPoints(Side.FRONT);
-        printFrontCard(matrix, card, startRow, startColumn, h, w);
-        if (points==1) {
-            drawPoints(matrix, startRow, startColumn, w, "1");
-        }
-    }
-
-    public static void printGoldFront(String[][] matrix, GoldCard card, int startRow, int startColumn, int h, int w) {
-        printFrontCard(matrix, card, startRow, startColumn, h, w);
-        int points = card.getPoints(Side.FRONT);
-        ArrayList<Symbol> requirements = new ArrayList<>();
+    public static void printGoldCard(String[][] matrix, GoldCard card, int startRow, int startColumn, int h, int w, Side side) {
+        if(side.equals(Side.FRONT)) {
+            drawPlayCard(matrix, card.getFront(), h, w, startRow, startColumn);
+            int points = card.getPoints(Side.FRONT);
+            ArrayList<Symbol> requirements = new ArrayList<>();
         for (Symbol symbol : card.getRequirement(Side.FRONT).keySet()) {
             for (int i = 0; i < card.getRequirement(Side.FRONT).get(symbol); i++) {
                 requirements.add(symbol);
@@ -217,8 +229,7 @@ public class DesignSupportClass {
         for (int i = offset; i < offset + requirements.size(); i++) {
             matrix[startRow + h - 3][startColumn + i] = GraphicUsage.symbolDictionary.get(requirements.get(i - offset));
         }
-
-        if (card instanceof PointPerVisibleSymbol) {
+                    if (card instanceof PointPerVisibleSymbol) {
             Symbol goal = ((PointPerVisibleSymbol) card).getGoldGoal();
             matrix[startRow][startColumn + w / 2 - 2] = "┬";
             matrix[startRow][startColumn + w / 2 + 3] = "┬";
@@ -243,8 +254,14 @@ public class DesignSupportClass {
         } else {
             drawPoints(matrix, startRow, startColumn, w, Integer.toString(points));
         }
-    }
 
+        }
+        else{
+            drawPlayCard(matrix, card.getBack(), h, w, startRow, startColumn);
+            printBackCentral(matrix, card, startRow, startColumn, h, w);
+            //todo add something to show that it is gold(?)
+        }
+    }
 
     private static void drawPoints(String[][] matrix, int startRow, int startColumn, int w, String pointSymbol) {
         int midColumn = startColumn + w / 2;
@@ -266,6 +283,34 @@ public class DesignSupportClass {
         sb.append(pointSymbol);
         matrix[startRow + 1][midColumn] = sb.toString();
     }
+
+
+    public static String[][] DrawGeneralOutline(int h, int w, String[][] matrix, int startRow, int startColumn, CardColors color){
+        String ANSIbackgroundColor = getAnsiColor(color);
+        for(int i=startRow; i<startRow+h; i++){
+            for(int j=startColumn; j<startColumn+w; j++){
+                if(i==startRow && j==startColumn){
+                    matrix[i][j] = ANSIbackgroundColor+CORNER_TOP_LEFT+ANSI_RESET;
+                }else if(i==startRow && j==startColumn+w-1){
+                    matrix[i][j] = ANSIbackgroundColor+CORNER_TOP_RIGHT+ANSI_RESET;
+                }else if(i==startRow+h-1 && j==startColumn){
+                    matrix[i][j] = ANSIbackgroundColor+CORNER_BOTTOM_LEFT+ANSI_RESET;
+                }else if(i==startRow+h-1 && j==startColumn+w-1){
+                    matrix[i][j] = ANSIbackgroundColor+CORNER_BOTTOM_RIGHT+ANSI_RESET;
+                }else if(i==startRow || i==startRow+h-1){
+                    matrix[i][j] = ANSIbackgroundColor+HORIZONTAL_LINE+ANSI_RESET;
+                }else if(j==startColumn || j==startColumn+w-1){
+                    matrix[i][j] =ANSIbackgroundColor+ VERTICAL_LINE+ANSI_RESET;
+                }else{
+                    matrix[i][j] = SPACE;
+                }
+            }
+        }
+        return matrix;
+
+    }
+
+
 
     /**
      * Method that prints the SymbolObjectiveCard.
@@ -397,29 +442,24 @@ public class DesignSupportClass {
      * @param card sideOfCard to check
      * @return true if the getCentralSymbols generated array is empty.
      */
-    public static boolean isFrontSide(SideOfCard card) {
-        return getCentralSymbols(card).isEmpty();
+    public static Side isFrontSide(SideOfCard card) {
+        if(card.getParentCard().getFront().equals(card))
+            return Side.FRONT;
+        else
+            return Side.BACK;
     }
 
 
     public static void printInitialCardBack(String[][] matrix, InitialCard card, int startRow, int startColumn, int h, int w) {
-        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
-        for (CornerPosition corner : CornerPosition.values()) {
-            cornerOutline(matrix, corner, startRow, startColumn, null, h, w);
-            printSymbolInCorner(matrix, corner, startRow, startColumn, card.getBack().getCornerInPosition(corner).getSymbol(), h, w);
-
-        }
+        drawPlayCard(matrix, card.getBack(), h, w, startRow, startColumn);
 
     }
 
     public static void printInitialCardFront(String[][] matrix, InitialCard card, int startRow, int startColumn, int h, int w) {
-        DrawGeneralOutline(h, w, matrix, startRow, startColumn, null);
-        for (CornerPosition corner : CornerPosition.values()) {
-            cornerOutline(matrix, corner, startRow, startColumn, null, h, w);
-            printSymbolInCorner(matrix, corner, startRow, startColumn, card.getFront().getCornerInPosition(corner).getSymbol(), h, w);
-        }
+        drawPlayCard(matrix, card.getFront(), h, w, startRow, startColumn);
         ArrayList<Symbol> symbols = getCentralSymbols(card.getFront());
         int offset = h / 2 - symbols.size() / 2;
+
         //Draw the top line of the box
         matrix[startRow + offset + symbols.size()][startColumn + w / 2] = "─";
         matrix[startRow + offset - 1][startColumn + w / 2 - 1] = "┌";
@@ -444,32 +484,48 @@ public class DesignSupportClass {
 
 
     }
-
-
+//
+//
     public static void printCard(String[][] matrix, SideOfCard card, int startRow, int startColumn, int h, int w) {
         if (card.getParentCard() instanceof ResourceCard) {
-            if (isFrontSide(card)) {
-                printResourceFront(matrix, (ResourceCard) card.getParentCard(), startRow, startColumn, h, w);
-            } else {
-                printBackCard(matrix, card.getParentCard(), startRow, startColumn, h, w);
-            }
-        } else if (card.getParentCard() instanceof GoldCard) {
-            if (isFrontSide(card)) {
-                printGoldFront(matrix, (GoldCard) card.getParentCard(), startRow, startColumn, h, w);
-            } else {
-                printBackCard(matrix, card.getParentCard(), startRow, startColumn, h, w);
-            }
-        } else if (card.getParentCard() instanceof InitialCard) {
-            if (!isFrontSide(card)) {
+            printResourceCard(matrix, (ResourceCard) card.getParentCard(), startRow, startColumn, h, w, isFrontSide(card));
+        }
+        else if(card.getParentCard() instanceof GoldCard){
+            printGoldCard(matrix, (GoldCard) card.getParentCard(), startRow, startColumn, h, w, isFrontSide(card));
+        }
+        else if(card.getParentCard() instanceof InitialCard){
+            if(isFrontSide(card).equals(Side.FRONT)){
                 printInitialCardFront(matrix, (InitialCard) card.getParentCard(), startRow, startColumn, h, w);
-            } else {
+            }else{
                 printInitialCardBack(matrix, (InitialCard) card.getParentCard(), startRow, startColumn, h, w);
             }
         }
     }
 
+//    public static void main(String[] args) throws IOException {
+//        String[][] matrix = new String[9][31];
+//        for(int i=0; i<9; i++){
+//            Arrays.fill(matrix[i], " ");
+//        }
+//        Deck deck = new Deck(ResourceCard.class);
+//        deck.shuffle();
+//        PlayCard card = (ResourceCard) deck.drawCard();
+//        drawPlayCard(matrix, card.getFront(), 9, 31, 0, 0);
+//        for(int i=0; i<9; i++){
+//            for(int j=0; j<31; j++){
+//                System.out.print(matrix[i][j]);
+//            }
+//            System.out.println();
+//        }
+//        PlayCard card2= (ResourceCard) deck.drawCard();
+//        //System.out.println(card2.getColor());
+//        card.getFront().getCornerInPosition(CornerPosition.TOPLEFT).setCovered();
+//
+//
+//        card.getFront().getCornerInPosition(CornerPosition.TOPLEFT).setNextCorner(card2.getFront().getCornerInPosition(CornerPosition.BOTTOMRIGHT));
+//        System.out.println(card.getFront().getCornerInPosition(CornerPosition.TOPLEFT).getNextCorner().getParentCard().getColor());
+//
+//    }
+
 
 }
-
-
-

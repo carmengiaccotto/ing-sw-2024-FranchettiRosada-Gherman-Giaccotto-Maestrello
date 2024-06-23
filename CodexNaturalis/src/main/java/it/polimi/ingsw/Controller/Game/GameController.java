@@ -11,14 +11,12 @@ import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
-import it.polimi.ingsw.Controller.GameState;
 
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 //import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -46,8 +44,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private Chat chat=new Chat();
-
-    private int currentPlayerIndex = 0;
 
     //private final ReentrantLock turnLock = new ReentrantLock();
 
@@ -120,6 +116,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RemoteException If a remote or network communication error occurs.
      */
     public void GameLoop(GameStatus status) throws RemoteException {
+        int currentPlayerIndex=0;
         switch(status) {
             case SETUP -> {
                 try {
@@ -142,9 +139,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         thread.join();
                     }
                     System.out.println("Game is ready to run!");
-
                     setStatus(GameStatus.INITIAL_CIRCLE);
-                    saveGameState();
                 } catch (NotReadyToRunException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -159,10 +154,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
                 }
                 setStatus(GameStatus.RUNNING);
-                saveGameState();
 
             }
-            case RUNNING -> {
+            case RUNNING -> {//
+                System.out.println("Current player: " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " index: " + currentPlayerIndex);
                 while (status.equals(GameStatus.RUNNING)) {
                     ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
                     currentPlayerNickname = currentPlayer.getNickname();
@@ -174,8 +169,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         Thread thread = new Thread(() -> {
                             try {
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
-                                    c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
-                                    c.WhatDoIDoNow("NOT-MY-TURN");
+                                        c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
+                                        c.WhatDoIDoNow("NOT-MY-TURN");
+
                                 } else {
                                     c.WhatDoIDoNow("PLAY-TURN");
                                     latch.countDown();
@@ -188,6 +184,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         thread.start();
                     }
 
+
                     for (Thread thread : threads) {
                         try {
                             latch.await(); // wait for the current player to finish
@@ -196,67 +193,23 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         }
                     }
 
-                    // Check the score after the current player has finished their turn
-                    if (currentPlayer.getPlayer().getScore() >= 20) {
-                        setStatus(GameStatus.LAST_CIRCLE);
-                        break;
-                    }
-
                     currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
-                    saveGameState();
                 }
+
+
             }
             case LAST_CIRCLE -> {
-                if (currentPlayerIndex < (listener.getPlayers().size()-1)) {
-                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " has reached the maximum score!", listener.getPlayers().get(currentPlayerIndex));
-                    listener.getPlayers().get(currentPlayerIndex).sendUpdateMessage("You have reached the maximum score!");
-                    listener.updatePlayers("The game will continue until all players have played their last turn.");
-                    List<ClientControllerInterface> playersToIterate = new ArrayList<>(listener.getPlayers().subList(currentPlayerIndex + 1, listener.getPlayers().size()));
-                    currentPlayerIndex = currentPlayerIndex + 1;
+                int adjustedNumOfLastPlayer = ((currentPlayerIndex - 1) + listener.getPlayers().size()) % listener.getPlayers().size();
+                if (adjustedNumOfLastPlayer < (listener.getPlayers().size() - 1)) {
+                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(adjustedNumOfLastPlayer).getNickname() + "has reached the maximum score!", listener.getPlayers().get(adjustedNumOfLastPlayer));
+                    for (ClientControllerInterface c : listener.getPlayers()) {
+                        while (currentPlayerIndex != listener.getPlayers().size() - 1) {
 
-                    while (status.equals(GameStatus.LAST_CIRCLE)) {
-                        ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
-                        currentPlayerNickname = currentPlayer.getNickname();
-
-                        List<Thread> threads = new ArrayList<>();
-                        CountDownLatch latch = new CountDownLatch(1);
-
-                        for (ClientControllerInterface c : playersToIterate) {
-                            Thread thread = new Thread(() -> {
-                                try {
-                                    if (!c.getNickname().equals(currentPlayerNickname)) {
-                                        c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
-                                        c.WhatDoIDoNow("NOT-MY-TURN");
-                                    } else {
-                                        c.WhatDoIDoNow("PLAY-TURN");
-                                        latch.countDown();
-                                    }
-                                } catch (RemoteException e) {
-                                    //todo handle exception
-                                }
-                            });
-                            threads.add(thread);
-                            thread.start();
                         }
-
-                        for (Thread thread : threads) {
-                            try {
-                                latch.await(); // wait for the current player to finish
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        if (currentPlayerIndex == listener.getPlayers().size() - 1) {
-                            setStatus(GameStatus.FINILIZE);
-                            saveGameState();
-                            break;
-                        }
-
-                        currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
                     }
+
                 }
                 setStatus(GameStatus.FINILIZE);
-                saveGameState();
             }
             case FINILIZE -> {
                 try {
@@ -655,15 +608,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
     public String finalRanking() throws RemoteException {
-        List<ClientControllerInterface> players = new ArrayList<>(listener.getPlayers());
-
-        players.sort((player1, player2) -> {
-            try {
-                return player1.getNickname().compareTo(player2.getNickname());
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        List<ClientControllerInterface> players = listener.getPlayers();
 
         players.sort((player1, player2) -> {
             try {
@@ -679,6 +624,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
 
         return scores.toString();
+    }
+
+    @Override
+    public GameState loadGameState(String nickname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void saveGameState() throws RemoteException {
+
     }
 
     /**
@@ -809,52 +764,4 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             chat.addMessage(message);
         }
     }
-
-    public void saveGameState() throws RemoteException {
-
-        GameState gameState = new GameState(getListener().getPlayers().getFirst().getRound(), getListener().getPlayers(), model, getStatus());
-
-        int round = getListener().getPlayers().getFirst().getRound();
-
-        gameState.setRound(round);
-        gameState.setModel(model);
-        gameState.setPlayers(getListener().getPlayers());
-        gameState.setStatus(getStatus());
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameState.txt"))) {
-            out.writeObject(gameState);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public GameState loadGameState(String nickname) throws RemoteException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameState.txt"))) {
-            GameState gameState = (GameState) in.readObject();
-
-            for (ClientControllerInterface playerController : gameState.getPlayers()) {
-                if (playerController.getNickname().equals(nickname)) {
-                    // Find the matching player in the game listener's players
-                    for (ClientControllerInterface listenerPlayerController : getListener().getPlayers()) {
-                        if (listenerPlayerController.getNickname().equals(nickname)) {
-                            // Update the player's state
-                            listenerPlayerController = (ClientControllerInterface) playerController.getPlayer();
-                            break;
-                        }
-                    }
-
-                    // Update the game state
-                    model = gameState.getModel();
-                    status = gameState.getStatus();
-                    return gameState;
-                }
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
 }

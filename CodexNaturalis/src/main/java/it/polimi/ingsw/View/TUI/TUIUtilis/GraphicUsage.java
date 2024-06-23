@@ -1,9 +1,9 @@
 package it.polimi.ingsw.View.TUI.TUIUtilis;
 
 
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;

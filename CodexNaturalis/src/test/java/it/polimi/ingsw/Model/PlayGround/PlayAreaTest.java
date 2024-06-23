@@ -3,7 +3,7 @@ package it.polimi.ingsw.Model.PlayGround;
 import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -57,6 +57,7 @@ class PlayAreaTest {
             assertNull(playArea.getCardsOnArea().get(0).get(2));
             assertNull(playArea.getCardsOnArea().get(2).get(0));
             assertNull(playArea.getCardsOnArea().get(2).get(2));
+            assertEquals(3, playArea.getCardsOnArea().size()); // Check if the dimensions are 3x3
 
         }
 

@@ -4,7 +4,7 @@ import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 
 import java.io.Serializable;
 import java.util.*;
@@ -260,7 +260,7 @@ public class PlayArea implements Serializable {
 
         }
         else {
-            throw new ArrayIndexOutOfBoundsException("Invalid Position");
+            System.out.println("Invalid Position");
         }
     }
 
