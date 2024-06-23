@@ -6,6 +6,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,15 @@ public class GameState implements Serializable {
 
     public PlayGround getModel() {
         return model;
+    }
+
+    public Player getPlayerByNickname(String nickname) throws RemoteException {
+        for (ClientControllerInterface playerController : getPlayers()) {
+            if (playerController.getNickname().equals(nickname)) {
+                return playerController.getPlayer();
+            }
+        }
+        return null;
     }
 
     public void setModel(PlayGround model) {

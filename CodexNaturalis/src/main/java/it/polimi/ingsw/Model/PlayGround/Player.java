@@ -38,6 +38,8 @@ public class Player implements Serializable {
 
     private InitialCard initialCard;
 
+    private boolean reconnected;
+
 
 
     /**
@@ -53,6 +55,15 @@ public class Player implements Serializable {
         this.round = 0;
         this.personalObjectiveCard = null;
         this.initialCard=null;
+        this.reconnected = false;
+    }
+
+    public boolean isReconnected() {
+        return reconnected;
+    }
+
+    public void setReconnected(boolean reconnected) {
+        this.reconnected = reconnected;
     }
 
 
