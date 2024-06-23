@@ -8,6 +8,7 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 
@@ -302,7 +303,6 @@ public class Player implements Serializable {
         this.initialCard = initialCard;
     }
 }
-
 
 
 
