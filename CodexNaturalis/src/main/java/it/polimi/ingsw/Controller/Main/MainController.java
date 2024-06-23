@@ -119,6 +119,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
                 try {
                     if (gameToJoin != null) {
                         gameToJoin.addPlayer(client);
+                        gameToJoin.saveGameState();
                     }
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
@@ -173,6 +174,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         runningGames.add(newGame);
         newGame.addPlayer(client);
         client.setGame(newGame);
+        newGame.saveGameState();
         return newGame;
     }
 

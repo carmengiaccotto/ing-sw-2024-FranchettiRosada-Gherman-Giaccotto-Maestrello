@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Model.Cards;
 
-import it.polimi.ingsw.Model.CardColors;
+import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.Side;
 
 /** Class that represents a play Card of the game. Each card is a Pair of sideOfCard,

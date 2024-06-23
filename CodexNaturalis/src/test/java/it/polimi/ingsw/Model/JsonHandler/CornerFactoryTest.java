@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Model.JsonHandler;
 
 import it.polimi.ingsw.Model.Cards.Corner;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

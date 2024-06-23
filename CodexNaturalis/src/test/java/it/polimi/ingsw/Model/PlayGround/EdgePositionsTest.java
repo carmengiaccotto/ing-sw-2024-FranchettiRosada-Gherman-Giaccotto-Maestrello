@@ -3,7 +3,7 @@ package it.polimi.ingsw.Model.PlayGround;
 import it.polimi.ingsw.Model.Cards.Corner;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

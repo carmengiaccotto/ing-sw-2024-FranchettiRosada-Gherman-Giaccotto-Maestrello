@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Model.Cards;
 
 import it.polimi.ingsw.Model.Enumerations.CornerPosition;
-import it.polimi.ingsw.Model.Symbol;
+import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

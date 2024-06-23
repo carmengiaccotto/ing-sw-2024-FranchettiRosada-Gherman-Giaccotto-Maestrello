@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
@@ -126,4 +127,10 @@ public interface GameControllerInterface extends Remote, Serializable {
     void sendPrivateMessage(Message message, String first) throws RemoteException;
 
     String finalRanking() throws RemoteException;
+
+    GameState loadGameState(String nickname) throws RemoteException;
+
+    void saveGameState() throws RemoteException;
+
+    void GameLoop(GameStatus status) throws RemoteException;
 }

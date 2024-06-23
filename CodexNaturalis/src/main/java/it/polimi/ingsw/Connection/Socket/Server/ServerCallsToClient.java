@@ -243,6 +243,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
 
     /**
      * @param playGround
+     * @return
      * @throws RemoteException
      */
     @Override
@@ -339,6 +340,11 @@ public class ServerCallsToClient implements ClientControllerInterface {
             ex.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void setRound(int round) throws RemoteException {
+
     }
 
     /**

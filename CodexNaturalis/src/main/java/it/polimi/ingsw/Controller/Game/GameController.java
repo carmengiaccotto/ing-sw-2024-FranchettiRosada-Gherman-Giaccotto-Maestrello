@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
@@ -114,7 +115,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      *
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    void GameLoop(GameStatus status) throws RemoteException {
+    public void GameLoop(GameStatus status) throws RemoteException {
         int currentPlayerIndex=0;
         switch(status) {
             case SETUP -> {
@@ -208,9 +209,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
 
                 }
-                setStatus(GameStatus.FINLIZE);
+                setStatus(GameStatus.FINILIZE);
             }
-            case FINLIZE -> {
+            case FINILIZE -> {
                 try {
                     List<Thread> threads = new ArrayList<>();
                     for (ClientControllerInterface c : listener.getPlayers()) {
@@ -623,6 +624,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
 
         return scores.toString();
+    }
+
+    @Override
+    public GameState loadGameState(String nickname) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public void saveGameState() throws RemoteException {
+
     }
 
     /**

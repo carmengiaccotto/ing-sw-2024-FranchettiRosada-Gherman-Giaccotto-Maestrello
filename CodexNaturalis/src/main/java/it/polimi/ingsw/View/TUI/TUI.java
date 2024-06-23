@@ -17,8 +17,10 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TUI implements UserInterface, Serializable {
+    private final ReentrantLock lock = new ReentrantLock();
     Scanner scanner = new Scanner(System.in);
     private static final String bold = "\033[1m";
     private static final String reset = "\033[0m";
@@ -75,7 +77,7 @@ public class TUI implements UserInterface, Serializable {
         return c;
     }
 
-    public void showInitialCard(InitialCard card) {
+    public void showInitialCard(InitialCard card) {// todo modify using string builder
         System.out.println("This is your initial card: ");
         String[][] frontBack = new String[11][70];
         for (int i = 0; i < 11; i++) {
@@ -235,34 +237,35 @@ public class TUI implements UserInterface, Serializable {
     @Override
     public Command receiveCommand(Boolean IsMyTurn) {
         if(IsMyTurn){
-        System.out.println("Select a command: [MOVE/CHAT]");
-        String command ;
-        do {
-            command = scanner.nextLine().toUpperCase();
-//            if (!command.equals("MOVE") && !command.equals("CHAT")) {
-//                System.out.println("Please insert a valid command: [MOVE/CHAT]");
-//            }
-        } while (!command.equals("MOVE") && !command.equals("CHAT"));
-        return Command.valueOf(command.toUpperCase());
-    }
-        else {
-            System.out.println("Write [CHAT] to send a message");
-            String command;
-            do {
-                command = scanner.nextLine().toUpperCase();
-//                if ( !command.equals("CHAT")) {
-//                    if(command.equals("MOVE")){
-//                        System.out.println("it's not your turn");
-//                    }
-//                    else{
-//                        System.out.println("Please insert your [CHAT] command if you want to send a message");
-//                    }
-//                }
-            } while (!command.equals("CHAT"));
-            return Command.valueOf(command.toUpperCase());
+            System.out.println("Choose a command: [MOVE/CHAT]");
+            while (!scanner.hasNext()) {} // Wait for the next input
+            String command = scanner.next().toUpperCase();
+            while (!command.equals("MOVE") && !command.equals("CHAT")) {
+                System.out.println("Invalid command! Please choose a valid command: [MOVE/CHAT]");
+                while (!scanner.hasNext()) {} // Wait for the next input
+                command = scanner.next().toUpperCase();
+            }
+            if (command.equals("MOVE")) {
+                return Command.MOVE;
+            } else {
+                return Command.CHAT;
+            }
 
         }
-}
+        else{
+            System.out.println("Please write CHAT if you want to send a message");
+            while (!scanner.hasNext()) {} // Wait for the next input
+            String command = scanner.next().toUpperCase();
+            while (!command.equals("CHAT")) {
+                System.out.println("Invalid command! Please choose a valid command: [CHAT]");
+                while (!scanner.hasNext()) {} // Wait for the next input
+                command = scanner.next().toUpperCase();
+            }
+            return Command.CHAT;
+        }
+    }
+
+
 
     @Override
     public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {

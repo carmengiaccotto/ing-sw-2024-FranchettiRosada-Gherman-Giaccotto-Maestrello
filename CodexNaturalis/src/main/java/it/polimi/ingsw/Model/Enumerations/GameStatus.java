@@ -9,5 +9,5 @@ public enum GameStatus implements Serializable {
     INITIAL_CIRCLE,
     LAST_CIRCLE,
     ENDED,
-    FINLIZE
+    FINILIZE;
 }
