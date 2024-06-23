@@ -15,8 +15,13 @@ public class GraphicUsage {
     public static final Map<PawnColor, String> pawnColorDictionary = new HashMap<>();
     public static final Map<CardColors, String> cardColorDictionary = new HashMap<>();
 
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
-    public static final String game_over =
+
+    public static final String game_over = ANSI_RED +
             "╔══════════════════════════════════════════════╗\n" +
             "║  _______      ___      .___  ___.  _______   ║\n" +
             "║ /  _____|    /   \\     |   \\/   | |   ____|  ║\n" +
@@ -31,8 +36,8 @@ public class GraphicUsage {
             "║|  |  |  |   \\      /   |   __|  |      /     ║\n" +
             "║|  `--'  |    \\    /    |  |____ |  |\\  \\----.║\n" +
             "║ \\______/      \\__/     |_______|| _| `._____|║\n" +
-            "╚══════════════════════════════════════════════╝";
-    public static final String you_win =
+            "╚══════════════════════════════════════════════╝" + ANSI_RESET;
+    public static final String you_win = ANSI_YELLOW +
             "╔═══════════════════════════════════════════════════════════════════════════╗\n" +
             "║____    ____  ______    __    __     ____    __    ____  __  .__   __.  __ ║\n" +
             "║\\   \\  /   / /  __  \\  |  |  |  |    \\   \\  /  \\  /   / |  | |  \\ |  | |  |║\n" +
@@ -40,9 +45,9 @@ public class GraphicUsage {
             "║  \\_    _/  |  |  |  | |  |  |  |      \\            /   |  | |  . `  | |  |║\n" +
             "║    |  |    |  `--'  | |  `--'  |       \\    /\\    /    |  | |  |\\   | |__|║\n" +
             "║    |__|     \\______/   \\______/         \\__/  \\__/     |__| |__| \\__| (__)║\n" +
-            "╚═══════════════════════════════════════════════════════════════════════════╝";
+            "╚═══════════════════════════════════════════════════════════════════════════╝" + ANSI_RESET;
 
-    public static final String codex_naturalis_string =
+    public static final String codex_naturalis_string = ANSI_PURPLE +
             "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
                     "║  ______   ______    _______   __________   ___                                                   ║\n" +
                     "║ /      | /  __  \\  |       \\ |   ____\\  \\ /  /                                                   ║\n" +
@@ -57,7 +62,7 @@ public class GraphicUsage {
                     "║|  . `  |   /  /_\\  \\    |  |     |  |  |  | |      /      /  /_\\  \\   |  |     |  |     \\   \\    ║\n" +
                     "║|  |\\   |  /  _____  \\   |  |     |  `--'  | |  |\\  \\----./  _____  \\  |  `----.|  | .----)   |   ║\n" +
                     "║|__| \\__| /__/     \\__\\  |__|      \\______/  | _| `._____/__/     \\__\\ |_______||__| |_______/    ║\n" +
-                    "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝";
+                    "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝" + ANSI_RESET;
 
     static {
         symbolDictionary.put(Symbol.PLANT, "P");
