@@ -2,6 +2,7 @@ package it.polimi.ingsw.Connection.Socket.Server;
 
 import it.polimi.ingsw.Connection.Socket.Messages.*;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -17,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ServerCallsToClient implements ClientControllerInterface {
     private final ObjectOutputStream oos;
@@ -209,13 +211,21 @@ public class ServerCallsToClient implements ClientControllerInterface {
     @Override
     public Player getPlayer() throws RemoteException {
         try {
-            sendMessage(new GetPlayerMessage());
-            GetPlayerResponse response = serverListener.getPlayerResponse();
-            return response.getPlayer();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            AtomicReference<GetPlayerResponse> response = new AtomicReference<>();
+            Thread thread = new Thread(() -> {
+                try {
+                    sendMessage(new GetPlayerMessage());
+                    response.set(serverListener.getPlayerResponse());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            thread.start();
+            thread.join();
+            return response.get().getPlayer();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -236,29 +246,30 @@ public class ServerCallsToClient implements ClientControllerInterface {
      * @throws RemoteException
      */
     @Override
-    public void chooseCardToDraw(PlayGround playGround) throws RemoteException {
+    public PlayGround chooseCardToDraw(PlayGround playGround) throws RemoteException {
         try {
             sendMessage(new ChooseCardToDrawMessage(playGround));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    /**
-     * @return
-     * @throws RemoteException
-     */
-    @Override
-    public SideOfCard chooseCardToPlay() throws RemoteException {
-        try {
-            sendMessage(new ChooseCardToPlayMessage());
-            ChooseCardToPlayResponse response = serverListener.chooseCardToPlayResponse();
-            return response.getSideOfCard();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
         return null;
     }
+
+//    /**
+//     * @return
+//     * @throws RemoteException
+//     */
+//    @Override
+//    public SideOfCard chooseCardToPlay() throws RemoteException {
+//        try {
+//            sendMessage(new ChooseCardToPlayMessage());
+//            ChooseCardToPlayResponse response = serverListener.chooseCardToPlayResponse();
+//            return response.getSideOfCard();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * @param message
@@ -337,7 +348,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.gameController = game;
-        serverListener.setGamecontroller(game);
+        serverListener.setGamecontroller((GameController)game);
     }
 
     /**
@@ -376,6 +387,8 @@ public class ServerCallsToClient implements ClientControllerInterface {
     public void WhatDoIDoNow(String doThis) throws RemoteException {
         try {
             sendMessage(new WhatDoIDoNowMessage(doThis));
+            // TODO Add response message in order to wait client has chosen cards.
+            WhatDoIDoNowResponse response = serverListener.whatDoIDoNowResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

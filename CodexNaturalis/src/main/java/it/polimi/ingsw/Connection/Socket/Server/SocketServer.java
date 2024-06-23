@@ -16,7 +16,6 @@ public class SocketServer extends Thread {
     public static final String SERVERIP = "localhost";
 
     public static ServerSocket server;
-    private ArrayList<ServerCallsToClient> clients;
     private MainController mainController;
 
 
@@ -24,7 +23,6 @@ public class SocketServer extends Thread {
         try {
             server = new ServerSocket(SERVERPORT);
             System.out.println("socket server ready on port: " + SERVERPORT);
-            clients = new ArrayList<>();
 
             while (true) {
                 try {
@@ -32,7 +30,6 @@ public class SocketServer extends Thread {
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                     ServerCallsToClient client = new ServerCallsToClient(oos, ois, mainController);
-                    clients.add(client);
 
 //                    ClientHandler c = new ClientHandler(s);
 //                    clientHandler.add(c);

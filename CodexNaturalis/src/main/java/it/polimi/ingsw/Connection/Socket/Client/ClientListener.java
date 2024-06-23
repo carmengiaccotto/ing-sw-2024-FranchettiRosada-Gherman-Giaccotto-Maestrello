@@ -2,16 +2,13 @@ package it.polimi.ingsw.Connection.Socket.Client;
 
 import it.polimi.ingsw.Connection.Socket.Messages.*;
 import it.polimi.ingsw.Controller.Client.ClientController;
-import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Model.Enumerations.PawnColor;
-import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.List;
 
 class ClientListener extends Thread {
     private ClientController clientController;
@@ -25,6 +22,14 @@ class ClientListener extends Thread {
     private final Object displayAvailableGamesResponseLockObject = new Object();
     public GetAvailableColorsResponse getAvailableColorsResponse;
     private final Object getAvailableColorsResponseLockObject = new Object();
+    public ExtractInitialCardResponse initialCardResponse;
+    private final Object initialCardResponseLockObject = new Object();
+    public GetPlayersResponse getPlayerResponse;
+    private final Object getPlayerResponseLockObject = new Object();
+    public GetModelResponse getModelResponse;
+    private final Object getModelresponseLockObject = new Object();
+    private CreateGameResponse createGameResponse;
+    private final Object createGameResponseLockObject = new Object();
 
 
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
@@ -41,40 +46,86 @@ class ClientListener extends Thread {
     public void run() {
         try {
             while (true) {
-                Object message = inputStream.readObject();
-                if (message instanceof ChoosePawnColorMessage) {
-                    clientController.ChoosePawnColor();
-                } else if (message instanceof NumRequiredPlayersResponse) {
-                    synchronized (numRequiredPlayersResponseLockObject) {
-                        numRequiredPlayersResponse = (NumRequiredPlayersResponse) message;
-                        numRequiredPlayersResponseLockObject.notify();
+                GenericMessage message = (GenericMessage) inputStream.readObject();
+                Thread thread = new Thread(() -> {
+                    if (message instanceof ChoosePawnColorMessage) {
+                        try {
+                            clientController.ChoosePawnColor();
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof NumRequiredPlayersResponse) {
+                        synchronized (numRequiredPlayersResponseLockObject) {
+                            numRequiredPlayersResponse = (NumRequiredPlayersResponse) message;
+                            numRequiredPlayersResponseLockObject.notify();
+                        }
+                    } else if (message instanceof CheckUniqueNickNameResponse) {
+                        synchronized (checkUniqueNickNameResponseLockObject) {
+                            checkUniqueNickNameResponse = (CheckUniqueNickNameResponse) message;
+                            checkUniqueNickNameResponseLockObject.notify();
+                        }
+                    } else if (message instanceof DisplayAvailableGamesResponse) {
+                        synchronized (displayAvailableGamesResponseLockObject) {
+                            displayAvailableGamesResponse = (DisplayAvailableGamesResponse) message;
+                            displayAvailableGamesResponseLockObject.notify();
+                        }
+                    } else if (message instanceof GetAvailableColorsResponse) {
+                        synchronized (getAvailableColorsResponseLockObject) {
+                            getAvailableColorsResponse = (GetAvailableColorsResponse) message;
+                            getAvailableColorsResponseLockObject.notify();
+                        }
+                    } else if (message instanceof UpdateMessage) {
+                        try {
+                            clientController.sendUpdateMessage(((UpdateMessage) message).getMessage());
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof GetNickNameMessage) {
+                        try {
+                            String nickname = clientController.getNickname();
+                            sendMessage(new GetNickNameResponse(nickname));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if(message instanceof GetPlayerMessage) {
+                        try {
+                            Player player = clientController.getPlayer();
+                            sendMessage(new GetPlayerResponse(player));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof WhatDoIDoNowMessage) {
+                        try {
+                            clientController.WhatDoIDoNow(((WhatDoIDoNowMessage) message).getDoThis());
+                            sendMessage(new WhatDoIDoNowResponse());
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof GetPlayersResponse) {
+                        synchronized (getPlayerResponseLockObject) {
+                            getPlayerResponse = (GetPlayersResponse) message;
+                            getPlayerResponseLockObject.notify();
+                        }
+                    } else if (message instanceof ExtractInitialCardResponse) {
+                        synchronized (initialCardResponseLockObject) {
+                            initialCardResponse = (ExtractInitialCardResponse) message;
+                            initialCardResponseLockObject.notify();
+                        }
+                    } else if (message instanceof CreateGameResponse) {
+                        synchronized (createGameResponseLockObject) {
+                            createGameResponse = (CreateGameResponse) message;
+                            createGameResponseLockObject.notify();
+                        }
+                    } else if (message instanceof GetModelResponse) {
+                        synchronized (getModelresponseLockObject) {
+                            getModelResponse = (GetModelResponse) message;
+                            getModelresponseLockObject.notify();
+                        }
                     }
-                } else if (message instanceof CheckUniqueNickNameResponse) {
-                     synchronized (checkUniqueNickNameResponseLockObject){
-                        checkUniqueNickNameResponse = (CheckUniqueNickNameResponse) message;
-                         checkUniqueNickNameResponseLockObject.notify();
-                    }
-                } else if (message instanceof DisplayAvailableGamesResponse) {
-                    synchronized (displayAvailableGamesResponseLockObject) {
-                        displayAvailableGamesResponse = (DisplayAvailableGamesResponse) message;
-                        displayAvailableGamesResponseLockObject.notify();
-                    }
-                }
-                else if (message instanceof GetAvailableColorsResponse) {
-                    synchronized (getAvailableColorsResponseLockObject) {
-                        getAvailableColorsResponse = (GetAvailableColorsResponse) message;
-                        getAvailableColorsResponseLockObject.notify();
-                    }
-                }
-                else if (message instanceof UpdateMessage) {
-                    clientController.sendUpdateMessage(((UpdateMessage) message).getMessage());
-                }
-                else if (message instanceof GetNickNameMessage) {
-                    String nickname = clientController.getNickname();
-                    sendMessage(new GetNickNameResponse(nickname));
-                } else if(message instanceof WhatDoIDoNowMessage) {
-                    clientController.WhatDoIDoNow(((WhatDoIDoNowMessage)message).getDoThis());
-                }
+                });
+                thread.start();
             }
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -124,4 +175,48 @@ class ClientListener extends Thread {
         }
         return getAvailableColorsResponse;
     }
+
+    public ExtractInitialCardResponse getInitialCardResponse(){
+        synchronized (initialCardResponseLockObject){
+            try {
+                initialCardResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return initialCardResponse;
+    }
+
+    public GetPlayersResponse getPlayersResponse(){
+        synchronized (getPlayerResponseLockObject){
+            try {
+                getPlayerResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return getPlayerResponse;
+    }
+
+    public GetModelResponse getModelResponse(){
+        synchronized (getModelresponseLockObject){
+            try {
+                getModelresponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return getModelResponse;
+    }
+
+    public CreateGameResponse createGameResponse() {
+        synchronized (createGameResponseLockObject) {
+            try {
+                createGameResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return createGameResponse;
+    }
+}

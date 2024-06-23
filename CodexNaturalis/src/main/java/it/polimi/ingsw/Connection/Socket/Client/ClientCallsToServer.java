@@ -27,6 +27,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ClientCallsToServer implements MainControllerInterface, GameControllerInterface {
     private final ClientControllerInterface clientController;
@@ -143,6 +144,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public GameControllerInterface createGame(ClientControllerInterface client, int maxNumberOfPlayers) throws RemoteException {
         try {
             sendMessage(new CreateGameMessage(maxNumberOfPlayers));
+            CreateGameResponse response = listener.createGameResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -261,7 +263,13 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
      */
     @Override
     public PlayGround getModel() throws RemoteException {
-        return null;
+        try {
+            sendMessage(new GetModelMessage());
+            GetModelResponse response = listener.getModelResponse();
+            return response.getModel();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -276,7 +284,22 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     @Override
     public ArrayList<Player> getPlayers() throws RemoteException {
-        return null;
+        AtomicReference<GetPlayersResponse> response = new AtomicReference<>();
+        try {
+            Thread thread = new Thread(() -> {
+                try {
+                    sendMessage(new GetPlayersMessage());
+                    response.set(listener.getPlayersResponse());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            thread.start();
+            thread.join();
+            return response.get().getPlayer();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -286,6 +309,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -312,7 +336,13 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     @Override
     public InitialCard extractInitialCard() throws RemoteException {
-        return null;
+        try {
+            sendMessage(new ExtractInitialCardMessage());
+            ExtractInitialCardResponse response = listener.getInitialCardResponse();
+            return response.getCard();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
