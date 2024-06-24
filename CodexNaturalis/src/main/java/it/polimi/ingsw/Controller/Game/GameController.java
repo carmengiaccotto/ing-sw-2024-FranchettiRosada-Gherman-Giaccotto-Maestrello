@@ -6,7 +6,6 @@ import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.*;
-import it.polimi.ingsw.Exceptions.NotReadyToRunException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -145,7 +144,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                     setStatus(GameStatus.INITIAL_CIRCLE);
                     saveGameState();
-                } catch (NotReadyToRunException | InterruptedException e) {
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -626,12 +625,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     /** Method that initializes the game by extracting the common playground cards and the common objective cards.
      * It then extracts the cards for each player and adds it to their hand.
-     *
-     * @throws NotReadyToRunException If the game is not ready to run.
      * @throws RemoteException If a remote or network communication error occurs.
      */
     //todo handle exceptions in a better way(?)
-    public synchronized void initializeGame() throws NotReadyToRunException, RemoteException {
+    public synchronized void initializeGame() throws RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();
     }

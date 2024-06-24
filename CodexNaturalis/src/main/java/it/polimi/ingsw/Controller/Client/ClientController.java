@@ -3,7 +3,6 @@ package it.polimi.ingsw.Controller.Client;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
-import it.polimi.ingsw.Controller.Observer;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Chat.PrivateMessage;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
-public class ClientController extends UnicastRemoteObject implements ClientControllerInterface, Observer {
+public class ClientController extends UnicastRemoteObject implements ClientControllerInterface {
     private UserInterface view;
     private GameControllerInterface game;
     private Player player = new Player();
