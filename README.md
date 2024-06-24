@@ -1,5 +1,5 @@
 # CodexNaturalis Board Game
-![](CodexNaturalis/src/main/resources/Logo.jpg)
+![](CodexNaturalis/src/main/resources/logo.jpg)
 
 <div style="text-align: center;">
   
@@ -16,12 +16,12 @@ Maestrello Lucrezia <br>
 
 | Feature                              |   Status                |
 |--------------------------------------|-------------------------|
-| Complete rules                       |':check_box_with_check:' |
-| Socket and RMI                       |':check_box_with_check:' |
-| Multiple Games                       |':check_box_with_check:' |
-| TUI                                  |':check_box_with_check:' |
+| Complete rules                       | :check_box_with_check:  |
+| Socket and RMI                       | :check_box_with_check:  |
+| Multiple Games                       | :check_box_with_check:  |
+| TUI                                  | :check_box_with_check:  |
 | GUI                                  |                         |
 | Persistence                          |                         |
-| Chat                                 |':cross_mark:'           |
-| Resilience to clients disconnections |':cross_mark:'           |
+| Chat                                 | :cross_mark:            |
+| Resilience to clients disconnections | :cross_mark:            |
 
