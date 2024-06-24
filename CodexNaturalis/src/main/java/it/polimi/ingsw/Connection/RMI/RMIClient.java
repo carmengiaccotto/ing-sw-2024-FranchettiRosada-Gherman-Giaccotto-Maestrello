@@ -182,6 +182,8 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
                 if (server != null) {
                     connected = true;
+                    controller.setServer(server);
+                    controller.connect(ipAddress); // Moved inside the if block
                 } else {
                     System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8344 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
@@ -196,7 +198,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
-            controller.connect(ipAddress);
         }
     }
 

@@ -142,7 +142,7 @@ public class ClientHandler implements Runnable, ClientControllerInterface, Seria
     }
 
     @Override
-    public void connect() throws RemoteException {
+    public void connect(String ip) throws RemoteException {
 
     }
 

@@ -289,7 +289,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
      * @throws RemoteException
      */
     @Override
-    public void connect() throws RemoteException {
+    public void connect(String ip) throws RemoteException {
         try {
             sendMessage(new ConnectMessage());
         } catch (IOException ex) {
