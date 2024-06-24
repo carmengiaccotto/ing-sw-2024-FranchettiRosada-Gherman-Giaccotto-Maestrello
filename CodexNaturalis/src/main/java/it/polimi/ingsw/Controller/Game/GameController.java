@@ -811,42 +811,42 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
     public void saveGameState() throws RemoteException {
+        synchronized (this) {
+            GameState gameState = new GameState(getListener().getPlayers().getFirst().getRound(), getListener().getPlayers(), model, getStatus());
 
-        GameState gameState = new GameState(getListener().getPlayers().getFirst().getRound(), getListener().getPlayers(), model, getStatus());
+            int round = getListener().getPlayers().getFirst().getRound();
 
-        int round = getListener().getPlayers().getFirst().getRound();
+            gameState.setRound(round);
+            gameState.setModel(model);
+            gameState.setPlayers(getListener().getPlayers());
+            gameState.setStatus(getStatus());
 
-        gameState.setRound(round);
-        gameState.setModel(model);
-        gameState.setPlayers(getListener().getPlayers());
-        gameState.setStatus(getStatus());
+            ArrayList<GameState> gameStates = new ArrayList<>();
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameState.txt"))) {
+                gameStates = (ArrayList<GameState>) in.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                // Ignora l'eccezione se il file non esiste o è vuoto
+            }
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameState.txt"))) {
-            out.writeObject(gameState);
-        } catch (IOException e) {
-            e.printStackTrace();
+            gameStates.add(gameState);
+
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameState.txt"))) {
+                out.writeObject(gameStates);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public GameState loadGameState(String nickname) throws RemoteException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameState.txt"))) {
-            GameState gameState = (GameState) in.readObject();
+            ArrayList<GameState> gameStates = (ArrayList<GameState>) in.readObject();
 
-            for (ClientControllerInterface playerController : gameState.getPlayers()) {
-                if (playerController.getNickname().equals(nickname)) {
-                    // Find the matching player in the game listener's players
-                    for (ClientControllerInterface listenerPlayerController : getListener().getPlayers()) {
-                        if (listenerPlayerController.getNickname().equals(nickname)) {
-                            // Update the player's state
-                            listenerPlayerController = (ClientControllerInterface) playerController.getPlayer();
-                            break;
-                        }
+            for (GameState gameState : gameStates) {
+                for (ClientControllerInterface playerController : gameState.getPlayers()) {
+                    if (playerController.getNickname().equals(nickname)) {
+                        return gameState;
                     }
-
-                    // Update the game state
-                    model = gameState.getModel();
-                    status = gameState.getStatus();
-                    return gameState;
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -854,7 +854,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
         return null;
     }
-
 
 
 }

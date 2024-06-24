@@ -158,7 +158,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
     }
 
     @Override
-    public  void connect() throws RemoteException{
+    public  void connect(String ipAddress) throws RemoteException{
         boolean connected = false;
         int attempt = 1;
 
@@ -167,7 +167,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry("127.0.0.1", 8344);
+                        registry = LocateRegistry.getRegistry(ipAddress, 8344);
                         Object obj = registry.lookup("CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
@@ -196,7 +196,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
-            controller.connect();
+            controller.connect(ipAddress);
         }
     }
 

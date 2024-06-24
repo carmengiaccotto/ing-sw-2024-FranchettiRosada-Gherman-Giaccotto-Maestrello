@@ -37,7 +37,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         view=null;
     }
     @Override
-    public void connect() throws RemoteException {
+    public void connect(String ip) throws RemoteException {
         server.connect(this);
         System.out.println("Connected to the server");
         JoinLobby();
@@ -650,11 +650,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void ItsNotMyTurn() throws RemoteException {
-        Command c = view.receiveCommand(false);
-        while(c==Command.CHAT){
-            sendChatMessage();
-            c = view.receiveCommand(false);
-        }
+//        Command c = view.receiveCommand(false);
+//        while(c==Command.CHAT){
+//            sendChatMessage();
+//            c = view.receiveCommand(false);
+//        }
     }
 
 

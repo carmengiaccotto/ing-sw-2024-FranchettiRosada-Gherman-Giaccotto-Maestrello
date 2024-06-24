@@ -51,7 +51,7 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     void sendUpdateMessage(String message) throws RemoteException;
 
-    void connect()  throws RemoteException;
+    void connect(String ip)  throws RemoteException;
 
     void addCardToHand(PlayCard card) throws RemoteException;
 

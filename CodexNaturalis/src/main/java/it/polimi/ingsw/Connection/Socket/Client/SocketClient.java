@@ -24,7 +24,7 @@ public class SocketClient extends Thread implements ClientControllerInterface {
     private ClientController controller;
     private ServerHandler serverHandler;
 
-    public void connect(){
+    public void connect(String ip){
         try {
             Socket socket = new Socket(SocketServer.SERVERIP, SocketServer.SERVERPORT);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -32,7 +32,7 @@ public class SocketClient extends Thread implements ClientControllerInterface {
             ClientCallsToServer server = new ClientCallsToServer(oos, ois, controller);
             controller.setServer(server);
             controller.setGame(server);
-            server.connect();
+            server.connect(ip);
 
 //            serverHandler = new ServerHandler(server);
 //            serverHandler.setClientController(controller);

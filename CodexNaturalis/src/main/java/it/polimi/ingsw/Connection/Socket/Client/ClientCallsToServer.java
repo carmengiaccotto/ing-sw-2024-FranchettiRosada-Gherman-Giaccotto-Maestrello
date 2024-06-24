@@ -43,12 +43,12 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         this.ois = ois;
     }
 
-    public void connect(){
+    public void connect(String ip){
         try {
             listener = new ClientListener(oos, ois, (ClientController) clientController);
             listener.start();
 
-            clientController.connect();
+            clientController.connect(ip);
 
 //            Thread thread = new Thread(serverHandler);
 //            thread.start();

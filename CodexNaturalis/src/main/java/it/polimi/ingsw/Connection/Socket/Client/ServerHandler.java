@@ -46,7 +46,7 @@ public class ServerHandler implements Runnable, MainControllerInterface, GameCon
         try {
             clientController.setServer(this);
             clientController.setGame(this);
-            clientController.connect();
+            clientController.connect("");
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
