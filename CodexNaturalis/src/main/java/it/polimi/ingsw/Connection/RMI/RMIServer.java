@@ -1,4 +1,6 @@
-//This package contains the classes related to the RMI (Remote Method Invocation) connection.
+/**
+ * This package contains the classes related to the RMI (Remote Method Invocation) connection.
+ */
 
 package it.polimi.ingsw.Connection.RMI;
 
@@ -19,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * The RMIServer class extends the UnicastRemoteObject and implements the GameInterface interface.
+ * The RMIServer class extends the UnicastRemoteObject and implements the MainControllerInterface.
  * It represents a server in the RMI connection.
+ * This class is responsible for managing the RMI connection and the game logic.
  */
 public class RMIServer extends UnicastRemoteObject implements MainControllerInterface {
 
@@ -34,17 +37,21 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     private MainControllerInterface handler;
 
     /**
-     * The constructor for the RMIServer class.
+     * The default constructor for the RMIServer class.
+     * It initializes the handler with a new MainController.
      * @throws RemoteException if the remote object cannot be created
      */
-
     public RMIServer() throws RemoteException {
         super(0);
-
         handler=new MainController();
-
     }
 
+    /**
+     * The constructor for the RMIServer class with a MainControllerInterface parameter.
+     * It initializes the handler with the provided MainControllerInterface.
+     * @param mainController The MainControllerInterface to be used as the handler.
+     * @throws RemoteException if the remote object cannot be created
+     */
     public RMIServer(MainControllerInterface mainController) throws RemoteException {
         super(0);
         this.handler = mainController;
@@ -52,9 +59,9 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
 
     /**
      * Binds the server to the RMI registry.
+     * @param localAddress The local address to bind the server to.
      * @return RMIServer the singleton instance of the RMIServer
      */
-
     public static RMIServer bind(String localAddress) {
         try {
             System.setProperty("java.rmi.server.hostname", localAddress);
@@ -72,9 +79,9 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
 
     /**
      * Returns the singleton instance of the RMIServer.
+     * If the instance does not exist, it creates a new one.
      * @return RMIServer the singleton instance of the RMIServer
      */
-
     public synchronized static RMIServer getInstance() {
         if(serverObject == null) {
             try {
@@ -90,41 +97,54 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     /**
      * Returns the registry associated with the RMI Server.
      * @return Registry the registry associated with the RMI Server
-     * @throws RemoteException          if the remote invocation fails
+     * @throws RemoteException if the remote invocation fails
      */
-
     public  static Registry getRegistry() throws RemoteException {
         return registry;
     }
 
-
+    /**
+     * Returns the number of required players for the game.
+     * This method is a part of the MainControllerInterface.
+     * @return ArrayList<Pair<Integer, Integer>> The number of required players.
+     * @throws RemoteException If the remote invocation fails.
+     */
     @Override
     public ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
         return handler.numRequiredPlayers();
     }
 
-    /**Method that adds the player to a lobby. Uses MainController method
-     * @param client       that just connected*/
+    /**
+     * Connects a client to the server.
+     * This method is a part of the MainControllerInterface.
+     * @param client The client that just connected.
+     * @throws RemoteException If the remote invocation fails.
+     */
     @Override
     public void connect(ClientControllerInterface client) throws RemoteException {
         handler.connect(client);
 
     }
 
-
-    /**Method that checks if the chosen Nickname is already taken. Uses MainController method
-     * @param name inserted nickname*/
+    /**
+     * Checks if the chosen nickname is unique.
+     * This method is a part of the MainControllerInterface.
+     * @param name The chosen nickname.
+     * @return boolean True if the nickname is unique, false otherwise.
+     * @throws IOException If an I/O error occurs.
+     * @throws ClassNotFoundException If the class of a serialized object cannot be found.
+     */
     @Override
     public boolean checkUniqueNickName(String name) throws IOException, ClassNotFoundException {
          return handler.checkUniqueNickName(name);
     }
 
-
     /**
-     * method that adds the player to the chosen game and notifies the game. Uses MainController method
-     *
-     * @param client that is joining a new game
-     * @param GameID chosen game to join
+     * Adds a player to a chosen game and notifies the game.
+     * This method is a part of the MainControllerInterface.
+     * @param client The client that is joining a new game.
+     * @param GameID The ID of the chosen game to join.
+     * @throws RemoteException If the remote invocation fails.
      */
     @Override
     public synchronized void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
@@ -132,9 +152,10 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
     /**
-     * Method that gives the Client a list of games it can join. Uses MainController method
-     *
-     * @return
+     * Returns a list of games that the client can join.
+     * This method is a part of the MainControllerInterface.
+     * @return Map A list of available games.
+     * @throws RemoteException If the remote invocation fails.
      */
     @Override
     public Map DisplayAvailableGames() throws RemoteException{
@@ -143,26 +164,46 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
     }
 
     /**
-     * Method that creates a new game when requested by a player. Uses MainControllerMethod
-     *
-     * @param client that wants to create a new game
-     * @return
+     * Creates a new game when requested by a player.
+     * This method is a part of the MainControllerInterface.
+     * @param client The client that wants to create a new game.
+     * @param n The number of players in the new game.
+     * @return GameControllerInterface The interface of the created game.
+     * @throws RemoteException If the remote invocation fails.
      */
     @Override
     public GameControllerInterface createGame(ClientControllerInterface client, int n) throws RemoteException {
         return handler.createGame(client, n);
     }
 
+    /**
+     * Notifies the game when a player has joined.
+     * This method is a part of the MainControllerInterface.
+     * @param game The game that the player has joined.
+     * @param client The client that has joined the game.
+     * @throws RemoteException If the remote invocation fails.
+     */
     @Override
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         handler.NotifyGamePlayerJoined(game,client);
     }
 
+    /**
+     * Adds a nickname to the server.
+     * This method is a part of the MainControllerInterface.
+     * @param name The nickname to be added.
+     * @throws RemoteException If the remote invocation fails.
+     */
     @Override
     public void addNickname(String name) throws RemoteException {
         handler.addNickname(name);
     }
 
+    /**
+     * Sets the handler for the RMIServer.
+     * The handler is an instance of MainControllerInterface which is used to manage the game logic.
+     * @param handler The MainControllerInterface instance to be used as the handler.
+     */
     public void setHandler(MainControllerInterface handler){
         this.handler = handler;
     }

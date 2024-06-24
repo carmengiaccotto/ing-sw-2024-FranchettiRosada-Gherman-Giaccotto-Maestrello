@@ -12,6 +12,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
+/**
+ * This class represents the client in the client-server architecture.
+ * It allows the client to select the type of view (CLI or GUI) and the network protocol (RMI or Socket).
+ */
 public class Client {
     private static String serverIp;
     //private String nickName;
@@ -24,15 +28,21 @@ public class Client {
 
 //    private SocketClient socketClient;
 
+    /**
+     * The main method to start the client.
+     * @param args command line arguments
+     * @throws IOException if an I/O error occurs
+     * @throws NotBoundException if the registry does not contain a binding for the name
+     */
     public static void main(String[] args) throws IOException, NotBoundException {
         new Client().start();
     }
 
-
-
     /**
-     * Method that allows the client to choose which type of view they want to use when playing
-     * */
+     * Method that allows the client to choose which type of view they want to use when playing.
+     * The client can choose between Command Line Interface (CLI) and Graphic User Interface (GUI).
+     * @throws RemoteException if the remote operation fails
+     */
     public void selectView() throws RemoteException {
         System.out.print("Select type of view: \n 1. Command Line Interface \n 2. Graphic User Interface \n>>");
         Scanner scanner = new Scanner(System.in);
@@ -50,11 +60,10 @@ public class Client {
         }
     }
 
-
-
     /**
-     * Method that allows the client to choose which type of protocol they want to use
-     * */
+     * Method that allows the client to choose which type of protocol they want to use.
+     * The client can choose between RMI and Socket.
+     */
     public void selectProtocol() {
         System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET \n>>");
         Scanner scanner = new Scanner(System.in);
@@ -77,6 +86,12 @@ public class Client {
                 selectProtocol();
         }
     }
+
+    /**
+     * This method starts the client by asking for the server IP address, selecting the protocol and view, and connecting to the server.
+     * @throws IOException if an I/O error occurs
+     * @throws NotBoundException if the registry does not contain a binding for the name
+     */
     public void start() throws IOException, NotBoundException {
         clientController = new ClientController();
         System.out.println("Insert server ip address:");
