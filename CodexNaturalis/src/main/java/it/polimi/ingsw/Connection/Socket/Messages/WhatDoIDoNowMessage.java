@@ -1,10 +1,9 @@
 package it.polimi.ingsw.Connection.Socket.Messages;
 
 public class WhatDoIDoNowMessage extends GenericMessage {
-    private String doThis;
+    private final String doThis;
 
     public WhatDoIDoNowMessage(String doThis) {
-        super();
         this.doThis = doThis;
     }
 

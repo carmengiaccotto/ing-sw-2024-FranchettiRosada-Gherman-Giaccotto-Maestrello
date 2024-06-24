@@ -34,7 +34,10 @@ public class PlayArea implements Serializable {
         symbols = InitializeSymbolMap();
     }
 
-
+    public PlayArea(List<List<SideOfCard>> cardsOnPlayArea, Map<Symbol, Integer> symbols) {
+        this.cardsOnArea = cardsOnPlayArea;
+        this.symbols = symbols;
+    }
 
 
     /**

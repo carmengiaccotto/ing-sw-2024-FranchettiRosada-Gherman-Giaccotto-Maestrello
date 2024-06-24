@@ -1,10 +1,9 @@
 package it.polimi.ingsw.Connection.Socket.Messages;
 
 public class CreateGameMessage extends GenericMessage {
-    private int maxNumberOfPlayers;
+    private final int maxNumberOfPlayers;
 
     public CreateGameMessage(int maxNumberOfPlayers) {
-        super();
         this.maxNumberOfPlayers = maxNumberOfPlayers;
     }
 

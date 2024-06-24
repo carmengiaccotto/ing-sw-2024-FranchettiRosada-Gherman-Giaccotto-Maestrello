@@ -3,27 +3,37 @@ package it.polimi.ingsw.Connection.Socket.Server;
 import it.polimi.ingsw.Connection.Socket.Messages.*;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
-import it.polimi.ingsw.Controller.Game.GameControllerInterface;
+import it.polimi.ingsw.Controller.Game.GameListener;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
+import it.polimi.ingsw.Model.Cards.ObjectiveCard;
+import it.polimi.ingsw.Model.Cards.PlayCard;
+import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Chat.Chat;
+import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
+import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class ServerListener extends Thread {
+public class ServerListener extends Thread implements Serializable {
     private final ClientControllerInterface client;
     private GameController gamecontroller;
-    private ObjectInputStream inputStream;
-    private ObjectOutputStream outputStream;
+    private final ObjectInputStream inputStream;
+    private final ObjectOutputStream outputStream;
     private final MainControllerInterface mainController;
     private GetNickNameResponse getNicknameResponse;
     private final Object getNicknameResponseLockObject = new Object();
@@ -58,12 +68,15 @@ public class ServerListener extends Thread {
 
 
     private void sendMessage(GenericMessage message) throws IOException {
-        outputStream.writeObject(message);
-        outputStream.flush();
+        synchronized (outputStream) {
+            outputStream.writeObject(message);
+            outputStream.flush();
+        }
     }
 
     public void run() {
         try {
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(100);
             while (true) {
                 GenericMessage message = (GenericMessage) inputStream.readObject();
                 Thread thread = new Thread(() -> {
@@ -100,7 +113,8 @@ public class ServerListener extends Thread {
                     } else if (message instanceof JoinGameMessage) {
                         try {
                             mainController.joinGame(client, ((JoinGameMessage) message).getGameId());
-                        } catch (RemoteException e) {
+                            sendMessage(new JoinGameResponse());
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     } else if (message instanceof DisplayAvailableGamesMessage) {
@@ -121,7 +135,8 @@ public class ServerListener extends Thread {
                     } else if (message instanceof NotifyGamePlayerJoinedMessage) {
                         try {
                             mainController.NotifyGamePlayerJoined(gamecontroller, client);
-                        } catch (RemoteException e) {
+                            sendMessage(new NotifyGamePlayerJoinedResponse());
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     } else if (message instanceof AddNicknameMessage) {
@@ -151,6 +166,20 @@ public class ServerListener extends Thread {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
+                    } else if (message instanceof GetChatMessage) {
+                        Chat response = gamecontroller.getChat();
+                        try {
+                            sendMessage(new GetChatResponse(response));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof ExtractPlayerHandCardsMessage) {
+                        try {
+                            ArrayList<PlayCard> cards = gamecontroller.extractPlayerHandCards();
+                            sendMessage(new ExtractPlayerHandCardsResponse(cards));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (message instanceof GetNickNameResponse) {
                         synchronized (getNicknameResponseLockObject) {
                             getNicknameResponse = (GetNickNameResponse) message;
@@ -172,6 +201,70 @@ public class ServerListener extends Thread {
                         try {
                             players = gamecontroller.getPlayers();
                             sendMessage(new GetPlayersResponse(players));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof GetPersonalObjectiveCardsMessage) {
+                        ArrayList<ObjectiveCard> personalObjectiveCards = null;
+                        try {
+                            personalObjectiveCards = gamecontroller.getPersonalObjective();
+                            sendMessage(new GetPersonalObjectiveCardsResponse(personalObjectiveCards));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof GetListenerMessage) {
+                        GameListener gameListener = null;
+                        try {
+                            gameListener = gamecontroller.getListener();
+                            sendMessage(new GetListenerResponse(gameListener));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof UpdatePlayersMessage) {
+                        try {
+                            UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage)message;
+                            if(updatePlayersMessage.getNickname() != null) {
+                                ClientControllerInterface currentPlayer = null;
+                                for (ClientControllerInterface player : gamecontroller.getListener().getPlayers()) {
+                                    if (player.getNickname().equals(updatePlayersMessage.getNickname())) {
+                                        currentPlayer = player;
+                                        break;
+                                    }
+                                }
+                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage(), currentPlayer);
+                            } else {
+                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage());
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if(message instanceof IncrementPlayersWhoChoseObjectiveMessage) {
+                        try {
+                            gamecontroller.incrementPlayersWhoChoseObjective();
+                            sendMessage(new IncrementPlayersWhoChoseObjectiveResponse());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if(message instanceof GetPlayersWhoChoseObjectiveMessage) {
+                        try {
+                            int playersWhoChoseObjective = gamecontroller.getPlayersWhoChoseObjective();
+                            sendMessage(new GetPlayersWhoChoseObjectiveResponse(playersWhoChoseObjective));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if(message instanceof IsValidMoveMessage) {
+                        try {
+                            IsValidMoveMessage isValidMoveMessage = (IsValidMoveMessage)message;
+                            PlayArea playArea = new PlayArea(isValidMoveMessage.getCardsOnPlayArea(), isValidMoveMessage.getSymbols());
+                            boolean isValidMove = gamecontroller.isValidMove(playArea, isValidMoveMessage.getRow(), isValidMoveMessage.getColumn(), isValidMoveMessage.getNewCard());
+                            sendMessage(new IsValidMoveResponse(isValidMove));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if(message instanceof GetStatusMessage) {
+                        try {
+                            GameStatus gameStatus = gamecontroller.getStatus();
+                            sendMessage(new GetStatusResponse(gameStatus));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -207,7 +300,7 @@ public class ServerListener extends Thread {
                         }
                     }
                 });
-                thread.start();
+                scheduler.schedule(thread, 1, TimeUnit.SECONDS);
             }
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();

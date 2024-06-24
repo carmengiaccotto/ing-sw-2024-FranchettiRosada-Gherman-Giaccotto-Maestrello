@@ -88,7 +88,7 @@ public class Client {
         }
         selectProtocol();
         selectView();
-        this.client.connect();
+        this.client.connect(serverIp);
 
     }
 

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection.Socket.Messages;
 
 public class GetScoreResponse extends GenericMessage {
-    private int score;
+    private final int score;
 
     public GetScoreResponse(int score) {
         this.score = score;

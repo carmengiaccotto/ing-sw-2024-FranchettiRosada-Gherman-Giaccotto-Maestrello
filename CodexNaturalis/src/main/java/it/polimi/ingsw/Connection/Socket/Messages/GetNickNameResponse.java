@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Connection.Socket.Messages;
 
 public class GetNickNameResponse extends GenericMessage{
-    private String nickName;
+    private final String nickName;
 
     public GetNickNameResponse(String nickName) {
         this.nickName = nickName;

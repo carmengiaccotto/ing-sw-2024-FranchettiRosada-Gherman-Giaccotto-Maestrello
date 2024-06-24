@@ -22,17 +22,16 @@ import java.rmi.RemoteException;
 
 public class SocketClient extends Thread implements ClientControllerInterface {
     private ClientController controller;
-    private ServerHandler serverHandler;
 
-    public void connect(){
+    public void connect(String ipAddress){
         try {
-            Socket socket = new Socket(SocketServer.SERVERIP, SocketServer.SERVERPORT);
+            Socket socket = new Socket(ipAddress, SocketServer.SERVERPORT);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ClientCallsToServer server = new ClientCallsToServer(oos, ois, controller);
             controller.setServer(server);
             controller.setGame(server);
-            server.connect();
+            server.connect(ipAddress);
 
 //            serverHandler = new ServerHandler(server);
 //            serverHandler.setClientController(controller);

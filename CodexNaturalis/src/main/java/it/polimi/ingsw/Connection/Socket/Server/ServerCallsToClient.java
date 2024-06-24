@@ -16,17 +16,17 @@ import it.polimi.ingsw.View.UserInterface;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ServerCallsToClient implements ClientControllerInterface {
+public class ServerCallsToClient implements ClientControllerInterface, Serializable {
     private final ObjectOutputStream oos;
     private ServerListener serverListener;
 
     private MainControllerInterface mainController;
     private GameControllerInterface gameController;
-
 
 
     public ServerCallsToClient(ObjectOutputStream oos, ObjectInputStream ois, MainControllerInterface mainController) throws IOException {
@@ -39,8 +39,10 @@ public class ServerCallsToClient implements ClientControllerInterface {
     }
 
     private void sendMessage(GenericMessage message) throws IOException {
-        oos.writeObject(message);
-        oos.flush();
+        synchronized (oos) {
+            oos.writeObject(message);
+            oos.flush();
+        }
     }
 
     /**
@@ -104,7 +106,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
             GetNickNameResponse response = serverListener.getNicknameResponse();
             return response.getNickName();
         } catch (IOException ex) {
-            ex.printStackTrace();;
+            ex.printStackTrace();
         }
         return null;
     }
@@ -211,19 +213,10 @@ public class ServerCallsToClient implements ClientControllerInterface {
     @Override
     public Player getPlayer() throws RemoteException {
         try {
-            AtomicReference<GetPlayerResponse> response = new AtomicReference<>();
-            Thread thread = new Thread(() -> {
-                try {
-                    sendMessage(new GetPlayerMessage());
-                    response.set(serverListener.getPlayerResponse());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            thread.start();
-            thread.join();
-            return response.get().getPlayer();
-        } catch (InterruptedException e) {
+            sendMessage(new GetPlayerMessage());
+            GetPlayerResponse response = serverListener.getPlayerResponse();
+            return response.getPlayer();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -281,7 +274,6 @@ public class ServerCallsToClient implements ClientControllerInterface {
         try {
             sendMessage(new UpdateMessage(message));
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -289,7 +281,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
      * @throws RemoteException
      */
     @Override
-    public void connect() throws RemoteException {
+    public void connect(String ipAddress) throws RemoteException {
         try {
             sendMessage(new ConnectMessage());
         } catch (IOException ex) {
@@ -354,7 +346,7 @@ public class ServerCallsToClient implements ClientControllerInterface {
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.gameController = game;
-        serverListener.setGamecontroller((GameController)game);
+        serverListener.setGamecontroller((GameController) game);
     }
 
     /**

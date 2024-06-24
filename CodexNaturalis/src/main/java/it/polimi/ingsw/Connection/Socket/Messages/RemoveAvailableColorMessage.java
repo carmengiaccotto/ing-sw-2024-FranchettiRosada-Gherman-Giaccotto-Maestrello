@@ -4,7 +4,7 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
 
 public class RemoveAvailableColorMessage extends GenericMessage{
 
-    private PawnColor color;
+    private final PawnColor color;
 
     public RemoveAvailableColorMessage(PawnColor color){
         this.color = color;

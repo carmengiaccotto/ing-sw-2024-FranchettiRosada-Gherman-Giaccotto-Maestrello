@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DisplayAvailableGamesResponse extends GenericMessage{
-    private Map<Integer, ArrayList<String>> availableGames;
+    private final Map<Integer, ArrayList<String>> availableGames;
+
     public DisplayAvailableGamesResponse(Map<Integer, ArrayList<String>> availableGames){
         this.availableGames = availableGames;
     }

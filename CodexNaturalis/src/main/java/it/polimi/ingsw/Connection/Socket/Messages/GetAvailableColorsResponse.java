@@ -5,7 +5,7 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import java.util.List;
 
 public class GetAvailableColorsResponse extends GenericMessage{
-    private List<PawnColor> availableColors;
+    private final List<PawnColor> availableColors;
 
     public GetAvailableColorsResponse(List<PawnColor> colors){
         this.availableColors = colors;

@@ -1,10 +1,9 @@
 package it.polimi.ingsw.Connection.Socket.Messages;
 
 public class UpdateMessage extends GenericMessage {
-    private String message;
+    private final String message;
 
     public UpdateMessage(String message) {
-        super();
         this.message = message;
     }
 

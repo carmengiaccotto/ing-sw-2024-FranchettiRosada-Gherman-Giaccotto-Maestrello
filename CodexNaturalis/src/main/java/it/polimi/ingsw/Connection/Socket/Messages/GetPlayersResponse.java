@@ -5,7 +5,7 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 import java.util.ArrayList;
 
 public class GetPlayersResponse extends GenericMessage {
-    private ArrayList<Player> player;
+    private final ArrayList<Player> player;
 
     public GetPlayersResponse(ArrayList<Player> player) {
         this.player = player;

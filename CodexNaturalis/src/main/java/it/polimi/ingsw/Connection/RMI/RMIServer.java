@@ -55,11 +55,12 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @return RMIServer the singleton instance of the RMIServer
      */
 
-    public static RMIServer bind() {
+    public static RMIServer bind(String localAddress) {
         try {
+            System.setProperty("java.rmi.server.hostname", localAddress);
             serverObject = RMIServer.getInstance();
             registry = LocateRegistry.createRegistry(8344);
-            getRegistry().rebind("CodexNaturalis", serverObject);
+            getRegistry().rebind("rmi://" + localAddress + ":8344/CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
             System.out.println("Exception when binding RMIServer: " + e);
