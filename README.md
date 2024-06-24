@@ -1,5 +1,5 @@
 # IngSW2024
-![Logo del Progetto] (https://drive.google.com/file/d/13s6uzA5YJpMXbllUOcAG_ch_uyHnj93Y/view?usp=share_link)
+![](CodexNaturalis/src/main/resources/Logo.jpg)
 
 <div style="text-align: center;">
   
