@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
+import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Controller.Observer;
 import it.polimi.ingsw.Model.Cards.*;
@@ -36,7 +37,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         view=null;
     }
     @Override
-    public void connect() throws RemoteException {
+    public void connect(String ip) throws RemoteException {
         server.connect(this);
         System.out.println("Connected to the server");
         JoinLobby();
@@ -182,12 +183,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * @return round
      * */
     @Override
-    public int getRound() {
+    public int getRound() throws RemoteException {
         return player.getRound();
     }
 
-    @Override
-    public void setRound(int round) throws RemoteException {
+    public void setRound(int round) throws RemoteException{
         player.setRound(round);
     }
 
@@ -367,22 +367,29 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * */
     @Override
     public void JoinLobby() throws RemoteException {
-       String name = ChooseNickname();
+        String name = ChooseNickname();
         try {
-            boolean ok=server.checkUniqueNickName(name);
-            if(ok){
+            boolean ok = server.checkUniqueNickName(name);
+            if (ok) {
                 setNickname(name);
                 server.addNickname(name);
-
-            }
-            else{
-                System.out.println("Nickname already taken, please choose a new one");
-                JoinLobby();
+            } else {
+                System.out.println("Nickname already taken, checking for previous game state...");
+                GameState gameState = game.loadGameState(name);
+                if (gameState != null && !gameState.getPlayerByNickname(name).isReconnected()) {
+                    System.out.println("Found previous game state for this nickname, rejoining...");
+                    gameState.getPlayerByNickname(name).setReconnected(true);
+                    game.loadGameState(name);
+                    game.GameLoop(game.getStatus());
+                } else {
+                    System.out.println("No previous game state found or player already reconnected, please choose a new nickname");
+                    JoinLobby();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
-           System.out.println("Error in the connection");
+            System.out.println("Error in the connection");
         }
         JoinOrCreateGame();
     }
@@ -417,9 +424,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                         case CHAT -> sendChatMessage();
                     }
                 }while(c!=Command.MOVE);
-                if (getScore()>=20){
-                    game.setStatus(GameStatus.LAST_CIRCLE);
-                }
             }
             case("NOT-MY-TURN")-> {
                 ItsNotMyTurn();
@@ -564,12 +568,12 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private void playMyTurn() throws RemoteException {
         playMyCard();
         game.getListener().updatePlayers(getNickname() + " has played a card.", this);
-        PlayGround model  = chooseCardToDraw(game.getModel());
-        game.setModel(model);
-        game.getListener().updatePlayers("This is the current Playground: ");
-        game.getListener().updatePlayers(game.getModel());
-
-
+        if(game.getStatus() == GameStatus.RUNNING) {
+            PlayGround model = chooseCardToDraw(game.getModel());
+            game.setModel(model);
+            game.getListener().updatePlayers("This is the current Playground: ");
+            game.getListener().updatePlayers(game.getModel());
+        }
     }
 
 
@@ -646,11 +650,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     private void ItsNotMyTurn() throws RemoteException {
-        Command c = view.receiveCommand(false);
-        while(c==Command.CHAT){
-            sendChatMessage();
-            c = view.receiveCommand(false);
-        }
+//        Command c = view.receiveCommand(false);
+//        while(c==Command.CHAT){
+//            sendChatMessage();
+//            c = view.receiveCommand(false);
+//        }
     }
 
 
