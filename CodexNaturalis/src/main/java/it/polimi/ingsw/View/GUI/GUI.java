@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,22 @@ public class GUI extends Application implements UserInterface {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("nickname.fxml"));
+        this.primaryStage = primaryStage;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/it/polimi/ingsw/View/GUI/Nickname.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 800, 600);
         primaryStage.setTitle("Codex Naturalis");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(windowEvent -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
         primaryStage.show();
     }
+
 
 
     public static void main(String[] args){
@@ -64,13 +76,13 @@ public class GUI extends Application implements UserInterface {
 
     @Override
     public String selectNickName() {
-        NicknameScene nickNameScene = new NicknameScene();
-        Platform.runLater(() -> {
-           Scene scene = new Scene(nickNameScene.getRoot());
-           primaryStage.setScene(scene);
-            primaryStage.show();
-        });
-
+//        NicknameScene nickNameScene = new NicknameScene();
+//        Platform.runLater(() -> {
+//           Scene scene = new Scene(nickNameScene.getRoot());
+//           primaryStage.setScene(scene);
+//            primaryStage.show();
+//        });
+//
         return toString();
     }
 
