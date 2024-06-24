@@ -14,14 +14,14 @@ Maestrello Lucrezia <br>
 
 # Implemented Features
 
-| Feature                              |   Status                |
-|--------------------------------------|-------------------------|
-| Complete rules                       | :check_box_with_check:  |
-| Socket and RMI                       | :check_box_with_check:  |
-| Multiple Games                       | :check_box_with_check:  |
-| TUI                                  | :check_box_with_check:  |
-| GUI                                  |                         |
-| Persistence                          |                         |
-| Chat                                 | :cross_mark:            |
-| Resilience to clients disconnections | :cross_mark:            |
+| Feature                              |Status|
+|--------------------------------------|----- |
+| Complete rules                       | ✅   |
+| Socket and RMI                       | ✅   |
+| Multiple Games                       | ✅   |
+| TUI                                  | ✅   |
+| GUI                                  |      |
+| Persistence                          |      |
+| Chat                                 | ❌   |
+| Resilience to clients disconnections | ❌   |
 
