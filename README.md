@@ -8,7 +8,7 @@ This is a Java implementation of CodexNaturalis, a board game designed by Thomas
 
 ## Students
 Giaccotto Carmen <br>
-Gherman Denisa <br>
+Gherman Denisa Minodora <br>
 Franchetti-Rosada Alessia <br>
 Maestrello Lucrezia <br>
 
