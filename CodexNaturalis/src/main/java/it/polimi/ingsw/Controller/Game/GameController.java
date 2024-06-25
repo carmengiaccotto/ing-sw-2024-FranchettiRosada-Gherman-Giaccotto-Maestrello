@@ -394,7 +394,29 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      */
     @Override
     public void removeAvailableColor(PawnColor color) throws RemoteException {
-        availableColors.remove(color);
+        synchronized (availableColors) {
+            if (availableColors.contains(color)) {
+                availableColors.remove(color);
+                List<Thread> threads = new ArrayList<>();
+                for (ClientControllerInterface client : listener.getPlayers()) {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            if (client.getPawnColor() == null) {
+                                client.displayAvailableColors(availableColors);
+                            } else {
+                                client.sendUpdateMessage("Waiting for all players to choose their pawn color...");
+                            }
+                        } catch (RemoteException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    threads.add(thread);
+                    thread.start();
+                }
+            } else {
+                System.out.println("Color not available: " + color);
+            }
+        }
     }
 
     /**

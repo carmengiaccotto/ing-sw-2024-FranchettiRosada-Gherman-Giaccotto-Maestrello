@@ -135,6 +135,11 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     }
 
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
+
+    }
+
     /**
      * Method that allows the player to choose a nickname.
      * @return String representing the chosen nickname.

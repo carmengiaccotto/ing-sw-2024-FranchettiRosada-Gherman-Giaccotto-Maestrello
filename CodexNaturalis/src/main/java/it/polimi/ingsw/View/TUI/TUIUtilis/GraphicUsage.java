@@ -41,6 +41,12 @@ public class GraphicUsage {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
+    public static final String legenda="   I=INSECT             P=PLANT              M=MANUSCRIPT                A=ANIMAL              K=INKWELL              F=FUNGI               Q=QUILL\n" +
+            "____\\\\.//____           . /\\                  -------@)                //\\\\___//\\\\              ./)                   _____                   /\n" +
+            "\\\\___\\|/___//          / / |                /      //                 (   O   O  )             ///                   /*****\\              .__/__.  \n" +
+            " //___|___\\\\           \\/_/                /      //                   <  (o)   >             \\/-                   *-------*             |______|\n" +
+            "                       /                 (@--------                        ┴                 .                         |_|\n";
+
 
     // Game over and win messages, and game title
     public static final String game_over = ANSI_RED +

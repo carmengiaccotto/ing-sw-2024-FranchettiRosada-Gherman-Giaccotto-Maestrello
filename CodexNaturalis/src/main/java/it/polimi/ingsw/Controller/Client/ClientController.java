@@ -7,8 +7,6 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Message;
-import it.polimi.ingsw.Model.Chat.PrivateMessage;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -25,7 +23,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 
 /**
  * This class represents the client-side controller for the game.
@@ -301,15 +298,56 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     @Override
     public void ChoosePawnColor() throws RemoteException {
-        List<PawnColor> availableColors = game.getAvailableColors();
-        int choice = view.displayAvailableColors(availableColors);
-        if(choice <= 0 || choice > availableColors.size()){
-            System.out.println("Invalid color, please select a new One");
-            ChoosePawnColor();
-        } else {
-            player.setPawnColor(availableColors.get(choice - 1));
-            game.removeAvailableColor(availableColors.get(choice - 1));
+        List<PawnColor> availableColors;
+
+        synchronized (game.getAvailableColors()) {
+            // Fetch and display available colors inside synchronized block
+            availableColors = new ArrayList<>(game.getAvailableColors());
+            System.out.println("Available colors before choosing: " + availableColors.size());
+            view.displayAvailableColors(availableColors);//todo per socket è equivalente chiamare view o metodo client?
         }
+
+        int choice = -1;
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            int input = view.getInput(); // This method should handle retrieving the input from the user
+
+            synchronized (game.getAvailableColors()) {
+                // Fetch the latest list of available colors to ensure up-to-date information
+                availableColors = new ArrayList<>(game.getAvailableColors());
+
+                if (input > 0 && input <= availableColors.size()) {
+                    choice = input;
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid color, please select a valid one.");
+                    view.displayAvailableColors(availableColors);
+                }
+            }
+        }
+
+        // Fetch the chosen color
+        PawnColor chosenColor = availableColors.get(choice - 1);
+
+        // Communicate with the server to remove the chosen color from the main list
+        synchronized (game.getAvailableColors()) {
+            player.setPawnColor(chosenColor);
+            game.removeAvailableColor(chosenColor);
+
+            //message.append("Player ").append(getNickname()).append(" has chosen the color ").append(chosenColor).append("\n");
+
+
+            // Update the local list of available colors
+            availableColors.remove(chosenColor);
+        }
+
+        System.out.println("You have chosen the color " + chosenColor);
+    }
+
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
+        view.displayAvailableColors(availableColors);
     }
 
     /**

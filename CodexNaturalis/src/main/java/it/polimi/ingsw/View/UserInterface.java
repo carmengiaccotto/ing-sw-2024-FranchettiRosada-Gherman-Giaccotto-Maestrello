@@ -43,7 +43,7 @@ public interface UserInterface {
 
     void showInitialCard(InitialCard card);
 
-    int  displayAvailableColors(List<PawnColor> availableColors);
+    void displayAvailableColors(List<PawnColor> availableColors);
 
     void waitingForPlayers();
 
@@ -57,4 +57,6 @@ public interface UserInterface {
     void showString(String s);
 
     Pair<String, String> sendChatMessage(ArrayList<Player> players);
+
+    int getInput();
 }
