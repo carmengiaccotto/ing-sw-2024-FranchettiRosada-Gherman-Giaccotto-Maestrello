@@ -75,6 +75,11 @@ public class GameListenerForClientSocket extends GameListener {
 //                System.out.println("Error during call to showBoardAndPlayAreas: " + e.getMessage());
 //            }
 //        }
+        try {
+            sendMessage(new UpdatePlayersMessage(model));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

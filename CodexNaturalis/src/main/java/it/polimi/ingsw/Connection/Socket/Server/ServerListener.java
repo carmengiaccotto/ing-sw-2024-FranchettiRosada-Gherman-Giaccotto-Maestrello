@@ -216,7 +216,9 @@ public class ServerListener extends Thread implements Serializable {
                     } else if (message instanceof UpdatePlayersMessage) {
                         try {
                             UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage)message;
-                            if(updatePlayersMessage.getNickname() != null) {
+                            if(updatePlayersMessage.getPlayGround() != null) {
+                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getPlayGround());
+                            } else if(updatePlayersMessage.getNickname() != null) {
                                 ClientControllerInterface currentPlayer = null;
                                 for (ClientControllerInterface player : gamecontroller.getListener().getPlayers()) {
                                     if (player.getNickname().equals(updatePlayersMessage.getNickname())) {
@@ -293,7 +295,7 @@ public class ServerListener extends Thread implements Serializable {
                         }
                     }
                 });
-                scheduler.schedule(thread, 1, TimeUnit.SECONDS);
+                scheduler.schedule(thread, 100, TimeUnit.MILLISECONDS);
             }
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();

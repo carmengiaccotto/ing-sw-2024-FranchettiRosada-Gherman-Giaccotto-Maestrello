@@ -2,6 +2,7 @@ package it.polimi.ingsw.Connection.Socket.Client;
 
 import it.polimi.ingsw.Connection.Socket.Messages.*;
 import it.polimi.ingsw.Controller.Client.ClientController;
+import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
@@ -137,6 +138,19 @@ class ClientListener extends Thread {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
+                        } else if (message instanceof GetPawnColorMessage) {
+                            try {
+                                PawnColor pawnColor = clientController.getPawnColor();
+                                sendMessage(new GetPawnColorResponse(pawnColor));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else if (message instanceof ShowBoardAndPlayAreasMessage) {
+                            try {
+                                clientController.showBoardAndPlayAreas(((ShowBoardAndPlayAreasMessage) message).getPlayGround());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         } else if (message instanceof GetPlayersResponse) {
                             synchronized (getPlayerResponseLockObject) {
                                 getPlayerResponse = (GetPlayersResponse) message;
@@ -209,7 +223,7 @@ class ClientListener extends Thread {
                             }
                         }
                     });
-                    scheduler.schedule(thread, 1, TimeUnit.SECONDS);
+                    scheduler.schedule(thread, 100, TimeUnit.MILLISECONDS);
                 } catch (OptionalDataException ex) {
                     ex.printStackTrace();
                 }

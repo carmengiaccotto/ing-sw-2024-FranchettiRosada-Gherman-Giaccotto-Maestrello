@@ -59,6 +59,18 @@ public class Player implements Serializable {
         this.reconnected = false;
     }
 
+    public Player(Player p) {
+        this.playArea = new PlayArea();
+        this.nickname = p.getNickname();
+        this.pawnColor = p.getPawnColor();
+        this.score = p.getScore();
+        this.cardsInHand = p.getCardsInHand();
+        this.round = p.getRound();
+        this.personalObjectiveCard = p.getPersonalObjectiveCard();
+        this.initialCard=p.getInitialCard();
+        this.reconnected = p.isReconnected();
+    }
+
     public boolean isReconnected() {
         return reconnected;
     }
