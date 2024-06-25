@@ -80,10 +80,7 @@ public class GraphicUsage {
         cardColorDictionary.put(CardColors.BLUE,"A");//A=Animal
         cardColorDictionary.put(CardColors.PURPLE,"I");//I=Insect
     }
-
-
-
-
+    
 
    static {
        ColorDictionary.put(CardColors.RED,new int[]{255, 93, 93});
