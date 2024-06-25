@@ -4,6 +4,7 @@ import it.polimi.ingsw.Connection.RMI.RMIClient;
 import it.polimi.ingsw.Connection.Socket.Client.SocketClient;
 import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.View.GUI.GUI;
 import it.polimi.ingsw.View.TUI.TUI;
 import it.polimi.ingsw.View.UserInterface;
 
@@ -46,17 +47,30 @@ public class Client {
     public void selectView() throws RemoteException {
         System.out.print("Select type of view: \n 1. Command Line Interface \n 2. Graphic User Interface \n>>");
         Scanner scanner = new Scanner(System.in);
-        int choice= scanner.nextInt();
+        int choice= 0;
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter an integer.");
+            scanner.next(); // discard the non-integer input
+        }
+        choice = scanner.nextInt();
+        while (choice != 1 && choice!= 2) {
+            System.out.println("Invalid choice, please try again.");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+            } else {
+                System.out.println("Invalid input. Please enter an integer.");
+                scanner.next(); // discard the non-integer input
+            }
+        }
+
         switch (choice){
             case 1:
                 client.setView(new TUI());
                 break;
             case 2:
-                //view = new GUI();
+                view = new GUI();
                 break;
-            default:
-                System.out.println("Invalid choice, please try again");
-                selectView();
+
         }
     }
 
@@ -67,7 +81,21 @@ public class Client {
     public void selectProtocol() {
         System.out.print("Select network protocol: \n 1. RMI \n 2. SOCKET \n>>");
         Scanner scanner = new Scanner(System.in);
-        int protocol = scanner.nextInt();
+        int protocol = 0;
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter  1 or 2.");
+            scanner.next(); // discard the non-integer input
+        }
+        protocol = scanner.nextInt();
+        while (protocol != 1 && protocol != 2) {
+            System.out.println("Invalid choice, please try again.");
+            if (scanner.hasNextInt()) {
+                protocol = scanner.nextInt();
+            } else {
+                System.out.println("Invalid input. Please enter 1 or 2.");
+                scanner.next(); // discard the non-integer input
+            }
+        }
         switch (protocol) {
             case 1:
                 try {
@@ -78,12 +106,9 @@ public class Client {
                 }
                 break;
             case 2:
-                this.client=new SocketClient();
+                this.client = new SocketClient();
                 ((SocketClient) client).setController(clientController);
                 break;
-            default:
-                System.out.println("Invalid choice, please try again");
-                selectProtocol();
         }
     }
 
