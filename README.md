@@ -27,4 +27,14 @@ Maestrello Lucrezia <br>
 
 ## How to use
 
-## Credits
+## More
+
+**Tools and Software Used**
+
+- **[Draw.io](https://www.drawio.com)**: UML and sequence diagrams.
+- **[IntelliJ IDEA](https://www.jetbrains.com/idea/)**: Main IDE for project development.
+- **[JavaFX](https://openjfx.io/)**: GUI design.
+- **[Maven](https://maven.apache.org/)**: Package and dependency management.
+- **[SceneBuilder](https://gluonhq.com/products/scene-builder/)**: GUI design.
+- **[Overleaf](https://www.overleaf.com/)**: Documentation.
+
