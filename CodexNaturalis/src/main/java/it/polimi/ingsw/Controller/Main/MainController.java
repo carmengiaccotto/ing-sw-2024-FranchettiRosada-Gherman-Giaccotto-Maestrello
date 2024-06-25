@@ -15,6 +15,11 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * MainController class is responsible for managing the main game logic.
+ * It maintains a list of connected clients, a list of running games, and a thread pool for multi-game feature.
+ * It also ensures that each client has a unique nickname.
+ */
 public class MainController extends UnicastRemoteObject implements MainControllerInterface {
     /**ArrayList of Connected Clients*/
     private final ArrayList<ClientControllerInterface> clients;
@@ -30,12 +35,22 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     private static MainController instance = null;
 
+    /**
+     * MainController constructor initializes the list of clients, running games and the executor service.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public MainController() throws RemoteException {
         super();
         this.clients = new ArrayList<ClientControllerInterface>();
         this.runningGames=new ArrayList<>();
         this.executor = Executors.newCachedThreadPool();
     }
+
+    /**
+     * Singleton pattern is used to ensure that only one instance of MainController exists.
+     * @return The single instance of MainController.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public static MainController getInstance() throws RemoteException {
         if (instance == null) {
             instance = new MainController();
@@ -43,10 +58,16 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return instance;
     }
 
-
     /**
-     * Method that returns an association between the Game ID and the number of players that can join that game
-     * @return association */
+     * This method returns an association between the Game ID and the number of players that can join that game.
+     * It first creates an empty ArrayList of Pair objects, where each Pair contains an Integer representing the Game ID and an Integer representing the number of players.
+     * Then, it iterates through each game that is currently waiting for players to join.
+     * For each game, it creates a new Pair with the game's ID and the number of players, and adds this Pair to the ArrayList.
+     * Finally, it returns the ArrayList of Pairs.
+     *
+     * @return An ArrayList of Pair objects, where each Pair contains an Integer representing the Game ID and an Integer representing the number of players that can join that game.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     @Override
     public synchronized ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
         ArrayList<Pair<Integer, Integer>> numPlayers = new ArrayList<>();
@@ -57,48 +78,63 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return numPlayers;
     }
 
-
-    /**Method that adds the Client to the list of connected Client, and adds it to the lobby
-     * @param client  that connected*/
+    /**
+     * This method is used to connect a client to the server.
+     * It first prints a message to the console indicating that a new client has connected.
+     * Then, it adds the client to the list of connected clients.
+     *
+     * @param client The client that is connecting to the server. This is an instance of ClientControllerInterface.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     @Override
     public void connect(ClientControllerInterface client) throws RemoteException {
         System.out.println("New Client Connected");
         clients.add(client);
     }
 
-
-    /**Method that checks if the Client is trying to choose a nickname that has already been chosen by
-     * another client. If the nickname is already taken, the player is sent back to the lobby, in
-     * order to choose a new one, else the client's nickname is set to the chosen one
+    /**
+     * Checks if the provided nickname is unique among the connected clients.
      *
-     * @param name nickname that the client wants to choose.
-     * */
+     * This method is used when a client is trying to choose a nickname. It checks if the nickname has already been chosen by another client.
+     * If the nickname is already taken, the method returns false, indicating that the player should be sent back to the lobby to choose a new one.
+     * If the nickname is not taken, the method returns true, indicating that the client's nickname can be set to the chosen one.
+     *
+     * @param name The nickname that the client wants to choose.
+     * @return A boolean value indicating whether the nickname is unique. Returns true if the nickname is unique, false otherwise.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     @Override
     public synchronized boolean checkUniqueNickName(String name) throws RemoteException {
         return !nicknames.contains(name);
     }
 
-
-
     /**
-     * Method that adds the nickname to the list of already used nicknames
+     * Adds a new nickname to the list of already used nicknames.
      *
-     * @param name that another player just chose
-     * */
+     * This method is used when a player has chosen a nickname and it has been confirmed to be unique.
+     * The chosen nickname is added to the list of nicknames that have already been used, to ensure that future players cannot choose the same nickname.
+     *
+     * @param name The nickname that the player has chosen. This is a string.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     @Override
     public synchronized void addNickname(String name) throws RemoteException  {
         nicknames.add(name);
     }
 
-
     /**
-     * Method that allows the Client to join a game already created by another Client.
-     * The Client had previously seen a list of the available games, and chose one. Now is
-     * being added to the chosen game
+     * Allows a client to join an existing game.
      *
-     * @param client to be added to the new game
-     * @param GameID id of the game the client chose
-     *               Once the player has been added to the game, the Game gets notified
+     * This method is used when a client wants to join a game that has been created by another client.
+     * The client had previously seen a list of the available games and chose one.
+     * The method first initializes a GameController object to null.
+     * Then, it iterates through each running game.
+     * If the ID of a game matches the provided GameID, the game is assigned to the GameController object and the client's game is set to this game.
+     * If the GameController object is not null after the iteration, the client is added to the game and the game state is saved.
+     *
+     * @param client The client that wants to join the game. This is an instance of ClientControllerInterface.
+     * @param GameID The ID of the game that the client wants to join.
+     * @throws RemoteException If a remote or network communication error occurs.
      */
     @Override
     public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
@@ -129,10 +165,18 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
 
     /**
-     * Method that gives the Client a list of game it can join. Only games that are waiting to reach the
-     * required number of player are displayed
+     * Provides a list of games that a client can join. Only games that are still waiting for the required number of players are displayed.
      *
-     * @return Map of available games, with the id of the game as key, and the list of players in the game as value
+     * This method first initializes a HashMap to store the available games.
+     * It then retrieves a list of games that are still waiting for players to join.
+     * For each game in this list, it creates an ArrayList of the nicknames of the players in the game.
+     * If a player has a null nickname, a warning is printed to the console.
+     * If a game has a null listener or a null players list, a warning is printed to the console.
+     * The game's ID and the list of player nicknames are then added to the HashMap.
+     * Finally, the HashMap of available games is returned.
+     *
+     * @return A Map of available games, where the key is the game's ID and the value is an ArrayList of the nicknames of the players in the game.
+     * @throws RemoteException If a remote or network communication error occurs.
      */
     @Override
     public Map<Integer, ArrayList<String>>  DisplayAvailableGames() throws RemoteException {
@@ -161,11 +205,21 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
 
     /**
-     * method that creates a new game, adds it to the list of running games, and adds the Client
-     * that created it to the list of players of said game. Notifies the game that a new player joined
+     * Creates a new game, adds it to the list of running games, and adds the client that created it to the list of players of the game.
+     * It also notifies the game that a new player has joined.
      *
-     * @param client that created the game
-     * @return newGame that was created
+     * The method first creates a new GameController object with the specified number of players and the size of the running games list as the game ID.
+     * It then submits the new game to the executor service for execution.
+     * The new game is added to the list of running games.
+     * The client that created the game is added to the list of players of the new game.
+     * The client's game is set to the new game.
+     * The game state is saved.
+     * Finally, the new game is returned.
+     *
+     * @param client The client that created the game. This is an instance of ClientControllerInterface.
+     * @param n The number of players in the new game.
+     * @return The new game that was created. This is an instance of GameControllerInterface.
+     * @throws RemoteException If a remote or network communication error occurs.
      */
     @Override
     public  synchronized GameControllerInterface createGame(ClientControllerInterface client, int n) throws RemoteException {
@@ -179,21 +233,33 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     }
 
 
-    /**Method that notifies the game that a new player has joined.
-     *@param game to be notified
-     *@param client that joined the game*/
+    /**
+     * Notifies a game that a new player has joined.
+     *
+     * This method is used when a player has successfully joined a game.
+     * It calls the NotifyNewPlayerJoined method of the game, passing the client that joined as an argument.
+     * This allows the game to update its state to reflect the new player.
+     *
+     * @param game The game that the player has joined. This is an instance of GameControllerInterface.
+     * @param client The player that has joined the game. This is an instance of ClientControllerInterface.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     @Override
     public synchronized void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         game.NotifyNewPlayerJoined(client);
     }
 
-
-
     /**
-     * Method that returns the list of games that are still in the waiting status, so still waiting for players to Join
-     * @return games
-     * */
-
+     * Returns a list of games that are currently in the waiting status, i.e., waiting for players to join.
+     *
+     * This method first initializes an empty ArrayList to store the games in waiting.
+     * It then iterates through each game in the list of running games.
+     * If a game's status is WAITING, it is added to the ArrayList of games in waiting.
+     * If a RemoteException is thrown during the retrieval of a game's status, it is wrapped in a RuntimeException and rethrown.
+     * Finally, the ArrayList of games in waiting is returned.
+     *
+     * @return An ArrayList of GameControllerInterface objects representing the games that are currently in the waiting status.
+     */
     private synchronized ArrayList<GameControllerInterface> gamesInWaiting(){
         ArrayList<GameControllerInterface> games = new ArrayList<>();
         for(GameController game: runningGames){
@@ -206,7 +272,5 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         }
         return games;
     }
-
-
 
 }
