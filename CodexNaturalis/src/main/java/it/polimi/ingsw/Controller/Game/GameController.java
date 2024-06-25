@@ -167,17 +167,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     currentPlayerNickname = currentPlayer.getNickname();
 
                     List<Thread> threads = new ArrayList<>();
-                    CountDownLatch latch = new CountDownLatch(1);
 
                     for (ClientControllerInterface c : listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
                             try {
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
                                     c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
-                                    c.WhatDoIDoNow("NOT-MY-TURN");
                                 } else {
                                     c.WhatDoIDoNow("PLAY-TURN");
-                                    latch.countDown();
                                 }
                             } catch (RemoteException e) {
                                 //todo handle exception
@@ -189,7 +186,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                     for (Thread thread : threads) {
                         try {
-                            latch.await(); // wait for the current player to finish
+                            thread.join(); // wait for the current player to finish
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -470,6 +467,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
+    private boolean allPlayersReady() throws RemoteException {
+        for(ClientControllerInterface c: listener.getPlayers()){
+            if(c.getPawnColor()==null)
+                return false;
+        }
+        return true;
+    }
+
 
 
     /**
@@ -479,9 +484,19 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      */
     public void CheckMaxNumPlayerReached() throws RemoteException {
         if(listener.getPlayers().size()==getNumPlayers()){
-            setStatus(GameStatus.SETUP);
-            if (executor.isShutdown()) {
-                executor.execute(this);
+            if(allPlayersReady()) {
+                setStatus(GameStatus.SETUP);
+                if (executor.isShutdown()) {
+                    executor.execute(this);
+                }
+            }else {
+                for (ClientControllerInterface c : listener.getPlayers()) {
+                    if (c.getPawnColor() != null) {
+                        c.sendUpdateMessage("Waiting for all players to choose their pawn color...");
+                    }else{
+                        c.sendUpdateMessage("Please choose a pawn color.");
+                    }
+                }
             }
         }
         else{
@@ -754,24 +769,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return covering;
         }
 
-    @Override
-    public void sendPrivateMessage(Message message, String receiver) throws RemoteException {
-        String ANSI_CYAN = "\u001B[36m";
-        String ANSI_RESET = "\u001B[0m";
-        char envelope = '\u2709';
-        String bold = "\033[1m";
-        String reset = "\033[0m";
-        String receiverName =receiver;
-        for(ClientControllerInterface c: listener.getPlayers()){
-            if(c.getNickname().equals(receiverName)){
-                try {
-                    c.sendUpdateMessage("\n"+ANSI_CYAN+bold+envelope+"["+ message.getSender().getNickname()+"] to [YOU] : "+message.getText()+"\n"+reset+ANSI_RESET);
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    }
+
 
 
     /**Method that Checks if the Player is trying to cover two corners of the same Card while placing a card
@@ -793,19 +791,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     }
 
 
-    public Chat getChat() {
-        synchronized (chat) {
-            return chat;
-        }
-    }
 
 
-    @Override
-    public void addMessageToChat(Message message) {
-        synchronized (chat) {
-            chat.addMessage(message);
-        }
-    }
+
+
 
     public void saveGameState() throws RemoteException {
         synchronized (this) {

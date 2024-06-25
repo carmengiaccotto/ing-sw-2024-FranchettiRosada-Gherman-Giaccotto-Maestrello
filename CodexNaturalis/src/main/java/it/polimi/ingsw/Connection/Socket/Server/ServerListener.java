@@ -166,13 +166,6 @@ public class ServerListener extends Thread implements Serializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if (message instanceof GetChatMessage) {
-                        Chat response = gamecontroller.getChat();
-                        try {
-                            sendMessage(new GetChatResponse(response));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
                     } else if (message instanceof ExtractPlayerHandCardsMessage) {
                         try {
                             ArrayList<PlayCard> cards = gamecontroller.extractPlayerHandCards();

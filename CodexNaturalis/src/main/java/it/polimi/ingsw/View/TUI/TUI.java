@@ -268,19 +268,16 @@ public class TUI implements UserInterface, Serializable {
 
 
     @Override
-    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
         String ANSI_CYAN = "\u001B[36m";
         StringBuilder opponentsInfo = new StringBuilder();
         for(Player p: opponents){
             if(p!=me)
                 opponentsInfo.append(TUIComponents.showOpponent(p)).append("\n");
         }
-        String opp= TUIComponents.createBoxWithSpace( opponentsInfo.toString(), "\033[30m", 0);
-        ArrayList<String> chatMessages = viewChat(myChat, me);
-        String Chat= TUIComponents.formatStringList( chatMessages);
-        String chatBox= TUIComponents.createBoxWithSpace(Chat, ANSI_CYAN, 0);
-        String finalOutput = TUIComponents.concatString(opp, chatBox, 30);
-        System.out.println(finalOutput);
+
+
+        System.out.println(opponentsInfo.toString());
         System.out.println();
         System.out.println(TUIComponents.showCommonCards(model));
         System.out.println();
@@ -371,7 +368,9 @@ public class TUI implements UserInterface, Serializable {
         }else if(s == "GAME_OVER"){
             printMessage(GraphicUsage.game_over);
         }else if(s == "CODEX_NATURALIS"){
-            printMessage(GraphicUsage.codex_naturalis_string);
+            StringBuilder sb=new StringBuilder();
+            sb.append(GraphicUsage.codex_naturalis_string);
+           // printMessage(GraphicUsage.codex_naturalis_string);
         }
     }
 

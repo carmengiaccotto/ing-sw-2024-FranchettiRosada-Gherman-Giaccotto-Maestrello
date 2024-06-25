@@ -1,10 +1,8 @@
 package it.polimi.ingsw.View.TUI.TUIUtilis;
 
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Enumerations.CornerPosition;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
-import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -12,7 +10,6 @@ import it.polimi.ingsw.Model.PlayGround.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
@@ -446,6 +443,10 @@ public class TUIComponents {
 
         output.append(bottom);
         return output.toString();
+    }
+
+    public static void createASCIILegend(){
+
     }
 
     public static void main(String[] args) throws IOException {

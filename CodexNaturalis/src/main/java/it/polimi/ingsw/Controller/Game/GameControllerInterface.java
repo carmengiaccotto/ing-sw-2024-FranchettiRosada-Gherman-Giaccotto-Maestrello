@@ -121,10 +121,6 @@ public interface GameControllerInterface extends Remote, Serializable {
 
     boolean isValidMove(PlayArea playArea, int row, int column, SideOfCard newCard) throws RemoteException;
 
-    void addMessageToChat(Message message) throws RemoteException;
-    Chat getChat() throws RemoteException;
-
-    void sendPrivateMessage(Message message, String first) throws RemoteException;
 
     String finalRanking() throws RemoteException;
 

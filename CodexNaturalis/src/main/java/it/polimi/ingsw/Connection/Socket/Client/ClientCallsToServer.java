@@ -399,26 +399,8 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         }
     }
 
-    @Override
-    public void addMessageToChat(Message message) throws RemoteException {
 
-    }
 
-    @Override
-    public Chat getChat() throws RemoteException {
-        try {
-            sendMessage(new GetChatMessage());
-            GetChatResponse response = listener.getChatResponse();
-            return response.getChat();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void sendPrivateMessage(Message message, String first) throws RemoteException {
-
-    }
 
     @Override
     public String finalRanking() throws RemoteException {

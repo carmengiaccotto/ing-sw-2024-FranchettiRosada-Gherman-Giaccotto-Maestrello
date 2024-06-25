@@ -110,7 +110,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat) {
+    public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
 
     }
 

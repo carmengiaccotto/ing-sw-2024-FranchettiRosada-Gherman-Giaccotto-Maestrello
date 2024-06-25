@@ -37,7 +37,7 @@ public interface UserInterface {
 
     int displayavailableGames(Map<Integer, ArrayList<String>> games, ArrayList<Pair<Integer, Integer>> numPlayers) throws RemoteException;
 
-    void printBoard(PlayGround model, ArrayList<Player> opponents, Player me, ArrayList<Message> myChat);
+    void printBoard(PlayGround model, ArrayList<Player> opponents, Player me);
 
     int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives);
 
