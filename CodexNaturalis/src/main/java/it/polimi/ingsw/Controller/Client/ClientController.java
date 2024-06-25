@@ -1,3 +1,6 @@
+/**
+ * This package contains the client-side controller for the game.
+ */
 package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
@@ -24,6 +27,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
+/**
+ * This class represents the client-side controller for the game.
+ * It extends UnicastRemoteObject and implements ClientControllerInterface.
+ */
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface {
     private UserInterface view;
     private GameControllerInterface game;
@@ -31,10 +38,20 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private MainControllerInterface server;
     private boolean ItsMyTurn;
 
+    /**
+     * Constructor for the ClientController class.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     public ClientController() throws RemoteException {
         game=null;
         view=null;
     }
+
+    /**
+     * This method is used to connect the client to the server.
+     * @param ip The IP address of the server.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void connect(String ip) throws RemoteException {
         server.connect(this);
@@ -42,49 +59,75 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         JoinLobby();
     }
 
-
+    /**
+     * This method is used to set the game controller for the client.
+     * @param game The game controller to be set for the client.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void setGame(GameControllerInterface game) throws RemoteException {
         this.game = game;
     }
 
+    /**
+     * This method is used to get the personal objective card of the player.
+     * @return ObjectiveCard representing the personal objective card of the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public ObjectiveCard getPersonalObjectiveCard() throws RemoteException {
         return player.getPersonalObjectiveCard();
     }
 
-
-    /**getter method for PawnColor attribute in Player attribute
-     * @return pawnColor that the player chose when joining the game */
+    /**
+     * This method is used to get the color of the pawn of the player.
+     * @return PawnColor representing the color of the pawn of the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public PawnColor getPawnColor() throws RemoteException{
         return player.getPawnColor();
     }
 
-
     /**
-     * method that sets the PersonalObjective card of the client.
+     * Sets the personal objective card for the player.
      *
-     * @param objectiveCard chosen objective card
-     * */
+     * @param objectiveCard The objective card to be set for the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void setPersonalObjectiveCard(ObjectiveCard objectiveCard) throws RemoteException {
         player.setPersonalObjectiveCard(objectiveCard);
     }
 
-    /**Player attribute getter method
-     * @return  player*/
+    /**
+     * Retrieves the player.
+     *
+     * @return Player object representing the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public Player getPlayer() throws RemoteException {
         return player;
     }
 
+    /**
+     * Displays the board and play areas.
+     *
+     * @param model The playground to be displayed.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
         ArrayList<Player> opponents= getOpponents();
-            view.printBoard(model, opponents, this.player);
+        view.printBoard(model, opponents, this.player);
     }
 
+    /**
+     * This method is used to get the opponents of the player.
+     * @return ArrayList<Player> representing the opponents of the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     private ArrayList<Player> getOpponents() throws RemoteException {
         ArrayList<Player> opponents= new ArrayList<>();
         for(Player p: game.getPlayers()){
@@ -95,13 +138,26 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         return opponents;
     }
 
-    /**Getter method for Player's playArea attribute
-     * @return PlayArea*/
+    /**
+     * This method is used to get the play area of the player.
+     * @return PlayArea representing the play area of the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     public PlayArea getPlayArea() throws RemoteException {
         return player.getPlayArea();
     }
 
 
+    /**
+     * Allows the player to choose a card to draw from the playground.
+     * The player can choose from the gold deck, resource deck, or the common resource or gold cards.
+     * If the player makes an invalid choice, they are prompted to make a valid selection.
+     * The chosen card is added to the player's hand.
+     *
+     * @param model The playground from which the card is to be drawn.
+     * @return PlayGround object after the card has been drawn.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public PlayGround chooseCardToDraw(PlayGround model) throws RemoteException {
         PlayCard card;
@@ -151,110 +207,134 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         return model;
     }
 
-
+    /**
+     * Sends an update message to the player.
+     *
+     * @param message The message to be sent.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void sendUpdateMessage(String message) throws RemoteException{
         view.printMessage(message);
     }
 
     /**
-     * Method used to add a card to a player's hand of cards.
-     * Uses Model class Player
-     * @param card to be added to the hand of cards
-     * */
+     * Adds a card to the player's hand.
+     *
+     * @param card The card to be added to the player's hand.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void addCardToHand(PlayCard card) throws RemoteException {
         player.addCardToHand(card);
     }
 
-
     /**
-     * Player's Score getter method
-     * @return score
-     * */
+     * Retrieves the score of the player.
+     *
+     * @return int representing the score of the player.
+     */
     @Override
     public int getScore() {
         return player.getScore();
     }
 
     /**
-     * Player's Round getter method
-     * @return round
-     * */
+     * Retrieves the current round of the game.
+     *
+     * @return int representing the current round of the game.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public int getRound() throws RemoteException {
         return player.getRound();
     }
 
+    /**
+     * Sets the current round of the game.
+     *
+     * @param round The round to be set for the game.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     public void setRound(int round) throws RemoteException{
         player.setRound(round);
     }
 
+    /**
+     * Sets the server for the client.
+     *
+     * @param server The server to be set for the client.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void setServer(MainControllerInterface server) throws RemoteException {
         this.server=server;
     }
 
-    /**Method that sets the view to GUI or TUI basing on the choice the client made in Client class
-     * in SelectView method
-     * @param view chosen */
+    /**
+     * Sets the view to GUI or TUI based on the choice the client made in Client class in SelectView method.
+     *
+     * @param view The view to be set for the client.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void setView(UserInterface view) throws RemoteException{
         this.view=view;
     }
 
-
-
     /**
-     * Method that disconnects the player
-     * */
-        @Override
-        public void disconnect() throws RemoteException {//todo do we need this?
+     * Disconnects the player.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
+    @Override
+    public void disconnect() throws RemoteException {//todo do we need this?
         //TODO implement disconnection
-        }
-
-
-
-        /**
-         * Method that allows the player to choose a player from a list of the available colors,
-         * so the colors that have not already been taken by other players in the same game
-         * */
-
-        @Override
-        public void ChoosePawnColor() throws RemoteException {
-            List<PawnColor> availableColors = game.getAvailableColors();
-            int choice = view.displayAvailableColors(availableColors);
-            if(choice <= 0 || choice > availableColors.size()){
-                System.out.println("Invalid color, please select a new One");
-                ChoosePawnColor();
-            } else {
-                player.setPawnColor(availableColors.get(choice - 1));
-                game.removeAvailableColor(availableColors.get(choice - 1));
-            }
-        }
+    }
 
     /**
-     * Method that allows the player to set their nickname once the server verified that
-     * no other player has already chosen it.
+     * Allows the player to choose a color for their pawn from the list of available colors.
+     * The player is prompted to make a selection, and if the selection is invalid, they are asked to choose again.
+     * Once a valid selection is made, the chosen color is set for the player's pawn and removed from the list of available colors.
      *
-     * @return nickname chosen by the player
-     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
-        @Override
-        public String ChooseNickname() throws RemoteException {
-            return view.selectNickName();
+    @Override
+    public void ChoosePawnColor() throws RemoteException {
+        List<PawnColor> availableColors = game.getAvailableColors();
+        int choice = view.displayAvailableColors(availableColors);
+        if(choice <= 0 || choice > availableColors.size()){
+            System.out.println("Invalid color, please select a new One");
+            ChoosePawnColor();
+        } else {
+            player.setPawnColor(availableColors.get(choice - 1));
+            game.removeAvailableColor(availableColors.get(choice - 1));
         }
-
-
+    }
 
     /**
-     * Method that allows the player to choose the game they want to join between a list of available ones.
-     * availableGames are provided by MainController DisplayAvailableGames method.
-     * If there are no available games to join, createGame method is called.
-     * If the player chooses a game that is not on the list (control needed for TUI),
-     * the player gets to choose again if they want to create a new game or join an existing one.
+     * This method allows the player to set their nickname. The server verifies that
+     * no other player has already chosen the nickname. If the nickname is unique, it is set for the player.
+     *
+     * @return String representing the nickname chosen by the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
+    @Override
+    public String ChooseNickname() throws RemoteException {
+        return view.selectNickName();
+    }
 
+    /**
+     * This method allows the player to join a game.
+     * It first retrieves a list of available games from the server.
+     * If there are no available games, the player is prompted to set up a new game.
+     * If there are available games, the player is prompted to choose a game to join.
+     * If the player chooses a game that is not on the list, they are asked to choose again.
+     * Once a valid game is chosen, the player joins the game, chooses a color for their pawn,
+     * and a notification is sent to the server that the player has joined the game.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void JoinGame() throws RemoteException {
         Map<Integer, ArrayList<String>> availableGames= server.DisplayAvailableGames();
@@ -287,21 +367,38 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-    /**Getter method for Nickname attribute of Player attribute
-     * @return  nickname that identifies the client */
+    /**
+     * Retrieves the nickname of the player.
+     *
+     * @return String representing the nickname of the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public String getNickname() throws RemoteException{
         return player.getNickname();
     }
 
+    /**
+     * Sets the nickname for the player.
+     *
+     * @param nickname The nickname to be set for the player.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void setNickname(String nickname) throws RemoteException {
         player.setNickname(nickname);
     }
 
-
-    /**Method that allows the player to decide whether they want to create a new game or
-     * join one that has already been created by another player*/
+    /**
+     * This method allows the player to decide whether they want to create a new game or
+     * join one that has already been created by another player.
+     * The player is presented with the options to either create a new game or join an existing one.
+     * If the player chooses to create a new game, the newGameSetUp() method is called.
+     * If the player chooses to join an existing game, the JoinGame() method is called.
+     * If the player makes an invalid choice, they are prompted to make a valid selection.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void JoinOrCreateGame() throws RemoteException{
         view.showString("CODEX_NATURALIS");
@@ -331,10 +428,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-    /**Method called when a player wants to create a new game during the login phase.
-     * It allows the player to choose how many players they want for the new game.
+    /**
+     * This method is called when a player wants to create a new game during the login phase.
+     * It allows the player to choose the number of players they want for the new game.
      * The game is created only if the number of players is between 2 and 4.
-     * The actual creation of the game is handled by the server.*/
+     * The actual creation of the game is handled by the server.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void newGameSetUp() throws RemoteException {
         int n=view.MaxNumPlayers();
@@ -350,20 +451,27 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-
-    /**Method that tells the player that more players have to join the game in order to start.
-     * Uses UserInterface method */
+    /**
+     * Informs the player that more players need to join the game before it can start.
+     * This method uses the UserInterface method to display the waiting message.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void Wait() throws RemoteException {
         view.waitingForPlayers();
     }
 
-
-
-
     /**
-     * Method used by the player to join the lobby
-     * */
+     * This method is used by the player to join the lobby.
+     * The player chooses a nickname and the server checks if it's unique.
+     * If the nickname is already taken, the server checks for a previous game state.
+     * If a previous game state is found and the player hasn't reconnected yet, the player rejoins the game.
+     * If no previous game state is found or the player has already reconnected, the player is asked to choose a new nickname.
+     * After successfully setting a nickname, the player is asked to join or create a game.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void JoinLobby() throws RemoteException {
         String name = ChooseNickname();
@@ -393,6 +501,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         JoinOrCreateGame();
     }
 
+    /**
+     * This method is called when the player needs to perform an action based on the current game state.
+     * The possible actions are: initialize, play the initial card, play a turn, count the personal objective,
+     * and handle the end of the game (either as a winner or a loser).
+     *
+     * @param doThis A string representing the action the player needs to perform.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void WhatDoIDoNow(String doThis) throws RemoteException {
         switch(doThis){
@@ -443,13 +559,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-
-
-
     /**
-     * Method that allows the player to choose its private Objective as per game rules.
-     * A list of two cards is given, and the player sets its personal objective to the one it chooses.
-     * */
+     * This method allows the player to choose their private Objective as per game rules.
+     * The player is given a list of two cards and they choose one to set as their personal objective.
+     * After the player has chosen their card, the game is updated to reflect that the player has chosen their objective.
+     * If all players have chosen their objectives, a message is sent to all players.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     private synchronized void getMyObjectiveCard(){
         try {
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
@@ -469,15 +586,13 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-
-
-
     /**
+     * This method is responsible for distributing the initial hand of cards to the player.
+     * It retrieves a set of cards from the game and adds them to the player's hand.
+     * If a RemoteException occurs during the execution of the method, an error message is printed.
      *
-     * Method that distributes the initial hand of cards to the player.
-
-     * */
-
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     private synchronized void getMyHandOfCards(){
         try {
             for(PlayCard card: game.extractPlayerHandCards())
@@ -489,6 +604,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
+    /**
+     * This method is used when the player needs to play their initial card.
+     * It first sends a message to the player indicating that it's their turn to play the initial card.
+     * Then, it updates all players about the current player's turn to choose the initial card.
+     * The player is then shown their initial card and asked to choose a side for the card.
+     * The chosen side of the card is then added to the player's play area.
+     * Finally, it updates all players that the current player has played their initial card.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     private void playMyInitialCard() throws RemoteException {
         view.printMessage("It's your turn to play the initial card!");
         game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
@@ -498,8 +623,17 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
     }
 
-
-
+    /**
+     * This method allows the player to play a card during their turn.
+     * It first prompts the player to choose a card from their hand to play.
+     * If the chosen card is a GoldCard, it checks if the player has sufficient resources on their play area to play the card.
+     * If the player does not have sufficient resources, they are prompted to choose another card.
+     * If the player has sufficient resources, or if the chosen card is not a GoldCard, the player is asked to choose a side for the card.
+     * The player then chooses a position on their play area to place the card.
+     * If the chosen position is not valid according to the game rules, the player is prompted to choose a valid position.
+     * Once a valid position is chosen, the card is added to the player's play area and the player's score is increased by the points of the card.
+     * If a RemoteException occurs during the execution of the method, an error message is printed.
+     */
     private void playMyCard(){
         Boolean isValidPlay= true;
         int n= view.chooseCardToPlay(player.getCardsInHand());
@@ -533,7 +667,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
 
     }
 
-
+    /**
+     * This method is used when the player needs to play their turn.
+     * It first prompts the player to play a card from their hand.
+     * Then, it sends an update to all players indicating that the current player has played a card.
+     * If the game is still running, the player is prompted to choose a card to draw from the playground.
+     * The playground is then updated with the chosen card.
+     * Finally, it sends an update to all players showing the current state of the playground.
+     *
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     private void playMyTurn() throws RemoteException {
         playMyCard();
         game.getListener().updatePlayers(getNickname() + " has played a card.", this);
@@ -545,12 +688,15 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         }
     }
 
-
-
-   /**
-     * Method that adds the Common Objective Cards points scored by the player.
-     * */
-
+    /**
+     * This method calculates and adds the points scored by the player from the Common Objective Cards.
+     * It iterates over the common objective cards in the game model.
+     * If the card is a SymbolObjectiveCard, it calculates the number of goals the player has achieved and the points they have earned.
+     * If the card is a DispositionObjectiveCard, it calculates the number of dispositions the player has got and the points they have earned.
+     * The points are then added to the player's score.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void addCommonObjectiveCardsPoints() throws RemoteException {
         for (ObjectiveCard card : game.getModel().getCommonObjectivesCards()) {
             if (card instanceof SymbolObjectiveCard s) {
@@ -567,14 +713,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     }
 
     /**
-     * Calculates and adds the points from the personal objective card to each player's score.
+     * This method calculates and adds the points scored by the player from their Personal Objective Card.
+     * It checks the type of the Personal Objective Card.
      * If the card is a SymbolObjectiveCard, it calculates the number of goals the player has achieved and the points they have earned.
      * If the card is a DispositionObjectiveCard, it calculates the number of dispositions the player has got and the points they have earned.
      * The points are then added to the player's score.
      *
      * @throws RemoteException If a remote or network communication error occurs.
      */
-
     public void addPersonalObjectiveCardPoints() throws RemoteException {
         if (getPlayer().getPersonalObjectiveCard() instanceof SymbolObjectiveCard card) {
             int numOfGoals = card.CheckGoals(getPlayer().getPlayArea().getSymbols());
@@ -587,9 +733,4 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             getPlayer().increaseScore(points);
         }
     }
-
-
-
-
-
 }
