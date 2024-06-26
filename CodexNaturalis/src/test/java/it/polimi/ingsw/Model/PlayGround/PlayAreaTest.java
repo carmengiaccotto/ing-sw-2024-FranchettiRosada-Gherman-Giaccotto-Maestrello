@@ -7,9 +7,12 @@ import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -231,5 +234,46 @@ class PlayAreaTest {
     void testColumnNotexists(){
         assertFalse(playArea.columnExists(3));
     }
+
+    @Test
+    void testConstructorWithParameters(){
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        List<SideOfCard> row1 = new ArrayList<>();
+        List<SideOfCard> row2 = new ArrayList<>();
+        List<SideOfCard> row3 = new ArrayList<>();
+        row1.add(null);
+        row1.add(null);
+        row1.add(null);
+        row2.add(null);
+        row2.add(null);
+        row2.add(null);
+        row3.add(null);
+        row3.add(null);
+        row3.add(null);
+        cardsOnArea.add(row1);
+        cardsOnArea.add(row2);
+        cardsOnArea.add(row3);
+        playArea.setCardsOnArea(cardsOnArea);
+        Map<Symbol,Integer> map=new HashMap<>();
+        PlayArea playArea1 = new PlayArea(cardsOnArea, playArea.getSymbols());
+        assertEquals(playArea.getCardsOnArea(), playArea1.getCardsOnArea());
+        assertEquals(playArea.getSymbols(), playArea1.getSymbols());
+    }
+
+    @Test
+    void addCardOnAreaInvalidPositionPrintsMessage() {
+       Corner [][] corners={{new Corner(null, false), new Corner(null, false)},{new Corner(null, false), new Corner(null, false)}};
+        SideOfCard card = new SideOfCard(new HashMap<>(),corners);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // Act
+        playArea.addCardOnArea(card, 3, 3);
+
+        // Assert
+        String expectedOutput  = "Invalid Position" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
 
 }

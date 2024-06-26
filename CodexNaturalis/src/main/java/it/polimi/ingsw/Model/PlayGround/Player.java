@@ -75,9 +75,6 @@ public class Player implements Serializable {
         return reconnected;
     }
 
-    public void setReconnected(boolean reconnected) {
-        this.reconnected = reconnected;
-    }
 
 
 

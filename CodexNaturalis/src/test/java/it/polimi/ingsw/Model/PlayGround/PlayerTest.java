@@ -1,9 +1,6 @@
 package it.polimi.ingsw.Model.PlayGround;
 
-import it.polimi.ingsw.Model.Cards.Corner;
-import it.polimi.ingsw.Model.Cards.ObjectiveCard;
-import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
+import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.CardColors;
 import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
@@ -176,6 +173,31 @@ public class PlayerTest {
             testPlayer.setPersonalObjectiveCard(card);
             assertNotNull(testPlayer.getPersonalObjectiveCard());
             Assertions.assertEquals(card,testPlayer.getPersonalObjectiveCard());
+    }
+
+    @Test
+    public void testInitialCard(){
+        Player testPlayer = new Player();
+
+        InitialCard card=new InitialCard(1, null, null, null);
+        testPlayer.setInitialCard(card);
+        assertNotNull(testPlayer.getInitialCard());
+        Assertions.assertEquals(card,testPlayer.getInitialCard());
+    }
+
+
+    @Test
+    public void testConstructor(){
+        Player testPlayer = new Player();
+        Player testPlayer2 = new Player(testPlayer);
+        assertEquals(testPlayer.getNickname(), testPlayer2.getNickname());
+        assertEquals(testPlayer.getPawnColor(), testPlayer2.getPawnColor());
+        assertEquals(testPlayer.getScore(), testPlayer2.getScore());
+        assertEquals(testPlayer.getCardsInHand(), testPlayer2.getCardsInHand());
+        assertEquals(testPlayer.getRound(), testPlayer2.getRound());
+        assertEquals(testPlayer.getPersonalObjectiveCard(), testPlayer2.getPersonalObjectiveCard());
+        assertEquals(testPlayer.getInitialCard(), testPlayer2.getInitialCard());
+        assertEquals(testPlayer.isReconnected(), testPlayer2.isReconnected());
     }
 
 
