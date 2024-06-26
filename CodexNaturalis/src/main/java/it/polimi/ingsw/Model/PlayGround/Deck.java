@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Model.PlayGround;
 
 import it.polimi.ingsw.Model.Cards.Card;
+import it.polimi.ingsw.Model.Exceptions.DeckCreationException;
 import it.polimi.ingsw.Model.JsonHandler.JsonDeckCreator;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class Deck implements Serializable {
         try {
             this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DeckCreationException("Error during deck creation", e);
         }
     }
 

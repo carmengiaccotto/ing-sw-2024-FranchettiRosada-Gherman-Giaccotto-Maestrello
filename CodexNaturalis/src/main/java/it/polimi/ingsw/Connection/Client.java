@@ -4,6 +4,7 @@ import it.polimi.ingsw.Connection.RMI.RMIClient;
 import it.polimi.ingsw.Connection.Socket.Client.SocketClient;
 import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Model.Exceptions.ProtocolSelectionException;
 import it.polimi.ingsw.View.GUI.GUI;
 import it.polimi.ingsw.View.TUI.TUI;
 import it.polimi.ingsw.View.UserInterface;
@@ -102,7 +103,7 @@ public class Client {
                     this.client = new RMIClient();
                     ((RMIClient) client).setController(clientController);
                 } catch (RemoteException e) {
-                    throw new RuntimeException(e);
+                    throw new ProtocolSelectionException("Error during RMI client creation", e);
                 }
                 break;
             case 2:

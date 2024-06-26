@@ -6,14 +6,11 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameListener;
 import it.polimi.ingsw.Controller.Game.GameListenerForClientSocket;
-import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Chat.Chat;
-import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Symbol;
@@ -399,26 +396,8 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         }
     }
 
-
-
-
     @Override
     public String finalRanking() throws RemoteException {
         return null;
-    }
-
-    @Override
-    public GameState loadGameState(String nickname) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public void saveGameState() throws RemoteException {
-
-    }
-
-    @Override
-    public void GameLoop(GameStatus status) throws RemoteException {
-
     }
 }

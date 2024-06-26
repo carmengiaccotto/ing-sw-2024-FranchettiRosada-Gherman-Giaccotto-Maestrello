@@ -4,6 +4,8 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
+import it.polimi.ingsw.Model.Exceptions.GameJoinException;
+import it.polimi.ingsw.Model.Exceptions.GameStatusException;
 import it.polimi.ingsw.Model.Pair;
 
 import java.rmi.RemoteException;
@@ -137,30 +139,29 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @throws RemoteException If a remote or network communication error occurs.
      */
     @Override
-    public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException {
-            GameController gameToJoin=null;
-            synchronized (new Object()) {
-                for (GameController game : runningGames) {
-                    try {
-                        if (game.getId() == GameID) {
-                            gameToJoin = game;
-                            client.setGame(gameToJoin);
-                        }
-
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
+    public void joinGame(ClientControllerInterface client, int GameID) throws RemoteException{
+        GameController gameToJoin=null;
+        synchronized (new Object()) {
+            for (GameController game : runningGames) {
                 try {
-                    if (gameToJoin != null) {
-                        gameToJoin.addPlayer(client);
-                        gameToJoin.saveGameState();
+                    if (game.getId() == GameID) {
+                        gameToJoin = game;
+                        client.setGame(gameToJoin);
                     }
+
                 } catch (RemoteException e) {
-                    throw new RuntimeException(e);
+                    throw new GameJoinException("Error while setting game to join", e);
                 }
             }
+
+            try {
+                if (gameToJoin != null) {
+                    gameToJoin.addPlayer(client);
+                }
+            } catch (RemoteException e) {
+                throw new GameJoinException("Error while adding player to game", e);
+            }
+        }
     }
 
 
@@ -228,7 +229,6 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         runningGames.add(newGame);
         newGame.addPlayer(client);
         client.setGame(newGame);
-        newGame.saveGameState();
         return newGame;
     }
 
@@ -260,14 +260,14 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      *
      * @return An ArrayList of GameControllerInterface objects representing the games that are currently in the waiting status.
      */
-    private synchronized ArrayList<GameControllerInterface> gamesInWaiting(){
+    private synchronized ArrayList<GameControllerInterface> gamesInWaiting() throws RemoteException{
         ArrayList<GameControllerInterface> games = new ArrayList<>();
         for(GameController game: runningGames){
             try {
                 if(game.getStatus().equals(GameStatus.WAITING))
                     games.add(game);
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                throw new GameStatusException("Error while getting game status", e);
             }
         }
         return games;
