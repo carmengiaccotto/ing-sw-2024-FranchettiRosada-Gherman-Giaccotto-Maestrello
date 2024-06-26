@@ -236,7 +236,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
 
                     // Check the score after the current player has finished their turn
-                    if (currentPlayer.getPlayer().getScore() >= 1) {
+                    if (currentPlayer.getPlayer().getScore() >= 20) {
                         setStatus(GameStatus.LAST_CIRCLE);
                         break;
                     }
@@ -904,7 +904,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-        //mainController.removeGameController(this);
     }
 
 }

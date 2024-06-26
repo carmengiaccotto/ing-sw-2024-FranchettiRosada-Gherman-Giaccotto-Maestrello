@@ -290,7 +290,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void disconnect() throws RemoteException {
         Thread.currentThread().interrupt();
         server.disconnectPlayer(this);
-        System.out.println("ciao lol");//TODO: remove
     }
 
     /**
