@@ -273,4 +273,9 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return games;
     }
 
+    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+        clients.remove(player);
+        nicknames.remove(player.getNickname());
+    }
+
 }

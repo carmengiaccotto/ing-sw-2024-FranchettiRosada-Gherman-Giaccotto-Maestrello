@@ -124,4 +124,6 @@ public interface MainControllerInterface extends Remote, Serializable {
     static MainControllerInterface getInstance() throws RemoteException {
         return null;
     }
+
+    void disconnectPlayer(ClientControllerInterface player) throws RemoteException;
 }

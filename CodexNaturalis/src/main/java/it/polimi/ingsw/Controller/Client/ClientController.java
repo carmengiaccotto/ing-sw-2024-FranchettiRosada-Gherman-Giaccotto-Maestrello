@@ -287,8 +287,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
     @Override
-    public void disconnect() throws RemoteException {//todo do we need this?
-        //TODO implement disconnection
+    public void disconnect() throws RemoteException {
+        Thread.currentThread().interrupt();
+        server.disconnectPlayer(this);
+        System.out.println("ciao lol");//TODO: remove
     }
 
     /**

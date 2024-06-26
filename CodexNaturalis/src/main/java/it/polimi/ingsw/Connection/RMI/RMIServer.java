@@ -94,6 +94,11 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return serverObject;
     }
 
+    @Override
+    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+        handler.disconnectPlayer(player);
+    }
+
     /**
      * Returns the registry associated with the RMI Server.
      * @return Registry the registry associated with the RMI Server

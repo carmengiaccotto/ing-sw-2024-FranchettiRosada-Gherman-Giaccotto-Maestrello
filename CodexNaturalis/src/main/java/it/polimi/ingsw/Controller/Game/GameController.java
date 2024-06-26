@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Game;
 
+import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Chat;
@@ -52,8 +53,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private final int id;
 
     private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-    private transient ScheduledFuture<?> currentTimer;
 
     private String currentPlayerNickname;
 
@@ -141,9 +140,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
         try {
-            listener.disconnectPlayers();
+            shutdown();
+            System.out.println("Game ended, disconnecting all players.");
         } catch (RemoteException e) {
-            throw new GameRunningException("Error while disconnecting players", e);
+            throw new GameRunningException("Error while game shutdown", e);
         }
 
     }
@@ -243,7 +243,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
 
                     // Check the score after the current player has finished their turn
-                    if (currentPlayer.getPlayer().getScore() >= 20) {
+                    if (currentPlayer.getPlayer().getScore() >= 1) {
                         setStatus(GameStatus.LAST_CIRCLE);
                         break;
                     }
@@ -896,6 +896,22 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             }
         }
         return true;
+    }
+
+    public void shutdown() throws RemoteException {
+
+       listener.disconnectPlayers();
+       listener.getPlayers().clear();
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
+        //mainController.removeGameController(this);
     }
 
 }

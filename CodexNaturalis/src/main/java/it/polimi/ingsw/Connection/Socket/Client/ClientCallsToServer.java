@@ -180,6 +180,11 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         }
     }
 
+    @Override
+    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+
+    }
+
     /**
      * Retrieves the game listener.
      *
