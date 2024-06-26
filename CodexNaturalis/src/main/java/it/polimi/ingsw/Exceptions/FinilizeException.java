@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model.Exceptions;
+package it.polimi.ingsw.Exceptions;
 
 public class FinilizeException extends RuntimeException {
     public FinilizeException(String message, Throwable cause) {

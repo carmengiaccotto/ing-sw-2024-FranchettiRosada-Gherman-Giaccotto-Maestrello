@@ -4,8 +4,8 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
-import it.polimi.ingsw.Model.Exceptions.GameJoinException;
-import it.polimi.ingsw.Model.Exceptions.GameStatusException;
+import it.polimi.ingsw.Exceptions.GameJoinException;
+import it.polimi.ingsw.Exceptions.GameStatusException;
 import it.polimi.ingsw.Model.Pair;
 
 import java.rmi.RemoteException;

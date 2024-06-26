@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model.Exceptions;
+package it.polimi.ingsw.Exceptions;
 
 public class GameStatusException extends RuntimeException {
     public GameStatusException(String message, Throwable cause) {
