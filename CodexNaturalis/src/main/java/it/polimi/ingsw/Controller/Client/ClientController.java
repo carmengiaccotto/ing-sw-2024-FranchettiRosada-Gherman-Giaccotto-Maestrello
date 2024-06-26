@@ -305,7 +305,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
         synchronized (game.getAvailableColors()) {
             // Fetch and display available colors inside synchronized block
             availableColors = new ArrayList<>(game.getAvailableColors());
-            System.out.println("Available colors before choosing: " + availableColors.size());
             view.displayAvailableColors(availableColors);//todo per socket è equivalente chiamare view o metodo client?
         }
 
@@ -337,14 +336,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             player.setPawnColor(chosenColor);
             game.removeAvailableColor(chosenColor);
 
-            //message.append("Player ").append(getNickname()).append(" has chosen the color ").append(chosenColor).append("\n");
-
 
             // Update the local list of available colors
             availableColors.remove(chosenColor);
         }
-
-        System.out.println("You have chosen the color " + chosenColor);
     }
 
     @Override
