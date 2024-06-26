@@ -195,17 +195,14 @@ public class TUI implements UserInterface, Serializable {
      * The user can choose a color by entering the corresponding number.
      *
      * @param availableColors An ArrayList of PawnColor objects representing the available colors.
-     * @return An integer representing the index of the chosen color in the list.
      */
     @Override
-    public int displayAvailableColors(List<PawnColor> availableColors) {
+    public void displayAvailableColors(List<PawnColor> availableColors) {
         System.out.println("Choose one of the following colors: ");
         for (int i = 0; i < availableColors.size(); i++) {
-            System.out.println(GraphicUsage.pawnColorDictionary.get(availableColors.get(i)) + " [" + (i + 1) + "]" + availableColors.get(i).toString() + ANSIreset);
+            System.out.println(GraphicUsage.pawnColorDictionary.get(availableColors.get(i)) + " [" + (i + 1) + "] " + availableColors.get(i).toString() + ANSIreset);
         }
-        return (scanner.nextInt());
     }
-
     /**
      * Notifies the user that the system is waiting for other players to join the game.
      */
@@ -369,8 +366,10 @@ public class TUI implements UserInterface, Serializable {
             printMessage(GraphicUsage.game_over);
         }else if(s == "CODEX_NATURALIS"){
             StringBuilder sb=new StringBuilder();
-            sb.append(GraphicUsage.codex_naturalis_string);
-           // printMessage(GraphicUsage.codex_naturalis_string);
+            sb.append(GraphicUsage.codex_naturalis_string+"\n\n");
+            sb.append(bold+"Before you start the game, read carefully the following legend about the game symbols: \n\n"+reset);
+            sb.append(GraphicUsage.legenda);
+            System.out.println(sb.toString());;
         }
     }
 
@@ -405,6 +404,16 @@ public class TUI implements UserInterface, Serializable {
             text=scanner.nextLine();
             Pair<String, String> message = new Pair<>(receiver, text);
             return message;
+    }
+
+    @Override
+    public int getInput() {
+        Scanner scanner = new Scanner(System.in);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input, please enter a number.");
+            scanner.next(); // Clear the invalid input
+        }
+        return scanner.nextInt();
     }
 }
 

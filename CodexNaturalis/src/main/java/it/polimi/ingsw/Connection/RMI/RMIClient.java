@@ -135,6 +135,11 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     }
 
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
+
+    }
+
     /**
      * Method that allows the player to choose a nickname.
      * @return String representing the chosen nickname.
@@ -247,7 +252,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry(ipAddress, 8344);
+                        registry = LocateRegistry.getRegistry(ipAddress, 8346);
                         Object obj = registry.lookup("rmi://" + ipAddress + ":8344/CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
@@ -265,7 +270,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                     controller.setServer(server);
                     controller.connect(ipAddress); // Moved inside the if block
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8344 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8346 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");

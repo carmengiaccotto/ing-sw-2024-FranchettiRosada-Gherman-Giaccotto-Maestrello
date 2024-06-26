@@ -77,6 +77,8 @@ public interface ClientControllerInterface extends Remote, Serializable {
      */
     void JoinOrCreateGame() throws RemoteException;
 
+    void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException;
+
     /**
      * This method is used to choose a nickname for the player.
      * @return String representing the chosen nickname.

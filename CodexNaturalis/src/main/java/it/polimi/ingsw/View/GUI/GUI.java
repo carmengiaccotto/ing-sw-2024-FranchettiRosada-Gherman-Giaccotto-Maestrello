@@ -8,7 +8,6 @@ import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
-import it.polimi.ingsw.View.GUI.Controllers.NicknameScene;
 import it.polimi.ingsw.View.UserInterface;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,8 +123,7 @@ public class GUI extends Application implements UserInterface {
     }
 
     @Override
-    public int displayAvailableColors(List<PawnColor> availableColors) {
-        return 0;
+    public void displayAvailableColors(List<PawnColor> availableColors) {
     }
 
 
@@ -163,5 +160,10 @@ public class GUI extends Application implements UserInterface {
     @Override
     public Pair<String, String> sendChatMessage(ArrayList<Player> players) {
         return null;
+    }
+
+    @Override
+    public int getInput() {
+        return 0;
     }
 }

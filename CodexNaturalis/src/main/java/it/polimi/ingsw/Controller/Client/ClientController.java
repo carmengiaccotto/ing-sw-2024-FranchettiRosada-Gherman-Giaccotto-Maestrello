@@ -4,15 +4,14 @@
 package it.polimi.ingsw.Controller.Client;
 
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
-import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Message;
-import it.polimi.ingsw.Model.Chat.PrivateMessage;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
+import it.polimi.ingsw.Model.Exceptions.GameJoinException;
+import it.polimi.ingsw.Model.Exceptions.NicknameException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -25,7 +24,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 
 /**
  * This class represents the client-side controller for the game.
@@ -37,6 +35,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     private Player player = new Player();
     private MainControllerInterface server;
     private boolean ItsMyTurn;
+
 
     /**
      * Constructor for the ClientController class.
@@ -288,8 +287,10 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
     @Override
-    public void disconnect() throws RemoteException {//todo do we need this?
-        //TODO implement disconnection
+    public void disconnect() throws RemoteException {
+        Thread.currentThread().interrupt();
+        server.disconnectPlayer(this);
+        System.out.println("ciao lol");//TODO: remove
     }
 
     /**
@@ -301,15 +302,51 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     @Override
     public void ChoosePawnColor() throws RemoteException {
-        List<PawnColor> availableColors = game.getAvailableColors();
-        int choice = view.displayAvailableColors(availableColors);
-        if(choice <= 0 || choice > availableColors.size()){
-            System.out.println("Invalid color, please select a new One");
-            ChoosePawnColor();
-        } else {
-            player.setPawnColor(availableColors.get(choice - 1));
-            game.removeAvailableColor(availableColors.get(choice - 1));
+        List<PawnColor> availableColors;
+
+        synchronized (game.getAvailableColors()) {
+            // Fetch and display available colors inside synchronized block
+            availableColors = new ArrayList<>(game.getAvailableColors());
+            view.displayAvailableColors(availableColors);//todo per socket è equivalente chiamare view o metodo client?
         }
+
+        int choice = -1;
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            int input = view.getInput(); // This method should handle retrieving the input from the user
+
+            synchronized (game.getAvailableColors()) {
+                // Fetch the latest list of available colors to ensure up-to-date information
+                availableColors = new ArrayList<>(game.getAvailableColors());
+
+                if (input > 0 && input <= availableColors.size()) {
+                    choice = input;
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid color, please select a valid one.");
+                    view.displayAvailableColors(availableColors);
+                }
+            }
+        }
+
+        // Fetch the chosen color
+        PawnColor chosenColor = availableColors.get(choice - 1);
+
+        // Communicate with the server to remove the chosen color from the main list
+        synchronized (game.getAvailableColors()) {
+            player.setPawnColor(chosenColor);
+            game.removeAvailableColor(chosenColor);
+
+
+            // Update the local list of available colors
+            availableColors.remove(chosenColor);
+        }
+    }
+
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
+        view.displayAvailableColors(availableColors);
     }
 
     /**
@@ -343,7 +380,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             try {
                 newGameSetUp();
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                throw new GameJoinException("Error while setting up a new game", e);
             }
         } else {
             int chosenGame = view.displayavailableGames(availableGames, server.numRequiredPlayers());
@@ -351,7 +388,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
-                    throw new RuntimeException(e);
+                    throw new GameJoinException("Error while setting up a new game", e);
                 }
             } else if (chosenGame < 0 || chosenGame > availableGames.size()) {
                 System.out.println("Invalid game, please select a valid one, or start a new game");
@@ -408,14 +445,14 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
-                    throw new RuntimeException(e);
+                   throw new GameJoinException("Error while setting up a new game", e);
                 }
             }//Ask for desired number of players of the new game before creation
             case 2 -> {
                 try {
                     JoinGame();
                 } catch (RemoteException e) {
-                    throw new RuntimeException(e);
+                    throw new GameJoinException("Error while joining a new game", e);
                 }
             } //ask server for available games before choice
             default -> {
@@ -476,30 +513,23 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void JoinLobby() throws RemoteException {
         String name = ChooseNickname();
         try {
-            boolean ok = server.checkUniqueNickName(name);
-            if (ok) {
+            boolean ok=server.checkUniqueNickName(name);
+            if(ok){
                 setNickname(name);
                 server.addNickname(name);
-            } else {
-                System.out.println("Nickname already taken, checking for previous game state...");
-                GameState gameState = game.loadGameState(name);
-                if (gameState != null && !gameState.getPlayerByNickname(name).isReconnected()) {
-                    System.out.println("Found previous game state for this nickname, rejoining...");
-                    gameState.getPlayerByNickname(name).setReconnected(true);
-                    game.loadGameState(name);
-                    game.GameLoop(game.getStatus());
-                } else {
-                    System.out.println("No previous game state found or player already reconnected, please choose a new nickname");
-                    JoinLobby();
-                }
+            }
+            else{
+                System.out.println("Nickname already taken, please choose a new one");
+                JoinLobby();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new NicknameException("Error while checking nickname", e);
         } catch (ClassNotFoundException e) {
             System.out.println("Error in the connection");
         }
         JoinOrCreateGame();
     }
+
 
     /**
      * This method is called when the player needs to perform an action based on the current game state.
@@ -598,8 +628,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             for(PlayCard card: game.extractPlayerHandCards())
                 player.addCardToHand(card);
         } catch (RemoteException e) {
-            System.out.println("an error occurred when extracting the initial hand of cards");
-            //todo add error handling
+            System.out.println("An error occurred when extracting the initial hand of cards");
         }
 
     }
@@ -660,7 +689,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 player.getPlayArea().addCardOnArea(sideOfCard, position.getFirst(), position.getSecond());
                 player.increaseScore(card.getPoints(side));
             } catch (RemoteException e) {
-                //todo add error handling
+                System.out.println("An error occurred when playing the card");
             }
 
         }

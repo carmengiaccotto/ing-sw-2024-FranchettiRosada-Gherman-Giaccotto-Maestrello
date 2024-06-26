@@ -1,23 +1,21 @@
 package it.polimi.ingsw.Controller.Game;
 
+import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Chat.Chat;
-import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.*;
+import it.polimi.ingsw.Model.Exceptions.*;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
-import it.polimi.ingsw.Controller.GameState;
 
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 //import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -56,8 +54,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private transient ScheduledFuture<?> currentTimer;
-
     private String currentPlayerNickname;
 
     private PlayGround model;
@@ -87,7 +83,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         try {
             model = new PlayGround();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new GameInitializationException("Error while initializing model", e);
         }
         availableColors= new ArrayList<>();
         availableColors.addAll(Arrays.asList(PawnColor.values()));
@@ -140,13 +136,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             try {
                 GameLoop(status);
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                throw new GameRunningException("Error while running game loop", e);
             }
         }
         try {
-            listener.disconnectPlayers();
+            shutdown();
+            System.out.println("Game ended, disconnecting all players.");
         } catch (RemoteException e) {
-            throw new RuntimeException(e);
+            throw new GameRunningException("Error while game shutdown", e);
         }
 
     }
@@ -170,7 +167,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      *
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    public void GameLoop(GameStatus status) throws RemoteException {
+    void GameLoop(GameStatus status) throws RemoteException {
         switch(status) {
             case SETUP -> {
                 try {
@@ -182,7 +179,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                             try {
                                 c.WhatDoIDoNow("INITIALIZE");
                             } catch (Exception e) {
-                                //todo handle exception
+                                System.err.println("An error occurred: " + e.getMessage());
+                                Thread.currentThread().interrupt();
                             }
                         });
                         threads.add(thread);
@@ -195,9 +193,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     System.out.println("Game is ready to run!");
 
                     setStatus(GameStatus.INITIAL_CIRCLE);
-                    saveGameState();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw new GameSetupException("Error during game setup", e);
                 }
 
             }
@@ -206,11 +203,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     try {
                         c.WhatDoIDoNow("INITIAL");
                     } catch (Exception e) {
-                        //todo handle exception
+                        System.err.println("An error occurred: " + e.getMessage());
+                        Thread.currentThread().interrupt();
                     }
                 }
                 setStatus(GameStatus.RUNNING);
-                saveGameState();
 
             }
             case RUNNING -> {
@@ -229,7 +226,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     c.WhatDoIDoNow("PLAY-TURN");
                                 }
                             } catch (RemoteException e) {
-                                //todo handle exception
+                                System.err.println("An error occurred: " + e.getMessage());
+                                Thread.currentThread().interrupt();
                             }
                         });
                         threads.add(thread);
@@ -240,18 +238,17 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         try {
                             thread.join(); // wait for the current player to finish
                         } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                            throw new GameRunningException("Error while waiting for thread to finish", e);
                         }
                     }
 
                     // Check the score after the current player has finished their turn
-                    if (currentPlayer.getPlayer().getScore() >= 20) {
+                    if (currentPlayer.getPlayer().getScore() >= 1) {
                         setStatus(GameStatus.LAST_CIRCLE);
                         break;
                     }
 
                     currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
-                    saveGameState();
                 }
             }
             case LAST_CIRCLE -> {
@@ -280,7 +277,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                         latch.countDown();
                                     }
                                 } catch (RemoteException e) {
-                                    //todo handle exception
+                                    System.err.println("An error occurred: " + e.getMessage());
+                                    Thread.currentThread().interrupt();
                                 }
                             });
                             threads.add(thread);
@@ -291,12 +289,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                             try {
                                 latch.await(); // wait for the current player to finish
                             } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
+                                throw new GameRunningException("Error while waiting for thread to finish", e);
                             }
                         }
                         if (currentPlayerIndex == listener.getPlayers().size() - 1) {
                             setStatus(GameStatus.FINILIZE);
-                            saveGameState();
                             break;
                         }
 
@@ -304,7 +301,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
                 }
                 setStatus(GameStatus.FINILIZE);
-                saveGameState();
             }
             case FINILIZE -> {
                 try {
@@ -314,7 +310,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                             try {
                                 c.WhatDoIDoNow("OBJECTIVE-COUNT");
                             } catch (Exception e) {
-                                //todo handle exception
+                                System.err.println("An error occurred: " + e.getMessage());
+                                Thread.currentThread().interrupt();
                             }
                         });
                         threads.add(thread);
@@ -324,7 +321,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         thread.join();
                     }
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw new ObjectiveCountException("Error during Objective points count", e);
                 }
                 ArrayList<ClientControllerInterface> winners = decreeWinner();
                 List<ClientControllerInterface> losers = new ArrayList<>(listener.getPlayers());
@@ -336,7 +333,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         try {
                             winner.WhatDoIDoNow("WINNER");
                         } catch (Exception e) {
-                            //todo handle exception
+                            System.err.println("An error occurred: " + e.getMessage());
+                            Thread.currentThread().interrupt();
                         }
                     });
                     winnerThreads.add(thread);
@@ -349,7 +347,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         try {
                             loser.WhatDoIDoNow("LOSER");
                         } catch (Exception e) {
-                            //todo handle exception
+                            System.err.println("An error occurred: " + e.getMessage());
+                            Thread.currentThread().interrupt();
                         }
                     });
                     loserThreads.add(thread);
@@ -364,7 +363,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         thread.join();
                     }
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw new FinilizeException("Error during game finalization", e);
                 }
 
                 setStatus(GameStatus.ENDED);
@@ -394,7 +393,29 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      */
     @Override
     public void removeAvailableColor(PawnColor color) throws RemoteException {
-        availableColors.remove(color);
+        synchronized (availableColors) {
+            if (availableColors.contains(color)) {
+                availableColors.remove(color);
+                List<Thread> threads = new ArrayList<>();
+                for (ClientControllerInterface client : listener.getPlayers()) {
+                    Thread thread = new Thread(() -> {
+                        try {
+                            if (client.getPawnColor() == null) {
+                                client.displayAvailableColors(availableColors);
+                            } else {
+                                client.sendUpdateMessage("Waiting for all players to choose their pawn color...");
+                            }
+                        } catch (RemoteException e) {
+                            throw new PawnColorRemovalException("Error during color removal from available colors", e);
+                        }
+                    });
+                    threads.add(thread);
+                    thread.start();
+                }
+            } else {
+                System.out.println("Color not available: " + color);
+            }
+        }
     }
 
     /**
@@ -490,7 +511,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      */
     public synchronized void addPlayer(ClientControllerInterface client) throws RemoteException{
         listener.getPlayers().add(client);
-//        System.out.println(client.getNickname());
     }
 
     /**
@@ -501,7 +521,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RemoteException If a remote or network communication error occurs.
      */
     public GameStatus getStatus() throws RemoteException {
-        return status;
+        return status;  //todo remove this
     }
 
     /**
@@ -577,39 +597,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     public synchronized void NotifyNewPlayerJoined(ClientControllerInterface newPlayer) throws RemoteException {
         System.out.println("Notifying players that a new player has joined the game...");
         CheckMaxNumPlayerReached();
-    }
-
-    /**
-     * Starts a turn timer for the current player. The timer is scheduled to send a message to the player
-     * after 120 seconds, prompting them to enter their MOVE command. If the player does not respond within
-     * another 120 seconds, the turn is passed to the next player.
-     *
-     * The method uses the ScheduledExecutorService to schedule two tasks. The first task sends a message to the player
-     * after 120 seconds, prompting them to enter their MOVE command. If the player does not respond within another 120 seconds,
-     * the second task is executed, which sends a message to the player indicating that their turn has been passed and
-     * schedules the next player's turn.
-     *
-     * If a RemoteException occurs during the execution of either task, it is wrapped in a RuntimeException and rethrown.
-     *
-     * @param client The client interface of the current player. This is used to send update messages to the player.
-     * @throws RuntimeException If a RemoteException occurs during the execution of either task.
-     */
-    private void startTurnTimer(ClientControllerInterface client) {
-
-        currentTimer = scheduler.schedule(() -> {
-            try {
-                client.sendUpdateMessage("Please enter your MOVE command.");
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-            currentTimer = scheduler.schedule(() -> {
-                try {
-                    client.sendUpdateMessage("Time is up! Passing your turn.");
-                } catch (RemoteException e) {
-                    //todo handle exception
-                }
-            }, 120, TimeUnit.SECONDS);
-        }, 120, TimeUnit.SECONDS);
     }
 
     /**
@@ -767,7 +754,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             try {
                 return player1.getNickname().compareTo(player2.getNickname());
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                throw new PlayerRankingException("Error while comparing player nicknames", e);
             }
         });
 
@@ -775,7 +762,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             try {
                 return Integer.compare(player2.getPlayer().getScore(), player1.getPlayer().getScore());
             } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                throw new PlayerRankingException("Error while comparing player nicknames", e);
             }
         });
 
@@ -911,72 +898,20 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return true;
     }
 
-    /**
-     * Saves the current state of the game.
-     * This method is synchronized to prevent race conditions in multi-threaded environments.
-     * It first creates a new GameState object with the current round number, list of players, game model, and game status.
-     * Then, it sets the round, model, players, and status in the GameState object.
-     * It reads the existing game states from a file and adds the new game state to the list.
-     * If the file does not exist or is empty, it ignores the exception and continues.
-     * Finally, it writes the updated list of game states back to the file.
-     * If an IOException occurs during the reading or writing of the file, it prints the stack trace of the exception.
-     *
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    public void saveGameState() throws RemoteException {
-        synchronized (this) {
-            GameState gameState = new GameState(getListener().getPlayers().getFirst().getRound(), getListener().getPlayers(), model, getStatus());
+    public void shutdown() throws RemoteException {
 
-            int round = getListener().getPlayers().getFirst().getRound();
+       listener.disconnectPlayers();
+       listener.getPlayers().clear();
 
-            gameState.setRound(round);
-            gameState.setModel(model);
-            gameState.setPlayers(getListener().getPlayers());
-            gameState.setStatus(getStatus());
-
-            ArrayList<GameState> gameStates = new ArrayList<>();
-            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameState.txt"))) {
-                gameStates = (ArrayList<GameState>) in.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                // Ignora l'eccezione se il file non esiste o è vuoto
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
             }
-
-            gameStates.add(gameState);
-
-            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("gameState.txt"))) {
-                out.writeObject(gameStates);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
         }
+        //mainController.removeGameController(this);
     }
 
-    /**
-     * This method is used to load the game state for a specific player.
-     * It reads the saved game states from a file and iterates through them.
-     * For each game state, it iterates through the players in the game state.
-     * If it finds a player with the same nickname as the specified player, it returns the game state for that player.
-     * If no matching player is found, it returns null.
-     * If an IOException or ClassNotFoundException occurs during the reading of the file, it prints the stack trace of the exception.
-     *
-     * @param nickname The nickname of the player whose game state is to be loaded. This is a string that represents the player's chosen nickname.
-     * @return The GameState object representing the game state for the specified player. If no matching player is found, it returns null.
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    public GameState loadGameState(String nickname) throws RemoteException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("gameState.txt"))) {
-            ArrayList<GameState> gameStates = (ArrayList<GameState>) in.readObject();
-
-            for (GameState gameState : gameStates) {
-                for (ClientControllerInterface playerController : gameState.getPlayers()) {
-                    if (playerController.getNickname().equals(nickname)) {
-                        return gameState;
-                    }
-                }
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

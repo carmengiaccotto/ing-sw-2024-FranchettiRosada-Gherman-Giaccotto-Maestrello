@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class SocketClient extends Thread implements ClientControllerInterface {
     private ClientController controller;
@@ -125,6 +126,11 @@ public class SocketClient extends Thread implements ClientControllerInterface {
 
     @Override
     public void JoinOrCreateGame() throws RemoteException {
+
+    }
+
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
 
     }
 

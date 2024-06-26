@@ -1,14 +1,10 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
-import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Chat.Chat;
-import it.polimi.ingsw.Model.Chat.Message;
-import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
@@ -189,27 +185,4 @@ public interface GameControllerInterface extends Remote, Serializable {
      */
     String finalRanking() throws RemoteException;
 
-    /**
-     * Loads the game state for a specific player.
-     *
-     * @param nickname The nickname of the player whose game state is to be loaded.
-     * @return The GameState object representing the game state for the specified player. If no matching player is found, it returns null.
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    GameState loadGameState(String nickname) throws RemoteException;
-
-    /**
-     * Saves the current state of the game.
-     *
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    void saveGameState() throws RemoteException;
-
-    /**
-     * Executes the main game loop. This method is responsible for managing the game flow based on the current game status.
-     *
-     * @param status The current status of the game. This is an instance of GameStatus.
-     * @throws RemoteException If a remote or network communication error occurs.
-     */
-    void GameLoop(GameStatus status) throws RemoteException;
 }

@@ -66,7 +66,7 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         try {
             System.setProperty("java.rmi.server.hostname", localAddress);
             serverObject = RMIServer.getInstance();
-            registry = LocateRegistry.createRegistry(8344);
+            registry = LocateRegistry.createRegistry(8346);
             getRegistry().rebind("rmi://" + localAddress + ":8344/CodexNaturalis", serverObject);
             System.out.println("Server RMI ready");
         } catch (RemoteException e) {
@@ -92,6 +92,11 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
             }
         }
         return serverObject;
+    }
+
+    @Override
+    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+        handler.disconnectPlayer(player);
     }
 
     /**

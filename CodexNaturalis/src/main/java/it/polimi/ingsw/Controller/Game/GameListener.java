@@ -53,7 +53,7 @@ public class GameListener implements Serializable {
      *
      * @param model The current state of the playground.
      */
-    public void updatePlayers(PlayGround model) {
+    public void updatePlayers(PlayGround model) throws RemoteException{
         for (ClientControllerInterface player : players) {
             try {
                 player.showBoardAndPlayAreas(model);

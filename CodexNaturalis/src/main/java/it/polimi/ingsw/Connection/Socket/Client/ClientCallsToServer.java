@@ -6,7 +6,6 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameListener;
 import it.polimi.ingsw.Controller.Game.GameListenerForClientSocket;
-import it.polimi.ingsw.Controller.GameState;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -178,6 +177,11 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+
     }
 
     /**
@@ -396,9 +400,6 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         }
     }
 
-
-
-
     @Override
     public String finalRanking() throws RemoteException {
         try {
@@ -408,20 +409,5 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public GameState loadGameState(String nickname) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public void saveGameState() throws RemoteException {
-
-    }
-
-    @Override
-    public void GameLoop(GameStatus status) throws RemoteException {
-
     }
 }

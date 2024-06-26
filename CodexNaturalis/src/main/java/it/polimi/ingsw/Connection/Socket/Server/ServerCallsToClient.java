@@ -19,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ServerCallsToClient implements ClientControllerInterface, Serializable {
@@ -139,6 +140,11 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
+
     }
 
     /**
