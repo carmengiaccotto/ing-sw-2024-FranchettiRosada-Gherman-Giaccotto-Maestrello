@@ -231,40 +231,26 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public Command receiveCommand(Boolean IsMyTurn) {
-        if(IsMyTurn){
-            System.out.println("Choose a command: [MOVE/CHAT]");
-            while (!scanner.hasNext()) {} // Wait for the next input
+        if(IsMyTurn) {
+            System.out.println("Insert MOVE to play Your Turn");
+            while (!scanner.hasNext()) {
+            } // Wait for the next input
             String command = scanner.next().toUpperCase();
-            while (!command.equals("MOVE") && !command.equals("CHAT")) {
-                System.out.println("Invalid command! Please choose a valid command: [MOVE/CHAT]");
-                while (!scanner.hasNext()) {} // Wait for the next input
+            while (!command.equals("MOVE")) {
+                System.out.println("Invalid command! Please choose a valid command: [MOVE]");
+                while (!scanner.hasNext()) {
+                } // Wait for the next input
                 command = scanner.next().toUpperCase();
-            }
-            if (command.equals("MOVE")) {
-                return Command.MOVE;
-            } else {
-                return Command.CHAT;
             }
 
         }
-        else{
-            System.out.println("Please write CHAT if you want to send a message");
-            while (!scanner.hasNext()) {} // Wait for the next input
-            String command = scanner.next().toUpperCase();
-            while (!command.equals("CHAT")) {
-                System.out.println("Invalid command! Please choose a valid command: [CHAT]");
-                while (!scanner.hasNext()) {} // Wait for the next input
-                command = scanner.next().toUpperCase();
-            }
-            return Command.CHAT;
-        }
+        return Command.MOVE;
     }
 
 
 
     @Override
     public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
-        String ANSI_CYAN = "\u001B[36m";
         StringBuilder opponentsInfo = new StringBuilder();
         for(Player p: opponents){
             if(p!=me)

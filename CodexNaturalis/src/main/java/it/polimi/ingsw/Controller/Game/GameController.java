@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller.Game;
 
-import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Enumerations.*;
@@ -15,13 +14,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.*;
-//import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The GameController class is responsible for managing the game logic and coordinating the game flow.
  * It implements Runnable, Serializable, and GameControllerInterface.
  * It extends UnicastRemoteObject to allow remote method invocation.
- *
+ * <p>
  * The class contains several fields:
  * - listener: a GameListener object that listens for game events.
  * - availableColors: a list of available colors for the players.
@@ -50,8 +48,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     private final int numPlayers;
 
     private final int id;
-
-    private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private String currentPlayerNickname;
 
@@ -116,7 +112,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
     @Serial
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        this.scheduler = Executors.newScheduledThreadPool(1);
         this.executor = Executors.newSingleThreadExecutor();
     }
 
@@ -156,7 +151,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      *               RUNNING - The game is in progress and players are taking turns to play.
      *               LAST_CIRCLE - The game is in its final round.
      *               ENDED - The game has ended.
-     *
+     * <p>
      * The method uses a switch statement to handle different game statuses. In each case, it performs the necessary actions
      * to progress the game. For example, in the SETUP case, it initializes the game and sets the status to INITIAL_CIRCLE.
      * In the RUNNING case, it manages player turns and checks if the game should progress to the LAST_CIRCLE status.
@@ -366,6 +361,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                 setStatus(GameStatus.ENDED);
             }
+            default -> throw new IllegalStateException("Unexpected value: " + status);
         }
     }
 
@@ -619,13 +615,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * After a card is extracted, it is removed from the objective card deck to ensure it is not drawn again.
      * The method is synchronized to prevent race conditions in multi-threaded environments.
      * The method also synchronizes on the objective card deck to prevent concurrent modifications.
-     *
+     * <p>
      * Note: The method assumes that the objective card deck contains at least 2 cards.
      *
      * @throws RuntimeException If the objective card deck does not contain enough cards.
      */
     public synchronized void extractCommonObjectiveCards() {
-        synchronized (model.getObjectiveCardDeck()) {//todo check synchronization
+        synchronized (model.getObjectiveCardDeck()) {
             while (model.getCommonObjectivesCards().size() < 2) {
                 ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
                 model.addCommonCard(c);
@@ -643,14 +639,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * Note: The method assumes that the gold and resource card decks contain at least 2 cards each.
      */
     public void extractCommonPlaygroundCards() {
-        synchronized (model) {//todo check synchronization
+        synchronized (model) {
             while (model.getCommonGoldCards().size() < 2) {
                 GoldCard c = (GoldCard) model.getGoldCardDeck().drawCard();
                 model.addCommonCard(c);
             }
             while (model.getCommonResourceCards().size() < 2) {
                 ResourceCard c = (ResourceCard) model.getResourceCardDeck().drawCard();
-                model.addCommonCard(c);;
+                model.addCommonCard(c);
             }
         }
     }
@@ -696,12 +692,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * It first calls the method to extract common playground cards which includes gold and resource cards.
      * Then, it calls the method to extract common objective cards.
      * These extracted cards are used as the common cards available to all players during the game.
-     *
+     * <p>
      * Note: This method assumes that the decks for playground and objective cards are properly initialized and contain enough cards.
      *
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    //todo handle exceptions in a better way(?)
     public synchronized void initializeGame() throws RemoteException {
         extractCommonPlaygroundCards();
         extractCommonObjectiveCards();

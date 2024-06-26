@@ -12,13 +12,11 @@ import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
 
-//import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
 
 /**
  * The TUIComponents class provides utility methods and constants for the Text User Interface (TUI) of the application.
@@ -121,7 +119,7 @@ public class TUIComponents {
      * The method retrieves the ANSI color code for the opponent's pawn color from the GraphicUsage.pawnColorDictionary.
      * It then constructs a 2D String array with the opponent's information and play area, formatted with the ANSI color code and reset code.
      * The 2D String array is then converted to a single String using the ConvertToString method, and this String is returned.
-     *
+     * <p>
      * This method is useful for displaying opponent's information and play area in a text-based user interface, where the opponent's information and play area need to be represented as a single String.
      *
      * @param player The Player whose information and play area are to be displayed. This should be a valid Player object.
@@ -183,13 +181,13 @@ public class TUIComponents {
 
     /**
      * Displays the common cards on the PlayGround.
-     *
+     * <p>
      * This method is used to display the common Resource cards, the common Gold cards, the two Decks (Resource and Gold)
      * represented by showing the back of the last card, and the common objectives for all players.
      * The method retrieves the common Resource cards, the common Gold cards, the Resource deck, the Gold deck, and the common objectives from the model.
      * It then constructs a 2D String array with the common cards and objectives, formatted for display in the user interface.
      * The 2D String array is then converted to a single String using a StringBuilder, and this String is returned.
-     *
+     * <p>
      * This method is useful for displaying the common cards and objectives in a text-based user interface, where the common cards and objectives need to be represented as a single String.
      *
      * @param model The PlayGround model to represent. This should be a valid PlayGround object.
@@ -207,7 +205,7 @@ public class TUIComponents {
         String header2= concatString("OBJECTIVE2",concatString("                    GOLD CARDS", "GOLD DECK", 35), 40);
         String commonResources=concatString(concatString ( printCommonCard(cards.get(0), Side.FRONT), printCommonCard(cards.get(1), Side.FRONT),
                 3),printCommonCard((PlayCard) resourceDeck.getCards().getLast(),Side.BACK),3);
-        matrix[1][0]=concatString(printObjectives(commonObjectives.get(0)),commonResources, 20);
+        matrix[1][0]=concatString(printObjectives(commonObjectives.getFirst()),commonResources, 20);
         String commonGold= concatString(concatString ( printCommonCard(goldCards.get(0), Side.FRONT), printCommonCard(goldCards.get(1), Side.FRONT),
                 3),printCommonCard((PlayCard) goldDeck.getCards().getLast(),Side.BACK),3);
         matrix[2][0]=header2;
@@ -215,9 +213,9 @@ public class TUIComponents {
 
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                sb.append(matrix[i][j]);
+        for (String[] strings : matrix) {
+            for (String string : strings) {
+                sb.append(string);
             }
             sb.append("\n");
         }
@@ -228,13 +226,13 @@ public class TUIComponents {
 
     /**
      * Prints the representation of a general ObjectiveCard.
-     *
+     * <p>
      * This method is used to print the representation of a general ObjectiveCard. Since the type of ObjectiveCard is not known beforehand,
      * the method checks the class of the card and calls the appropriate method to print the card.
      * If the card is of type DispositionObjectiveCard, it calls the printDispositionObjectiveCard method from the DesignSupportClass.
      * If the card is of type SymbolObjectiveCard, it calls the printSymbolObjectiveCard method from the DesignSupportClass.
      * If the card is not of any known type, it returns an empty string.
-     *
+     * <p>
      * This method is useful for displaying the representation of an ObjectiveCard in a text-based user interface, where the representation of the card needs to be a String.
      *
      * @param card The ObjectiveCard to be printed. This should be a valid ObjectiveCard object.
@@ -251,13 +249,13 @@ public class TUIComponents {
 
     /**
      * Prints a common card with the specified dimensions and returns the string that represents it.
-     *
+     * <p>
      * This method is used to print a common card in the game. The card can be printed either on its front or back side.
      * The method creates a 2D String array (matrix) with the dimensions specified by the cardHeight and cardWidth constants.
      * It then calls the getCardString method, passing the matrix, the card, and the dimensions as arguments.
      * The getCardString method is responsible for filling the matrix with the representation of the card and converting it to a String.
      * The resulting String is then returned by this method.
-     *
+     * <p>
      * This method is useful for displaying a common card in a text-based user interface, where the card needs to be represented as a String.
      *
      * @param card The PlayCard to be printed. This should be a valid PlayCard object.
@@ -271,14 +269,14 @@ public class TUIComponents {
 
     /**
      * Prints the opponent's play area in a text-based user interface.
-     *
+     * <p>
      * This method is used to create a visual representation of the opponent's play area in a text-based user interface.
      * The play area is represented as a 2D String array (matrix), with each cell representing a card or an empty space.
      * The size of the cards is smaller compared to the player's own play area, and the cards do not have indexes on the sides.
      * The method first initializes the matrix with empty strings, then iterates over each cell.
      * If a card is present in the corresponding position in the play area, the card is printed into the matrix using the printCard method from the DesignSupportClass.
      * The resulting matrix is then converted to a single String using the ConvertToString method, and this String is returned.
-     *
+     * <p>
      * This method is useful for displaying the opponent's play area in a text-based user interface, where the play area needs to be represented as a single String.
      *
      * @param playArea The PlayArea of the opponent. This should be a valid PlayArea object.
@@ -315,7 +313,7 @@ public class TUIComponents {
 
     /**
      * Prints the client's play area in a text-based user interface.
-     *
+     * <p>
      * This method is used to create a visual representation of the client's play area in a text-based user interface.
      * The play area is represented as a 2D String array (matrix), with each cell representing a card or an empty space.
      * The size of the cards is larger compared to the opponent's play area, and the cards have indexes on the sides.
@@ -324,7 +322,7 @@ public class TUIComponents {
      * It then iterates over each cell. If a card is present in the corresponding position in the play area,
      * the card is printed into the matrix using the printCard method from the DesignSupportClass.
      * The resulting matrix is then converted to a single String using the ConvertToString method, and this String is returned.
-     *
+     * <p>
      * This method is useful for displaying the client's play area in a text-based user interface, where the play area needs to be represented as a single String.
      *
      * @param playArea The PlayArea of the client. This should be a valid PlayArea object.
@@ -446,9 +444,7 @@ public class TUIComponents {
                 sb.append(s1Lines[i]).append("\n");
             } else {
                 StringBuilder append = sb.append(" ".repeat(Math.max(0, s1Lines[0].length() + space)));
-                if (i < s2Lines.length) {
-                    sb.append(s2Lines[i]).append("\n");
-                }
+                sb.append(s2Lines[i]).append("\n");
             }
         }
 

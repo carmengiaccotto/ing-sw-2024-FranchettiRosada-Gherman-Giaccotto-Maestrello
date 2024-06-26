@@ -3,13 +3,13 @@ package it.polimi.ingsw.View.TUI.TUIUtilis;
 import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Model.Cards.*;
 import it.polimi.ingsw.Model.Pair;
-import it.polimi.ingsw.Model.PlayGround.Deck;
 import it.polimi.ingsw.Model.Position;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
+
+import static it.polimi.ingsw.Model.Enumerations.CornerPosition.*;
+import static it.polimi.ingsw.Model.Enumerations.UpDownPosition.DOWN;
+import static it.polimi.ingsw.Model.Enumerations.UpDownPosition.UP;
 
 /**
  * This class provides support for designing the Text User Interface (TUI) of the game.
@@ -44,7 +44,7 @@ public class DesignSupportClass {
 
     /**
      * Determines the starting position for a corner based on its position and the dimensions of the area.
-     *
+     * <p>
      * This method calculates the starting position for a corner based on its position (top left, top right, bottom left, bottom right)
      * and the dimensions of the area (height and width). The starting position is returned as a Pair of integers, where the first integer
      * is the row and the second integer is the column.
@@ -55,30 +55,25 @@ public class DesignSupportClass {
      * @return A Pair of integers representing the starting position for the corner (row, column).
      */
     public static Pair<Integer, Integer> getStartForCorner(CornerPosition corner, int h, int w){
-        switch (corner){
-            case TOPLEFT:
-                return new Pair<>(h-3, w-4);
-            case TOPRIGHT:
-                return new Pair<>(h-3, -w+4);
-            case BOTTOMLEFT:
-                return new Pair<>(-h+3, w-4);
-            case BOTTOMRIGHT:
-                return new Pair<>(-h+3, -w+4);
-            default:
-                return new Pair<>(0, 0);
-        }
+        return switch (corner) {
+            case TOPLEFT -> new Pair<>(h - 3, w - 4);
+            case TOPRIGHT -> new Pair<>(h - 3, -w + 4);
+            case BOTTOMLEFT -> new Pair<>(-h + 3, w - 4);
+            case BOTTOMRIGHT -> new Pair<>(-h + 3, -w + 4);
+            default -> new Pair<>(0, 0);
+        };
     }
 
     /**
      * Draws a play card on the given matrix.
-     *
+     * <p>
      * This method is used to draw a play card on a given matrix. The card is represented by a SideOfCard object.
      * The method takes as arguments the matrix to draw on, the card to draw, the height and width of the card,
      * and the starting row and column on the matrix where the card should be drawn.
-     *
+     * <p>
      * The method first gets the color of the card and the ANSI escape code for that color. It then iterates over the matrix,
      * setting the appropriate characters for the card's outline and filling in the card's color.
-     *
+     * <p>
      * After drawing the basic card, the method iterates over the card's corners. If a corner is not hidden, it draws the corner's symbol.
      * If a corner is covered, it draws the symbol of the corner that covers it. If a corner is hidden, it draws an outline for the hidden corner.
      *
@@ -124,11 +119,11 @@ public class DesignSupportClass {
 
     /**
      * Draws a corner of a card on the given matrix.
-     *
+     * <p>
      * This method is used to draw a corner of a card on a given matrix. The corner is represented by a CornerPosition object.
      * The method takes as arguments the matrix to draw on, the corner to draw, the height and width of the card,
      * the starting row and column on the matrix where the corner should be drawn, the color of the card, and the symbol to be drawn in the corner.
-     *
+     * <p>
      * The method first gets the ANSI escape code for the color of the card and the graphic symbol for the symbol to be drawn.
      * It then determines the offsets and symbols to be used for drawing the corner based on the position of the corner.
      * Finally, it iterates over the offsets and symbols, setting the appropriate characters on the matrix.
@@ -209,11 +204,11 @@ public class DesignSupportClass {
 
     /**
      * Draws an outline for a hidden corner on the given matrix.
-     *
+     * <p>
      * This method is used to draw an outline for a hidden corner on a given matrix. The corner is represented by a CornerPosition object.
      * The method takes as arguments the matrix to draw on, the corner to draw, the height and width of the card,
      * the starting row and column on the matrix where the corner should be drawn, and the color of the card.
-     *
+     * <p>
      * The method first gets the ANSI escape code for the color of the card. It then determines the symbols to be used for drawing the corner
      * based on the position of the corner. Finally, it sets the appropriate characters on the matrix.
      *
@@ -274,11 +269,11 @@ public class DesignSupportClass {
 
     /**
      * Prints the central part of the back of a PlayCard on the given matrix.
-     *
+     * <p>
      * This method is used to print the central part of the back of a PlayCard on a given matrix.
      * The method takes as arguments the matrix to print on, the card to print, the height and width of the card,
      * and the starting row and column on the matrix where the card should be printed.
-     *
+     * <p>
      * The method first gets the color of the card and the ANSI escape code for that color. It then sets the appropriate characters
      * on the matrix to represent the central part of the back of the card.
      *
@@ -303,11 +298,11 @@ public class DesignSupportClass {
 
     /**
      * Prints a ResourceCard on the given matrix.
-     *
+     * <p>
      * This method is used to print a ResourceCard on a given matrix. The card can be either the front or the back of the card,
      * as specified by the Side parameter. The method takes as arguments the matrix to print on, the card to print, the height and width of the card,
      * the starting row and column on the matrix where the card should be printed, and the side of the card to print.
-     *
+     * <p>
      * If the side is FRONT, the method draws the front of the card on the matrix and prints the points of the card if they are equal to 1.
      * If the side is BACK, the method draws the back of the card on the matrix and prints the central part of the back of the card.
      *
@@ -335,23 +330,23 @@ public class DesignSupportClass {
 
     /**
      * Prints a GoldCard on the given matrix.
-     *
+     * <p>
      * This method is used to print a GoldCard on a given matrix. The card can be either the front or the back of the card,
      * as specified by the Side parameter. The method takes as arguments the matrix to print on, the card to print, the height and width of the card,
      * the starting row and column on the matrix where the card should be printed, and the side of the card to print.
-     *
+     * <p>
      * If the side is FRONT, the method draws the front of the card on the matrix and prints the points of the card.
      * It also prints the requirements of the card and the goal symbol if the card is of type PointPerVisibleSymbol or PointPerCoveredCorner.
-     *
+     * <p>
      * If the side is BACK, the method draws the back of the card on the matrix and prints the central part of the back of the card.
      *
-     * @param matrix The matrix to print on.
-     * @param card The GoldCard to print.
-     * @param startRow The starting row on the matrix where the card should be printed.
-     * @param startColumn The starting column on the matrix where the card should be printed.
-     * @param h The height of the card.
-     * @param w The width of the card.
-     * @param side The side of the card to print (FRONT or BACK).
+     * @param matrix            The matrix to print on.
+     * @param card              The GoldCard to print.
+     * @param startRow          The starting row on the matrix where the card should be printed.
+     * @param startColumn       The starting column on the matrix where the card should be printed.
+     * @param h                 The height of the card.
+     * @param w                 The width of the card.
+     * @param side              The side of the card to print (FRONT or BACK).
      */
     public static void printGoldCard(String[][] matrix, GoldCard card, int startRow, int startColumn, int h, int w, Side side) {
         if(side.equals(Side.FRONT)) {
@@ -397,17 +392,16 @@ public class DesignSupportClass {
         else{
             drawPlayCard(matrix, card.getBack(), h, w, startRow, startColumn);
             printBackCentral(matrix, card, startRow, startColumn, h, w);
-            //todo add something to show that it is gold(?)
         }
     }
 
     /**
      * Draws the points of a card on the given matrix.
-     *
+     * <p>
      * This method is used to draw the points of a card on a given matrix. The points are represented by a string.
      * The method takes as arguments the matrix to draw on, the starting row and column on the matrix where the points should be drawn,
      * the width of the card, and the string representing the points.
-     *
+     * <p>
      * The method first calculates the middle column of the card. It then creates a StringBuilder and appends the appropriate characters
      * to it to represent the points. These characters are then set on the matrix at the appropriate positions.
      *
@@ -440,11 +434,11 @@ public class DesignSupportClass {
 
     /**
      * Draws a general outline for a card on the given matrix.
-     *
+     * <p>
      * This method is used to draw a general outline for a card on a given matrix. The outline is represented by a rectangle with rounded corners.
      * The method takes as arguments the height and width of the card, the matrix to draw on, the starting row and column on the matrix where the outline should be drawn,
      * and the color of the card.
-     *
+     * <p>
      * The method first gets the ANSI escape code for the color of the card. It then iterates over the matrix, setting the appropriate characters for the outline.
      * The corners of the outline are represented by the Unicode characters for the top left, top right, bottom left, and bottom right corners.
      * The sides of the outline are represented by the Unicode characters for the horizontal and vertical lines.
@@ -484,10 +478,10 @@ public class DesignSupportClass {
 
     /**
      * Prints a SymbolObjectiveCard on the console.
-     *
+     * <p>
      * This method is used to print a SymbolObjectiveCard on the console. The card is represented by a SymbolObjectiveCard object.
      * The method takes as an argument the card to print.
-     *
+     * <p>
      * The method first gets the goal of the card and creates a list of symbols representing the goal.
      * It then creates a matrix to represent the card and draws a general outline for the card on the matrix.
      * The points of the card are drawn on the matrix, and the symbols representing the goal are set on the matrix at the appropriate positions.
@@ -531,7 +525,7 @@ public class DesignSupportClass {
 
     /**
      * Determines the starting position for a card based on its position.
-     *
+     * <p>
      * This method calculates the starting position for a card based on its position (top left, top right, up, bottom left, bottom right, down).
      * The starting position is returned as a Pair of integers, where the first integer is the row and the second integer is the column.
      *
@@ -539,25 +533,21 @@ public class DesignSupportClass {
      * @return A Pair of integers representing the starting position for the card (row, column).
      */
     public static Pair<Integer, Integer> getStartingPosition(Position p) {
-        if (p == CornerPosition.TOPLEFT) {
-            return new Pair<>(-1, -4);
-        } else if (p == CornerPosition.TOPRIGHT) {
-            return new Pair<>(-1, +4);
-        } else if (p == UpDownPosition.UP) {
-            return new Pair<>(-2, 0);
-        } else if (p == CornerPosition.BOTTOMLEFT) {
-            return new Pair<>(1, -4);
-        } else if (p == CornerPosition.BOTTOMRIGHT) {
-            return new Pair<>(1, 4);
-        } else if (p == UpDownPosition.DOWN) {
-            return new Pair<>(2, 0);
-        } else return new Pair<>(0, 0);
+        return switch (p) {
+            case TOPLEFT -> new Pair<>(-1, -4);
+            case TOPRIGHT -> new Pair<>(-1, +4);
+            case UP -> new Pair<>(-2, 0);
+            case BOTTOMLEFT -> new Pair<>(1, -4);
+            case BOTTOMRIGHT -> new Pair<>(1, 4);
+            case DOWN -> new Pair<>(2, 0);
+            case null, default -> new Pair<>(0, 0);
+        };
 
     }
 
     /**
      * Prints a DispositionObjectiveCard as a string.
-     *
+     * <p>
      * This method is used to print a DispositionObjectiveCard as a string. The card is represented by a DispositionObjectiveCard object.
      * The method first gets the color of the central card and creates a matrix to represent the card. It then draws a general outline for the card on the matrix.
      * The points of the card are drawn on the matrix, and the colors of the neighboring cards are set on the matrix at the appropriate positions.
@@ -606,7 +596,7 @@ public class DesignSupportClass {
 
     /**
      * Retrieves the central symbols of a card, excluding the symbols located at the corners.
-     *
+     * <p>
      * This method is used to get the symbols of a card that are not located at the corners. The card is represented by a SideOfCard object.
      * The method first creates an ArrayList of symbols and adds all the symbols from the card to it.
      * It then iterates over the corners of the card. If a corner is not hidden and not covered, the symbol at that corner is removed from the ArrayList.
@@ -634,10 +624,10 @@ public class DesignSupportClass {
 
     /**
      * Determines if a given SideOfCard is the front or back side of its parent card.
-     *
+     * <p>
      * This method checks if a given SideOfCard is the front or back side of its parent card. The parent card is retrieved using the getParentCard() method of the SideOfCard.
      * If the given SideOfCard is equal to the front side of its parent card, the method returns Side.FRONT. Otherwise, it returns Side.BACK.
-     *
+     * <p>
      * This method is useful for determining the orientation of a card, which can be important for game logic in certain card games.
      *
      * @param card The SideOfCard to check. This should be a valid SideOfCard that is part of a card.
@@ -652,11 +642,11 @@ public class DesignSupportClass {
 
     /**
      * Prints the back side of an InitialCard on a given matrix.
-     *
+     * <p>
      * This method is used to print the back side of an InitialCard on a given matrix. The card is represented by an InitialCard object.
      * The method takes as arguments the matrix to print on, the card to print, the height and width of the card,
      * and the starting row and column on the matrix where the card should be printed.
-     *
+     * <p>
      * The method calls the drawPlayCard method, passing it the matrix, the back side of the card, the height and width of the card,
      * and the starting row and column. The drawPlayCard method draws the card on the matrix.
      *
@@ -673,7 +663,7 @@ public class DesignSupportClass {
 
     /**
      * Prints the front side of an InitialCard on a given matrix.
-     *
+     * <p>
      * This method is used to print the front side of an InitialCard on a given matrix. The card is represented by an InitialCard object.
      * The method first draws the card on the matrix using the drawPlayCard method. It then retrieves the central symbols of the card that are not located at the corners.
      * The method calculates an offset based on the height of the card and the size of the symbols, and uses this offset to position the symbols on the matrix.
@@ -710,17 +700,17 @@ public class DesignSupportClass {
 
         // Print symbols inside the box
         for (int i = offset; i < offset + symbols.size(); i++) {
-            matrix[startRow + i][startColumn + w / 2] = "" + GraphicUsage.symbolDictionary.get(symbols.get(i - offset));
+            matrix[startRow + i][startColumn + w / 2] = GraphicUsage.symbolDictionary.get(symbols.get(i - offset));
         }
     }
 
     /**
      * Prints a card on a given matrix.
-     *
+     * <p>
      * This method is used to print a card on a given matrix. The card is represented by a SideOfCard object.
      * The method first checks the type of the parent card of the given SideOfCard. Depending on the type of the parent card,
      * it calls the appropriate method to print the card.
-     *
+     * <p>
      * If the parent card is a ResourceCard, it calls the printResourceCard method.
      * If the parent card is a GoldCard, it calls the printGoldCard method.
      * If the parent card is an InitialCard, it checks if the given SideOfCard is the front or back side of the card.
