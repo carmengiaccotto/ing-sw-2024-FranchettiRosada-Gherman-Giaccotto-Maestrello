@@ -30,8 +30,6 @@ public class TUIComponents {
     // ANSI color codes and formatting constants
     private static final String bold = "\033[1m"; // ANSI code for bold text
     private static final String reset = "\033[0m"; // ANSI code to reset text formatting
-    private static final String ANSI_RESET = "\u001B[0m"; // ANSI code to reset color
-    private static final String  ANSI_CYAN = "\u001B[36m"; // ANSI code for cyan color
 
     // Dimensions for cards and rows
     private static final int cardHeight=7; // Height of a card in the TUI
@@ -41,11 +39,11 @@ public class TUIComponents {
 
     /**
      * Converts a 2D String array (matrix) to a single String.
-     *
+     * <p>
      * This method is used to convert a 2D String array, typically representing a play area in the game, into a single String.
      * The conversion is done by iterating over each element in the 2D array, appending it to a StringBuilder, and adding a newline character at the end of each row.
      * The resulting String is then returned.
-     *
+     * <p>
      * This method is useful for displaying the game state in a text-based user interface, where the game state needs to be represented as a single String.
      *
      * @param matrix The 2D String array to convert. This should be a valid 2D String array representing a game state.
@@ -67,13 +65,13 @@ public class TUIComponents {
 
     /**
      * Displays the player's information in the player's pawn color.
-     *
+     * <p>
      * This method is used to display the player's information, including their nickname, score, and round number.
      * The information is displayed in the color associated with the player's pawn.
      * The method retrieves the ANSI color code for the player's pawn color from the GraphicUsage.pawnColorDictionary.
      * It then constructs a 2D String array with the player's information, formatted with the ANSI color code and reset code.
      * The 2D String array is then converted to a single String using the ConvertToString method, and this String is returned.
-     *
+     * <p>
      * This method is useful for displaying player information in a text-based user interface, where the player's information needs to be color-coded according to their pawn color.
      *
      * @param player The Player whose information is to be displayed. This should be a valid Player object.
@@ -92,11 +90,11 @@ public class TUIComponents {
 
     /**
      * Displays the cards in the player's hand.
-     *
+     *<p>
      * This method is used to display the cards that the player can play. The cards are enumerated for multiple choice purposes.
      * The method constructs a 2D String array with the card information, formatted with the card's front side.
      * The 2D String array is then converted to a single String using the ConvertToString method, and this String is returned.
-     *
+     *<p>
      * This method is useful for displaying player's cards in a text-based user interface, where the player's cards need to be represented as a single String.
      *
      * @param cardsInHand The list of PlayCard objects representing the cards in the player's hand. Only the front side of the cards is shown as the back does not provide substantial information.
@@ -117,7 +115,7 @@ public class TUIComponents {
 
     /**
      * Displays the opponent's information and play area.
-     *
+     * <p>
      * This method is used to display the opponent's information, including their nickname, score, and round number,
      * as well as their play area. The information is displayed in the color associated with the opponent's pawn.
      * The method retrieves the ANSI color code for the opponent's pawn color from the GraphicUsage.pawnColorDictionary.
@@ -168,7 +166,7 @@ public class TUIComponents {
             String objective = printObjectives(player.getPersonalObjectiveCard());
             String hand = showMyCardsInHand(player.getCardsInHand());
             String ObjHand = concatString(objective, hand, 5);
-            sb.append(hand);
+            sb.append(ObjHand);
 
             sb.append("\n").append(bold).append("YOUR PLAY AREA ").append(reset).append("\n");
             String area = DrawMyPlayArea(player.getPlayArea());
@@ -374,12 +372,12 @@ public class TUIComponents {
 
     /**
      * Generates a string representation of a given PlayCard with specified dimensions.
-     *
+     * <p>
      * This method is used to generate a string representation of a PlayCard. The card can be represented either on its front or back side.
      * The method first creates a copy of the provided 2D String array (matrix). Then, depending on the specified side of the card,
      * it calls the printCard method to fill the matrix with the representation of the card's front or back.
      * Finally, it converts the filled matrix into a single string and returns it.
-     *
+     * <p>
      * This method is useful for displaying a PlayCard in a text-based user interface, where the card needs to be represented as a string.
      *
      * @param matrix The 2D String array to be filled with the card representation. This should be a valid 2D String array with dimensions matching the specified height and width.
@@ -411,7 +409,7 @@ public class TUIComponents {
 
     /**
      * Concatenates two strings with a specified amount of space between them.
-     *
+     * <p>
      * This method is used to concatenate two multiline strings with a certain amount of space between them.
      * The method first splits each input string into lines using the newline character as a delimiter.
      * It then determines which string has fewer lines and assigns this string to the shortS variable, and the other string to the longS variable.
@@ -421,7 +419,7 @@ public class TUIComponents {
      * If the s2 string has more lines than the s1 string, the remaining lines from the s2 string are appended to the StringBuilder,
      * preceded by a specified amount of space.
      * The resulting StringBuilder is then converted to a String and returned.
-     *
+     * <p>
      * This method is useful for formatting multiline strings for display in a text-based user interface, where the strings need to be aligned vertically.
      *
      * @param s1 The first string to concatenate. This should be a valid multiline string.
@@ -447,7 +445,7 @@ public class TUIComponents {
             if (s1Lines == longS) {
                 sb.append(s1Lines[i]).append("\n");
             } else {
-                sb.append(" ".repeat(Math.max(0, s1Lines[0].length() + space)));
+                StringBuilder append = sb.append(" ".repeat(Math.max(0, s1Lines[0].length() + space)));
                 if (i < s2Lines.length) {
                     sb.append(s2Lines[i]).append("\n");
                 }
@@ -457,133 +455,5 @@ public class TUIComponents {
         return sb.toString();
     }
 
-    /**
-     * Formats a list of strings for display in a chat box.
-     *
-     * This method is used to format a list of strings so that they can be displayed in a chat box in a text-based user interface.
-     * The method first creates a StringBuilder and appends a header for the chat box.
-     * It then iterates over each string in the input list. If a string is longer than the maximum line length (50 characters),
-     * the method splits the string into multiple lines of up to 50 characters each.
-     * Each line is then appended to the StringBuilder, followed by a newline character.
-     * The resulting StringBuilder is then converted to a String and returned.
-     *
-     * This method is useful for formatting chat messages for display in a text-based user interface, where each message needs to be represented as a single String.
-     *
-     * @param strings The list of strings to be formatted. Each string represents a chat message.
-     * @return A String representing the formatted chat messages, ready for display in a chat box.
-     */
-    public static String formatStringList(ArrayList<String> strings) {
-        StringBuilder sb = new StringBuilder();
-        int maxLineLength = 50;
-        sb.append("                      "+bold+ANSI_CYAN+"CHAT"+ANSI_RESET+reset+ "\n");
-        for (String str : strings) {
-
-            while (str.length() > maxLineLength) {
-                sb.append(str.substring(0, maxLineLength)).append("\n");
-                str = str.substring(maxLineLength);
-            }
-            sb.append(str).append("\n");
-        }
-
-        return sb.toString();
-    }
-
-    /**
-     * Creates a box with a specified amount of space between the box and the content.
-     *
-     * This method is used to create a box around a given string (the content of the box), with a specified amount of space between the box and the content.
-     * The box is created using ASCII characters, and the color of the box can be specified using ANSI color codes.
-     * The method first calculates the maximum length of the lines in the input string, then creates the top and bottom of the box with the calculated width.
-     * It then iterates over each line in the input string, adding the left and right sides of the box and the specified amount of space.
-     * The resulting box is then returned as a single string.
-     *
-     * This method is useful for formatting text for display in a text-based user interface, where the text needs to be enclosed in a box.
-     *
-     * @param input The content of the box. This should be a valid string, possibly multiline.
-     * @param color The color of the box. This should be a valid ANSI color code.
-     * @param space The amount of space to insert between the box and the content. This should be a non-negative integer.
-     * @return A String representing the content enclosed in a box, with the specified color and amount of space.
-     */
-    public static String createBoxWithSpace(String input, String color, int space) {
-        StringBuilder output = new StringBuilder();
-        String[] lines = input.split("\n");
-        String[] linesNoColor = input.split("\n");
-        int maxLength = 0;
-
-        // Iterate over each line to calculate the max length
-        for( String line : linesNoColor ) {
-            // Remove ANSI color codes before measuring length
-            String plainLine = line.replaceAll("\u001B\\[[;\\d]*m", "");
-            maxLength = Math.max(maxLength, plainLine.length());
-        }
-
-        int width = maxLength; // Add 2 for each side of the box
-        String top = color + "┌" + "─".repeat(width + 2) + "┐" + ANSI_RESET + " ".repeat(space) + "\n";
-        String bottom = color + "└" + "─".repeat(width + 2) + "┘" + ANSI_RESET + " ".repeat(space)+"\n" ;
-
-        output.append(top);
-
-        for( String line : lines ) {
-            output.append(color).append("│ ").append(ANSI_RESET);
-            // Replace ANSI color codes with empty strings before padding
-            String plainLine = line.replaceAll("\u001B\\[[;\\d]*m", "");
-            output.append(line);
-            output.append(" ".repeat(maxLength - plainLine.length()));
-            output.append(color).append(" │").append(ANSI_RESET).append( " ".repeat(space)).append("\n");
-        }
-
-        output.append(bottom);
-        return output.toString();
-    }
-
-   // JavaDoc
-    public static void createASCIILegend(){
-
-    }
-
-    /**
-     * The main method for testing the functionality of the PlayArea and Deck classes.
-     *
-     * This method is used to create a PlayArea and two Decks (one for ResourceCards and one for InitialCards),
-     * shuffle the decks, draw cards from them, and add the cards to the play area.
-     * It then prints the play area to the console.
-     *
-     * This method is useful for testing the functionality of the PlayArea and Deck classes, as well as the methods for adding cards to the play area and printing the play area.
-     *
-     * @param args The command-line arguments. This is not used in this method.
-     * @throws IOException If an input or output exception occurred
-     */
-    public static void main(String[] args) throws IOException {
-        PlayArea playArea = new PlayArea();
-        Deck resourceDeck= new Deck(ResourceCard.class);
-        Deck initialDeck= new Deck(InitialCard.class);
-        initialDeck.shuffle();
-        resourceDeck.shuffle();
-        ResourceCard card1= (ResourceCard) resourceDeck.drawCard();
-        ResourceCard card2= (ResourceCard) resourceDeck.drawCard();
-        ResourceCard card3= (ResourceCard) resourceDeck.drawCard();
-        ResourceCard card4= (ResourceCard) resourceDeck.drawCard();
-        InitialCard card5= (InitialCard) initialDeck.drawCard();
-
-        playArea.addInitialCardOnArea(card5.getBack());
-        //System.out.println("r:"+ playArea.getCardsOnArea().size()+" c:"+playArea.getCardsOnArea().getFirst().size());
-        playArea.addCardOnArea(card1.getBack(), 2, 0);
-        //playArea.addCardOnArea(card2.getFront(), 0, 3);
-        playArea.addCardOnArea(card3.getBack(), 4, 2);
-        //playArea.addCardOnArea(card2.getBack(), 2, 0);
-        //System.out.println(card1.getColor());
-        //System.out.println(playArea.getCardInPosition(1,1).getColor());
-        //playArea.addCardOnArea(card3.getFront(), 0, 0);
-       // playArea.addCardOnArea(card4.getFront(), 0, 2);
-
-//        if(card1.getBack().getCornerInPosition(CornerPosition.TOPLEFT).isCovered())
-//            System.out.println("CORNER MATCHES");
-//        else
-//            System.out.println("CORNER DOES NOT MATCH");
-
-        System.out.println(DrawMyPlayArea(playArea));
-        System.out.println(DrawOthersPlayArea(playArea));
-
-    }
 
 }

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.View.TUI;
 
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Message;
-import it.polimi.ingsw.Model.Chat.PrivateMessage;
+
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
@@ -113,8 +112,7 @@ public class TUI implements UserInterface, Serializable {
         System.out.println("Choose the row and column in which you want to place the card: [row] [column]");
         int row = scanner.nextInt();
         int column = scanner.nextInt();
-        Pair<Integer, Integer> position = new Pair<>(row, column);
-        return position;
+        return new Pair<>(row, column);
     }
 
 
@@ -294,7 +292,6 @@ public class TUI implements UserInterface, Serializable {
     @Override
     public int choosePersonaObjectiveCard(ArrayList<ObjectiveCard> objectives) {
         String s="";
-        String[][] matrix= new String[10][70];
         System.out.println("Please, choose your personal Objective Card!");
             for (int i = 0; i < objectives.size(); i++) {
                 s=TUIComponents.concatString(s,TUIComponents.printObjectives(objectives.get(i)), 4);
@@ -315,96 +312,23 @@ public class TUI implements UserInterface, Serializable {
 
 
 
-    /**
-     *
-     * Method that returns an array of strings representing the messages the player can see in the chatBox.
-     *
-     * @param player            that is visualizing the chat.
-     * @param myChat            messages in this player's chat
-     *
-     * @return messages         String representation of the chat messages
-     *
-     * */
-    @Override
-    public ArrayList<String> viewChat(ArrayList<Message> myChat, Player player) {
-        String bold = "\033[1m";
-        String reset = "\033[0m";
-        ArrayList<String> messages = new ArrayList<>();// creating a new arraylist of strings
-        for (Message m : myChat) { // for each message in the chat
-            String sender; //initialize sender
-            String receiver = "ALL";//initialize receiver. If the message is not a private message, the receiver is everyone
-            if (m.getSender().getNickname().equals(player.getNickname())) { //if i'm the sender
-                sender = "YOU";
-            } else {
-                sender = m.getSender().getNickname(); //else the sender is the nickname of the sender
-            }
-            if (m instanceof PrivateMessage) { //if the message is a private message
-                receiver = ((PrivateMessage) m).getReceiver(); //retrieve the receiver
-                if (receiver.equals(player.getNickname())) { //if player is the receiver
-                    receiver = "YOU"; //receiver is you
-                }
-            }
-            String message = bold + "[" + sender + "] to [" + receiver + "]:" + reset + m.getText();
-            messages.add(message);
-        }
-        Collections.reverse(messages); //we want to print the messages in order from the most recent ones to the oldest ones,
-                                        // so we reverse the order of the arraylist
 
-        // Limit the size of the list to 20
-        if (messages.size() > 20) {
-            return new ArrayList<>(messages.subList(0, 20));
-        } else {
-            return messages;
-        }
-    }
 
     @Override
     public void showString(String s){
         if(s == "WIN"){
             printMessage(GraphicUsage.you_win);
-        }else if(s == "GAME_OVER"){
+        }else if(Objects.equals(s, "GAME_OVER")){
             printMessage(GraphicUsage.game_over);
         }else if(s == "CODEX_NATURALIS"){
-            StringBuilder sb=new StringBuilder();
-            sb.append(GraphicUsage.codex_naturalis_string+"\n\n");
-            sb.append(bold+"Before you start the game, read carefully the following legend about the game symbols: \n\n"+reset);
-            sb.append(GraphicUsage.legenda);
-            System.out.println(sb.toString());;
+            String sb = GraphicUsage.codex_naturalis_string + "\n\n" +
+                    bold + "Before you start the game, read carefully the following legend about the game symbols: \n\n" + reset +
+                    GraphicUsage.legenda;
+            System.out.println(sb);;
         }
     }
 
 
-    @Override
-    public Pair<String, String> sendChatMessage(ArrayList<Player> opponents) {
-            ArrayList<String> players = new ArrayList<>();
-            for (Player p : opponents) {
-                players.add(p.getNickname());
-            }
-            String receiver="";
-            String text="";
-            System.out.println("Do you want to send a message to everyone? [Y/N]");
-            String choice = scanner.next().toUpperCase();
-            scanner.nextLine(); // Aggiungi questa linea per consumare il resto della riga
-            if(choice.equals("Y")){
-                receiver="everyone";
-            }else{
-                do{
-                    String message="Insert the nickname of the receiver: ";
-                    for (String p : players) {
-                        message+="["+p+"]";
-                    }
-                    System.out.println(message);
-                    receiver=scanner.nextLine();
-                    if(!players.contains(receiver)){
-                    System.out.println("There is no player with such nickname in the game! Please insert a valid nickname.");
-                }
-                    }while (!players.contains(receiver));
-            }
-            System.out.println("Insert the text of the message: ");
-            text=scanner.nextLine();
-            Pair<String, String> message = new Pair<>(receiver, text);
-            return message;
-    }
 
     @Override
     public int getInput() {

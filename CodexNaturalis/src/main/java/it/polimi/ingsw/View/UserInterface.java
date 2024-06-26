@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View;
 
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Message;
+
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
@@ -52,11 +52,9 @@ public interface UserInterface {
 
     Command receiveCommand(Boolean IsMyTurn);
 
-    ArrayList<String> viewChat(ArrayList<Message> myChat, Player player);
 
     void showString(String s);
 
-    Pair<String, String> sendChatMessage(ArrayList<Player> players);
 
     int getInput();
 }

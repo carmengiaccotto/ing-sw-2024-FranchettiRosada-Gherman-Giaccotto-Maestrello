@@ -3,7 +3,6 @@ package it.polimi.ingsw.Controller.Game;
 import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Enumerations.*;
 import it.polimi.ingsw.Model.Exceptions.*;
 import it.polimi.ingsw.Model.Pair;
@@ -62,7 +61,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private Chat chat=new Chat();
 
     private int currentPlayerIndex = 0;
 

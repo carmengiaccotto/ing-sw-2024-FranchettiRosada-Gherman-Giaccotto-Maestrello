@@ -2,8 +2,7 @@ package it.polimi.ingsw.Model.PlayGround;
 
 
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Chat;
-import it.polimi.ingsw.Model.Chat.Message;
+
 
 import java.io.IOException;
 import java.io.Serializable;
