@@ -57,7 +57,7 @@ public class DispositionObjectiveCard extends ObjectiveCard {
                 if (playArea.getCardInPosition(i, j) != null) { //if there is a card in the given position
                     SideOfCard TemporaryCentralCard = playArea.getCardInPosition(i, j);//set this card to be the central one
                     if (!TemporaryCentralCard.isInConfiguration()) {//continue to use it as a central one only if it is not already in a configuration (as per game rules)
-                        if (TemporaryCentralCard.getColor().equals(getCentralCardColor())) {//check if the card we are considering is of the desired color
+                        if (TemporaryCentralCard.getColor() != null && TemporaryCentralCard.getColor().equals(getCentralCardColor())) {//check if the card we are considering is of the desired color
                             ArrayList<SideOfCard> tempConfig = new ArrayList<>();//initialize the temporary configuration
                             tempConfig.add(TemporaryCentralCard);//adding the central card to the configuration
                             boolean isValidConfiguration = true;//initialize the boolean that will tell us if the configuration is valid
