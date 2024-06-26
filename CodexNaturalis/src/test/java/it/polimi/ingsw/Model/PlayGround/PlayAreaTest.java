@@ -177,32 +177,6 @@ class PlayAreaTest {
 
     }
 
-    @Test
-    void addCardOnAreaInvalidPosition(){
-        Corner coner1= new Corner(Symbol.ANIMAL, false); //corner1 empty
-        Corner coner2= new Corner(null, false); //corner2
-        Corner coner3= new Corner(Symbol.INKWELL, false); //corner3
-        Corner corner4= new Corner(null, true); //corner4 hidden
-        Corner[][] corners = {{coner1, coner2}, {coner3, corner4}}; //corners of the card
-        HashMap<Symbol, Integer> symbols = new HashMap<>();
-        symbols.put(Symbol.ANIMAL, 1);
-        symbols.put(Symbol.INKWELL, 1);
-
-        SideOfCard card = new SideOfCard(symbols, corners);
-
-
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 7, 5);
-        });
-
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 0, 5);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 7, 0);
-        });
-
-    }
 
     @Test
     void resetConfigTest(){

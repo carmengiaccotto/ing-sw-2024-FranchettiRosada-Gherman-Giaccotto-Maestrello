@@ -444,7 +444,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
-                   throw new GameJoinException("Error while setting up a new game", e);
+                    throw new GameJoinException("Error while setting up a new game", e);
                 }
             }//Ask for desired number of players of the new game before creation
             case 2 -> {

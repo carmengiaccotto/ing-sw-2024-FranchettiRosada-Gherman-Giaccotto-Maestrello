@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class PlayGround implements Serializable {
 
+    private String filepath = "CodexNaturalis/src/main/resources/";
+
 
     /**
      *  Decks
@@ -48,6 +50,23 @@ public class PlayGround implements Serializable {
         ObjectiveCardDeck = new Deck(ObjectiveCard.class);
         ObjectiveCardDeck.shuffle();
         InitialCardDeck = new Deck(InitialCard.class);
+        InitialCardDeck.shuffle();
+
+        commonResourceCards = new ArrayList<>();
+        commonGoldCards = new ArrayList<>();
+        commonObjectivesCards = new ArrayList<>();
+
+    }
+
+    /**constructor that uses filepath to retrieve json cards*/
+    public PlayGround(String filepath) throws IOException {
+        GoldCardDeck = new Deck(GoldCard.class, filepath);
+        GoldCardDeck.shuffle();
+        ResourceCardDeck = new Deck(ResourceCard.class, filepath);
+        ResourceCardDeck.shuffle();
+        ObjectiveCardDeck = new Deck(ObjectiveCard.class, filepath);
+        ObjectiveCardDeck.shuffle();
+        InitialCardDeck = new Deck(InitialCard.class, filepath);
         InitialCardDeck.shuffle();
 
         commonResourceCards = new ArrayList<>();
