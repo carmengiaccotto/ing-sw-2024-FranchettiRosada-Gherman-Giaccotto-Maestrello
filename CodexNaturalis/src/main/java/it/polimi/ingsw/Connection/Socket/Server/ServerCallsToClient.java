@@ -68,7 +68,12 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
      */
     @Override
     public void disconnect() throws RemoteException {
-        return;
+        try {
+            sendMessage(new DisconnectMessage());
+            DisconnectResponse response = serverListener.getDisconnectResponse();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -385,7 +390,6 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
     public void WhatDoIDoNow(String doThis) throws RemoteException {
         try {
             sendMessage(new WhatDoIDoNowMessage(doThis));
-            // TODO Add response message in order to wait client has chosen cards.
             WhatDoIDoNowResponse response = serverListener.whatDoIDoNowResponse();
         } catch (IOException ex) {
             ex.printStackTrace();

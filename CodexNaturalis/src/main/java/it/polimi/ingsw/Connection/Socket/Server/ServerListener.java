@@ -8,8 +8,6 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Chat.Chat;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +52,9 @@ public class ServerListener extends Thread implements Serializable {
     private final Object getPersonalObjectiveCardResponseLockObject = new Object();
     private WhatDoIDoNowResponse whatDoIDoNowResponse;
     private final Object whatDoIDoNowResponseLockObject = new Object();
+    private DisconnectResponse disconnectResponse;
+    private final Object disconnectResponseLockObject = new Object();
+
 
 
     public ServerListener(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface client, MainControllerInterface mainController) {
@@ -230,6 +232,7 @@ public class ServerListener extends Thread implements Serializable {
                             } else {
                                 gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage());
                             }
+                            sendMessage(new UpdatePlayersResponse());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -263,6 +266,13 @@ public class ServerListener extends Thread implements Serializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
+                    } else if (message instanceof FinalRankingMessage) {
+                        try {
+                            String finalRanking = gamecontroller.finalRanking();
+                            sendMessage(new FinalRankingResponse(finalRanking));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else if (message instanceof GetPlayerResponse) {
                         synchronized (getPlayerResponseLockObject) {
                             getPlayerResponse = (GetPlayerResponse) message;
@@ -293,10 +303,22 @@ public class ServerListener extends Thread implements Serializable {
                             whatDoIDoNowResponse = (WhatDoIDoNowResponse) message;
                             whatDoIDoNowResponseLockObject.notify();
                         }
+                    } else if (message instanceof DisconnectResponse) {
+                        synchronized (disconnectResponseLockObject) {
+                            disconnectResponse = (DisconnectResponse) message;
+                            disconnectResponseLockObject.notify();
+                        }
                     }
                 });
                 scheduler.schedule(thread, 100, TimeUnit.MILLISECONDS);
             }
+        } catch (SocketException e) {
+            // TODO Client Disconnected management
+            //try {
+            //       gamecontroller.clientDisconnected(client);
+            //} catch (RemoteException ex) {
+            //    throw new RuntimeException(ex);
+            //}
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -392,12 +414,23 @@ public class ServerListener extends Thread implements Serializable {
 
     public WhatDoIDoNowResponse whatDoIDoNowResponse() {
         synchronized (whatDoIDoNowResponseLockObject) {
-        try {
-            whatDoIDoNowResponseLockObject.wait();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            try {
+                whatDoIDoNowResponseLockObject.wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
-    }
         return whatDoIDoNowResponse;
+    }
+
+    public DisconnectResponse getDisconnectResponse() {
+        synchronized (disconnectResponseLockObject) {
+            try {
+                disconnectResponseLockObject.wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return disconnectResponse;
     }
 }

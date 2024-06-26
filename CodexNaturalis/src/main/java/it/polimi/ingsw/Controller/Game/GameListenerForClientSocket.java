@@ -1,7 +1,9 @@
 package it.polimi.ingsw.Controller.Game;
 
+import it.polimi.ingsw.Connection.Socket.Client.ClientListener;
 import it.polimi.ingsw.Connection.Socket.Messages.GenericMessage;
 import it.polimi.ingsw.Connection.Socket.Messages.UpdatePlayersMessage;
+import it.polimi.ingsw.Connection.Socket.Messages.UpdatePlayersResponse;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 
@@ -13,9 +15,11 @@ import java.util.List;
 
 public class GameListenerForClientSocket extends GameListener {
     private final ObjectOutputStream oos;
+    private final ClientListener listener;
 
-    public GameListenerForClientSocket(ObjectOutputStream oos) {
+    public GameListenerForClientSocket(ObjectOutputStream oos, ClientListener listener) {
         this.oos = oos;
+        this.listener = listener;
     }
 
     private void sendMessage(GenericMessage message) throws IOException {
@@ -34,6 +38,7 @@ public class GameListenerForClientSocket extends GameListener {
 //        }
         try {
             sendMessage(new UpdatePlayersMessage(message, currentPlayer.getNickname()));
+            UpdatePlayersResponse response = listener.getUpdatePlayersResponse();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

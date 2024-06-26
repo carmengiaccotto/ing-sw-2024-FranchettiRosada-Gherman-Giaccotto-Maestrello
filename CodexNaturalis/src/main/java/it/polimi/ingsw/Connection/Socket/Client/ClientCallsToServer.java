@@ -12,8 +12,6 @@ import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
 import it.polimi.ingsw.Model.Cards.SideOfCard;
-import it.polimi.ingsw.Model.Chat.Chat;
-import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Symbol;
@@ -33,9 +31,8 @@ import java.util.Map;
 public class ClientCallsToServer implements MainControllerInterface, GameControllerInterface {
     private final ClientControllerInterface clientController;
     private final ObjectOutputStream oos;
-    private ObjectInputStream ois;
-    private ClientListener listener;
-    private PlayGround playGround;
+    private final ObjectInputStream ois;
+    private ClientListener clientListener;
 
     public ClientCallsToServer(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface clientController) {
         this.clientController = clientController;
@@ -45,8 +42,8 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     public void connect(String ipAddress) {
         try {
-            listener = new ClientListener(oos, ois, (ClientController) clientController);
-            listener.start();
+            clientListener = new ClientListener(oos, ois, (ClientController) clientController);
+            clientListener.start();
 
             clientController.connect(ipAddress);
 
@@ -73,7 +70,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public ArrayList<Pair<Integer, Integer>> numRequiredPlayers() throws RemoteException {
         try {
             sendMessage(new NumRequiredPlayersMessage());
-            NumRequiredPlayersResponse response = listener.getNumRequiredPlayersResponse();
+            NumRequiredPlayersResponse response = clientListener.getNumRequiredPlayersResponse();
             return response.getPlayers();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -104,7 +101,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     @Override
     public boolean checkUniqueNickName(String name) throws RemoteException, IOException {
         sendMessage(new CheckUniqueNickNameMessage(name));
-        CheckUniqueNickNameResponse response = listener.getCheckUniqueNickNameResponse();
+        CheckUniqueNickNameResponse response = clientListener.getCheckUniqueNickNameResponse();
         return response.getIsUnique();
     }
 
@@ -116,7 +113,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public void joinGame(ClientControllerInterface client, int GameID) {
         try {
             sendMessage(new JoinGameMessage(GameID));
-            JoinGameResponse response = listener.getJoinGameResponse();
+            JoinGameResponse response = clientListener.getJoinGameResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -130,7 +127,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public Map<Integer, ArrayList<String>> DisplayAvailableGames() throws RemoteException {
         try {
             sendMessage(new DisplayAvailableGamesMessage());
-            DisplayAvailableGamesResponse response = listener.getDisplayAvailableGamesResponse();
+            DisplayAvailableGamesResponse response = clientListener.getDisplayAvailableGamesResponse();
             return response.getAvailableGames();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -148,7 +145,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public GameControllerInterface createGame(ClientControllerInterface client, int maxNumberOfPlayers) throws RemoteException {
         try {
             sendMessage(new CreateGameMessage(maxNumberOfPlayers));
-            CreateGameResponse response = listener.createGameResponse();
+            CreateGameResponse response = clientListener.createGameResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -164,7 +161,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public void NotifyGamePlayerJoined(GameControllerInterface game, ClientControllerInterface client) throws RemoteException {
         try {
             sendMessage(new NotifyGamePlayerJoinedMessage());
-            NotifyGamePlayerJoinedResponse response = listener.getNotifyGamePlayerJoinedResponse();
+            NotifyGamePlayerJoinedResponse response = clientListener.getNotifyGamePlayerJoinedResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -197,7 +194,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        return new GameListenerForClientSocket(oos);
+        return new GameListenerForClientSocket(oos, clientListener);
     }
 
     /**
@@ -229,7 +226,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public GameStatus getStatus() throws RemoteException {
         try {
             sendMessage(new GetStatusMessage());
-            GetStatusResponse response = listener.getStatusResponse();
+            GetStatusResponse response = clientListener.getStatusResponse();
             return response.getStatus();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -283,7 +280,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public PlayGround getModel() throws RemoteException {
         try {
             sendMessage(new GetModelMessage());
-            GetModelResponse response = listener.getModelResponse();
+            GetModelResponse response = clientListener.getModelResponse();
             return response.getModel();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -304,7 +301,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public ArrayList<Player> getPlayers() throws RemoteException {
         try {
             sendMessage(new GetPlayersMessage());
-            GetPlayersResponse response = listener.getPlayersResponse();
+            GetPlayersResponse response = clientListener.getPlayersResponse();
             return response.getPlayer();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -325,7 +322,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public ArrayList<PlayCard> extractPlayerHandCards() throws RemoteException {
         try {
             sendMessage(new ExtractPlayerHandCardsMessage());
-            ExtractPlayerHandCardsResponse response = listener.extractPlayerHandCardsResponse();
+            ExtractPlayerHandCardsResponse response = clientListener.extractPlayerHandCardsResponse();
             return response.extractPlayerHandCards();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -336,7 +333,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public List<PawnColor> getAvailableColors() throws RemoteException {
         try {
             sendMessage(new GetAvailableColorsMessage());
-            GetAvailableColorsResponse response = listener.getAvailableColorsResponse();
+            GetAvailableColorsResponse response = clientListener.getAvailableColorsResponse();
             return response.getAvailableColors();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -347,7 +344,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public ArrayList<ObjectiveCard> getPersonalObjective() throws RemoteException {
         try {
             sendMessage(new GetPersonalObjectiveCardsMessage());
-            GetPersonalObjectiveCardsResponse response = listener.getPersonalObjectiveCardsResponse();
+            GetPersonalObjectiveCardsResponse response = clientListener.getPersonalObjectiveCardsResponse();
             return response.getPersonalObjectiveCards();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -358,7 +355,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public InitialCard extractInitialCard() throws RemoteException {
         try {
             sendMessage(new ExtractInitialCardMessage());
-            ExtractInitialCardResponse response = listener.getInitialCardResponse();
+            ExtractInitialCardResponse response = clientListener.getInitialCardResponse();
             return response.getCard();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -369,7 +366,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public int getPlayersWhoChoseObjective() throws RemoteException {
         try {
             sendMessage(new GetPlayersWhoChoseObjectiveMessage());
-            GetPlayersWhoChoseObjectiveResponse response = listener.getPlayersWhoChoseObjectiveResponse();
+            GetPlayersWhoChoseObjectiveResponse response = clientListener.getPlayersWhoChoseObjectiveResponse();
             return response.getPlayersWhoChoseObjective();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -380,7 +377,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public void incrementPlayersWhoChoseObjective() throws RemoteException {
         try {
             sendMessage(new IncrementPlayersWhoChoseObjectiveMessage());
-            IncrementPlayersWhoChoseObjectiveResponse response = listener.getIncrementPlayersWhoChoseObjectiveResponse();
+            IncrementPlayersWhoChoseObjectiveResponse response = clientListener.getIncrementPlayersWhoChoseObjectiveResponse();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -392,7 +389,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
             List<List<SideOfCard>> cardsOnPlayArea = playArea.getCardsOnArea();
             Map<Symbol, Integer> symbolsOnPlayArea = playArea.getSymbols();
             sendMessage(new IsValidMoveMessage(cardsOnPlayArea, symbolsOnPlayArea, row, column, newCard));
-            IsValidMoveResponse response = listener.isValidMoveResponse();
+            IsValidMoveResponse response = clientListener.isValidMoveResponse();
             return response.isValidMove();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -404,7 +401,13 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     @Override
     public String finalRanking() throws RemoteException {
-        return null;
+        try {
+            sendMessage(new FinalRankingMessage());
+            FinalRankingResponse response = clientListener.getFinalRankingResponse();
+            return response.getFinalRanking();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

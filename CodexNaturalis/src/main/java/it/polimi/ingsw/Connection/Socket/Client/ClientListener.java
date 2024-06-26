@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-class ClientListener extends Thread {
+public class ClientListener extends Thread {
     private ClientController clientController;
     private ObjectInputStream inputStream;
     private final ObjectOutputStream outputStream;
@@ -54,6 +54,10 @@ class ClientListener extends Thread {
     private final Object isValidMoveResponseLockObject = new Object();
     private GetStatusResponse getStatusResponse;
     private final Object getStatusResponseLockObject = new Object();
+    private UpdatePlayersResponse updatePlayersResponse;
+    private final Object updatePlayersResponseLockObject = new Object();
+    private FinalRankingResponse finalRankingResponse;
+    private final Object finalRankingResponseLockObject = new Object();
 
 
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
@@ -151,6 +155,13 @@ class ClientListener extends Thread {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
+                        }  else if (message instanceof DisconnectMessage) {
+                            try {
+                                clientController.disconnect();
+                                sendMessage(new DisconnectResponse());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         } else if (message instanceof GetPlayersResponse) {
                             synchronized (getPlayerResponseLockObject) {
                                 getPlayerResponse = (GetPlayersResponse) message;
@@ -220,6 +231,16 @@ class ClientListener extends Thread {
                             synchronized (getStatusResponseLockObject) {
                                 getStatusResponse = (GetStatusResponse) message;
                                 getStatusResponseLockObject.notify();
+                            }
+                        } else if (message instanceof UpdatePlayersResponse) {
+                            synchronized (updatePlayersResponseLockObject) {
+                                updatePlayersResponse = (UpdatePlayersResponse) message;
+                                updatePlayersResponseLockObject.notify();
+                            }
+                        } else if (message instanceof FinalRankingResponse) {
+                            synchronized (finalRankingResponseLockObject) {
+                                finalRankingResponse = (FinalRankingResponse) message;
+                                finalRankingResponseLockObject.notify();
                             }
                         }
                     });
@@ -431,5 +452,27 @@ class ClientListener extends Thread {
             }
         }
         return getStatusResponse;
+    }
+
+    public UpdatePlayersResponse getUpdatePlayersResponse() {
+        synchronized (updatePlayersResponseLockObject) {
+            try {
+                updatePlayersResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return updatePlayersResponse;
+    }
+
+    public FinalRankingResponse getFinalRankingResponse() {
+        synchronized (finalRankingResponseLockObject) {
+            try {
+                finalRankingResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return finalRankingResponse;
+        }
     }
 }
