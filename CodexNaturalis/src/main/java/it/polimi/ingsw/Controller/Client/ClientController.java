@@ -383,18 +383,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         } else {
             int chosenGame = view.displayavailableGames(availableGames, server.numRequiredPlayers());
-            if (chosenGame == 0) {
+            if (chosenGame == -1) {
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
                     throw new GameJoinException("Error while setting up a new game", e);
                 }
-            } else if (chosenGame < 0 || chosenGame > availableGames.size()) {
+            } else if (!availableGames.containsKey(chosenGame)) {
                 System.out.println("Invalid game, please select a valid one, or start a new game");
                 JoinOrCreateGame();
 
             } else {
-                server.joinGame(this, chosenGame-1);
+                server.joinGame(this, chosenGame);
                 ChoosePawnColor();
                 server.NotifyGamePlayerJoined(game, this);
             }

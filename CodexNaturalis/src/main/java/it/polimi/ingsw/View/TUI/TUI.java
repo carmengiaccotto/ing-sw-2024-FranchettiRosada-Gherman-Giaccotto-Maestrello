@@ -211,11 +211,12 @@ public class TUI implements UserInterface, Serializable {
         System.out.println("Please choose one of the following games");
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < games.size(); i++) {
-            s.append("   ").append("\n" + bold + bold + "  LOBBY " + reset).append(bold).append(i + 1).append(reset).append("\n");
+            s.append("   ").append("\n" + bold + bold + "  LOBBY " + reset).append(bold).append(numPlayers.get(i).getFirst()).append(reset).append("\n");
             s.append("─────────────────").append("\n");
             s.append("needed: ").append(numPlayers.get(i).getSecond());
-            if (games.get(i) != null) {
-                for (String name : games.get(i)) {
+            ArrayList<String> playerUsernames = games.get(numPlayers.get(i).getFirst());
+            if (playerUsernames != null) {
+                for (String name : playerUsernames) {
                     s.append("\n").append("      ").append(bold).append("• ").append(name).append(reset);
                 }
             } else
@@ -224,7 +225,7 @@ public class TUI implements UserInterface, Serializable {
 
         }
         System.out.println(s);
-        System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert 0 (zero)");
+        System.out.println("If you don't want to join any of the available games and you want to create a new one, please insert -1 ");
         return (scanner.nextInt());
 
     }
