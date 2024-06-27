@@ -251,6 +251,7 @@ public class TUI implements UserInterface, Serializable {
 
     @Override
     public void printBoard(PlayGround model, ArrayList<Player> opponents, Player me) {
+        clearConsole();
         StringBuilder opponentsInfo = new StringBuilder();
         for(Player p: opponents){
             if(p!=me)
@@ -324,6 +325,25 @@ public class TUI implements UserInterface, Serializable {
             scanner.next(); // Clear the invalid input
         }
         return scanner.nextInt();
+    }
+
+
+    /**method used to clear the console.
+     * Does not necessarily work on all OS.
+     * This method, first checks if the operating system is Windows:
+     * If it is, it runs the cls command in a new process to clear the console.
+     * If the operating system is not Windows, it prints an escape sequence (\033\143) to the console.
+     * This escape sequence is interpreted by the terminal as a command to clear the screen.*/
+    public static void clearConsole() {
+        try {
+            if( System.getProperty("os.name").contains("Windows") ) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }else {
+                System.out.print("\033\143");
+            }
+        }
+        catch( Exception ignored ) {
+        }
     }
 }
 
