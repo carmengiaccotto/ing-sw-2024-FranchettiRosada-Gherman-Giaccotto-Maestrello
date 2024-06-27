@@ -46,6 +46,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private final List<PawnColor> availableColors;
 
+    private ArrayList<String> nicknames = new ArrayList<>();
+
     private GameStatus status;
 
     private final int numPlayers;
@@ -585,6 +587,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         if(listener.getPlayers().size()==getNumPlayers()){
             if(allPlayersReady()) {
                 setStatus(GameStatus.SETUP);
+                ArrayList<String> nicknames2 = new ArrayList<>();
+                for (ClientControllerInterface client : listener.getPlayers()) {
+                        nicknames2.add(client.getNickname());
+                }
+                nicknames = nicknames2;
                 if (executor.isShutdown()) {
                     executor.execute(this);
                 }
@@ -945,4 +952,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    public ArrayList<String> getNicknames() {
+        return nicknames;
+    }
 }
