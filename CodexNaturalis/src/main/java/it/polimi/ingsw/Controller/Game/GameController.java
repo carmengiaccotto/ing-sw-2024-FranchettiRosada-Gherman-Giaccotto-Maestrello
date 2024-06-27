@@ -181,8 +181,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                             try {
                                 c.WhatDoIDoNow("INITIALIZE");
                             } catch (Exception e) {
-                                System.err.println("An error occurred: " + e.getMessage());
-                                Thread.currentThread().interrupt();
+                                try {
+                                    clientDisconnected(c);
+                                } catch (RemoteException ex) {
+                                    throw new RuntimeException(ex);
+                                }
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -206,8 +209,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     try {
                         c.WhatDoIDoNow("INITIAL");
                     } catch (Exception e) {
-                        System.err.println("An error occurred: " + e.getMessage());
-                        Thread.currentThread().interrupt();
+                        clientDisconnected(c);
                     }
                 }
                 if(getStatus() != GameStatus.FINILIZE)
@@ -229,8 +231,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     c.WhatDoIDoNow("PLAY-TURN");
                                 }
                             } catch (RemoteException e) {
-                                System.err.println("An error occurred: " + e.getMessage());
-                                Thread.currentThread().interrupt();
+                                try {
+                                    clientDisconnected(c);
+                                } catch (RemoteException ex) {
+                                    throw new RuntimeException(ex);
+                                }
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -283,8 +288,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                         latch.countDown();
                                     }
                                 } catch (RemoteException e) {
-                                    System.err.println("An error occurred: " + e.getMessage());
-                                    Thread.currentThread().interrupt();
+                                    try {
+                                        clientDisconnected(c);
+                                    } catch (RemoteException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                 }
                             });
                             gameLoopThreads.add(thread);
