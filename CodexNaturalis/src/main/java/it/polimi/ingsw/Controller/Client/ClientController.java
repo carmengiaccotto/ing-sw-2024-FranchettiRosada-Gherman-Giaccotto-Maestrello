@@ -569,9 +569,13 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                     }
                 }while(c!=Command.MOVE);
             }
-            case("OBJECTIVE-COUNT")->{ //the player has to count its personal objective
-                addCommonObjectiveCardsPoints();
-                addPersonalObjectiveCardPoints();
+            case("OBJECTIVE-COUNT")->{
+                try {//the player has to count its personal objective
+                    addCommonObjectiveCardsPoints();
+                    addPersonalObjectiveCardPoints();
+                } catch (Exception e) {
+
+                }
             }
             case("WINNER")->{ //the player has won
                 view.showString("WIN");

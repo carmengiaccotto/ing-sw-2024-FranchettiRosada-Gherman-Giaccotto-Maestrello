@@ -15,10 +15,7 @@ import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -318,7 +315,7 @@ public class ServerListener extends Thread implements Serializable {
                 });
                 scheduler.schedule(thread, 100, TimeUnit.MILLISECONDS);
             }
-        } catch (SocketException e) {
+        } catch (SocketException | EOFException e) {
             try {
                 gamecontroller.clientDisconnected(client);
                 mainController.disconnectPlayer(client);
