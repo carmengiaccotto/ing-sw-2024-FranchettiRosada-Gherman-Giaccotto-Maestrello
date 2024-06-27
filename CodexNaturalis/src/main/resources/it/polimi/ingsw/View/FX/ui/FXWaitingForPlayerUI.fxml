@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root prefHeight="390.0" prefWidth="699.0" style="-fx-background-color: black;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="50.0" layoutY="53.0" text="Waiting for other players to Join..." textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="preloader" fitHeight="150.0" fitWidth="200.0" layoutX="273.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@preloader.png" />
+         </image>
+      </ImageView>
+   </children>
+</fx:root>

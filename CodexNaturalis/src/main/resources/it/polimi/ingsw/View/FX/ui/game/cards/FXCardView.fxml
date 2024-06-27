@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<fx:root prefHeight="137.0" prefWidth="200.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="cardImageView" fitHeight="137.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="topleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+      <Rectangle fx:id="topright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+      <Rectangle fx:id="bottleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutX="147.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+      <Rectangle fx:id="bottright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutX="147.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+   </children>
+</fx:root>

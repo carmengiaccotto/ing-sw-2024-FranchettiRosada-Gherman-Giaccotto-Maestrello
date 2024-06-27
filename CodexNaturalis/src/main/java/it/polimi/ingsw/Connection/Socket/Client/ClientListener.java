@@ -14,10 +14,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The ClientListener class extends Thread and is responsible for listening to messages from the server.
+ * It contains methods to send and receive messages, and to handle different types of messages.
+ * It also contains a reference to the client controller, and input and output streams for communication.
+ *
+ * Each type of response message from the server has a corresponding response object and a lock object in this class.
+ * The lock objects are used to synchronize the threads when waiting for a response from the server.
+ */
 public class ClientListener extends Thread {
-    private ClientController clientController;
-    private ObjectInputStream inputStream;
-    private final ObjectOutputStream outputStream;
+
+    private ClientController clientController; // The client controller
+    private ObjectInputStream inputStream; // The input stream for receiving messages from the server
+    private final ObjectOutputStream outputStream; // The output stream for sending messages to the server
+
+    // Response objects and lock objects for different types of messages
     private NumRequiredPlayersResponse numRequiredPlayersResponse;
     private final Object numRequiredPlayersResponseLockObject = new Object();
     private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
@@ -61,12 +72,27 @@ public class ClientListener extends Thread {
     private final Object disconnectResponseLockObject = new Object();
 
 
+    /**
+     * Constructor for the ClientListener class.
+     * Initializes the input and output streams and the client controller.
+     *
+     * @param oos The ObjectOutputStream used for sending messages to the server.
+     * @param ois The ObjectInputStream used for receiving messages from the server.
+     * @param clientController The ClientController used for handling client-side logic.
+     */
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
         this.outputStream = oos;
         this.inputStream = ois;
         this.clientController = clientController;
     }
 
+    /**
+     * Sends a message to the server.
+     * This method is synchronized on the output stream to ensure that messages are sent one at a time.
+     *
+     * @param message The GenericMessage object to be sent to the server.
+     * @throws IOException If an I/O error occurs while sending the message.
+     */
     private void sendMessage(GenericMessage message) throws IOException {
         synchronized (outputStream) {
             outputStream.writeObject(message);
@@ -74,6 +100,13 @@ public class ClientListener extends Thread {
         }
     }
 
+    /**
+     * This method is the main execution point for the ClientListener thread.
+     * It continuously listens for incoming messages from the server and handles them accordingly.
+     * Each type of message is checked using instanceof and handled in a separate thread to avoid blocking the main thread.
+     * The handling of each message type involves either calling a method on the client controller or updating a response object and notifying the waiting thread.
+     * If an IOException or ClassNotFoundException occurs, the stack trace is printed.
+     */
     public void run() {
         try {
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(100);
