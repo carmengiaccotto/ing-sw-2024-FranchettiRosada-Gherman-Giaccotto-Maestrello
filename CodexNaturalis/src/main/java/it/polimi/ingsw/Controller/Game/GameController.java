@@ -653,7 +653,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RuntimeException If the objective card deck does not contain enough cards.
      */
     public synchronized void extractCommonObjectiveCards() {
-        synchronized (model.getObjectiveCardDeck()) {//todo check synchronization
+        synchronized (model.getObjectiveCardDeck()) {
             while (model.getCommonObjectivesCards().size() < 2) {
                 ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
                 model.addCommonCard(c);
@@ -671,7 +671,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * Note: The method assumes that the gold and resource card decks contain at least 2 cards each.
      */
     public void extractCommonPlaygroundCards() {
-        synchronized (model) {//todo check synchronization
+        synchronized (model) {
             while (model.getCommonGoldCards().size() < 2) {
                 GoldCard c = (GoldCard) model.getGoldCardDeck().drawCard();
                 model.addCommonCard(c);
