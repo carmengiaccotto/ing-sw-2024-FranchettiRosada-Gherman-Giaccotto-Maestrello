@@ -8,26 +8,37 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/** This subclass represents the Gold Cards and extends the SideOfCard class*/
+/**
+ * This class represents a Gold Card in the game.
+ * It extends the PlayCard class and implements the Serializable interface, which means its instances can be converted to a byte stream and restored later.
+ * Each Gold Card has a requirement, which is a map of symbols and their counts, and a point value.
+ */
 public class GoldCard extends PlayCard implements Serializable {
     private final HashMap<Symbol, Integer> requirement;
     private int point;
 
-
-    /**Class Constructor*/
+    /**
+     * Class Constructor.
+     * Initializes the card with the given id, front, back, color, requirement, and point.
+     *
+     * @param id The id of the card.
+     * @param front The front side of the card.
+     * @param back The back side of the card.
+     * @param color The color of the card.
+     * @param requirement The requirement of the card.
+     * @param point The point value of the card.
+     */
     public GoldCard(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point) {
         super(id, front, back, color);
         this.requirement= requirement;
         this.point=point;
     }
 
-
-
-
     /**
-     * getter method for the GoldCard's point
+     * This method returns the point value of the Gold Card.
      *
-     * @return point
+     * @param chosenSide The chosen side of the card.
+     * @return The point value of the card if the chosen side is the front, 0 otherwise.
      */
     @Override
     public int getPoints(Side chosenSide){
@@ -37,17 +48,14 @@ public class GoldCard extends PlayCard implements Serializable {
             return 0;
     }
 
-
-
-
     /**
      * This method checks whether the requirement of the Gold Card is met by the player's play area.
      * If the result is true, the card can be used by the player, otherwise not.
      *
      * @param symbols a map containing symbols and their counts in the player's play area
+     * @param chosenSide The chosen side of the card.
      * @return true if the requirement is met, false otherwise
      */
-
     public boolean checkRequirement(Map<Symbol, Integer> symbols, Side chosenSide){
         if(chosenSide.equals(Side.FRONT)){//only the front side has a requirement to be placed
             for(Symbol key : requirement.keySet()) {//for each symbol in the requirement map
@@ -63,25 +71,22 @@ public class GoldCard extends PlayCard implements Serializable {
         else return true;//if the chosen side is the back side return true
     }
 
-
-
-
-    /**Method to calculate the points that the placing of the card gives
-     * Override in PointPerCoveredCorner and PointPerVisibleSymbol classes
+    /**
+     * This method calculates the points that the placing of the card gives.
+     *
      * @param point points to be added
-     * @return int points to add to Player's score*/
-
-    public int increasePoints (int point) { return this.point; }
-
-
-
+     * @return The points to add to the player's score.
+     */
+    public int increasePoints (int point) {
+        return this.point;
+    }
 
     /**
-     * Getter method for the GoldCard's requirement
+     * This method returns the requirement of the Gold Card.
      *
-     * @return requirement
+     * @param chosenSide The chosen side of the card.
+     * @return The requirement of the card if the chosen side is the front, null otherwise.
      */
-
     public HashMap<Symbol, Integer> getRequirement(Side chosenSide){
         if(chosenSide.equals(Side.FRONT))
             return requirement;
