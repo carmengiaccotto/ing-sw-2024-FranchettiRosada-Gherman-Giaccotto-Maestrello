@@ -10,10 +10,7 @@ import it.polimi.ingsw.Model.Pair;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -120,8 +117,9 @@ public class MainController extends UnicastRemoteObject implements MainControlle
      * @throws RemoteException If a remote or network communication error occurs.
      */
     @Override
-    public synchronized void addNickname(String name) throws RemoteException  {
+    public synchronized void addNickname(String name, ClientControllerInterface client) throws RemoteException  {
         nicknames.add(name);
+        client.setNickname(name);
     }
 
     /**
@@ -273,9 +271,29 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return games;
     }
 
+//    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
+//        clients.remove(player);
+//        nicknames.remove(player.getNickname());
+//    }
+
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
         clients.remove(player);
         nicknames.remove(player.getNickname());
+
+        for (Iterator<GameController> iterator = runningGames.iterator(); iterator.hasNext();) {
+            GameController game = iterator.next();
+
+            if (game.getListener().getPlayers().stream().anyMatch(p -> {
+                try {
+                    return p.getNickname().equals(player.getNickname());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            })) {
+                iterator.remove();
+            }
+        }
     }
 
 }

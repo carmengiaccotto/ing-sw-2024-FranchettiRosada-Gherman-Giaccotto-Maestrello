@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Game;
 
 import it.polimi.ingsw.Connection.Socket.Client.ClientListener;
+import it.polimi.ingsw.Connection.Socket.Messages.DisconnectMessage;
 import it.polimi.ingsw.Connection.Socket.Messages.GenericMessage;
 import it.polimi.ingsw.Connection.Socket.Messages.UpdatePlayersMessage;
 import it.polimi.ingsw.Connection.Socket.Messages.UpdatePlayersResponse;
@@ -98,6 +99,11 @@ public class GameListenerForClientSocket extends GameListener {
 //        for (ClientControllerInterface player : players) {
 //            player.disconnect();
 //        }
+        try {
+            sendMessage(new DisconnectMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

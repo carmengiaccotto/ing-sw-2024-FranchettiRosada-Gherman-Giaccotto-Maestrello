@@ -516,7 +516,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             boolean ok=server.checkUniqueNickName(name);
             if(ok){
                 setNickname(name);
-                server.addNickname(name);
+                server.addNickname(name, this);
             }
             else{
                 System.out.println("Nickname already taken, please choose a new one");

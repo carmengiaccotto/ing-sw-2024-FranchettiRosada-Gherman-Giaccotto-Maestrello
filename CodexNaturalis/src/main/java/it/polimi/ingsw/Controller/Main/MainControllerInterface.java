@@ -110,7 +110,7 @@ public interface MainControllerInterface extends Remote, Serializable {
      * @param name The nickname to add.
      * @throws RemoteException If a remote or network communication error occurs.
      */
-    void addNickname(String name) throws RemoteException;
+    void addNickname(String name, ClientControllerInterface client) throws RemoteException;
 
     /**
      * Returns an instance of MainControllerInterface.

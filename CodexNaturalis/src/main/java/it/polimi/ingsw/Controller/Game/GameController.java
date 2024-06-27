@@ -68,6 +68,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     //private final ReentrantLock turnLock = new ReentrantLock();
 
+    private List<Thread> gameLoopThreads;
+
     /**
      * Creates a new GameController with the specified number of players and game ID.
      *
@@ -168,12 +170,12 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RemoteException If a remote or network communication error occurs.
      */
     void GameLoop(GameStatus status) throws RemoteException {
-        switch(status) {
+        switch(getStatus()) {
             case SETUP -> {
                 try {
 
                     initializeGame();
-                    List<Thread> threads = new ArrayList<>();
+                    gameLoopThreads = new ArrayList<>();
                     for (ClientControllerInterface c : listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
                             try {
@@ -183,16 +185,17 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                 Thread.currentThread().interrupt();
                             }
                         });
-                        threads.add(thread);
+                        gameLoopThreads.add(thread);
                         thread.start();
                     }
 
-                    for (Thread thread : threads) {
+                    for (Thread thread : gameLoopThreads) {
                         thread.join();
                     }
                     System.out.println("Game is ready to run!");
 
-                    setStatus(GameStatus.INITIAL_CIRCLE);
+                    if(getStatus() != GameStatus.FINILIZE)
+                        setStatus(GameStatus.INITIAL_CIRCLE);
                 } catch (InterruptedException e) {
                     throw new GameSetupException("Error during game setup", e);
                 }
@@ -207,15 +210,15 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         Thread.currentThread().interrupt();
                     }
                 }
-                setStatus(GameStatus.RUNNING);
-
+                if(getStatus() != GameStatus.FINILIZE)
+                    setStatus(GameStatus.RUNNING);
             }
             case RUNNING -> {
-                while (status.equals(GameStatus.RUNNING)) {
+                while (getStatus().equals(GameStatus.RUNNING)) {
                     ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
                     currentPlayerNickname = currentPlayer.getNickname();
 
-                    List<Thread> threads = new ArrayList<>();
+                    gameLoopThreads = new ArrayList<>();
 
                     for (ClientControllerInterface c : listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
@@ -230,11 +233,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                 Thread.currentThread().interrupt();
                             }
                         });
-                        threads.add(thread);
+                        gameLoopThreads.add(thread);
                         thread.start();
                     }
 
-                    for (Thread thread : threads) {
+                    for (Thread thread : gameLoopThreads) {
                         try {
                             thread.join(); // wait for the current player to finish
                         } catch (InterruptedException e) {
@@ -242,10 +245,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         }
                     }
 
-                    // Check the score after the current player has finished their turn
-                    if (currentPlayer.getPlayer().getScore() >= 1) {
-                        setStatus(GameStatus.LAST_CIRCLE);
-                        break;
+
+                    if(getStatus() != GameStatus.FINILIZE) {
+                        // Check the score after the current player has finished their turn
+                        if (currentPlayer.getPlayer().getScore() >= 1) {
+                            setStatus(GameStatus.LAST_CIRCLE);
+                            break;
+                        }
                     }
 
                     currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
@@ -259,11 +265,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     List<ClientControllerInterface> playersToIterate = new ArrayList<>(listener.getPlayers().subList(currentPlayerIndex + 1, listener.getPlayers().size()));
                     currentPlayerIndex = currentPlayerIndex + 1;
 
-                    while (status.equals(GameStatus.LAST_CIRCLE)) {
+                    while (getStatus().equals(GameStatus.LAST_CIRCLE)) {
                         ClientControllerInterface currentPlayer = listener.getPlayers().get(currentPlayerIndex);
                         currentPlayerNickname = currentPlayer.getNickname();
 
-                        List<Thread> threads = new ArrayList<>();
+                        gameLoopThreads = new ArrayList<>();
                         CountDownLatch latch = new CountDownLatch(1);
 
                         for (ClientControllerInterface c : playersToIterate) {
@@ -281,30 +287,35 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     Thread.currentThread().interrupt();
                                 }
                             });
-                            threads.add(thread);
+                            gameLoopThreads.add(thread);
                             thread.start();
                         }
 
-                        for (Thread thread : threads) {
+                        for (Thread thread : gameLoopThreads) {
                             try {
                                 latch.await(); // wait for the current player to finish
                             } catch (InterruptedException e) {
                                 throw new GameRunningException("Error while waiting for thread to finish", e);
                             }
                         }
-                        if (currentPlayerIndex == listener.getPlayers().size() - 1) {
-                            setStatus(GameStatus.FINILIZE);
-                            break;
+
+                        if(getStatus() != GameStatus.FINILIZE) {
+                            if (currentPlayerIndex == listener.getPlayers().size() - 1) {
+                                setStatus(GameStatus.FINILIZE);
+                                break;
+                            }
                         }
 
                         currentPlayerIndex = passPlayerTurn(currentPlayerIndex);
                     }
                 }
-                setStatus(GameStatus.FINILIZE);
+
+                if(getStatus() != GameStatus.FINILIZE)
+                    setStatus(GameStatus.FINILIZE);
             }
             case FINILIZE -> {
                 try {
-                    List<Thread> threads = new ArrayList<>();
+                    gameLoopThreads = new ArrayList<>();
                     for (ClientControllerInterface c : listener.getPlayers()) {
                         Thread thread = new Thread(() -> {
                             try {
@@ -314,10 +325,10 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                 Thread.currentThread().interrupt();
                             }
                         });
-                        threads.add(thread);
+                        gameLoopThreads.add(thread);
                         thread.start();
                     }
-                    for (Thread thread : threads) {
+                    for (Thread thread : gameLoopThreads) {
                         thread.join();
                     }
                 } catch (InterruptedException e) {
@@ -912,6 +923,19 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             executor.shutdownNow();
         }
         //mainController.removeGameController(this);
+    }
+
+    public void clientDisconnected(ClientControllerInterface client) throws RemoteException {
+        List<ClientControllerInterface> oldPlayers = listener.getPlayers();
+        boolean removeSucceded = listener.getPlayers().remove(client);
+        List<ClientControllerInterface> newPlayers = listener.getPlayers();
+        listener.updatePlayers("Client disconnected... Ending game");
+//        listener.disconnectPlayers();
+        setStatus(GameStatus.FINILIZE);
+        for(Thread thread: gameLoopThreads) {
+            thread.interrupt();
+        }
+
     }
 
 }

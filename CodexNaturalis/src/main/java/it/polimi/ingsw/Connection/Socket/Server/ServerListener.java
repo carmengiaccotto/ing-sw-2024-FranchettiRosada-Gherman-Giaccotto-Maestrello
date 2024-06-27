@@ -56,7 +56,6 @@ public class ServerListener extends Thread implements Serializable {
     private final Object disconnectResponseLockObject = new Object();
 
 
-
     public ServerListener(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface client, MainControllerInterface mainController) {
         this.client = client;
         this.mainController = mainController;
@@ -143,7 +142,7 @@ public class ServerListener extends Thread implements Serializable {
                         }
                     } else if (message instanceof AddNicknameMessage) {
                         try {
-                            mainController.addNickname(((AddNicknameMessage) message).getNickname());
+                            mainController.addNickname(((AddNicknameMessage) message).getNickname(), client);
                         } catch (RemoteException e) {
                             throw new RuntimeException(e);
                         }
@@ -172,6 +171,13 @@ public class ServerListener extends Thread implements Serializable {
                         try {
                             ArrayList<PlayCard> cards = gamecontroller.extractPlayerHandCards();
                             sendMessage(new ExtractPlayerHandCardsResponse(cards));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else if (message instanceof DisconnectMessage) {
+                        try {
+                            mainController.disconnectPlayer(client);
+                            sendMessage(new DisconnectResponse());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -217,10 +223,10 @@ public class ServerListener extends Thread implements Serializable {
                         }
                     } else if (message instanceof UpdatePlayersMessage) {
                         try {
-                            UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage)message;
-                            if(updatePlayersMessage.getPlayGround() != null) {
+                            UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage) message;
+                            if (updatePlayersMessage.getPlayGround() != null) {
                                 gamecontroller.getListener().updatePlayers(updatePlayersMessage.getPlayGround());
-                            } else if(updatePlayersMessage.getNickname() != null) {
+                            } else if (updatePlayersMessage.getNickname() != null) {
                                 ClientControllerInterface currentPlayer = null;
                                 for (ClientControllerInterface player : gamecontroller.getListener().getPlayers()) {
                                     if (player.getNickname().equals(updatePlayersMessage.getNickname())) {
@@ -236,30 +242,30 @@ public class ServerListener extends Thread implements Serializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if(message instanceof IncrementPlayersWhoChoseObjectiveMessage) {
+                    } else if (message instanceof IncrementPlayersWhoChoseObjectiveMessage) {
                         try {
                             gamecontroller.incrementPlayersWhoChoseObjective();
                             sendMessage(new IncrementPlayersWhoChoseObjectiveResponse());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if(message instanceof GetPlayersWhoChoseObjectiveMessage) {
+                    } else if (message instanceof GetPlayersWhoChoseObjectiveMessage) {
                         try {
                             int playersWhoChoseObjective = gamecontroller.getPlayersWhoChoseObjective();
                             sendMessage(new GetPlayersWhoChoseObjectiveResponse(playersWhoChoseObjective));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if(message instanceof IsValidMoveMessage) {
+                    } else if (message instanceof IsValidMoveMessage) {
                         try {
-                            IsValidMoveMessage isValidMoveMessage = (IsValidMoveMessage)message;
+                            IsValidMoveMessage isValidMoveMessage = (IsValidMoveMessage) message;
                             PlayArea playArea = new PlayArea(isValidMoveMessage.getCardsOnPlayArea(), isValidMoveMessage.getSymbols());
                             boolean isValidMove = gamecontroller.isValidMove(playArea, isValidMoveMessage.getRow(), isValidMoveMessage.getColumn(), isValidMoveMessage.getNewCard());
                             sendMessage(new IsValidMoveResponse(isValidMove));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if(message instanceof GetStatusMessage) {
+                    } else if (message instanceof GetStatusMessage) {
                         try {
                             GameStatus gameStatus = gamecontroller.getStatus();
                             sendMessage(new GetStatusResponse(gameStatus));
@@ -313,12 +319,12 @@ public class ServerListener extends Thread implements Serializable {
                 scheduler.schedule(thread, 100, TimeUnit.MILLISECONDS);
             }
         } catch (SocketException e) {
-            // TODO Client Disconnected management
-            //try {
-            //       gamecontroller.clientDisconnected(client);
-            //} catch (RemoteException ex) {
-            //    throw new RuntimeException(ex);
-            //}
+            try {
+                gamecontroller.clientDisconnected(client);
+                mainController.disconnectPlayer(client);
+            } catch (RemoteException ex) {
+                throw new RuntimeException(ex);
+            }
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }

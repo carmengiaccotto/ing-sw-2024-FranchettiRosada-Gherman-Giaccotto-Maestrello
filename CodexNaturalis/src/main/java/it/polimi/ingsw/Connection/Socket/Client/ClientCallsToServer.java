@@ -171,7 +171,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
      * @throws RemoteException
      */
     @Override
-    public void addNickname(String name) throws RemoteException {
+    public void addNickname(String name, ClientControllerInterface client) throws RemoteException {
         try {
             sendMessage(new AddNicknameMessage(name));
         } catch (IOException ex) {
@@ -181,7 +181,11 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     @Override
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
-
+        try {
+            sendMessage(new DisconnectMessage());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

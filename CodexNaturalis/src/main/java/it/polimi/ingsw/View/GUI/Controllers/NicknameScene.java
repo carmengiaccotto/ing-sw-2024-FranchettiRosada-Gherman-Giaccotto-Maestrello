@@ -47,7 +47,7 @@ public class NicknameScene {
         try {
             String nickname = nicknameTextField.getText();
             if (MainController.getInstance().checkUniqueNickName(nickname)) {
-                MainController.getInstance().addNickname(nickname);
+                MainController.getInstance().addNickname(nickname, null);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Users/alessiafranchettirosada/IdeaProjects/ing-sw-2024-FranchettiRosada-Gherman-Giaccotto-Maestrello/CodexNaturalis/src/main/resources/it/polimi/ingsw/View/GUI/Menu.fxml"));
                 Parent menuRoot = fxmlLoader.load();
                 MenuScene menuController = fxmlLoader.getController();

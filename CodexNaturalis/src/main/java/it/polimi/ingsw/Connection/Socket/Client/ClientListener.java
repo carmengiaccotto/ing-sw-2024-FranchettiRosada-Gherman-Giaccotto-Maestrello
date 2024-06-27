@@ -58,6 +58,8 @@ public class ClientListener extends Thread {
     private final Object updatePlayersResponseLockObject = new Object();
     private FinalRankingResponse finalRankingResponse;
     private final Object finalRankingResponseLockObject = new Object();
+    private DisconnectResponse disconnectResponse;
+    private final Object disconnectResponseLockObject = new Object();
 
 
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
@@ -241,6 +243,11 @@ public class ClientListener extends Thread {
                             synchronized (finalRankingResponseLockObject) {
                                 finalRankingResponse = (FinalRankingResponse) message;
                                 finalRankingResponseLockObject.notify();
+                            }
+                        } else if (message instanceof DisconnectResponse) {
+                            synchronized (disconnectResponseLockObject) {
+                                disconnectResponse = (DisconnectResponse) message;
+                                disconnectResponseLockObject.notify();
                             }
                         }
                     });
@@ -473,6 +480,17 @@ public class ClientListener extends Thread {
                 throw new RuntimeException(e);
             }
             return finalRankingResponse;
+        }
+    }
+
+    public DisconnectResponse getDisconnectResponse() {
+        synchronized (disconnectResponseLockObject) {
+            try {
+                disconnectResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return disconnectResponse;
         }
     }
 }

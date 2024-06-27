@@ -200,8 +200,8 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
      * @throws RemoteException If the remote invocation fails.
      */
     @Override
-    public void addNickname(String name) throws RemoteException {
-        handler.addNickname(name);
+    public void addNickname(String name, ClientControllerInterface client) throws RemoteException {
+        handler.addNickname(name, client);
     }
 
     /**

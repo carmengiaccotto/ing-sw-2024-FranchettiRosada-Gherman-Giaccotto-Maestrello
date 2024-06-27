@@ -29,6 +29,8 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
     private MainControllerInterface mainController;
     private GameControllerInterface gameController;
 
+    private String nickname;
+
 
     public ServerCallsToClient(ObjectOutputStream oos, ObjectInputStream ois, MainControllerInterface mainController) throws IOException {
         this.oos = oos;
@@ -107,14 +109,15 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
      */
     @Override
     public String getNickname() throws RemoteException {
-        try {
-            sendMessage(new GetNickNameMessage());
-            GetNickNameResponse response = serverListener.getNicknameResponse();
-            return response.getNickName();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
+//        try {
+//            sendMessage(new GetNickNameMessage());
+//            GetNickNameResponse response = serverListener.getNicknameResponse();
+//            return response.getNickName();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
+        return nickname;
     }
 
     /**
@@ -123,6 +126,7 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
      */
     @Override
     public void setNickname(String nickname) throws RemoteException {
+        this.nickname = nickname;
         try {
             sendMessage(new SetNickNameMessage(nickname));
         } catch (IOException ex) {
