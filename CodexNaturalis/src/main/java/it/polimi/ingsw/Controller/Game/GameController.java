@@ -1,11 +1,11 @@
 package it.polimi.ingsw.Controller.Game;
 
-import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Chat;
+
 import it.polimi.ingsw.Model.Enumerations.*;
-import it.polimi.ingsw.Model.Exceptions.*;
+
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -62,7 +62,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private Chat chat=new Chat();
+    //private Chat chat=new Chat();
 
     private int currentPlayerIndex = 0;
 
@@ -592,9 +592,9 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
         else{
             listener.updatePlayers("Waiting for more players to join the game...");
-            }
-
         }
+
+    }
 
     /**
      * Notifies all players that a new player has joined the game.
@@ -868,22 +868,22 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     int columnToCheck = newPosition.getSecond();// get column to check
                     if (playArea.rowExists(rowToCheck) && playArea.columnExists(columnToCheck)) {// check that these positions exist
                         SideOfCard neighbourCard = playArea.getCardInPosition(rowToCheck, columnToCheck);//get the card in the position
-                            if (neighbourCard != null) {//check that this card is not occupied by a null object
-                                CornerPosition cornerToCover = c.getPosition().CoverCorners(); //get the corresponding corner to cover
-                                if (neighbourCard.getCornerInPosition(cornerToCover).isHidden()) {//check if the corner is hidden
-                                    return false;//we are trying to cover a hidden corner, so the position is invalid
-                                }
-                                else {
-                                    covering = true;//we are covering a valid corner
-                                }
-
+                        if (neighbourCard != null) {//check that this card is not occupied by a null object
+                            CornerPosition cornerToCover = c.getPosition().CoverCorners(); //get the corresponding corner to cover
+                            if (neighbourCard.getCornerInPosition(cornerToCover).isHidden()) {//check if the corner is hidden
+                                return false;//we are trying to cover a hidden corner, so the position is invalid
                             }
+                            else {
+                                covering = true;//we are covering a valid corner
+                            }
+
                         }
                     }
                 }
             }
-        return covering;
         }
+        return covering;
+    }
 
     /**
      * Checks if the player is trying to cover two corners of the same card while placing a card.
@@ -911,8 +911,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     public void shutdown() throws RemoteException {
 
-       listener.disconnectPlayers();
-       listener.getPlayers().clear();
+        listener.disconnectPlayers();
+        listener.getPlayers().clear();
 
         executor.shutdown();
         try {
@@ -922,7 +922,6 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-        //mainController.removeGameController(this);
     }
 
     public void clientDisconnected(ClientControllerInterface client) throws RemoteException {

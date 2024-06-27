@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model.Exceptions;
+package it.polimi.ingsw.Exceptions;
 
 public class GameInitializationException extends RuntimeException {
     public GameInitializationException(String message, Throwable cause) {

@@ -4,8 +4,8 @@ import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameController;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
-import it.polimi.ingsw.Model.Exceptions.GameJoinException;
-import it.polimi.ingsw.Model.Exceptions.GameStatusException;
+import it.polimi.ingsw.Exceptions.GameJoinException;
+import it.polimi.ingsw.Exceptions.GameStatusException;
 import it.polimi.ingsw.Model.Pair;
 
 import java.rmi.RemoteException;
@@ -30,7 +30,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     private final ArrayList<GameController> runningGames;
 
     /**Thread pool for Multi-Game advanced feature*/
-    private transient ExecutorService executor;
+    private final transient ExecutorService executor;
 
     private static MainController instance = null;
 
@@ -93,7 +93,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Checks if the provided nickname is unique among the connected clients.
-     *
+     * <p>
      * This method is used when a client is trying to choose a nickname. It checks if the nickname has already been chosen by another client.
      * If the nickname is already taken, the method returns false, indicating that the player should be sent back to the lobby to choose a new one.
      * If the nickname is not taken, the method returns true, indicating that the client's nickname can be set to the chosen one.
@@ -109,7 +109,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Adds a new nickname to the list of already used nicknames.
-     *
+     * <p>
      * This method is used when a player has chosen a nickname and it has been confirmed to be unique.
      * The chosen nickname is added to the list of nicknames that have already been used, to ensure that future players cannot choose the same nickname.
      *
@@ -124,7 +124,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Allows a client to join an existing game.
-     *
+     * <p>
      * This method is used when a client wants to join a game that has been created by another client.
      * The client had previously seen a list of the available games and chose one.
      * The method first initializes a GameController object to null.
@@ -165,7 +165,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Provides a list of games that a client can join. Only games that are still waiting for the required number of players are displayed.
-     *
+     * <p>
      * This method first initializes a HashMap to store the available games.
      * It then retrieves a list of games that are still waiting for players to join.
      * For each game in this list, it creates an ArrayList of the nicknames of the players in the game.
@@ -206,7 +206,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
     /**
      * Creates a new game, adds it to the list of running games, and adds the client that created it to the list of players of the game.
      * It also notifies the game that a new player has joined.
-     *
+     * <p>
      * The method first creates a new GameController object with the specified number of players and the size of the running games list as the game ID.
      * It then submits the new game to the executor service for execution.
      * The new game is added to the list of running games.
@@ -233,7 +233,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Notifies a game that a new player has joined.
-     *
+     * <p>
      * This method is used when a player has successfully joined a game.
      * It calls the NotifyNewPlayerJoined method of the game, passing the client that joined as an argument.
      * This allows the game to update its state to reflect the new player.
@@ -249,7 +249,7 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     /**
      * Returns a list of games that are currently in the waiting status, i.e., waiting for players to join.
-     *
+     * <p>
      * This method first initializes an empty ArrayList to store the games in waiting.
      * It then iterates through each game in the list of running games.
      * If a game's status is WAITING, it is added to the ArrayList of games in waiting.
@@ -271,14 +271,10 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return games;
     }
 
-//    public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
-//        clients.remove(player);
-//        nicknames.remove(player.getNickname());
-//    }
-
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
         clients.remove(player);
         nicknames.remove(player.getNickname());
+
 
         for (Iterator<GameController> iterator = runningGames.iterator(); iterator.hasNext();) {
             GameController game = iterator.next();

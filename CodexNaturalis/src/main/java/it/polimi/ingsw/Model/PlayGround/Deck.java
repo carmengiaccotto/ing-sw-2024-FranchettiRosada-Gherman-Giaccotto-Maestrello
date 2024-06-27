@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Model.PlayGround;
 
 import it.polimi.ingsw.Model.Cards.Card;
-import it.polimi.ingsw.Model.Exceptions.DeckCreationException;
+import it.polimi.ingsw.Exceptions.DeckCreationException;
 import it.polimi.ingsw.Model.JsonHandler.JsonDeckCreator;
 
 import java.io.IOException;

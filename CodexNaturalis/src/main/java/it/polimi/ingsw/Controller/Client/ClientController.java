@@ -10,8 +10,8 @@ import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Enumerations.Side;
-import it.polimi.ingsw.Model.Exceptions.GameJoinException;
-import it.polimi.ingsw.Model.Exceptions.NicknameException;
+import it.polimi.ingsw.Exceptions.GameJoinException;
+import it.polimi.ingsw.Exceptions.NicknameException;
 import it.polimi.ingsw.Model.Pair;
 import it.polimi.ingsw.Model.PlayGround.PlayArea;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
@@ -290,7 +290,6 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
     public void disconnect() throws RemoteException {
         Thread.currentThread().interrupt();
         server.disconnectPlayer(this);
-        System.out.println("ciao lol");//TODO: remove
     }
 
     /**
@@ -445,7 +444,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
-                   throw new GameJoinException("Error while setting up a new game", e);
+                    throw new GameJoinException("Error while setting up a new game", e);
                 }
             }//Ask for desired number of players of the new game before creation
             case 2 -> {

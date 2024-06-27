@@ -34,7 +34,6 @@ public class ClientListener extends Thread {
     private final Object getModelresponseLockObject = new Object();
     private CreateGameResponse createGameResponse;
     private final Object createGameResponseLockObject = new Object();
-    private GetChatResponse getChatResponse;
     private final Object getChatResponseLockObject = new Object();
     private JoinGameResponse joinGameResponse;
     private final Object joinGameResponseLockObject = new Object();
@@ -183,11 +182,6 @@ public class ClientListener extends Thread {
                             synchronized (getModelresponseLockObject) {
                                 getModelResponse = (GetModelResponse) message;
                                 getModelresponseLockObject.notify();
-                            }
-                        } else if (message instanceof GetChatResponse) {
-                            synchronized (getChatResponseLockObject) {
-                                getChatResponse = (GetChatResponse) message;
-                                getChatResponseLockObject.notify();
                             }
                         } else if (message instanceof JoinGameResponse) {
                             synchronized (joinGameResponseLockObject) {
@@ -347,17 +341,6 @@ public class ClientListener extends Thread {
             }
         }
         return createGameResponse;
-    }
-
-    public GetChatResponse getChatResponse() {
-        synchronized (getChatResponseLockObject) {
-            try {
-                getChatResponseLockObject.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return getChatResponse;
     }
 
     public JoinGameResponse getJoinGameResponse() {

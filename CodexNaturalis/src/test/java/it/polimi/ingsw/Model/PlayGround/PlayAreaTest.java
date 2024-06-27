@@ -7,9 +7,12 @@ import it.polimi.ingsw.Model.Enumerations.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -177,32 +180,6 @@ class PlayAreaTest {
 
     }
 
-    @Test
-    void addCardOnAreaInvalidPosition(){
-        Corner coner1= new Corner(Symbol.ANIMAL, false); //corner1 empty
-        Corner coner2= new Corner(null, false); //corner2
-        Corner coner3= new Corner(Symbol.INKWELL, false); //corner3
-        Corner corner4= new Corner(null, true); //corner4 hidden
-        Corner[][] corners = {{coner1, coner2}, {coner3, corner4}}; //corners of the card
-        HashMap<Symbol, Integer> symbols = new HashMap<>();
-        symbols.put(Symbol.ANIMAL, 1);
-        symbols.put(Symbol.INKWELL, 1);
-
-        SideOfCard card = new SideOfCard(symbols, corners);
-
-
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 7, 5);
-        });
-
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 0, 5);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            playArea.addCardOnArea(card, 7, 0);
-        });
-
-    }
 
     @Test
     void resetConfigTest(){
@@ -257,5 +234,46 @@ class PlayAreaTest {
     void testColumnNotexists(){
         assertFalse(playArea.columnExists(3));
     }
+
+    @Test
+    void testConstructorWithParameters(){
+        List<List<SideOfCard>> cardsOnArea = new ArrayList<>();
+        List<SideOfCard> row1 = new ArrayList<>();
+        List<SideOfCard> row2 = new ArrayList<>();
+        List<SideOfCard> row3 = new ArrayList<>();
+        row1.add(null);
+        row1.add(null);
+        row1.add(null);
+        row2.add(null);
+        row2.add(null);
+        row2.add(null);
+        row3.add(null);
+        row3.add(null);
+        row3.add(null);
+        cardsOnArea.add(row1);
+        cardsOnArea.add(row2);
+        cardsOnArea.add(row3);
+        playArea.setCardsOnArea(cardsOnArea);
+        Map<Symbol,Integer> map=new HashMap<>();
+        PlayArea playArea1 = new PlayArea(cardsOnArea, playArea.getSymbols());
+        assertEquals(playArea.getCardsOnArea(), playArea1.getCardsOnArea());
+        assertEquals(playArea.getSymbols(), playArea1.getSymbols());
+    }
+
+    @Test
+    void addCardOnAreaInvalidPositionPrintsMessage() {
+       Corner [][] corners={{new Corner(null, false), new Corner(null, false)},{new Corner(null, false), new Corner(null, false)}};
+        SideOfCard card = new SideOfCard(new HashMap<>(),corners);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        // Act
+        playArea.addCardOnArea(card, 3, 3);
+
+        // Assert
+        String expectedOutput  = "Invalid Position" + System.lineSeparator();
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
 
 }

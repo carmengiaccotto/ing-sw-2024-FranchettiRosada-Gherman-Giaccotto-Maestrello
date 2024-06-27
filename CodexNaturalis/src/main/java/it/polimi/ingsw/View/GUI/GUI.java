@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View.GUI;
 
 import it.polimi.ingsw.Model.Cards.*;
-import it.polimi.ingsw.Model.Chat.Message;
 import it.polimi.ingsw.Model.Enumerations.Command;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
@@ -147,19 +146,10 @@ public class GUI extends Application implements UserInterface {
 
 
 
-    @Override
-    public ArrayList<String> viewChat(ArrayList<Message> myChat, Player player) {
-        return null;
-    }
 
     @Override
     public void showString(String s) {
 
-    }
-
-    @Override
-    public Pair<String, String> sendChatMessage(ArrayList<Player> players) {
-        return null;
     }
 
     @Override

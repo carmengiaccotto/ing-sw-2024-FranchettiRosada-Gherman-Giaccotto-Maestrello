@@ -4,7 +4,8 @@
 ## Polimi University Project
 This is a Java implementation of CodexNaturalis, a board game designed by Thomas Dupont and Maxime Morin, and published by Cranio Creations. This is the final project for the Software Engineering course of "Engineering of Computing Systems" held at Politecnico di Milano (2023/2024).
 
-## Students
+**Students** <br>
+
 Giaccotto Carmen <br>
 Gherman Denisa Minodora <br>
 Franchetti-Rosada Alessia <br>
@@ -16,14 +17,18 @@ Maestrello Lucrezia <br>
 |--------------------------------------|----- |
 | Complete rules                       | ✅   |
 | Socket and RMI                       | ✅   |
-| Multiple Games                       | ✅   |
 | TUI                                  | ✅   |
-| GUI                                  |      |
-| Persistence                          |      |
+| GUI                                  | ✅   |
+| Multiple Games                       | ✅   |
+| Persistence                          | ❌   |
 | Chat                                 | ❌   |
 | Resilience to clients disconnections | ❌   |
 
 ## Test cases
+
+| Package  | Class Coverage | Method Coverage | Line Coverage  |
+|----------|----------------|-----------------|----------------|
+| Model    | 95 % (39/41)   | 90 % (170/187)  | 91 % (556/608) |
 
 ## How to use
 

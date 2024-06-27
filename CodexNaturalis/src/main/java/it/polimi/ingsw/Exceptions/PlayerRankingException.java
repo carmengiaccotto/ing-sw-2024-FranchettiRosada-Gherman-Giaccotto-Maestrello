@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Model.Exceptions;
+package it.polimi.ingsw.Exceptions;
 
 public class PlayerRankingException extends RuntimeException {
     public PlayerRankingException(String message, Throwable cause) {
