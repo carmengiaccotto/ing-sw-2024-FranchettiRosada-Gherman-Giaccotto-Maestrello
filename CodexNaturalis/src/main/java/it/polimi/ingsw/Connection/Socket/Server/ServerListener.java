@@ -421,7 +421,7 @@ public class ServerListener extends Thread implements Serializable {
             try {
                 whatDoIDoNowResponseLockObject.wait();
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+
             }
         }
         return whatDoIDoNowResponse;

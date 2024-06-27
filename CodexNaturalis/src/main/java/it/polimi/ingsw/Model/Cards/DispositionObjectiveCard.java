@@ -63,7 +63,7 @@ public class DispositionObjectiveCard extends ObjectiveCard {
                             boolean isValidConfiguration = true;//initialize the boolean that will tell us if the configuration is valid
                             for (Position currentPosition : Neighbors.keySet()) {//for all the neighbors of the central card given by our map
                                 SideOfCard cardToCheck = currentPosition.getNeighbourCard(TemporaryCentralCard, playArea);//get the card in the given position
-                                if (cardToCheck == null || !cardToCheck.getColor().equals(Neighbors.get(currentPosition))|| cardToCheck.isInConfiguration()) {
+                                if (cardToCheck == null || (cardToCheck.getColor() != null && !cardToCheck.getColor().equals(Neighbors.get(currentPosition)))|| cardToCheck.isInConfiguration()) {
                                     //if the card we are considering is  not of the desired color, or is already in a configuration, or in the desired position there is no card
                                     //we can interrupt the check and set the configuration as invalid
                                     isValidConfiguration = false;
