@@ -27,7 +27,7 @@ public class Deck implements Serializable {
      * @throws IOException If there is an error reading the JSON file.
      */
     public Deck(Class<? extends Card> DeckType) throws IOException {
-        String filepathfinal = (DeckType.getSimpleName() + ".json");
+        String filepathfinal = (DeckType.getSimpleName() + ".Json");
         this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepathfinal);
     }
 
