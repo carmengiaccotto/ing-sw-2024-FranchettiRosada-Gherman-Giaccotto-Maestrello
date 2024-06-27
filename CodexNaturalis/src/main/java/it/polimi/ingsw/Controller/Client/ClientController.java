@@ -510,17 +510,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     @Override
     public void JoinLobby() throws RemoteException {
-        String name = ChooseNickname();
+        String name;
+        boolean ok;
         try {
-            boolean ok=server.checkUniqueNickName(name);
-            if(ok){
+            do{
+                name = ChooseNickname();
+                ok=server.checkUniqueNickName(name);
+                if(!ok){
+                    sendUpdateMessage("Nickname already taken, please choose a new one");
+                }
+            }while (!ok);
                 setNickname(name);
                 server.addNickname(name, this);
-            }
-            else{
-                System.out.println("Nickname already taken, please choose a new one");
-                JoinLobby();
-            }
         } catch (IOException e) {
             throw new NicknameException("Error while checking nickname", e);
         } catch (ClassNotFoundException e) {
