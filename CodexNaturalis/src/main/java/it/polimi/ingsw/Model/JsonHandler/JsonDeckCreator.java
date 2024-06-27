@@ -1,13 +1,13 @@
 package it.polimi.ingsw.Model.JsonHandler;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import it.polimi.ingsw.JsonParser.JsonParser;
 import it.polimi.ingsw.Model.Cards.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -35,9 +35,9 @@ public class JsonDeckCreator {
         if (DeckType == null) {
             throw new IllegalArgumentException("DeckType cannot be null");
         }
-        try (FileReader fileReader = new FileReader(filePath)) {
+        try {
             Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(fileReader, JsonObject.class);
+            JsonObject jsonObject = gson.fromJson(new InputStreamReader(JsonParser.getStreamFromPath(filePath)), JsonObject.class);
             switch (DeckType.getSimpleName()) {
                 case "InitialCard" -> {
                     ArrayList<InitialCard> deck = new ArrayList<>();
@@ -92,6 +92,10 @@ public class JsonDeckCreator {
                     return deck;
                 }
             }
+        } catch (JsonSyntaxException e) {
+            System.out.println(e);
+        } catch (JsonIOException e) {
+            System.out.println(e);
         }
         return null;
     }

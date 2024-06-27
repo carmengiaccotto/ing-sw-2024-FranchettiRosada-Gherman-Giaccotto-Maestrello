@@ -3,33 +3,28 @@ package it.polimi.ingsw.Model.PlayGround;
 import it.polimi.ingsw.Model.Cards.ResourceCard;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 class
 DeckTest {
 
     @Test
-    void getCards() {
-        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+    void getCards() throws IOException {
+        Deck deck = new Deck(ResourceCard.class);
         assertNotNull(deck.getCards());
     }
 
 
     @Test
-    void getSize() {
-        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+    void getSize() throws IOException {
+        Deck deck = new Deck(ResourceCard.class);
         assertEquals(40, deck.getSize());
     }
 
     @Test
-    void testConstructorExceptionHandling() {
-        assertThrows(RuntimeException.class, () -> {
-            new Deck(ResourceCard.class, "invalid/file/path/");
-        });
-    }
-
-    @Test
-    void testDrawCard(){
-        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+    void testDrawCard() throws IOException {
+        Deck deck = new Deck(ResourceCard.class);
         int size = deck.getSize();
         ResourceCard card= (ResourceCard) deck.drawCard();
         assertEquals(size - 1, deck.getSize());
@@ -38,8 +33,8 @@ DeckTest {
     }
 
     @Test
-    void testDrawCardEmptyDeck(){
-        Deck deck = new Deck(ResourceCard.class, "src/main/resources/");
+    void testDrawCardEmptyDeck() throws IOException {
+        Deck deck = new Deck(ResourceCard.class);
         for (int i = 0; i < 40; i++) {
             deck.drawCard();
         }

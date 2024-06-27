@@ -40,6 +40,7 @@ public class ServerManager {
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
     protected ServerManager() throws UnknownHostException, RemoteException {
+
         try {
             // Get all network interfaces
 //            this.serverIP = InetAddress.getLocalHost().getHostAddress();

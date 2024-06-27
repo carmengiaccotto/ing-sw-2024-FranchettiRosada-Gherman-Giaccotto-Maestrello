@@ -27,26 +27,26 @@ public class Deck implements Serializable {
      * @throws IOException If there is an error reading the JSON file.
      */
     public Deck(Class<? extends Card> DeckType) throws IOException {
-        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
-        this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
+        String filepathfinal = (DeckType.getSimpleName() + ".json");
+        this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepathfinal);
     }
 
-    /**
-     * This constructor is used for testing purposes.
-     * It also initializes a deck of a specific type of cards from a JSON file.
-     * If there is an error reading the JSON file, it throws a DeckCreationException.
-     *
-     * @param DeckType The class of the cards that the deck should contain.
-     * @param filepath The path to the JSON file.
-     */
-    public Deck(Class<? extends Card> DeckType, String filepath){
-        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
-        try {
-            this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
-        } catch (IOException e) {
-            throw new DeckCreationException("Error during deck creation", e);
-        }
-    }
+//    /**
+//     * This constructor is used for testing purposes.
+//     * It also initializes a deck of a specific type of cards from a JSON file.
+//     * If there is an error reading the JSON file, it throws a DeckCreationException.
+//     *
+//     * @param DeckType The class of the cards that the deck should contain.
+//     * @param filepath The path to the JSON file.
+//     */
+//    public Deck(Class<? extends Card> DeckType, String filepath){
+//        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
+//        try {
+//            this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
+//        } catch (IOException e) {
+//            throw new DeckCreationException("Error during deck creation", e);
+//        }
+//    }
 
     /**
      * This method returns the cards that are currently in the deck.

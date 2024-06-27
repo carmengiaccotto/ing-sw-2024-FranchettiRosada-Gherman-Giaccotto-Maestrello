@@ -85,13 +85,13 @@ public class PlayGround implements Serializable {
      * @throws IOException If there is an error reading the card data files.
      */
     public PlayGround(String filepath) throws IOException {
-        GoldCardDeck = new Deck(GoldCard.class, filepath);
+        GoldCardDeck = new Deck(GoldCard.class);
         GoldCardDeck.shuffle();
-        ResourceCardDeck = new Deck(ResourceCard.class, filepath);
+        ResourceCardDeck = new Deck(ResourceCard.class);
         ResourceCardDeck.shuffle();
-        ObjectiveCardDeck = new Deck(ObjectiveCard.class, filepath);
+        ObjectiveCardDeck = new Deck(ObjectiveCard.class);
         ObjectiveCardDeck.shuffle();
-        InitialCardDeck = new Deck(InitialCard.class, filepath);
+        InitialCardDeck = new Deck(InitialCard.class);
         InitialCardDeck.shuffle();
 
         commonResourceCards = new ArrayList<>();
