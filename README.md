@@ -30,7 +30,20 @@ Maestrello Lucrezia <br>
 |----------|----------------|-----------------|----------------|
 | Model    | 95 % (39/41)   | 90 % (170/187)  | 91 % (556/608) |
 
-## How to use
+## How to run
+
+In the [deliverables/final/jar](deliverables/final/jar) folder there are the two executable jar files already compiled.
+
+- In order to run the server, execute this command:
+    ```bash
+    java -jar Server.jar
+    ```
+
+- To run the client, execute this command:
+    ```bash
+    java -jar Client.jar
+    ```
+  You will be able to choose between the CLI or the GUI interface by typing the option number on your keyboard accordingly.
 
 ## More
 
