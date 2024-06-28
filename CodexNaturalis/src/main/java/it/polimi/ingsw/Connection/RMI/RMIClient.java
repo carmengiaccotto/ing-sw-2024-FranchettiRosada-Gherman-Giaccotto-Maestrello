@@ -152,6 +152,13 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     }
 
+    /**
+     * This method is used to display the available colors for the player's pawn.
+     * It is currently not implemented and needs to be filled with the appropriate logic.
+     *
+     * @param availableColors A list of PawnColor enumerations representing the available colors.
+     * @throws RemoteException if the remote object cannot be created
+     */
     @Override
     public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
 
