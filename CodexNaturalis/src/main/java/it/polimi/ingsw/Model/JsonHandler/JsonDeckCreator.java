@@ -10,16 +10,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * This class is responsible for creating a deck of cards from a JSON file.
+ * It uses the Gson library to parse the JSON file and map it to Java objects.
+ */
 public class JsonDeckCreator {
     private JsonCardsMapper mapper;
 
     /**
-     * JSON General Deck Constructor
+     * This method creates a deck of cards from a JSON file.
+     * It first checks if the DeckType is null and throws an IllegalArgumentException if it is.
+     * Then it creates a FileReader to read the JSON file and a Gson object to parse it.
+     * It gets the simple name of the DeckType and uses a switch statement to determine which type of card to create.
+     * For each type of card, it gets the corresponding array from the JSON object, iterates over it, maps each JSON object to a card object, and adds it to the deck.
+     * It returns the deck of cards.
      *
-     * @param DeckType class of cards we want to punt in the Deck
-     * @return deck arrayList od cards on the desired type
-     * JSON Card files and Card Classes have the sam name, so we use DeckType.getSimpleName() to build the Json path
+     * @param DeckType The class of the cards to put in the deck.
+     * @param filePath The path to the JSON file.
+     * @return An ArrayList of cards of the desired type.
+     * @throws IllegalArgumentException If DeckType is null.
+     * @throws IOException If there is an error reading the JSON file.
      */
     public static ArrayList<? extends Card> createDeckFromJson(Class<? extends Card> DeckType, String filePath) throws IllegalArgumentException, IOException {
         if (DeckType == null) {

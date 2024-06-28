@@ -361,11 +361,12 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
      * It delegates the instruction to the client controller.
      *
      * @param doThis A string representing the instruction for the client.
+     * @return
      * @throws RemoteException if the remote object cannot be created
      */
     @Override
-    public void WhatDoIDoNow(String doThis) throws RemoteException {
-        controller.WhatDoIDoNow(doThis);
+    public Object WhatDoIDoNow(String doThis) throws RemoteException {
+        return controller.WhatDoIDoNow(doThis);
     }
 
 

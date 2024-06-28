@@ -59,6 +59,8 @@ public class ClientListener extends Thread {
     private final Object finalRankingResponseLockObject = new Object();
     private DisconnectResponse disconnectResponse;
     private final Object disconnectResponseLockObject = new Object();
+    private DisplayAvailableColorsResponse displayAvailableColorsResponse;
+    private final Object displayAvailableColorsLockObject = new Object();
 
 
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
@@ -110,7 +112,8 @@ public class ClientListener extends Thread {
                         } else if (message instanceof UpdateMessage) {
                             try {
                                 clientController.sendUpdateMessage(((UpdateMessage) message).getMessage());
-                            } catch (RemoteException e) {
+                                sendMessage(new UpdateMessageResponse());
+                            } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         } else if (message instanceof GetNickNameMessage) {
@@ -129,8 +132,8 @@ public class ClientListener extends Thread {
                             }
                         } else if (message instanceof WhatDoIDoNowMessage) {
                             try {
-                                clientController.WhatDoIDoNow(((WhatDoIDoNowMessage) message).getDoThis());
-                                sendMessage(new WhatDoIDoNowResponse());
+                                Object object = clientController.WhatDoIDoNow(((WhatDoIDoNowMessage) message).getDoThis());
+                                sendMessage(new WhatDoIDoNowResponse(object));
                             } catch (RemoteException e) {
                                 throw new RuntimeException(e);
                             } catch (IOException e) {
@@ -153,6 +156,7 @@ public class ClientListener extends Thread {
                         } else if (message instanceof ShowBoardAndPlayAreasMessage) {
                             try {
                                 clientController.showBoardAndPlayAreas(((ShowBoardAndPlayAreasMessage) message).getPlayGround());
+                                sendMessage(new ShowBoardAndPlayAreasResponse());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -163,7 +167,17 @@ public class ClientListener extends Thread {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                        } else if (message instanceof GetPlayersResponse) {
+                        } else if (message instanceof DisplayAvailableColorsMessage) {
+                            synchronized (displayAvailableColorsLockObject) {
+                                try {
+                                    DisplayAvailableColorsMessage displayAvailableColorsMessage = (DisplayAvailableColorsMessage) message;
+                                    clientController.displayAvailableColors(displayAvailableColorsMessage.getColors());
+                                    sendMessage(new DisplayAvailableColorsResponse());
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }else if (message instanceof GetPlayersResponse) {
                             synchronized (getPlayerResponseLockObject) {
                                 getPlayerResponse = (GetPlayersResponse) message;
                                 getPlayerResponseLockObject.notify();

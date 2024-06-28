@@ -8,7 +8,6 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -86,8 +85,9 @@ public class SocketClient extends Thread implements ClientControllerInterface {
     }
 
     @Override
-    public void WhatDoIDoNow(String doThis) throws RemoteException {
+    public Object WhatDoIDoNow(String doThis) throws RemoteException {
 
+        return null;
     }
 
     @Override

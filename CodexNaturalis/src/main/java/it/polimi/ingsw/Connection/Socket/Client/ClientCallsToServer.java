@@ -5,7 +5,7 @@ import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Game.GameListener;
-import it.polimi.ingsw.Controller.Game.GameListenerForClientSocket;
+//import it.polimi.ingsw.Controller.Game.GameListenerForClientSocket;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
@@ -202,7 +202,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        return new GameListenerForClientSocket(oos, clientListener);
+        return new GameListener(); // GameListenerForClientSocket(oos, clientListener);
     }
 
     /**

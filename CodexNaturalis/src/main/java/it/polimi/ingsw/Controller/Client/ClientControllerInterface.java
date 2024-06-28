@@ -4,7 +4,6 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -211,8 +210,10 @@ public interface ClientControllerInterface extends Remote, Serializable {
 
     /**
      * This method is used to instruct the player on what to do next.
+     *
      * @param doThis A string representing the instruction for the player.
+     * @return
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
-    void WhatDoIDoNow (String doThis) throws RemoteException;
+    Object WhatDoIDoNow (String doThis) throws RemoteException;
 }

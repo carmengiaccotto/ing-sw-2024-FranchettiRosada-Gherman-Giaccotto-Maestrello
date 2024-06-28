@@ -12,22 +12,27 @@ import java.util.HashMap;
  */
 public class PointPerCoveredCorner extends GoldCard {
 
-
-    /**Class Constructor*/
-
+    /**
+     * Class Constructor.
+     * Initializes the card with the given id, front side, back side, color, requirement, and point.
+     *
+     * @param id The id of the card.
+     * @param front The front side of the card.
+     * @param back The back side of the card.
+     * @param color The color of the card.
+     * @param requirement The requirement of the card.
+     * @param point The point value of the card.
+     */
     public PointPerCoveredCorner(int id, SideOfCard front, SideOfCard back, CardColors color, HashMap<Symbol, Integer> requirement, int point) {
         super(id, front, back, color, requirement, point);
     }
 
-
-
-
-    /**Method used to get the number of corners the card covers when it is placed.
+    /**
+     * Method used to get the number of corners the card covers when it is placed.
      *
      * @return coveredCorners obtained by checking which one of the corners of the current card has nextCorner!=null at
      * nextCorner is set when placing the Card on the area and checking the neighbours
-     * */
-
+     */
     public int findCoveredCorners(){
         int coveredCorners=0;// initializing the number of covered corners to zero
         for(Corner[] cornerRow: this.getFront().getCorners() ){//iterating through the corners of the front side of the card,
@@ -41,15 +46,13 @@ public class PointPerCoveredCorner extends GoldCard {
         return coveredCorners;
     }
 
-
-
-
-   /**Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints
-    * and the corners the card covers
-    * @param point default points
-    * @return int the points that are to be added to the Player's score
-    **/
-
+    /**
+     * Method that returns the actual points that Playing this card provides, by multiplying the defaultPoints
+     * and the corners the card covers
+     *
+     * @param point default points
+     * @return int the points that are to be added to the Player's score
+     */
    @Override
     public int increasePoints(int point){
         return findCoveredCorners() * point;

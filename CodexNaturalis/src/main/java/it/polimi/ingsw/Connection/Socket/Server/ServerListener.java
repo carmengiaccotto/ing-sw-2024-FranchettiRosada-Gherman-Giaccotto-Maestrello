@@ -8,7 +8,6 @@ import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.InitialCard;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.GameStatus;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.Pair;
@@ -52,6 +51,12 @@ public class ServerListener extends Thread implements Serializable {
     private final Object whatDoIDoNowResponseLockObject = new Object();
     private DisconnectResponse disconnectResponse;
     private final Object disconnectResponseLockObject = new Object();
+    private DisplayAvailableColorsResponse displayAvailableColorsResponse;
+    private final Object diplayAvailableColorsResponseLockObject = new Object();
+    private UpdateMessageResponse sendMessageResponse;
+    private final Object sendMessageResponseLockObject = new Object();
+    private ShowBoardAndPlayAreasResponse showBoardAndPlayAreasResponse;
+    private final Object showBoardAndPlayAreasResponseLockObject = new Object();
 
 
     public ServerListener(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface client, MainControllerInterface mainController) {
@@ -179,6 +184,11 @@ public class ServerListener extends Thread implements Serializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
+                    } else if (message instanceof DisplayAvailableColorsResponse) {
+                        synchronized (diplayAvailableColorsResponseLockObject) {
+                            displayAvailableColorsResponse = (DisplayAvailableColorsResponse) message;
+                            diplayAvailableColorsResponseLockObject.notify();
+                        }
                     } else if (message instanceof GetNickNameResponse) {
                         synchronized (getNicknameResponseLockObject) {
                             getNicknameResponse = (GetNickNameResponse) message;
@@ -219,28 +229,30 @@ public class ServerListener extends Thread implements Serializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    } else if (message instanceof UpdatePlayersMessage) {
-                        try {
-                            UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage) message;
-                            if (updatePlayersMessage.getPlayGround() != null) {
-                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getPlayGround());
-                            } else if (updatePlayersMessage.getNickname() != null) {
-                                ClientControllerInterface currentPlayer = null;
-                                for (ClientControllerInterface player : gamecontroller.getListener().getPlayers()) {
-                                    if (player.getNickname().equals(updatePlayersMessage.getNickname())) {
-                                        currentPlayer = player;
-                                        break;
-                                    }
-                                }
-                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage(), currentPlayer);
-                            } else {
-                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage());
-                            }
-                            sendMessage(new UpdatePlayersResponse());
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    } else if (message instanceof IncrementPlayersWhoChoseObjectiveMessage) {
+                    }
+//                    else if (message instanceof UpdatePlayersMessage) {
+//                        try {
+//                            UpdatePlayersMessage updatePlayersMessage = (UpdatePlayersMessage) message;
+//                            if (updatePlayersMessage.getPlayGround() != null) {
+//                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getPlayGround());
+//                            } else if (updatePlayersMessage.getNickname() != null) {
+//                                ClientControllerInterface currentPlayer = null;
+//                                for (ClientControllerInterface player : gamecontroller.getListener().getPlayers()) {
+//                                    if (player.getNickname().equals(updatePlayersMessage.getNickname())) {
+//                                        currentPlayer = player;
+//                                        break;
+//                                    }
+//                                }
+//                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage(), currentPlayer);
+//                            } else {
+//                                gamecontroller.getListener().updatePlayers(updatePlayersMessage.getMessage());
+//                            }
+//                            sendMessage(new UpdatePlayersResponse());
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+                    else if (message instanceof IncrementPlayersWhoChoseObjectiveMessage) {
                         try {
                             gamecontroller.incrementPlayersWhoChoseObjective();
                             sendMessage(new IncrementPlayersWhoChoseObjectiveResponse());
@@ -311,6 +323,16 @@ public class ServerListener extends Thread implements Serializable {
                         synchronized (disconnectResponseLockObject) {
                             disconnectResponse = (DisconnectResponse) message;
                             disconnectResponseLockObject.notify();
+                        }
+                    } else if (message instanceof UpdateMessageResponse) {
+                        synchronized (sendMessageResponseLockObject) {
+                            sendMessageResponse = (UpdateMessageResponse) message;
+                            sendMessageResponseLockObject.notify();
+                        }
+                    } else if (message instanceof ShowBoardAndPlayAreasResponse) {
+                        synchronized (showBoardAndPlayAreasResponseLockObject) {
+                            showBoardAndPlayAreasResponse = (ShowBoardAndPlayAreasResponse) message;
+                            showBoardAndPlayAreasResponseLockObject.notify();
                         }
                     }
                 });
@@ -436,5 +458,38 @@ public class ServerListener extends Thread implements Serializable {
             }
         }
         return disconnectResponse;
+    }
+
+    public DisplayAvailableColorsResponse diplayAvailableColorsResponse() {
+        synchronized (diplayAvailableColorsResponseLockObject) {
+        try {
+            diplayAvailableColorsResponseLockObject.wait();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+        return displayAvailableColorsResponse;
+    }
+
+    public UpdateMessageResponse sendMessageResponse() {
+        synchronized (sendMessageResponseLockObject) {
+            try {
+                sendMessageResponseLockObject.wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return sendMessageResponse;
+    }
+
+    public ShowBoardAndPlayAreasResponse showBoardAndPlayAreasResponse() {
+        synchronized (showBoardAndPlayAreasResponseLockObject) {
+            try {
+                showBoardAndPlayAreasResponseLockObject.wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return showBoardAndPlayAreasResponse;
     }
 }

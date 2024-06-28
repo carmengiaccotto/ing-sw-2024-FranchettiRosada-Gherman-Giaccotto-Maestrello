@@ -7,7 +7,6 @@ import it.polimi.ingsw.Controller.Game.GameControllerInterface;
 import it.polimi.ingsw.Controller.Main.MainControllerInterface;
 import it.polimi.ingsw.Model.Cards.ObjectiveCard;
 import it.polimi.ingsw.Model.Cards.PlayCard;
-import it.polimi.ingsw.Model.Cards.SideOfCard;
 import it.polimi.ingsw.Model.Enumerations.PawnColor;
 import it.polimi.ingsw.Model.PlayGround.PlayGround;
 import it.polimi.ingsw.Model.PlayGround.Player;
@@ -17,17 +16,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ServerCallsToClient implements ClientControllerInterface, Serializable {
-    private final ObjectOutputStream oos;
-    private ServerListener serverListener;
+    private transient final ObjectOutputStream oos;
+    private transient ServerListener serverListener;
 
-    private MainControllerInterface mainController;
-    private GameControllerInterface gameController;
+    private transient MainControllerInterface mainController;
+    private transient GameControllerInterface gameController;
 
     private String nickname;
 
@@ -148,7 +145,12 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
 
     @Override
     public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
-
+        try {
+            sendMessage(new DisplayAvailableColorsMessage(availableColors));
+            DisplayAvailableColorsResponse response = serverListener.diplayAvailableColorsResponse();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -244,6 +246,7 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
     public void showBoardAndPlayAreas(PlayGround playGround) throws RemoteException {
         try {
             sendMessage(new ShowBoardAndPlayAreasMessage(playGround));
+            ShowBoardAndPlayAreasResponse response = serverListener.showBoardAndPlayAreasResponse();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -288,6 +291,7 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
     public void sendUpdateMessage(String message) throws RemoteException {
         try {
             sendMessage(new UpdateMessage(message));
+            UpdateMessageResponse response = serverListener.sendMessageResponse();
         } catch (IOException ex) {
         }
     }
@@ -394,15 +398,18 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
 
     /**
      * @param doThis
+     * @return
      * @throws RemoteException
      */
     @Override
-    public void WhatDoIDoNow(String doThis) throws RemoteException {
+    public Object WhatDoIDoNow(String doThis) throws RemoteException {
         try {
             sendMessage(new WhatDoIDoNowMessage(doThis));
             WhatDoIDoNowResponse response = serverListener.whatDoIDoNowResponse();
+            return response.getObject();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return null;
     }
 }

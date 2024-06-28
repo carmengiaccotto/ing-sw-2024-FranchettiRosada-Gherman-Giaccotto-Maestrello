@@ -4,45 +4,51 @@ import it.polimi.ingsw.Model.Enumerations.ObjectivePoints;
 
 import java.io.Serializable;
 
-/** Class that represents the Objective Cards of the game.
+/**
+ * This class represents the Objective Cards in the game.
+ * It extends the Card class and implements the Serializable interface, which means its instances can be converted to a byte stream and restored later.
+ * Each Objective Card has points, which represent the points a player can earn by achieving the objective on the card.
  */
-
 public class ObjectiveCard extends Card implements Serializable {
+
     private ObjectivePoints points;
 
-    /**Class Constructor*/
-    public ObjectiveCard(int id,ObjectivePoints points) {
+    /**
+     * Class Constructor.
+     * Initializes the card with the given id and points.
+     *
+     * @param id The id of the card.
+     * @param points The points of the card.
+     */
+    public ObjectiveCard(int id, ObjectivePoints points) {
         super(id);
         this.points = points;
     }
 
-
-    /**Getter method fot Points attribute
+    /**
+     * Getter method for Points attribute.
      *
-     * @return ObjectivePoints type: ObjectivePoints enum
-     * */
-
+     * @return The points of the card. It is of type ObjectivePoints enum.
+     */
     public ObjectivePoints getPoints(){
         return points;
     }
 
-
-
-
-    /**Method that is to be overwritten by SymbolObjectivePoints and DispositionObjectivePoints, that checks how many times
-     * the goal has been reached on the playArea.
-     * @return 0 as a default number
-     * */
-
+    /**
+     * Method that checks how many times the goal has been reached on the playArea.
+     * This method is to be overwritten by SymbolObjectivePoints and DispositionObjectivePoints.
+     *
+     * @return 0 as a default number.
+     */
     public int CheckGoals(){
         return 0;
     }
 
-
     /**
-     * method that is used to calculate the total points that an Objective card gives to the player.
+     * Method that is used to calculate the total points that an Objective card gives to the player.
      *
-     * @return numberOfGoals * n.getValue()
+     * @param numberOfGoals The number of times the goal has been reached.
+     * @return The total points that an Objective card gives to the player. It is calculated as numberOfGoals * points.getValue().
      */
     public int calculatePoints(int numberOfGoals) {
         return numberOfGoals * points.getValue();

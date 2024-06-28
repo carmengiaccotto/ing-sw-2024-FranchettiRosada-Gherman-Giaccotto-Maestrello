@@ -180,9 +180,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                         Thread thread = new Thread(() -> {
                             try {
                                 c.WhatDoIDoNow("INITIALIZE");
+                                for(ClientControllerInterface client: listener.getPlayers()) {
+                                    client.sendUpdateMessage(c.getNickname() + " has chosen the personal objective card.");
+                                    if (getPlayersWhoChoseObjective() < getPlayers().size()) {
+                                        c.sendUpdateMessage("Waiting for other players to choose their personal objective card...");
+                                    } else {
+                                        client.sendUpdateMessage("All players have chosen their personal objective card.");
+                                    }
+                                }
                             } catch (Exception e) {
-                                System.err.println("An error occurred: " + e.getMessage());
-                                Thread.currentThread().interrupt();
+                                clientDisconnected(c);
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -204,10 +211,17 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             case INITIAL_CIRCLE -> {
                 for (ClientControllerInterface c : listener.getPlayers()) {
                     try {
+                        for (ClientControllerInterface client : listener.getPlayers()) {
+                            if (!client.getNickname().equals(c.getNickname()))
+                                client.sendUpdateMessage("It's " + c.getNickname() + "'s turn to play initial card!");
+                        }
                         c.WhatDoIDoNow("INITIAL");
+                        for (ClientControllerInterface client : listener.getPlayers()) {
+                            if (!client.getNickname().equals(c.getNickname()))
+                                client.sendUpdateMessage(c.getNickname() + " has played the initial card.");
+                        }
                     } catch (Exception e) {
-                        System.err.println("An error occurred: " + e.getMessage());
-                        Thread.currentThread().interrupt();
+                        clientDisconnected(c);
                     }
                 }
                 if(getStatus() != GameStatus.FINILIZE)
@@ -226,11 +240,16 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
                                     c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
                                 } else {
-                                    c.WhatDoIDoNow("PLAY-TURN");
+                                    PlayGround playGround = (PlayGround) c.WhatDoIDoNow("PLAY-TURN");
+                                    setModel(playGround);
+                                    for(ClientControllerInterface client: listener.getPlayers()) {
+                                        client.sendUpdateMessage(c.getNickname() + " has played a card.");
+                                        client.sendUpdateMessage("This is the current Playground: ");
+                                        client.showBoardAndPlayAreas(playGround);
+                                    }
                                 }
                             } catch (RemoteException e) {
-                                System.err.println("An error occurred: " + e.getMessage());
-                                Thread.currentThread().interrupt();
+                                clientDisconnected(c);
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -248,7 +267,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
                     if(getStatus() != GameStatus.FINILIZE) {
                         // Check the score after the current player has finished their turn
-                        if (currentPlayer.getPlayer().getScore() >= 1) {
+                        if (currentPlayer.getPlayer().getScore() >= 20) {
                             setStatus(GameStatus.LAST_CIRCLE);
                             break;
                         }
@@ -258,10 +277,22 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                 }
             }
             case LAST_CIRCLE -> {
-                if (currentPlayerIndex < (listener.getPlayers().size()-1)) {
-                    listener.updatePlayers("We are at the last round of the Game, " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " has reached the maximum score!", listener.getPlayers().get(currentPlayerIndex));
+                if (currentPlayerIndex < (listener.getPlayers().size() - 1)) {
+                    listener.getPlayers().forEach(c -> {
+                        try {
+                            c.sendUpdateMessage("We are at the last round of the Game, " + listener.getPlayers().get(currentPlayerIndex).getNickname() + " has reached the maximum score!");
+                        } catch (RemoteException e) {
+                            clientDisconnected(c);
+                        }
+                    });
                     listener.getPlayers().get(currentPlayerIndex).sendUpdateMessage("You have reached the maximum score!");
-                    listener.updatePlayers("The game will continue until all players have played their last turn.");
+                    listener.getPlayers().forEach(c -> {
+                        try {
+                            c.sendUpdateMessage("The game will continue until all players have played their last turn.");
+                        } catch (RemoteException e) {
+                            clientDisconnected(c);
+                        }
+                    });
                     List<ClientControllerInterface> playersToIterate = new ArrayList<>(listener.getPlayers().subList(currentPlayerIndex + 1, listener.getPlayers().size()));
                     currentPlayerIndex = currentPlayerIndex + 1;
 
@@ -283,8 +314,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                         latch.countDown();
                                     }
                                 } catch (RemoteException e) {
-                                    System.err.println("An error occurred: " + e.getMessage());
-                                    Thread.currentThread().interrupt();
+                                    clientDisconnected(c);
                                 }
                             });
                             gameLoopThreads.add(thread);
@@ -589,9 +619,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                     }
                 }
             }
-        }
-        else{
-            listener.updatePlayers("Waiting for more players to join the game...");
+        } else {
+            listener.getPlayers().forEach(c -> {
+                try {
+                    c.sendUpdateMessage("Waiting for more players to join the game...");
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
     }
@@ -911,7 +946,13 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     public void shutdown() throws RemoteException {
 
-        listener.disconnectPlayers();
+        listener.getPlayers().forEach(c -> {
+            try {
+                c.disconnect();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
         listener.getPlayers().clear();
 
         executor.shutdown();
@@ -924,15 +965,22 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         }
     }
 
-    public void clientDisconnected(ClientControllerInterface client) throws RemoteException {
-        List<ClientControllerInterface> oldPlayers = listener.getPlayers();
-        boolean removeSucceded = listener.getPlayers().remove(client);
-        List<ClientControllerInterface> newPlayers = listener.getPlayers();
-        listener.updatePlayers("Client disconnected... Ending game");
-//        listener.disconnectPlayers();
-        setStatus(GameStatus.FINILIZE);
-        for(Thread thread: gameLoopThreads) {
-            thread.interrupt();
+    public void clientDisconnected(ClientControllerInterface client) {
+        try {
+            boolean removeSucceded = listener.getPlayers().remove(client);
+            listener.getPlayers().forEach(c -> {
+                try {
+                    c.sendUpdateMessage("Client disconnected... Ending game");
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            setStatus(GameStatus.FINILIZE);
+            for (Thread thread : gameLoopThreads) {
+                thread.interrupt();
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
 
     }

@@ -9,45 +9,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * This class represents a DispositionObjectiveCard in the game.
+ * It extends the ObjectiveCard class and has additional attributes for the central card color and its neighbors.
+ */
 public class DispositionObjectiveCard extends ObjectiveCard {
 
     private CardColors CentralCardColor;
     private Map<Position, CardColors> Neighbors;
 
 
-
-
-
-    /**Class Constructor*/
-
+    /**
+     * Class Constructor.
+     * Initializes the card with the given id, points, central card color and neighbors.
+     *
+     * @param id The id of the card.
+     * @param points The points of the card.
+     * @param CentralCardColor The color of the central card.
+     * @param Neighbors The neighbors of the central card.
+     */
     public DispositionObjectiveCard(int id, ObjectivePoints points, CardColors CentralCardColor, Map<Position, CardColors> Neighbors) {
         super(id, points);
         this.CentralCardColor = CentralCardColor;
         this.Neighbors = Neighbors;
     }
 
-
-
-
-    /**Method that returns the neighbors of the central card in the configuration
-     * @return a map that associates the Color of the card to the neighboring position*/
-
+    /**
+     * Method that returns the neighbors of the central card in the configuration.
+     *
+     * @return a map that associates the Color of the card to the neighboring position.
+     */
     public Map<Position, CardColors> getNeighbors() {
         return this.Neighbors;
     }
 
-
-
-
     /**
-     * Method that returns the number of times a certain configuration has been found on the PlayArea
-     * Support Variables:
-     * -tempConfig: Contains all the Cards that might be in a configuration; Parameter for resetConfig method
-     * -TemporaryCentralCard: The card we are currently considering as the central one in the configuration
-     * @param playArea we are checking the configuration on
+     * Method that returns the number of times a certain configuration has been found on the PlayArea.
+     * It checks for all cards in the play area if they match the desired configuration.
+     *
+     * @param playArea The play area to check the configuration on.
+     * @return The number of times the configuration has been found.
      */
-
     public int CheckGoals(PlayArea playArea) {
         int NumberOfDispositions = 0;//starting with 0 dispositions
         List<List<SideOfCard>> Area = playArea.getCardsOnArea(); //retrieve the cards on the playArea
@@ -86,21 +88,20 @@ public class DispositionObjectiveCard extends ObjectiveCard {
         return NumberOfDispositions;
     }
 
-
-
-    /**Getter method for CentralCardColor attribute
-     * @return centralCardColor color of the central card of the disposition*/
-
+    /**
+     * Getter method for CentralCardColor attribute.
+     *
+     * @return The color of the central card of the disposition.
+     */
     public CardColors getCentralCardColor() {
             return CentralCardColor;
         }
 
-
-
-
-    /**Setter method for CentralCardColor attribute
-     * @param centralCardColor color of the central card of the disposition*/
-
+    /**
+     * Setter method for CentralCardColor attribute.
+     *
+     * @param centralCardColor The color of the central card of the disposition.
+     */
     public void setCentralCardColor(CardColors centralCardColor){
             CentralCardColor = centralCardColor;
         }

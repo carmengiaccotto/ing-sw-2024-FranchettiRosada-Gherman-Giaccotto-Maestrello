@@ -383,18 +383,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         } else {
             int chosenGame = view.displayavailableGames(availableGames, server.numRequiredPlayers());
-            if (chosenGame == 0) {
+            if (chosenGame == -1) {
                 try {
                     newGameSetUp();
                 } catch (RemoteException e) {
                     throw new GameJoinException("Error while setting up a new game", e);
                 }
-            } else if (chosenGame < 0 || chosenGame > availableGames.size()) {
+            } else if (!availableGames.containsKey(chosenGame)) {
                 System.out.println("Invalid game, please select a valid one, or start a new game");
                 JoinOrCreateGame();
 
             } else {
-                server.joinGame(this, chosenGame-1);
+                server.joinGame(this, chosenGame);
                 ChoosePawnColor();
                 server.NotifyGamePlayerJoined(game, this);
             }
@@ -510,17 +510,18 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     @Override
     public void JoinLobby() throws RemoteException {
-        String name = ChooseNickname();
+        String name;
+        boolean ok;
         try {
-            boolean ok=server.checkUniqueNickName(name);
-            if(ok){
+            do{
+                name = ChooseNickname();
+                ok=server.checkUniqueNickName(name);
+                if(!ok){
+                    sendUpdateMessage("Nickname already taken, please choose a new one");
+                }
+            }while (!ok);
                 setNickname(name);
                 server.addNickname(name, this);
-            }
-            else{
-                System.out.println("Nickname already taken, please choose a new one");
-                JoinLobby();
-            }
         } catch (IOException e) {
             throw new NicknameException("Error while checking nickname", e);
         } catch (ClassNotFoundException e) {
@@ -536,10 +537,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * and handle the end of the game (either as a winner or a loser).
      *
      * @param doThis A string representing the action the player needs to perform.
+     * @return
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
     @Override
-    public void WhatDoIDoNow(String doThis) throws RemoteException {
+    public Object WhatDoIDoNow(String doThis) throws RemoteException {
         switch(doThis){
             case("INITIALIZE")->{//the player gets its hand of cards, chooses its personalObjective, and gets its InitialCard.
                 view.printBoard(game.getModel(), getOpponents(), player);
@@ -564,7 +566,9 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
                 do {
                     c = view.receiveCommand(true);
                     switch (c) {
-                        case MOVE -> playMyTurn();
+                        case MOVE -> {
+                            return playMyTurn();
+                        }
                     }
                 }while(c!=Command.MOVE);
             }
@@ -590,6 +594,7 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             }
         }
 
+        return null;
     }
 
     /**
@@ -605,14 +610,16 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
             ArrayList<ObjectiveCard> objectives=game.getPersonalObjective();
             int n=view.choosePersonaObjectiveCard(objectives);
             player.setPersonalObjectiveCard(objectives.get(n));
-            game.getListener().updatePlayers(getNickname()+ " has chosen the personal objective card.", this);
+            String nickName = getNickname();
+//            GameListener listener = game.getListener();
+//            listener.updatePlayers(nickName+ " has chosen the personal objective card.", this);
             game.incrementPlayersWhoChoseObjective();
-            if(game.getPlayersWhoChoseObjective() < game.getPlayers().size()){
-                view.printMessage("Waiting for other players to choose their personal objective card...");
-            }
-            else{
-                game.getListener().updatePlayers("All players have chosen their personal objective card.");
-            }
+//            if(game.getPlayersWhoChoseObjective() < game.getPlayers().size()){
+//                view.printMessage("Waiting for other players to choose their personal objective card...");
+//            }
+//            else{
+//                game.getListener().updatePlayers("All players have chosen their personal objective card.");
+//            }
         } catch (RemoteException e) {
             System.out.println("an error occurred when extracting the personal objective card");
         }
@@ -648,11 +655,11 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      */
     private void playMyInitialCard() throws RemoteException {
         view.printMessage("It's your turn to play the initial card!");
-        game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
+//        game.getListener().updatePlayers("It's " + getNickname() + "'s turn to choose the initial card!", this);
         view.showInitialCard(player.getInitialCard());
         Side side = Side.valueOf(view.chooseSide());
         getPlayArea().addInitialCardOnArea(player.getInitialCard().chooseSide(side));
-        game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
+//        game.getListener().updatePlayers(getNickname()+ " has played the initial card.", this);
     }
 
     /**
@@ -707,17 +714,20 @@ public class ClientController extends UnicastRemoteObject implements ClientContr
      * The playground is then updated with the chosen card.
      * Finally, it sends an update to all players showing the current state of the playground.
      *
+     * @return
      * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
      */
-    private void playMyTurn() throws RemoteException {
+    private PlayGround playMyTurn() throws RemoteException {
         playMyCard();
-        game.getListener().updatePlayers(getNickname() + " has played a card.", this);
+//        game.getListener().updatePlayers(getNickname() + " has played a card.", this);
         if(game.getStatus() == GameStatus.RUNNING) {
             PlayGround model = chooseCardToDraw(game.getModel());
             game.setModel(model);
-            game.getListener().updatePlayers("This is the current Playground: ");
-            game.getListener().updatePlayers(game.getModel());
+//            game.getListener().updatePlayers("This is the current Playground: ");
+//            game.getListener().updatePlayers(game.getModel());
+            return game.getModel();
         }
+        return null;
     }
 
     /**
