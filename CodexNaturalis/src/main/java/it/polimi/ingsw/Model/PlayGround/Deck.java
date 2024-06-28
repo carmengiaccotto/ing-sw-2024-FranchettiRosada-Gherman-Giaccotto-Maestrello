@@ -15,7 +15,17 @@ import java.util.Collections;
  * The deck is represented as an ArrayList of Card objects.
  */
 public class Deck implements Serializable {
+    /**
+     * This is an ArrayList that holds objects of a class that extends the Card class.
+     * The wildcard (?) is used to allow for different types of cards to be stored in the deck.
+     * The extends keyword indicates that the ArrayList can hold objects of the Card class or any of its subclasses.
+     */
     private ArrayList<? extends Card> deck;
+
+    /**
+     * This is a String that holds the file path to the resources directory.
+     * It is used to locate the JSON files that are used to create the deck of cards.
+     */
     private String filepath = "CodexNaturalis/src/main/resources/";
 
     /**

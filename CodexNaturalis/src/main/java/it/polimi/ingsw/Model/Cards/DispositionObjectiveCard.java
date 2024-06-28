@@ -15,9 +15,19 @@ import java.util.Map;
  */
 public class DispositionObjectiveCard extends ObjectiveCard {
 
+    /**
+     * CentralCardColor is an attribute of the DispositionObjectiveCard class.
+     * It represents the color of the central card in the card disposition.
+     * The color is defined by the CardColors enumeration.
+     */
     private CardColors CentralCardColor;
-    private Map<Position, CardColors> Neighbors;
 
+    /**
+     * Neighbors is an attribute of the DispositionObjectiveCard class.
+     * It represents a map of the neighboring cards around the central card in the card disposition.
+     * The map associates each Position (representing the relative position of a neighbor) to a CardColors value (representing the color of the card in that position).
+     */
+    private Map<Position, CardColors> Neighbors;
 
     /**
      * Class Constructor.

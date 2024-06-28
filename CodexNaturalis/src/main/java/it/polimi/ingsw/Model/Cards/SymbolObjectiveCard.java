@@ -13,6 +13,12 @@ import java.util.Map;
  */
 public class SymbolObjectiveCard extends ObjectiveCard {
 
+    /**
+     * This is a HashMap that represents the goal of the SymbolObjectiveCard.
+     * The goal is a map of symbols to integers, where each symbol represents a specific goal,
+     * and the corresponding integer represents the number of times that goal needs to be reached.
+     * This attribute is final, meaning that it cannot be changed once it has been initialized.
+     */
     private final HashMap<Symbol, Integer> goal;
 
     /**

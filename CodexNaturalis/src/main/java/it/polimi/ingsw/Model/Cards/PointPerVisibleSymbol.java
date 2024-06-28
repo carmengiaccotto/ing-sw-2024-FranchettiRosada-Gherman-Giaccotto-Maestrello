@@ -15,6 +15,11 @@ import java.util.HashMap;
  */
 public class PointPerVisibleSymbol extends GoldCard {
 
+    /**
+     * The symbol that this card awards points for.
+     * This symbol is specified when the card is created and cannot be changed afterwards.
+     * It is used to calculate the points that a player earns when playing this card.
+     */
     private final Symbol goldGoal;
 
     /**

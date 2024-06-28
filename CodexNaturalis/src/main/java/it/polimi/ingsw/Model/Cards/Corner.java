@@ -13,12 +13,23 @@ import java.io.Serializable;
  */
 public class Corner implements Serializable {
 
-    private Symbol symbol;
-    private CornerPosition position;
-    private boolean covered;
-    private boolean hidden;
-    private Corner nextCorner;
-    private SideOfCard parentCard;
+    // Represents the symbol of the corner. It can be null.
+private Symbol symbol;
+
+// Represents the position of the corner on the card. It is a value from the CornerPosition enumeration.
+private CornerPosition position;
+
+// Represents the covered status of the corner. If true, the corner is covered.
+private boolean covered;
+
+// Represents the hidden status of the corner. If true, the corner is hidden.
+private boolean hidden;
+
+// Represents the next Corner of the current corner. It can be null.
+private Corner nextCorner;
+
+// Represents the parent card of the corner. It is the card that this corner belongs to.
+private SideOfCard parentCard;
 
     /**
      * This is the constructor for the Corner class.
