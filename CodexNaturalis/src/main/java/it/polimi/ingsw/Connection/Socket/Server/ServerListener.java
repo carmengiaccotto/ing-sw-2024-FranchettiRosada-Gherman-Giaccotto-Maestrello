@@ -658,6 +658,12 @@ public class ServerListener extends Thread implements Serializable {
         return disconnectResponse;
     }
 
+    /**
+     * This method retrieves the DisplayAvailableColorsResponse object.
+     * It waits until the DisplayAvailableColorsResponse object is available.
+     * It is synchronized on the diplayAvailableColorsResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the DisplayAvailableColorsResponse object
+     */
     public DisplayAvailableColorsResponse diplayAvailableColorsResponse() {
         synchronized (diplayAvailableColorsResponseLockObject) {
         try {
@@ -669,6 +675,12 @@ public class ServerListener extends Thread implements Serializable {
         return displayAvailableColorsResponse;
     }
 
+    /**
+     * This method retrieves the UpdateMessageResponse object.
+     * It waits until the UpdateMessageResponse object is available.
+     * It is synchronized on the sendMessageResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the UpdateMessageResponse object
+     */
     public UpdateMessageResponse sendMessageResponse() {
         synchronized (sendMessageResponseLockObject) {
             try {
@@ -680,6 +692,12 @@ public class ServerListener extends Thread implements Serializable {
         return sendMessageResponse;
     }
 
+    /**
+     * This method retrieves the ShowBoardAndPlayAreasResponse object.
+     * It waits until the ShowBoardAndPlayAreasResponse object is available.
+     * It is synchronized on the showBoardAndPlayAreasResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the ShowBoardAndPlayAreasResponse object
+     */
     public ShowBoardAndPlayAreasResponse showBoardAndPlayAreasResponse() {
         synchronized (showBoardAndPlayAreasResponseLockObject) {
             try {

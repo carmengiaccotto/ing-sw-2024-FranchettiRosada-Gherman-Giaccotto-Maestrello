@@ -5,6 +5,7 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains an integer representing the score.
  */
 public class GetScoreResponse extends GenericMessage {
+
     /**
     * The integer representing the score.
      */

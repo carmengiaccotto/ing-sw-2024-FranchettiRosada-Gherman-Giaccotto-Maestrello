@@ -187,7 +187,6 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
 
     }
 
-
     /**
      * Method to make the player wait.
      * Uses ClientController Implementation

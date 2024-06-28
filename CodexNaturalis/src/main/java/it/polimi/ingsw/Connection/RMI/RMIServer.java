@@ -105,6 +105,14 @@ public class RMIServer extends UnicastRemoteObject implements MainControllerInte
         return serverObject;
     }
 
+    /**
+     * Disconnects a player from the game.
+     * This method is a part of the MainControllerInterface.
+     * It delegates the disconnection process to the handler.
+     *
+     * @param player The player to be disconnected.
+     * @throws RemoteException If the remote invocation fails.
+     */
     @Override
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
         handler.disconnectPlayer(player);

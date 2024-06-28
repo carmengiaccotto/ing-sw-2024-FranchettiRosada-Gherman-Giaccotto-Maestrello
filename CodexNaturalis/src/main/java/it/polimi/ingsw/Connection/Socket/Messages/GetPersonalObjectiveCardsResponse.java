@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * It contains an ArrayList of ObjectiveCard objects representing the personal objective cards.
  */
 public class GetPersonalObjectiveCardsResponse extends GenericMessage {
+
     /**
     * The ArrayList of ObjectiveCard objects representing the personal objective cards.
      */

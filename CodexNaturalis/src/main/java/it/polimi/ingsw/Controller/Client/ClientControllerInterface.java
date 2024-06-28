@@ -76,6 +76,12 @@ public interface ClientControllerInterface extends Remote, Serializable {
      */
     void JoinOrCreateGame() throws RemoteException;
 
+    /**
+     * Displays the available colors for the pawn to the user.
+     *
+     * @param availableColors A list of available colors for the pawn.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException;
 
     /**

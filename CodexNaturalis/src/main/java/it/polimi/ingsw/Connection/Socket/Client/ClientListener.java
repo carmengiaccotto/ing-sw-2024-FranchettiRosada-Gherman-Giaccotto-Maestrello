@@ -39,85 +39,85 @@ public class ClientListener extends Thread {
      */
     private final ObjectOutputStream outputStream;
 
+        /**
+     * The response object for the number of required players.
+     */
+    private NumRequiredPlayersResponse numRequiredPlayersResponse;
+
     /**
- * The response object for the number of required players.
- */
-private NumRequiredPlayersResponse numRequiredPlayersResponse;
+     * The lock object for synchronizing threads when waiting for the number of required players response.
+     */
+    private final Object numRequiredPlayersResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the number of required players response.
- */
-private final Object numRequiredPlayersResponseLockObject = new Object();
+    /**
+     * The response object for checking the uniqueness of the nickname.
+     */
+    private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
 
-/**
- * The response object for checking the uniqueness of the nickname.
- */
-private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the uniqueness of the nickname response.
+     */
+    private final Object checkUniqueNickNameResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the uniqueness of the nickname response.
- */
-private final Object checkUniqueNickNameResponseLockObject = new Object();
+    /**
+     * The response object for displaying available games.
+     */
+    private DisplayAvailableGamesResponse displayAvailableGamesResponse;
 
-/**
- * The response object for displaying available games.
- */
-private DisplayAvailableGamesResponse displayAvailableGamesResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the available games response.
+     */
+    private final Object displayAvailableGamesResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the available games response.
- */
-private final Object displayAvailableGamesResponseLockObject = new Object();
+    /**
+     * The response object for getting available colors.
+     */
+    public GetAvailableColorsResponse getAvailableColorsResponse;
 
-/**
- * The response object for getting available colors.
- */
-public GetAvailableColorsResponse getAvailableColorsResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the available colors response.
+     */
+    private final Object getAvailableColorsResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the available colors response.
- */
-private final Object getAvailableColorsResponseLockObject = new Object();
+    /**
+     * The response object for extracting the initial card.
+     */
+    public ExtractInitialCardResponse initialCardResponse;
 
-/**
- * The response object for extracting the initial card.
- */
-public ExtractInitialCardResponse initialCardResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the initial card extraction response.
+     */
+    private final Object initialCardResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the initial card extraction response.
- */
-private final Object initialCardResponseLockObject = new Object();
+    /**
+     * The response object for getting the players in the game.
+     */
+    public GetPlayersResponse getPlayerResponse;
 
-/**
- * The response object for getting the players in the game.
- */
-public GetPlayersResponse getPlayerResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the players in the game response.
+     */
+    private final Object getPlayerResponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the players in the game response.
- */
-private final Object getPlayerResponseLockObject = new Object();
+    /**
+     * The response object for getting the game model.
+     */
+    public GetModelResponse getModelResponse;
 
-/**
- * The response object for getting the game model.
- */
-public GetModelResponse getModelResponse;
+    /**
+     * The lock object for synchronizing threads when waiting for the game model response.
+     */
+    private final Object getModelresponseLockObject = new Object();
 
-/**
- * The lock object for synchronizing threads when waiting for the game model response.
- */
-private final Object getModelresponseLockObject = new Object();
+    /**
+     * The response object for creating a game.
+     */
+    private CreateGameResponse createGameResponse;
 
-/**
- * The response object for creating a game.
- */
-private CreateGameResponse createGameResponse;
-
-/**
- * The lock object for synchronizing threads when waiting for the game creation response.
- */
-    private final Object createGameResponseLockObject = new Object();
+    /**
+     * The lock object for synchronizing threads when waiting for the game creation response.
+     */
+        private final Object createGameResponseLockObject = new Object();
 
     /**
      * Lock object for synchronizing threads when waiting for the chat response.
@@ -243,9 +243,31 @@ private CreateGameResponse createGameResponse;
      * Lock object for synchronizing threads when waiting for a disconnect event response.
      */
     private final Object disconnectResponseLockObject = new Object();
+
+    /**
+     * The response object for displaying available colors.
+     * This object is updated when a DisplayAvailableColorsResponse message is received from the server.
+     */
     private DisplayAvailableColorsResponse displayAvailableColorsResponse;
+
+    /**
+     * The lock object for synchronizing threads when waiting for the available colors response.
+     * Threads that need to access the displayAvailableColorsResponse object will wait on this lock object.
+     * When the response is received, the waiting thread is notified.
+     */
     private final Object displayAvailableColorsLockObject = new Object();
+
+    /**
+     * The response object for removing an available color.
+     * This object is updated when a RemoveAvailableColorResponse message is received from the server.
+     */
     private RemoveAvailableColorResponse removeAvailableColorResponse;
+
+    /**
+     * The lock object for synchronizing threads when waiting for the remove available color response.
+     * Threads that need to access the removeAvailableColorResponse object will wait on this lock object.
+     * When the response is received, the waiting thread is notified.
+     */
     private final Object removeAvailableColorResponseLockObject = new Object();
 
 
@@ -844,14 +866,21 @@ private CreateGameResponse createGameResponse;
         }
     }
 
+    /**
+     * This method is used to retrieve the response for removing an available color.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The RemoveAvailableColorResponse object containing the response for removing an available color.
+     */
     public RemoveAvailableColorResponse removeAvailablecolorResponse() {
         synchronized (removeAvailableColorResponseLockObject) {
-        try {
-            removeAvailableColorResponseLockObject.wait();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            try {
+                removeAvailableColorResponseLockObject.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return removeAvailableColorResponse;
         }
-        return removeAvailableColorResponse;
-    }
     }
 }

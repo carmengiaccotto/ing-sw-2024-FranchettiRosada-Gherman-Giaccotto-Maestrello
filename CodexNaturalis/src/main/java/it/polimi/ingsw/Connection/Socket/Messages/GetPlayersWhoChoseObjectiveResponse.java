@@ -5,6 +5,7 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains an integer representing the number of players who chose an objective.
  */
 public class GetPlayersWhoChoseObjectiveResponse extends GenericMessage {
+
     /**
     * The integer representing the number of players who chose an objective.
      */

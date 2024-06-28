@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a boolean representing whether the move is valid or not.
  */
 public class IsValidMoveResponse extends GenericMessage {
-    // The boolean representing whether the move is valid or not.
+    /**
+    * The boolean representing whether the move is valid or not.
+     */
     private final boolean isValidMove;
 
     /**

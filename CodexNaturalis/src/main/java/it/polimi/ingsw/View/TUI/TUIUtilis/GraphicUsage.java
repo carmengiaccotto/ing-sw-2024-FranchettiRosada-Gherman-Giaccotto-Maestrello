@@ -36,7 +36,9 @@ public class GraphicUsage {
      */
     public static final Map<CardColors, String> cardColorDictionary = new HashMap<>();
 
-    // ANSI color codes
+    /**
+    * ANSI color codes
+     */
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_PURPLE = "\u001B[35m";
@@ -48,7 +50,9 @@ public class GraphicUsage {
             "                       /                 (@--------                        ┴                 .                         |_|\n";
 
 
-    // Game over and win messages, and game title
+    /**
+    * Game over and win messages, and game title
+     */
     public static final String game_over = ANSI_RED +
             "╔══════════════════════════════════════════════╗\n" +
             "║  _______      ___      .___  ___.  _______   ║\n" +
