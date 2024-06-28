@@ -46,6 +46,8 @@ public class DispositionObjectiveCard extends ObjectiveCard {
     /**
      * Method that returns the number of times a certain configuration has been found on the PlayArea.
      * It checks for all cards in the play area if they match the desired configuration.
+     * Once all the occurrences of a given configuration are found,
+     * All the card's isInConfiguration attribute is set to false, in order to allow the check of another configuration
      *
      * @param playArea The play area to check the configuration on.
      * @return The number of times the configuration has been found.

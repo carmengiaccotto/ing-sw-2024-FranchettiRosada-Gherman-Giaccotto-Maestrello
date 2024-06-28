@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class SocketServer extends Thread {
 
-    public static final int SERVERPORT = 2972;
+    public static final int SERVERPORT = 2872;
     public static ServerSocket server;
     private MainController mainController;
 
