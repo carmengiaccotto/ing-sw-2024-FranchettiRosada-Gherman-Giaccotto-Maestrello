@@ -12,10 +12,7 @@ module it.polimi.ingsw {
     exports it.polimi.ingsw.Controller.Game to java.rmi;
     opens it.polimi.ingsw.View to javafx.fxml, javafx.graphics;
     opens it.polimi.ingsw.Model to com.google.gson;
-    exports it.polimi.ingsw.View.GUI to javafx.graphics;
     exports it.polimi.ingsw.View.FX to javafx.graphics;
-    opens it.polimi.ingsw.View.GUI to javafx.fxml, javafx.graphics;
-
     opens it.polimi.ingsw.View.FX to javafx.fxml, javafx.graphics;
     opens it.polimi.ingsw.View.FX.ui to javafx.fxml, javafx.graphics;
     exports it.polimi.ingsw.View.FX.base to javafx.graphics;

@@ -80,9 +80,6 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
             // Use the clientController to connect to the server using the provided IP address
             clientController.connect(ipAddress);
 
-            // Thread thread = new Thread(serverHandler);
-            // thread.start();
-
         } catch (IOException e) {
             // Print the stack trace for any IOExceptions
             e.printStackTrace();

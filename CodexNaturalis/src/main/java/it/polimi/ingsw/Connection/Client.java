@@ -6,7 +6,6 @@ import it.polimi.ingsw.Controller.Client.ClientController;
 import it.polimi.ingsw.Controller.Client.ClientControllerInterface;
 import it.polimi.ingsw.Exceptions.ProtocolSelectionException;
 import it.polimi.ingsw.View.FX.FXCodexNaturalisApp;
-import it.polimi.ingsw.View.GUI.GUI;
 import it.polimi.ingsw.View.TUI.TUI;
 import it.polimi.ingsw.View.UserInterface;
 

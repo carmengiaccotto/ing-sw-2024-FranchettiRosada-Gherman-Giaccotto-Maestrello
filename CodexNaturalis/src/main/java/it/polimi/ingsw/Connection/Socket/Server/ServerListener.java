@@ -26,34 +26,70 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class represents a server listener that extends the Thread class and implements Serializable.
+ * It contains a ClientControllerInterface object, a GameController object, an ObjectInputStream object,
+ * an ObjectOutputStream object, a MainControllerInterface object, and several response objects and lock objects.
+ */
 public class ServerListener extends Thread implements Serializable {
+    // The client controller interface.
     private final ClientControllerInterface client;
+    // The game controller.
     private GameController gamecontroller;
+    // The object input stream.
     private final ObjectInputStream inputStream;
+    // The object output stream.
     private final ObjectOutputStream outputStream;
+    // The main controller interface.
     private final MainControllerInterface mainController;
+    // The get nickname response.
     private GetNickNameResponse getNicknameResponse;
+    // The lock object for the get nickname response.
     private final Object getNicknameResponseLockObject = new Object();
+    // The choose nickname response.
     private ChooseNicknameResponse chooseNicknameResponse;
+    // The lock object for the choose nickname response.
     private final Object chooseNicknameResponseLockObject = new Object();
+    // The get pawn color response.
     private GetPawnColorResponse getPawnColorResponse;
+    // The lock object for the get pawn color response.
     private final Object getPawnColorResponseLockObject = new Object();
+    // The choose card to play response.
     private ChooseCardToPlayResponse chooseCardToPlayResponse;
+    // The lock object for the choose card to play response.
     private final Object chooseCardToPlayResponseLockObject = new Object();
+    // The get player response.
     private GetPlayerResponse getPlayerResponse;
+    // The lock object for the get player response.
     private final Object getPlayerResponseLockObject = new Object();
+    // The get score response.
     private GetScoreResponse getScoreResponse;
+    // The lock object for the get score response.
     private final Object getScoreResponseLockObject = new Object();
+    // The get round response.
     private GetRoundResponse getRoundResponse;
+    // The lock object for the get round response.
     private final Object getRoundResponseLockObject = new Object();
+    // The get personal objective card response.
     private GetPersonalObjectiveCardResponse getPersonalObjectiveCardResponse;
+    // The lock object for the get personal objective card response.
     private final Object getPersonalObjectiveCardResponseLockObject = new Object();
+    // The what do I do now response.
     private WhatDoIDoNowResponse whatDoIDoNowResponse;
+    // The lock object for the what do I do now response.
     private final Object whatDoIDoNowResponseLockObject = new Object();
+    // The disconnect response.
     private DisconnectResponse disconnectResponse;
+    // The lock object for the disconnect response.
     private final Object disconnectResponseLockObject = new Object();
 
-
+    /**
+     * Constructs a ServerListener with the specified output stream, input stream, client controller interface, and main controller interface.
+     * @param oos the ObjectOutputStream to be used for sending messages
+     * @param ois the ObjectInputStream to be used for receiving messages
+     * @param client the ClientControllerInterface to be used for client-side operations
+     * @param mainController the MainControllerInterface to be used for main controller operations
+     */
     public ServerListener(ObjectOutputStream oos, ObjectInputStream ois, ClientControllerInterface client, MainControllerInterface mainController) {
         this.client = client;
         this.mainController = mainController;
@@ -61,11 +97,20 @@ public class ServerListener extends Thread implements Serializable {
         this.inputStream = ois;
     }
 
+    /**
+     * Sets the game controller for this server listener.
+     * @param game the GameController to be set
+     */
     public void setGamecontroller(GameController game) {
         this.gamecontroller = game;
     }
 
-
+    /**
+     * Sends a GenericMessage object to the client.
+     * This method is synchronized on the outputStream object to prevent multiple threads from sending messages at the same time.
+     * @param message the GenericMessage object to be sent
+     * @throws IOException if an I/O error occurs when writing the object to the ObjectOutputStream
+     */
     private void sendMessage(GenericMessage message) throws IOException {
         synchronized (outputStream) {
             outputStream.writeObject(message);
@@ -73,6 +118,12 @@ public class ServerListener extends Thread implements Serializable {
         }
     }
 
+    /**
+     * The main execution method for the ServerListener thread.
+     * This method continuously reads GenericMessage objects from the input stream and processes them based on their type.
+     * Each message is processed in a new thread, which is scheduled to run after a delay of 100 milliseconds.
+     * The method also handles disconnection of the client and any exceptions that occur during message processing.
+     */
     public void run() {
         try {
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(100);
@@ -328,6 +379,12 @@ public class ServerListener extends Thread implements Serializable {
         }
     }
 
+    /**
+     * Retrieves the GetNickNameResponse object.
+     * This method waits until the GetNickNameResponse object is available.
+     * It is synchronized on the getNicknameResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetNickNameResponse object
+     */
     public GetNickNameResponse getNicknameResponse() {
         synchronized (getNicknameResponseLockObject) {
             try {
@@ -339,6 +396,12 @@ public class ServerListener extends Thread implements Serializable {
         return getNicknameResponse;
     }
 
+    /**
+     * Retrieves the ChooseNicknameResponse object.
+     * This method waits until the ChooseNicknameResponse object is available.
+     * It is synchronized on the chooseNicknameResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the ChooseNicknameResponse object
+     */
     public ChooseNicknameResponse chooseNicknameResponse() {
         synchronized (chooseNicknameResponseLockObject) {
             try {
@@ -350,6 +413,12 @@ public class ServerListener extends Thread implements Serializable {
         return chooseNicknameResponse;
     }
 
+    /**
+     * Retrieves the GetPawnColorResponse object.
+     * This method waits until the GetPawnColorResponse object is available.
+     * It is synchronized on the getPawnColorResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetPawnColorResponse object
+     */
     public GetPawnColorResponse getPawnColorResponse() {
         synchronized (getPawnColorResponseLockObject) {
             try {
@@ -361,6 +430,12 @@ public class ServerListener extends Thread implements Serializable {
         return getPawnColorResponse;
     }
 
+    /**
+     * Retrieves the GetPlayerResponse object.
+     * This method waits until the GetPlayerResponse object is available.
+     * It is synchronized on the getPlayerResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetPlayerResponse object
+     */
     public GetPlayerResponse getPlayerResponse() {
         synchronized (getPlayerResponseLockObject) {
             try {
@@ -372,6 +447,12 @@ public class ServerListener extends Thread implements Serializable {
         return getPlayerResponse;
     }
 
+    /**
+     * Retrieves the ChooseCardToPlayResponse object.
+     * This method waits until the ChooseCardToPlayResponse object is available.
+     * It is synchronized on the chooseCardToPlayResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the ChooseCardToPlayResponse object
+     */
     public ChooseCardToPlayResponse chooseCardToPlayResponse() {
         synchronized (chooseCardToPlayResponseLockObject) {
             try {
@@ -383,6 +464,12 @@ public class ServerListener extends Thread implements Serializable {
         return chooseCardToPlayResponse;
     }
 
+    /**
+     * Retrieves the GetScoreResponse object.
+     * This method waits until the GetScoreResponse object is available.
+     * It is synchronized on the getScoreResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetScoreResponse object
+     */
     public GetScoreResponse gerScoreResponse() {
         synchronized (getScoreResponseLockObject) {
             try {
@@ -394,6 +481,12 @@ public class ServerListener extends Thread implements Serializable {
         return getScoreResponse;
     }
 
+    /**
+     * Retrieves the GetRoundResponse object.
+     * This method waits until the GetRoundResponse object is available.
+     * It is synchronized on the getRoundResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetRoundResponse object
+     */
     public GetRoundResponse getRoundResponse() {
         synchronized (getRoundResponseLockObject) {
             try {
@@ -405,6 +498,12 @@ public class ServerListener extends Thread implements Serializable {
         return getRoundResponse;
     }
 
+    /**
+     * Retrieves the GetPersonalObjectiveCardResponse object.
+     * This method waits until the GetPersonalObjectiveCardResponse object is available.
+     * It is synchronized on the getPersonalObjectiveCardResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the GetPersonalObjectiveCardResponse object
+     */
     public GetPersonalObjectiveCardResponse getPersonalObjectiveCardResponse() {
         synchronized (getPersonalObjectiveCardResponseLockObject) {
             try {
@@ -416,6 +515,12 @@ public class ServerListener extends Thread implements Serializable {
         return getPersonalObjectiveCardResponse;
     }
 
+    /**
+     * Retrieves the WhatDoIDoNowResponse object.
+     * This method waits until the WhatDoIDoNowResponse object is available.
+     * It is synchronized on the whatDoIDoNowResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the WhatDoIDoNowResponse object
+     */
     public WhatDoIDoNowResponse whatDoIDoNowResponse() {
         synchronized (whatDoIDoNowResponseLockObject) {
             try {
@@ -427,6 +532,12 @@ public class ServerListener extends Thread implements Serializable {
         return whatDoIDoNowResponse;
     }
 
+    /**
+     * Retrieves the DisconnectResponse object.
+     * This method waits until the DisconnectResponse object is available.
+     * It is synchronized on the disconnectResponseLockObject to prevent multiple threads from accessing the response at the same time.
+     * @return the DisconnectResponse object
+     */
     public DisconnectResponse getDisconnectResponse() {
         synchronized (disconnectResponseLockObject) {
             try {
