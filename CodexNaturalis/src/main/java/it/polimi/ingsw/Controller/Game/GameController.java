@@ -42,45 +42,79 @@ import java.util.concurrent.*;
  *
  */
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
-    // The GameListener object that listens for game events.
+    /**
+    * The GameListener object that listens for game events.
+    */
 private GameListener listener = new GameListener();
 
-// A list of available colors for the players. Each color is represented as a PawnColor enum.
+/**
+ *A list of available colors for the players. Each color is represented as a PawnColor enum.
+ */
 private final List<PawnColor> availableColors;
 
-// An ArrayList of strings representing the nicknames of the players in the game.
+/**
+ *An ArrayList of strings representing the nicknames of the players in the game.
+ */
 private ArrayList<String> nicknames = new ArrayList<>();
 
-// The current status of the game. The status is represented as a GameStatus enum.
+/**
+ *The current status of the game. The status is represented as a GameStatus enum.
+ */
 private GameStatus status;
 
-// The number of players in the game. This is a constant value that is set when the game is created.
+/**
+* The number of players in the game. This is a constant value that is set when the game is created.
+ */
 private final int numPlayers;
 
-// The unique identifier for the game. This is a constant value that is set when the game is created.
+/**
+* The unique identifier for the game. This is a constant value that is set when the game is created.
+ */
 private final int id;
 
-// A ScheduledExecutorService for scheduling tasks. This is a transient field, meaning it is not serialized when the game is saved.
+/**
+ *A ScheduledExecutorService for scheduling tasks. This is a transient field, meaning it is not serialized when the game is saved.
+ */
 private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-// The nickname of the current player. This is a string that represents the player's chosen nickname.
+/**
+*The nickname of the current player. This is a string that represents the player's chosen nickname.
+ */
 private String currentPlayerNickname;
 
-// The current game model. The game model represents the state of the game, including the game board, the players, and the cards.
+/**
+ *The current game model. The game model represents the state of the game, including the game board, the players, and the cards.
+ */
 private PlayGround model;
 
-// The number of players who have chosen their objective. This is an integer that is incremented each time a player chooses their objective.
+/**
+*The number of players who have chosen their objective. This is an integer that is incremented each time a player chooses their objective.
+ */
 private int playersWhoChoseObjective = 0;
 
-// An ExecutorService for executing tasks. This is a transient field, meaning it is not serialized when the game is saved.
+/**
+* An ExecutorService for executing tasks. This is a transient field, meaning it is not serialized when the game is saved.
+ */
 private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     //private Chat chat=new Chat();
 
+    /**
+     * The index of the current player in the list of players.
+     * This index is used to keep track of whose turn it is in the game.
+     * It is initialized to 0, meaning the first player in the list is the current player at the start of the game.
+     * The index is updated each time a player finishes their turn, passing the turn to the next player in the list.
+     */
     private int currentPlayerIndex = 0;
 
     //private final ReentrantLock turnLock = new ReentrantLock();
 
+    /**
+     * A list of Thread objects representing the threads running the game loop for each player.
+     * Each thread is responsible for managing the game actions of a specific player.
+     * The list is used to keep track of all active game loop threads, allowing the game controller to manage them as needed.
+     * For example, the game controller can interrupt all game loop threads when a player disconnects or the game ends.
+     */
     private List<Thread> gameLoopThreads;
 
     /**

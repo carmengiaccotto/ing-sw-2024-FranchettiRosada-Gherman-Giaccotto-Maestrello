@@ -5,6 +5,13 @@ package it.polimi.ingsw.Model.Enumerations;
  * Each player can either MOVE or CHAT.
  */
 public enum Command {
-    MOVE,   // Represents the command to move.
-    CHAT    // Represents the command to chat.
+    /**
+    * Represents the command to move.
+     */
+    MOVE,
+
+    /**
+     * Represents the command to chat.
+     */
+    CHAT
 }

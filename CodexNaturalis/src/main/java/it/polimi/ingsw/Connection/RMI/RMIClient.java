@@ -34,14 +34,26 @@ import java.util.List;
 
 public class RMIClient extends UnicastRemoteObject implements Serializable, ClientControllerInterface {
 
-    // MainControllerInterface instance representing the server for the RMI client.
-private MainControllerInterface server;
+    /**
+     * MainControllerInterface instance representing the server for the RMI client.
+     * This is the main interface through which the client communicates with the server.
+     * It provides a set of methods that the client can call remotely to interact with the server.
+     */
+    private MainControllerInterface server;
 
-// ClientControllerInterface instance representing the controller for the RMI client.
-private ClientControllerInterface controller;
+    /**
+     * ClientControllerInterface instance representing the controller for the RMI client.
+     * This is the main interface through which the client controls its local resources.
+     * It provides a set of methods that the client can call to manage its state and interact with the server.
+     */
+    private ClientControllerInterface controller;
 
-// Registry instance used for the RMI client.
-private Registry registry;
+    /**
+     * Registry instance used for the RMI client.
+     * This is the registry from which the client retrieves the remote server object.
+     * It is used to look up the server by its name and establish a connection to it.
+     */
+    private Registry registry;
 
     /**
      * The constructor for the RMIClient class.

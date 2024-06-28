@@ -24,51 +24,224 @@ import java.util.concurrent.TimeUnit;
  */
 public class ClientListener extends Thread {
 
-    private ClientController clientController; // The client controller
-    private ObjectInputStream inputStream; // The input stream for receiving messages from the server
-    private final ObjectOutputStream outputStream; // The output stream for sending messages to the server
+    /**
+    *The client controller
+     */
+    private ClientController clientController;
 
-    // Response objects and lock objects for different types of messages
-    private NumRequiredPlayersResponse numRequiredPlayersResponse;
-    private final Object numRequiredPlayersResponseLockObject = new Object();
-    private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
-    private final Object checkUniqueNickNameResponseLockObject = new Object();
-    private DisplayAvailableGamesResponse displayAvailableGamesResponse;
-    private final Object displayAvailableGamesResponseLockObject = new Object();
-    public GetAvailableColorsResponse getAvailableColorsResponse;
-    private final Object getAvailableColorsResponseLockObject = new Object();
-    public ExtractInitialCardResponse initialCardResponse;
-    private final Object initialCardResponseLockObject = new Object();
-    public GetPlayersResponse getPlayerResponse;
-    private final Object getPlayerResponseLockObject = new Object();
-    public GetModelResponse getModelResponse;
-    private final Object getModelresponseLockObject = new Object();
-    private CreateGameResponse createGameResponse;
+    /**
+     *The input stream for receiving messages from the server
+     */
+    private ObjectInputStream inputStream;
+
+    /**
+     *The output stream for sending messages to the server
+     */
+    private final ObjectOutputStream outputStream;
+
+    /**
+ * The response object for the number of required players.
+ */
+private NumRequiredPlayersResponse numRequiredPlayersResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the number of required players response.
+ */
+private final Object numRequiredPlayersResponseLockObject = new Object();
+
+/**
+ * The response object for checking the uniqueness of the nickname.
+ */
+private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the uniqueness of the nickname response.
+ */
+private final Object checkUniqueNickNameResponseLockObject = new Object();
+
+/**
+ * The response object for displaying available games.
+ */
+private DisplayAvailableGamesResponse displayAvailableGamesResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the available games response.
+ */
+private final Object displayAvailableGamesResponseLockObject = new Object();
+
+/**
+ * The response object for getting available colors.
+ */
+public GetAvailableColorsResponse getAvailableColorsResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the available colors response.
+ */
+private final Object getAvailableColorsResponseLockObject = new Object();
+
+/**
+ * The response object for extracting the initial card.
+ */
+public ExtractInitialCardResponse initialCardResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the initial card extraction response.
+ */
+private final Object initialCardResponseLockObject = new Object();
+
+/**
+ * The response object for getting the players in the game.
+ */
+public GetPlayersResponse getPlayerResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the players in the game response.
+ */
+private final Object getPlayerResponseLockObject = new Object();
+
+/**
+ * The response object for getting the game model.
+ */
+public GetModelResponse getModelResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the game model response.
+ */
+private final Object getModelresponseLockObject = new Object();
+
+/**
+ * The response object for creating a game.
+ */
+private CreateGameResponse createGameResponse;
+
+/**
+ * The lock object for synchronizing threads when waiting for the game creation response.
+ */
     private final Object createGameResponseLockObject = new Object();
+
+    /**
+     * Lock object for synchronizing threads when waiting for the chat response.
+     */
     private final Object getChatResponseLockObject = new Object();
+
+    /**
+     * Response object for joining a game.
+     */
     private JoinGameResponse joinGameResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the join game response.
+     */
     private final Object joinGameResponseLockObject = new Object();
+
+    /**
+     * Response object for notifying when a player joins the game.
+     */
     private NotifyGamePlayerJoinedResponse notifyGamePlayerJoinedResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the notification of a player joining the game.
+     */
     private final Object notifyGamePlayerJoinedResponseLockObject = new Object();
+
+    /**
+     * Response object for getting personal objective cards.
+     */
     private GetPersonalObjectiveCardsResponse getPersonalObjectiveCardsResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the personal objective cards response.
+     */
     private final Object getPersonalObjectiveCardsResponseLockObject = new Object();
+
+    /**
+     * Response object for getting the listener.
+     */
     private GetListenerResponse getListenerResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the listener response.
+     */
     private final Object getListenerResponseLockObject = new Object();
+
+    /**
+     * Response object for incrementing players who chose an objective.
+     */
     private IncrementPlayersWhoChoseObjectiveResponse incrementPlayersWhoChoseObjectiveResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the increment of players who chose an objective response.
+     */
     private final Object incrementPlayersWhoChoseObjectiveResponseLockObject = new Object();
+
+    /**
+     * Response object for getting the players who chose an objective.
+     */
     private GetPlayersWhoChoseObjectiveResponse getPlayersWhoChoseObjectiveResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the players who chose an objective response.
+     */
     private final Object getPlayersWhoChoseObjectiveResponseLockObject = new Object();
+
+    /**
+     * Response object for extracting player hand cards.
+     */
     private ExtractPlayerHandCardsResponse extractPlayerHandCardsResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the extraction of player hand cards response.
+     */
     private final Object extractPlayerHandCardsResponseLockObject = new Object();
+
+    /**
+     * Response object for checking if a move is valid.
+     */
     private IsValidMoveResponse isValidMoveResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the validity of a move response.
+     */
     private final Object isValidMoveResponseLockObject = new Object();
+
+    /**
+     * Response object for getting the game status.
+     */
     private GetStatusResponse getStatusResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the game status response.
+     */
     private final Object getStatusResponseLockObject = new Object();
+
+    /**
+     * Response object for updating players.
+     */
     private UpdatePlayersResponse updatePlayersResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the update of players response.
+     */
     private final Object updatePlayersResponseLockObject = new Object();
+
+    /**
+     * Response object for getting the final ranking of players.
+     */
     private FinalRankingResponse finalRankingResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for the final ranking of players response.
+     */
     private final Object finalRankingResponseLockObject = new Object();
+
+    /**
+     * Response object for a disconnect event.
+     */
     private DisconnectResponse disconnectResponse;
+
+    /**
+     * Lock object for synchronizing threads when waiting for a disconnect event response.
+     */
     private final Object disconnectResponseLockObject = new Object();
     private DisplayAvailableColorsResponse displayAvailableColorsResponse;
     private final Object displayAvailableColorsLockObject = new Object();

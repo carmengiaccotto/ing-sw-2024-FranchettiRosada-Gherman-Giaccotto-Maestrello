@@ -26,7 +26,11 @@ import java.util.List;
  * It is responsible for managing the connection to the server and handling the client-side game logic.
  */
 public class SocketClient extends Thread implements ClientControllerInterface {
-    // Instance of ClientController. This controller is responsible for managing the client-side logic of the game.
+    /**
+     * Instance of ClientController. This controller is responsible for managing the client-side logic of the game.
+     * It is used to handle game events, manage game state, and interact with the server.
+     * It is set via the setController method and used in various methods throughout the class.
+     */
     private ClientController controller;
 
     /**

@@ -19,18 +19,27 @@ import java.util.Scanner;
  * It allows the client to select the type of view (CLI or GUI) and the network protocol (RMI or Socket).
  */
 public class Client {
-    // The IP address of the server to which the client will connect.
+
+    /**
+     * The IP address of the server to which the client will connect.
+     */
 private static String serverIp;
 
-// The UserInterface instance representing the view for the client.
-// This can be either a Command Line Interface (CLI) or a Graphic User Interface (GUI).
+    /**
+     * The UserInterface instance representing the view for the client.
+     * This can be either a Command Line Interface (CLI) or a Graphic User Interface (GUI).
+     */
 private static UserInterface view;
 
-// The ClientControllerInterface instance representing the client in the client-server architecture.
-// This can be either a RMIClient or a SocketClient, depending on the network protocol chosen by the user.
+    /**
+     * The ClientControllerInterface instance representing the client in the client-server architecture.
+     * This can be either a RMIClient or a SocketClient, depending on the network protocol chosen by the user.
+     */
 private ClientControllerInterface client;
 
-// The ClientController instance used to control the client's actions.
+    /**
+     *  The ClientController instance used to control the client's actions.
+     */
 private ClientController clientController;
 
 

@@ -5,11 +5,38 @@ package it.polimi.ingsw.Model.Enumerations;
  * Each card can have one of the following symbols: PLANT, ANIMAL, FUNGI, INSECT, QUILL, INKWELL, MANUSCRIPT.
  */
 public enum Symbol {
-    PLANT,      // Represents the plant symbol.
-    ANIMAL,     // Represents the animal symbol.
-    FUNGI,      // Represents the fungi symbol.
-    INSECT,     // Represents the insect symbol.
-    QUILL,      // Represents the quill symbol.
-    INKWELL,    // Represents the inkwell symbol.
-    MANUSCRIPT, // Represents the manuscript symbol.
+    /**
+    * Represents the plant symbol.
+     */
+    PLANT,
+
+    /**
+     * Represents the animal symbol.
+     */
+    ANIMAL,
+
+    /**
+     * Represents the fungi symbol.
+     */
+    FUNGI,
+
+    /**
+     * Represents the insect symbol.
+     */
+    INSECT,
+
+    /**
+     * Represents the quill symbol.
+     */
+    QUILL,
+
+    /**
+     * Represents the inkwell symbol.
+     */
+    INKWELL,
+
+    /**
+     * Represents the manuscript symbol.
+     */
+    MANUSCRIPT,
 }

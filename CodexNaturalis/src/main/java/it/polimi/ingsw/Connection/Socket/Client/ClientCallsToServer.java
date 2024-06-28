@@ -33,17 +33,24 @@ import java.util.Map;
  * It uses ObjectOutputStream and ObjectInputStream for communication.
  */
 public class ClientCallsToServer implements MainControllerInterface, GameControllerInterface {
-
-    // The client controller interface
+        /**
+        *The clientController is an instance of ClientControllerInterface. It is used to control the client.
+        */
     private final ClientControllerInterface clientController;
 
-    // The ObjectOutputStream for sending objects to the server
+    /**
+    *The oos (ObjectOutputStream) is used for sending objects to the server.
+     */
     private final ObjectOutputStream oos;
 
-    // The ObjectInputStream for receiving objects from the server
+    /**
+    *The ois (ObjectInputStream) is used for receiving objects from the server.
+     */
     private final ObjectInputStream ois;
 
-    // The client listener for handling server responses
+    /**
+    *The clientListener is an instance of ClientListener. It is used to handle server responses.
+     */
     private ClientListener clientListener;
 
     /**

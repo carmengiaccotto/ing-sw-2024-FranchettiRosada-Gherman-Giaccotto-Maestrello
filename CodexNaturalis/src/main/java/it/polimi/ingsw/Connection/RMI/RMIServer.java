@@ -27,13 +27,24 @@ import java.util.Map;
  */
 public class RMIServer extends UnicastRemoteObject implements MainControllerInterface {
 
-    // The singleton instance of the RMIServer
+    /**
+     * This is a singleton instance of the RMIServer class.
+     * It ensures that only one instance of the RMIServer class is created throughout the execution of the program.
+     * This instance is used to manage the RMI connection and the game logic.
+     */
     private static RMIServer serverObject = null;
 
-    // The registry for the RMI connection
+    /**
+     * This is the registry for the RMI connection.
+     * The registry is used to bind the name of the remote object to the remote object itself.
+     * The client can then access the remote object using the name in the registry.
+     */
     private static Registry registry = null;
 
-    //Interface that contains the methods used in this class
+    /**
+     * This is an interface that contains the methods used in this class.
+     * The handler is an instance of MainControllerInterface which is used to manage the game logic.
+     */
     private MainControllerInterface handler;
 
     /**

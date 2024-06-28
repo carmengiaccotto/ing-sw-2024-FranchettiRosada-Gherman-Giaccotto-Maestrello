@@ -13,10 +13,14 @@ import java.util.Objects;
  */
 public class Pair<T, U> implements Serializable {
 
-    // The first element of the pair
+    /**
+     *The first element of the pair
+     */
     private T first;
 
-    // The second element of the pair
+    /**
+    *The second element of the pair
+     */
     private U second;
 
     /**

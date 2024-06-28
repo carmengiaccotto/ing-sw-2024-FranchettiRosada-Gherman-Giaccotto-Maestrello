@@ -5,6 +5,13 @@ package it.polimi.ingsw.Model.Enumerations;
  * Each card can either be on the FRONT side or the BACK side.
  */
 public enum Side {
-    FRONT,  // Represents the front side of a card.
-    BACK;   // Represents the back side of a card.
+    /**
+    * Represents the front side of a card.
+     */
+    FRONT,
+
+    /**
+     * Represents the back side of a card.
+     */
+    BACK;
 }

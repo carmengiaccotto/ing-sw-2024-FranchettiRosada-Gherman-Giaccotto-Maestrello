@@ -30,19 +30,30 @@ import java.util.Map;
  * It extends UnicastRemoteObject and implements ClientControllerInterface.
  */
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface {
-    // The UserInterface instance that the client will interact with.
+
+    /**
+     * The UserInterface instance that the client will interact with.
+     */
 private UserInterface view;
 
-// The GameControllerInterface instance that controls the game logic.
+    /**
+     * The GameControllerInterface instance that controls the game logic.
+     */
 private GameControllerInterface game;
 
-// The Player instance representing the client in the game.
+    /**
+     * The Player instance representing the client in the game.
+     */
 private Player player = new Player();
 
-// The MainControllerInterface instance that manages the game server.
+    /**
+     * The MainControllerInterface instance that manages the game server.
+     */
 private MainControllerInterface server;
 
-// A boolean flag indicating whether it's the client's turn to play.
+    /**
+     * A boolean flag indicating whether it's the client's turn to play.
+     */
 private boolean ItsMyTurn;
 
 
@@ -352,6 +363,14 @@ private boolean ItsMyTurn;
         }
     }
 
+    /**
+     * This method is used to display the available colors for the player's pawn.
+     * It delegates the task to the UserInterface instance associated with the client.
+     * The UserInterface is responsible for the actual display of the available colors.
+     *
+     * @param availableColors A list of PawnColor representing the colors that are currently available for selection.
+     * @throws RemoteException if a communication-related exception occurred during the execution of a remote method call
+     */
     @Override
     public void displayAvailableColors(List<PawnColor> availableColors) throws RemoteException {
         view.displayAvailableColors(availableColors);

@@ -17,29 +17,44 @@ import java.util.ArrayList;
  */
 public class PlayGround implements Serializable {
 
-    // The filepath to the resources
+    /**
+    *The filepath to the resources
+     */
     private String filepath = "CodexNaturalis/src/main/resources/";
 
     /**
-     *  Decks
+    * The deck of GoldCard objects
      */
-    // The deck of GoldCard objects
     private final Deck GoldCardDeck;
-    // The deck of ResourceCard objects
+
+    /**
+    * The deck of ResourceCard objects
+     */
     private final Deck ResourceCardDeck;
-    // The deck of ObjectiveCard objects
+
+    /**
+    * The deck of ObjectiveCard objects
+     */
     private final Deck ObjectiveCardDeck;
-    // The deck of InitialCard objects
+
+    /**
+     * The deck of InitialCard objects
+     */
     private final Deck InitialCardDeck;
 
     /**
-     * List of common resourceCards, goldCard and objective card
+    * The list of common ResourceCard objects
      */
-    // The list of common ResourceCard objects
     private final ArrayList<ResourceCard> commonResourceCards;
-    // The list of common GoldCard objects
+
+    /**
+    * The list of common GoldCard objects
+     */
     private final ArrayList<GoldCard> commonGoldCards;
-    // The list of common ObjectiveCard objects
+
+    /**
+    * The list of common ObjectiveCard objects
+     */
     private final ArrayList<ObjectiveCard> commonObjectivesCards;
 
     /**

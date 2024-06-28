@@ -6,10 +6,20 @@ package it.polimi.ingsw.Model.Enumerations;
  * It has a private final attribute 'value' which represents the point value of the objective card.
  */
 public enum ObjectivePoints {
-    TWO(2),   // Represents an objective card that gives 2 points.
-    THREE(3); // Represents an objective card that gives 3 points.
+    /**
+    * Represents an objective card that gives 2 points.
+     */
+    TWO(2),
 
-    private final int value; // The point value of the objective card.
+    /**
+     * Represents an objective card that gives 3 points.
+     */
+    THREE(3);
+
+    /**
+     *The point value of the objective card.
+     */
+    private final int value;
 
     /**
      * This is a constructor for the ObjectivePoints enumeration.

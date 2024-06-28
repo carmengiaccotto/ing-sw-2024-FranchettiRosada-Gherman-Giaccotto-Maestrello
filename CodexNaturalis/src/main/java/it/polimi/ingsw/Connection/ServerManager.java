@@ -19,16 +19,24 @@ import java.util.Enumeration;
  */
 public class ServerManager {
 
-    // Socket server instance
+    /**
+     * Socket server instance
+     */
     private final SocketServer socketServer;
 
-    // RMI server instance
+    /**
+     * RMI server instance
+     */
     private final RMIServer rmiServer;
 
-    // Main controller instance
+    /**
+     * Main controller instance
+     */
     private MainController mainController;
 
-    // IP address of the server
+    /**
+     * IP address of the server
+     */
     protected String serverIP;
 
     /**
