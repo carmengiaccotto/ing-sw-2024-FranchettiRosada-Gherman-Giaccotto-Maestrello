@@ -7,13 +7,24 @@ import it.polimi.ingsw.View.FX.utils.FXMLUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+/**
+ * This class represents the UI for choosing a side to play in the game.
+ * It extends the FXDialogGamePane class and contains a string indicating the selected side and a button for confirmation.
+ */
 public class FXChooseSideToPlayUI extends FXDialogGamePane {
 
+    // The selected side ("FRONT" or "BACK").
     private String sideSelected;
 
+    // The button for confirmation.
     @FXML
     private Button ok;
 
+    /**
+     * This is the constructor for the FXChooseSideToPlayUI class.
+     * It initializes the new FXChooseSideToPlayUI object with the given owner, sets up the style of the UI, and sets up the card and button.
+     * @param owner The owner of this UI.
+     */
     public FXChooseSideToPlayUI(FXMainUI owner) {
         super(owner);
 
@@ -51,6 +62,10 @@ public class FXChooseSideToPlayUI extends FXDialogGamePane {
         });
     }
 
+    /**
+     * Returns the selected side.
+     * @return The selected side ("FRONT" or "BACK").
+     */
     public String getSide() {
         return sideSelected;
     }

@@ -11,10 +11,20 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the UI for choosing an objective card in the game.
+ * It extends the FXDialogGamePane class and contains a variable to store the chosen card.
+ */
 public class FXChooseObjectiveCardUI extends FXDialogGamePane {
 
+    // The chosen card.
     private int choose = 0;
 
+    /**
+     * This is the constructor for the FXChooseObjectiveCardUI class.
+     * It initializes the new FXChooseObjectiveCardUI object with the given owner and sets up the style of the UI.
+     * @param owner The owner of this UI.
+     */
     public FXChooseObjectiveCardUI(FXMainUI owner)
     {
         super(owner);
@@ -24,6 +34,11 @@ public class FXChooseObjectiveCardUI extends FXDialogGamePane {
 
     }
 
+    /**
+     * Fills the UI with the given objective cards.
+     * It gets the views of the cards, sets their locations, adds them to the children of this UI, sets up mouse click events to choose a card and close the UI, installs scale events for the cards, and flips the cards.
+     * @param objectives The objective cards to fill the UI with.
+     */
     public void fill(ArrayList<ObjectiveCard> objectives)
     {
         FXCardView obj1 = FXCardFactory.getView(objectives.get(0));
@@ -56,6 +71,11 @@ public class FXChooseObjectiveCardUI extends FXDialogGamePane {
         obj2.flip();
     }
 
+    /**
+     * Installs scale events for the given card.
+     * It sets the cursor to a hand cursor, and sets up mouse entered and exited events to scale the card up and down, respectively.
+     * @param card The card to install scale events for.
+     */
     private void installScaleEvents(FXCardView card)
     {
         card.setCursor(Cursor.HAND);
@@ -76,6 +96,10 @@ public class FXChooseObjectiveCardUI extends FXDialogGamePane {
         });
     }
 
+    /**
+     * Returns the chosen card.
+     * @return The chosen card.
+     */
     public int getChoose() {
         return choose;
     }
