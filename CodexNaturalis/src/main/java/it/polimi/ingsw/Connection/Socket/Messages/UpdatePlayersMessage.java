@@ -8,11 +8,17 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
  * and a String object representing the nickname.
  */
 public class UpdatePlayersMessage extends GenericMessage {
-    // The message to be updated.
+    /**
+    * The message to be updated.
+     */
     private String message;
-    // The game's play area.
+    /**
+    * The game's play area.
+     */
     private PlayGround playGround;
-    // The nickname to be updated.
+    /**
+    * The nickname to be updated.
+     */
     private String nickname;
 
     /**

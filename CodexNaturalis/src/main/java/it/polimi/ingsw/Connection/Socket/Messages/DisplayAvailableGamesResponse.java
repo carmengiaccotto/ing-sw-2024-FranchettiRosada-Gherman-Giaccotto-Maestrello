@@ -8,7 +8,9 @@ import java.util.Map;
  * It contains a map that represents the available games. The map's keys are the game IDs and the values are lists of player names.
  */
 public class DisplayAvailableGamesResponse extends GenericMessage{
-    // A map where the key is the game ID and the value is a list of player names.
+    /**
+    * A map where the key is the game ID and the value is a list of player names.
+     */
     private final Map<Integer, ArrayList<String>> availableGames;
 
     /**

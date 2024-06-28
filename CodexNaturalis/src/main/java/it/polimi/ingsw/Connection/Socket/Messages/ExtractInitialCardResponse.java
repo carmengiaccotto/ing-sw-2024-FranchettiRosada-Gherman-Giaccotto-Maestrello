@@ -7,7 +7,9 @@ import it.polimi.ingsw.Model.Cards.InitialCard;
  * It contains an InitialCard object.
  */
 public class ExtractInitialCardResponse extends GenericMessage {
-    // The InitialCard object that this message is carrying.
+    /**
+    * The InitialCard object that this message is carrying.
+     */
     private final InitialCard card;
 
     /**

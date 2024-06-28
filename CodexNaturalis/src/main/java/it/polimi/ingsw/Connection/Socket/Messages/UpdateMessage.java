@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a String object representing the message.
  */
 public class UpdateMessage extends GenericMessage {
-    // The message to be updated.
+    /**
+    * The message to be updated.
+     */
     private final String message;
 
     /**

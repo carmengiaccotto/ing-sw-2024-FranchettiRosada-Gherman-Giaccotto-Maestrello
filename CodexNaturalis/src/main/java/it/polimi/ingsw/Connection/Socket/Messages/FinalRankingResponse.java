@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a String representing the final ranking.
  */
 public class FinalRankingResponse extends GenericMessage {
-    // The final ranking represented as a String.
+    /**
+    * The final ranking represented as a String.
+     */
     private final String finalRanking;
 
     /**

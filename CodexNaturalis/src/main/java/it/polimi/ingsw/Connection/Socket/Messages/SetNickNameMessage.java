@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a String object representing the nickname.
  */
 public class SetNickNameMessage extends GenericMessage {
-    // The nickname to be set.
+    /**
+    * The nickname to be set.
+     */
     private final String nickname;
 
     /**

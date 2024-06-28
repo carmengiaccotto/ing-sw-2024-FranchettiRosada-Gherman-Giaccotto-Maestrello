@@ -8,7 +8,9 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
  */
 public class RemoveAvailableColorMessage extends GenericMessage{
 
-    // The color to be removed.
+    /**
+    * The color to be removed.
+     */
     private final PawnColor color;
 
     /**

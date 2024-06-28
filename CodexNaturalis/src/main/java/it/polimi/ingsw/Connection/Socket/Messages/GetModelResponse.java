@@ -8,7 +8,9 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
  */
 public class GetModelResponse extends GenericMessage{
 
-    // The PlayGround object representing the model.
+    /**
+    * The PlayGround object representing the model.
+     */
     private final PlayGround model;
 
     /**

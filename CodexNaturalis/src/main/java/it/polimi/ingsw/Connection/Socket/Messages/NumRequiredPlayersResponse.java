@@ -8,7 +8,9 @@ import java.util.ArrayList;
  * It contains a list of pairs of integers, where each pair represents a player.
  */
 public class NumRequiredPlayersResponse extends GenericMessage{
-    // A list of pairs of integers, where each pair represents a player.
+    /**
+    * A list of pairs of integers, where each pair represents a player.
+     */
     private final ArrayList<Pair<Integer, Integer>> players;
 
     /**

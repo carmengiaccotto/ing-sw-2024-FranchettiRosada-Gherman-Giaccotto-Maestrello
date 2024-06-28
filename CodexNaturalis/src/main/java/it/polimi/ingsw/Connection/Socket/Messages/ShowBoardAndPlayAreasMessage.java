@@ -7,7 +7,9 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
  * It contains a PlayGround object representing the game's play area.
  */
 public class ShowBoardAndPlayAreasMessage extends GenericMessage {
-    // The game's play area.
+    /**
+    * The game's play area.
+     */
     private final PlayGround playGround;
 
     /**

@@ -31,61 +31,147 @@ import java.util.concurrent.TimeUnit;
  * an ObjectOutputStream object, a MainControllerInterface object, and several response objects and lock objects.
  */
 public class ServerListener extends Thread implements Serializable {
-    // The client controller interface.
+    /**
+    * The client controller interface.
+     */
     private final ClientControllerInterface client;
-    // The game controller.
+    /**
+    * The game controller.
+     */
     private GameController gamecontroller;
-    // The object input stream.
+    /**
+    * The object input stream.
+     */
     private final ObjectInputStream inputStream;
-    // The object output stream.
+    /**
+    * The object output stream.
+     */
     private final ObjectOutputStream outputStream;
-    // The main controller interface.
+    /**
+    * The main controller interface.
+     */
     private final MainControllerInterface mainController;
-    // The get nickname response.
+    /**
+    * The get nickname response.
+     */
     private GetNickNameResponse getNicknameResponse;
-    // The lock object for the get nickname response.
+    /**
+    * The lock object for the get nickname response.
+     */
     private final Object getNicknameResponseLockObject = new Object();
-    // The choose nickname response.
+    /**
+    * The choose nickname response.
+     */
     private ChooseNicknameResponse chooseNicknameResponse;
-    // The lock object for the choose nickname response.
+    /**
+    * The lock object for the choose nickname response.
+     */
     private final Object chooseNicknameResponseLockObject = new Object();
-    // The get pawn color response.
+    /**
+    * The get pawn color response.
+     */
     private GetPawnColorResponse getPawnColorResponse;
-    // The lock object for the get pawn color response.
+    /**
+    * The lock object for the get pawn color response.
+     */
     private final Object getPawnColorResponseLockObject = new Object();
-    // The choose card to play response.
+    /**
+    * The choose card to play response.
+     */
     private ChooseCardToPlayResponse chooseCardToPlayResponse;
-    // The lock object for the choose card to play response.
+    /**
+    * The lock object for the choose card to play response.
+     */
     private final Object chooseCardToPlayResponseLockObject = new Object();
-    // The get player response.
+    /**
+    * The get player response.
+     */
     private GetPlayerResponse getPlayerResponse;
-    // The lock object for the get player response.
+    /**
+    * The lock object for the get player response.
+     */
     private final Object getPlayerResponseLockObject = new Object();
-    // The get score response.
+    /**
+    * The get score response.
+     */
     private GetScoreResponse getScoreResponse;
-    // The lock object for the get score response.
+    /**
+    * The lock object for the get score response.
+     */
     private final Object getScoreResponseLockObject = new Object();
-    // The get round response.
+    /**
+    * The get round response.
+     */
     private GetRoundResponse getRoundResponse;
-    // The lock object for the get round response.
+    /**
+    * The lock object for the get round response.
+     */
     private final Object getRoundResponseLockObject = new Object();
-    // The get personal objective card response.
+    /**
+    * The get personal objective card response.
+     */
     private GetPersonalObjectiveCardResponse getPersonalObjectiveCardResponse;
-    // The lock object for the get personal objective card response.
+    /**
+    *The lock object for the get personal objective card response.
+     */
     private final Object getPersonalObjectiveCardResponseLockObject = new Object();
-    // The what do I do now response.
+    /**
+    * The what do I do now response.
+     */
     private WhatDoIDoNowResponse whatDoIDoNowResponse;
-    // The lock object for the what do I do now response.
+    /**
+    *The lock object for the what do I do now response.
+     */
     private final Object whatDoIDoNowResponseLockObject = new Object();
-    // The disconnect response.
+    /**
+    * The disconnect response.
+     */
     private DisconnectResponse disconnectResponse;
-    // The lock object for the disconnect response.
+    /**
+    * The lock object for the disconnect response.
+     */
     private final Object disconnectResponseLockObject = new Object();
+
+    /**
+     * The DisplayAvailableColorsResponse object.
+     * This object is used to store the response from the server regarding the available colors for the pawns.
+     * It is updated whenever a DisplayAvailableColorsResponse message is received from the server.
+     */
     private DisplayAvailableColorsResponse displayAvailableColorsResponse;
+
+    /**
+     * The lock object for the DisplayAvailableColorsResponse object.
+     * This object is used to synchronize access to the DisplayAvailableColorsResponse object.
+     * It ensures that only one thread can access the DisplayAvailableColorsResponse object at a time.
+     */
     private final Object diplayAvailableColorsResponseLockObject = new Object();
+
+    /**
+     * The UpdateMessageResponse object.
+     * This object is used to store the response from the server regarding the update messages.
+     * It is updated whenever an UpdateMessageResponse message is received from the server.
+     */
     private UpdateMessageResponse sendMessageResponse;
+
+    /**
+     * The lock object for the UpdateMessageResponse object.
+     * This object is used to synchronize access to the UpdateMessageResponse object.
+     * It ensures that only one thread can access the UpdateMessageResponse object at a time.
+     */
     private final Object sendMessageResponseLockObject = new Object();
+
+    /**
+     * The ShowBoardAndPlayAreasResponse object.
+     * This object is used to store the response from the server regarding the state of the board and play areas.
+     * It is updated whenever a ShowBoardAndPlayAreasResponse message is received from the server.
+     */
     private ShowBoardAndPlayAreasResponse showBoardAndPlayAreasResponse;
+
+    /**
+     * The lock object for the ShowBoardAndPlayAreasResponse object.
+     * This object is used to synchronize access to the ShowBoardAndPlayAreasResponse object.
+     * It ensures that only one thread can access the ShowBoardAndPlayAreasResponse object at a time.
+     */
     private final Object showBoardAndPlayAreasResponseLockObject = new Object();
 
     /**

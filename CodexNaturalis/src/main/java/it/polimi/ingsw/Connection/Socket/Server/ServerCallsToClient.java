@@ -25,19 +25,29 @@ import java.util.List;
  */
 public class ServerCallsToClient implements ClientControllerInterface, Serializable {
 
-    // ObjectOutputStream used to send objects to the client.
+    /**
+    * ObjectOutputStream used to send objects to the client.
+     */
 private transient final ObjectOutputStream oos;
 
-// ServerListener that listens for incoming messages from the client.
+/**
+* ServerListener that listens for incoming messages from the client.
+ */
 private transient ServerListener serverListener;
 
-// MainControllerInterface that controls the main operations of the server.
+/**
+* MainControllerInterface that controls the main operations of the server.
+ */
 private transient MainControllerInterface mainController;
 
-// GameControllerInterface that controls the game operations of the server.
+/**
+* GameControllerInterface that controls the game operations of the server.
+ */
 private transient GameControllerInterface gameController;
 
-// String that stores the nickname of the client.
+/**
+* String that stores the nickname of the client.
+ */
 private String nickname;
 
     /**

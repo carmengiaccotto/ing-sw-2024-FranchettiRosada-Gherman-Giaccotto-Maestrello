@@ -8,7 +8,9 @@ import java.util.List;
  * It contains a List of PawnColor objects representing the available colors.
  */
 public class GetAvailableColorsResponse extends GenericMessage{
-    // A List of PawnColor objects representing the available colors.
+    /**
+    * A List of PawnColor objects representing the available colors.
+     */
     private final List<PawnColor> availableColors;
 
     /**
