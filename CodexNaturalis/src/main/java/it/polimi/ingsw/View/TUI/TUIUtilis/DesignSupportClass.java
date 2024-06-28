@@ -17,11 +17,17 @@ import static it.polimi.ingsw.Model.Enumerations.UpDownPosition.UP;
  */
 public class DesignSupportClass {
 
-        // ANSI escape code for resetting color
+        /**
+        * ANSI escape code for resetting color
+         */
         private static final String ANSI_RESET = "\u001B[0m";
-        // ANSI escape code format for setting color
+        /**
+        *ANSI escape code format for setting color
+         */
         private static final String ANSI_COLOR_FORMAT = "\u001B[38;2;%d;%d;%dm";
-        // Unicode characters for drawing corners and lines
+        /**
+        * Unicode characters for drawing corners and lines
+         */
         private static final String CORNER_TOP_LEFT = "┌";
         private static final String CORNER_TOP_RIGHT = "┐";
         private static final String CORNER_BOTTOM_LEFT = "└";

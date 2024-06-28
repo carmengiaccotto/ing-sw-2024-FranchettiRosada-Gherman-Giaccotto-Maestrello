@@ -14,9 +14,14 @@ import java.util.Map;
  */
 public class FXCardFactory {
 
-    // A map of Card objects to their corresponding FXCardView objects.
+    /**
+     *A map of Card objects to their corresponding FXCardView objects.
+     */
     private static Map<Card,FXCardView> cardViews;
-    // A map of card IDs to their corresponding FXCardView objects.
+
+    /**
+    * A map of card IDs to their corresponding FXCardView objects.
+     */
     private static Map<Integer,FXCardView> cardByIDViews;
 
     /**

@@ -15,33 +15,49 @@ import javafx.scene.layout.AnchorPane;
  */
 public class FXPlayerScoreUI extends AnchorPane {
 
-    // Represents the player for this score UI.
+    /**
+    * Represents the player for this score UI.
+     */
     private Player player;
 
-    // A boolean indicating whether the player is the current user.
+    /**
+    * A boolean indicating whether the player is the current user.
+     */
     private boolean me;
 
-    // The label for the player's name.
+    /**
+    *The label for the player's name.
+     */
     @FXML
     private Label namePlayer;
 
-    // The label for the player's score.
+    /**
+     *The label for the player's score.
+     */
     @FXML
     private Label score;
 
-    // The label for the player's round.
+    /**
+     *The label for the player's round.
+     */
     @FXML
     private Label round;
 
-    // The image view for the player's color.
+    /**
+     *The image view for the player's color.
+     */
     @FXML
     private ImageView colorImage;
 
-    // The button for viewing the player's area.
+    /**
+     *The button for viewing the player's area.
+     */
     @FXML
     private Button viewAreaButton;
 
-    // The main UI for the game.
+    /**
+     *The main UI for the game.
+     */
     private FXMainUI mainUI;
 
     /**

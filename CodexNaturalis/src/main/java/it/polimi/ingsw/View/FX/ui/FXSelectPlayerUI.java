@@ -11,19 +11,27 @@ import javafx.scene.control.Button;
  */
 public class FXSelectPlayerUI extends FXDialogGamePane {
 
-    // The button for two players.
+    /**
+    * The button for two players.
+     */
     @FXML
     private Button twoButton;
 
-    // The button for three players.
+    /**
+    * The button for three players.
+     */
     @FXML
     private Button threeButton;
 
-    // The button for four players.
+    /**
+    * The button for four players.
+     */
     @FXML
     private Button fourButton;
 
-    // The chosen number of players.
+    /**
+    * The chosen number of players.
+     */
     private int choose = 0;
 
     /**

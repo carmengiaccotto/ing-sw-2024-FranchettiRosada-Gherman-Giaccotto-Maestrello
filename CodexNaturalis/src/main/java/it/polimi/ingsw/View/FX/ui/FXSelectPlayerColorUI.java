@@ -19,29 +19,43 @@ import java.util.Map;
  */
 public class FXSelectPlayerColorUI extends FXDialogGamePane {
 
-    // The map of colors to buttons.
+    /**
+    * The map of colors to buttons.
+     */
     private Map<PawnColor, Button> colorMap = new HashMap<>();
 
-    // The button for the color blue.
+    /**
+    * The button for the color blue.
+     */
     @FXML
     private Button blueButton;
 
-    // The button for the color green.
+    /**
+    * The button for the color green.
+     */
     @FXML
     private Button greenButton;
 
-    // The button for the color red.
+    /**
+    * The button for the color red.
+     */
     @FXML
     private Button redButton;
 
-    // The button for the color yellow.
+    /**
+    * The button for the color yellow.
+     */
     @FXML
     private Button yellowButton;
 
-    // The number of unavailable colors.
+    /**
+    * The number of unavailable colors.
+     */
     private int unavailableColors = 0;
 
-    // The chosen color.
+    /**
+    * The chosen color.
+     */
     private int choose = 0;
 
     /**

@@ -17,15 +17,21 @@ import java.util.Map;
  */
 public class FXSelectLobbyUI extends FXDialogGamePane {
 
-    // The scroll pane for the lobby list.
+    /**
+    * The scroll pane for the lobby list.
+     */
     @FXML
     private ScrollPane scrollPanel;
 
-    // The VBox for the lobby items.
+    /**
+    * The VBox for the lobby items.
+     */
     @FXML
     private VBox vbox;
 
-    // The chosen lobby.
+    /**
+    * The chosen lobby.
+     */
     private int choose = 0;
 
     /**

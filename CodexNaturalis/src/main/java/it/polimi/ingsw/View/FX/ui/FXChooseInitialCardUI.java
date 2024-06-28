@@ -18,15 +18,21 @@ import javafx.util.Duration;
  */
 public class FXChooseInitialCardUI extends FXDialogGamePane {
 
-    // The ImageView for the front view of the card.
+    /**
+    *The ImageView for the front view of the card.
+     */
     @FXML
     private ImageView frontView;
 
-    // The ImageView for the back view of the card.
+    /**
+     *The ImageView for the back view of the card.
+     */
     @FXML
     private ImageView backView;
 
-    // A string indicating the side of the card ("FRONT" or "BACK").
+    /**
+     *A string indicating the side of the card ("FRONT" or "BACK").
+     */
     String side = "";
 
     /**

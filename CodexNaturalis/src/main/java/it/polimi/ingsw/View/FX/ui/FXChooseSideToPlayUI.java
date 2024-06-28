@@ -13,10 +13,14 @@ import javafx.scene.control.Button;
  */
 public class FXChooseSideToPlayUI extends FXDialogGamePane {
 
-    // The selected side ("FRONT" or "BACK").
+    /**
+     *The selected side ("FRONT" or "BACK").
+     */
     private String sideSelected;
 
-    // The button for confirmation.
+    /**
+    * The button for confirmation.
+     */
     @FXML
     private Button ok;
 

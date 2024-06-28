@@ -12,11 +12,15 @@ import javafx.scene.control.Label;
  */
 public class FXErrorDialogMessageUI extends FXDialogGamePane {
 
-    // The label for the message.
+    /**
+     * The label for the message.
+     */
     @FXML
     private Label message;
 
-    // The button for closing the dialog.
+    /**
+    * The button for closing the dialog.
+     */
     @FXML
     private Button ok;
 

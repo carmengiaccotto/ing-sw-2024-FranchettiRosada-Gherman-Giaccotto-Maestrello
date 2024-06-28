@@ -11,15 +11,21 @@ import javafx.scene.control.Button;
  */
 public class FXCreateOrJoinUI extends FXDialogGamePane {
 
-    // The button for creating a game.
+    /**
+     * The button for creating a game.
+     */
     @FXML
     private Button createButton;
 
-    // The button for joining a game.
+    /**
+     * The button for joining a game.
+     */
     @FXML
     private Button joinButton;
 
-    // The chosen option (1 for creating a game, 2 for joining a game).
+    /**
+    * The chosen option (1 for creating a game, 2 for joining a game).
+     */
     private int choose = 0;
 
     /**
