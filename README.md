@@ -33,6 +33,7 @@ Maestrello Lucrezia <br>
 ## How to run
 
 In the [deliverables/final/jar](deliverables/final/jar) folder there are the two executable jar files already compiled.
+The application requires an installation of Java 21 or newer.
 
 - In order to run the server, execute this command:
     ```bash
@@ -43,7 +44,10 @@ In the [deliverables/final/jar](deliverables/final/jar) folder there are the two
     ```bash
     java -jar Client.jar
     ```
-  You will be able to choose between the CLI or the GUI interface by typing the option number on your keyboard accordingly.
+In order to play you'll need at least:
+- One server
+- Two clients
+You will be able to choose between the TUI or the GUI interface by typing the option number on your keyboard accordingly.
 
 ## More
 
