@@ -15,11 +15,15 @@ import javafx.util.Duration;
  */
 public class FXWaitingForPlayerUI extends FXDialogGamePane {
 
-    // The image view for the preloader.
+    /**
+    * The image view for the preloader.
+     */
     @FXML
     private ImageView preloader;
 
-    // The rotate transition for the preloader.
+    /**
+    * The rotate transition for the preloader.
+     */
     private RotateTransition rotate;
 
     /**

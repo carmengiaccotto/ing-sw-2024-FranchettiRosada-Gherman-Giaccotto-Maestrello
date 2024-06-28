@@ -13,15 +13,21 @@ import javafx.scene.control.Label;
  */
 public class FXChooseYourOptionUI extends FXDialogGamePane {
 
-    // The button for moving.
+    /**
+    * The button for moving.
+     */
     @FXML
     private Button moveButton;
 
-    // The label for displaying messages.
+    /**
+    *The label for displaying messages.
+     */
     @FXML
     private Label messageLabel;
 
-    // The chosen option.
+    /**
+    * The chosen option.
+     */
     private Command choose;
 
     /**

@@ -10,7 +10,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public abstract class FXDialogGamePane extends AnchorPane {
 
-    // The main user interface that owns this dialog game pane.
+    /**
+     *The main user interface that owns this dialog game pane.
+     */
     private FXMainUI owner;
 
     /**

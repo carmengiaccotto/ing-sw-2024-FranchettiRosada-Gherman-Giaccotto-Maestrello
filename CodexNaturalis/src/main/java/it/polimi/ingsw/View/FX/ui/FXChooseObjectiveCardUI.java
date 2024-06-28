@@ -17,7 +17,9 @@ import java.util.ArrayList;
  */
 public class FXChooseObjectiveCardUI extends FXDialogGamePane {
 
-    // The chosen card.
+    /**
+    * The chosen card.
+     */
     private int choose = 0;
 
     /**

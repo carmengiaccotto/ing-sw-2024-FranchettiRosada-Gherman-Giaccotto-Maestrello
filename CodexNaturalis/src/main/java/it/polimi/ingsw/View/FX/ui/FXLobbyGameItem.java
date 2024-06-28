@@ -15,23 +15,33 @@ import java.util.StringTokenizer;
  */
 public class FXLobbyGameItem extends AnchorPane {
 
-    // The label for the lobby number.
+    /**
+     * The label for the lobby number.
+     */
     @FXML
     private Label lobby;
 
-    // The label for the number of players needed.
+    /**
+     * The label for the number of players needed.
+     */
     @FXML
     private Label playerNeed;
 
-    // The label for the names of the logged players.
+    /**
+     * The label for the names of the logged players.
+     */
     @FXML
     private Label loggedPlayerNames;
 
-    // The button for entering the game.
+    /**
+     * The button for entering the game.
+     */
     @FXML
     private Button enterButton;
 
-    // The lobby UI.
+    /**
+     *The lobby UI.
+     */
     private FXSelectLobbyUI owner;
 
     /**

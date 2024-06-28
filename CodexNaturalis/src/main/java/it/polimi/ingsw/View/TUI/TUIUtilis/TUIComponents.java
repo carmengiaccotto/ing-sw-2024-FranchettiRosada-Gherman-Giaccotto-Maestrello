@@ -25,11 +25,15 @@ import static it.polimi.ingsw.View.TUI.TUIUtilis.DesignSupportClass.printCard;
  */
 public class TUIComponents {
 
-    // ANSI color codes and formatting constants
+    /**
+    * ANSI color codes and formatting constants
+     */
     private static final String bold = "\033[1m"; // ANSI code for bold text
     private static final String reset = "\033[0m"; // ANSI code to reset text formatting
 
-    // Dimensions for cards and rows
+    /**
+    * Dimensions for cards and rows
+     */
     private static final int cardHeight=7; // Height of a card in the TUI
     private static final int cardWidth=25; // Width of a card in the TUI
     private static final int RowDimensions=cardHeight-3; // Dimensions for rows in the TUI

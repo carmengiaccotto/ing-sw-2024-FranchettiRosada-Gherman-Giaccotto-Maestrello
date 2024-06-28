@@ -12,11 +12,15 @@ import javafx.scene.control.TextField;
  */
 public class FXNicknameUI extends FXDialogGamePane {
 
-    // The button for confirming the nickname.
+    /**
+    * The button for confirming the nickname.
+     */
     @FXML
     private Button ok;
 
-    // The text field for entering the nickname.
+    /**
+    * The text field for entering the nickname.
+     */
     @FXML
     private TextField nickText;
 

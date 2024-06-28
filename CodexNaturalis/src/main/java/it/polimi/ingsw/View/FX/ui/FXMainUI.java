@@ -36,11 +36,15 @@ import java.util.*;
  */
 public class FXMainUI extends FXGamePane {
 
-    // The background view.
+    /**
+    * The background view.
+     */
     @FXML
     private ImageView backgroundView;
 
-    // The anchor labels for various card types and decks.
+    /**
+    * The anchor labels for various card types and decks.
+     */
     @FXML
     private Label resourceCardsLabelAnchor;
     @FXML
@@ -52,99 +56,155 @@ public class FXMainUI extends FXGamePane {
     @FXML
     private Label goldDeckLabelAnchor;
 
-    // The anchor label for your card.
+    /**
+    * The anchor label for your card.
+     */
     @FXML
     private Label yourCardLabelAnchor;
 
-    // The anchor label for personal objective.
+    /**
+    * The anchor label for personal objective.
+     */
     @FXML
     private Label personalObjectiveAnchor;
 
-    // The anchor label for player scores.
+    /**
+    * The anchor label for player scores.
+     */
     @FXML
     private Label playersScoresLabelAnchor;
 
-    // The overlay panel.
+    /**
+    * The overlay panel.
+     */
     @FXML
     private AnchorPane overlayPanel;
 
-    // The info move panel.
+    /**
+     *The info move panel.
+     */
     @FXML
     private AnchorPane infoMovePanel;
 
-    // The info move label.
+    /**
+    * The info move label.
+     */
     @FXML
     private Label infoMoveLabel;
 
-    // The info move icon.
+    /**
+    * The info move icon.
+     */
     @FXML
     private ImageView infoMoveIcon;
 
-    // Flag to indicate if the UI is busy.
+    /**
+    * Flag to indicate if the UI is busy.
+     */
     private boolean fxBusy = false;
 
-    // UI for waiting for a player.
+    /**
+     * UI for waiting for a player.
+     */
     private FXWaitingForPlayerUI waitUI;
 
-    // UI for console messages.
+    /**
+    * UI for console messages.
+     */
     private FXConsoleMessageUI messageUI;
 
-    // Flag to indicate if a message is opened.
+    /**
+     * Flag to indicate if a message is opened.
+     */
     private boolean messageOpened = false;
 
-    // Map of pawn colors to images.
+    /**
+     * Map of pawn colors to images.
+     */
     public static Map<PawnColor, Image> colorMap = new HashMap<>();
 
-    // List of player score UI items.
+    /**
+    * List of player score UI items.
+     */
     private List<FXPlayerScoreUI> playerScoreItems = new ArrayList<>();
 
-    // Constants for the starting X coordinates of common objective and gold.
+    /**
+    * Constants for the starting X coordinates of common objective and gold.
+     */
     private static final Double START_COMMON_OBJECTIVE_X = 520.0;
     private static final Double START_GOLD_X = 520.0;
 
-    // List of card views on the table.
+    /**
+    * List of card views on the table.
+     */
     private List<FXCardView> cardsOnTable = new ArrayList<>();
 
-    // List of card views in hand.
+    /**
+    * List of card views in hand.
+     */
     private List<FXCardView> cardsInHand = new ArrayList<>();
 
-    // List of card views for the resource deck.
+    /**
+     * List of card views for the resource deck.
+     */
     private List<FXCardView> resourcesDeckFXCards = new ArrayList<>();
 
-    // List of card views for the gold deck.
+    /**
+    * List of card views for the gold deck.
+     */
     private List<FXCardView> goldDeckFXCards = new ArrayList<>();
 
-    // List of card views for the resource board.
+    /**
+    * List of card views for the resource board.
+     */
     private List<FXCardView> resourcesBoardFXCards = new ArrayList<>();
 
-    // List of card views for the gold board.
+    /**
+    * List of card views for the gold board.
+     */
     private List<FXCardView> goldBoardFXCards = new ArrayList<>();
 
-    // Animation for the info icon.
+    /**
+    * Animation for the info icon.
+     */
     private TranslateTransition infoIconAnimator;
 
-    // Index of the current card played.
+    /**
+    * Index of the current card played.
+     */
     private int currentCardIndexPlayed = -1;
 
-    // Constants for the card dimensions.
+    /**
+    * Constants for the card dimensions.
+     */
     private static final int cardHeight = 7;
     private static final int cardWidth = 25;
     private static final int RowDimensions = cardHeight - 3;
     private static final int ColumnDimensions = cardWidth - 4;
 
-    // String for the current play card.
+    /**
+    * String for the current play card.
+     */
     private String currentPlayCardString = "";
 
-    // Pair for the selected card position.
+    /**
+    * Pair for the selected card position.
+     */
     private Pair<Integer, Integer> cardPositionSelected = null;
 
-    // Current Z level.
+    /**
+    * Current Z level.
+     */
     private int currentZLevel = 0;
 
-    // Map of pairs to card views in the matrix.
+    /**
+    * Map of pairs to card views in the matrix.
+     */
     private Map<Pair<Integer, Integer>, FXCardView> cardsInMatrix = new HashMap<>();
 
-    // Static block to initialize the colorMap with PawnColor as key and corresponding Image as value.
+    /**
+    * Static block to initialize the colorMap with PawnColor as key and corresponding Image as value.
+     */
     static {
         // Mapping RED PawnColor to its corresponding image.
         colorMap.put(PawnColor.RED, new Image(FXMainUI.class.getResource("RED.png").toExternalForm()));

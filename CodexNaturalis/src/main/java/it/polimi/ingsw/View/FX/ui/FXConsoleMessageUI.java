@@ -18,22 +18,32 @@ import java.util.Date;
  */
 public class FXConsoleMessageUI extends AnchorPane {
 
-    // The main UI.
+    /**
+     *The main UI.
+     */
     private FXMainUI owner;
 
-    // The button for opening and closing the console messages.
+    /**
+     *The button for opening and closing the console messages.
+     */
     @FXML
     private Button openCloseButton;
 
-    // The button for zooming in.
+    /**
+     *The button for zooming in.
+     */
     @FXML
     private Button zoomIn;
 
-    // The button for zooming out.
+    /**
+    * The button for zooming out.
+     */
     @FXML
     private Button zoomOut;
 
-    // The area for displaying messages.
+    /**
+     *The area for displaying messages.
+     */
     @FXML
     private TextArea messageArea;
 

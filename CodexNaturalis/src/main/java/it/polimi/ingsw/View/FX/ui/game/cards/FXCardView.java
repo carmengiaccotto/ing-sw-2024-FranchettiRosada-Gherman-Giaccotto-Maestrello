@@ -33,40 +33,90 @@ public class FXCardView extends AnchorPane {
         BOTTOM_RIGHT
     }
 
+    /**
+    *The ImageView for the card image.
+     */
     @FXML
-    private ImageView cardImageView; // The ImageView for the card image.
+    private ImageView cardImageView;
 
+    /**
+     *The Rectangle for the top left corner of the card.
+     */
     @FXML
-    private Rectangle topleft; // The Rectangle for the top left corner of the card.
+    private Rectangle topleft;
 
+    /**
+    * The Rectangle for the top right corner of the card.
+     */
     @FXML
-    private Rectangle topright; // The Rectangle for the top right corner of the card.
+    private Rectangle topright;
 
+    /**
+    * The Rectangle for the bottom left corner of the card.
+     */
     @FXML
-    private Rectangle bottleft; // The Rectangle for the bottom left corner of the card.
+    private Rectangle bottleft;
 
+    /**
+     *The Rectangle for the bottom right corner of the card.
+     */
     @FXML
-    private Rectangle bottright; // The Rectangle for the bottom right corner of the card.
+    private Rectangle bottright;
 
-    private Image frontImage; // The image for the front of the card.
-    private Image backImage; // The image for the back of the card.
+    /**
+     *The image for the front of the card.
+     */
+    private Image frontImage;
 
-    private Card card; // The card object.
+    /**
+     *The image for the back of the card.
+     */
+    private Image backImage;
 
-    boolean isFrontShowing = false; // Whether the front of the card is showing.
+    /**
+    *The card object.
+     */
+    private Card card;
 
-    boolean interactionEnabled = false; // Whether interaction with the card is enabled.
+    /**
+    *Whether the front of the card is showing.
+     */
+    boolean isFrontShowing = false;
 
-    private CardEventListener listener; // The event listener for card clicks.
-    private CardCornerEventListener cornerListener; // The event listener for card corner clicks.
+    /**
+    * Whether interaction with the card is enabled.
+     */
+    boolean interactionEnabled = false;
 
-    private int cardIndex = -1; // The index of the card.
+    /**
+     *The event listener for card clicks.
+     */
+    private CardEventListener listener;
 
-    private Pair<Integer,Integer> currentMatrixPosition; // The current position of the card in the matrix.
+    /**
+    *The event listener for card corner clicks.
+     */
+    private CardCornerEventListener cornerListener;
 
-    private Timeline animatorCorners; // The timeline for the corner animations.
+    /**
+     *The index of the card.
+     */
+    private int cardIndex = -1;
 
-    private int ZLevel = 0; // The Z level of the card.
+    /**
+     *The current position of the card in the matrix.
+     */
+    private Pair<Integer,Integer> currentMatrixPosition;
+
+    /**
+    *The timeline for the corner animations.
+     */
+    private Timeline animatorCorners;
+
+    /**
+     *The Z level of the card.
+     */
+    private int ZLevel = 0;
 
     /**
      * This is a constructor for the FXCardView class.
