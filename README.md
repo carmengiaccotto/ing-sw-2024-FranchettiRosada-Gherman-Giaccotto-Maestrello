@@ -32,8 +32,12 @@ Maestrello Lucrezia <br>
 
 ## How to run
 
-In the [deliverables/final/jar](deliverables/final/jar) folder there are the two executable jar files already compiled.
+In the [deliverables/final/jar](deliverables/final/jar) folder there are four executable jar files already compiled.
 The application requires an installation of Java 21 or newer.
+
+Because of limitations caused by how JavaFX loads its native libraries, the jar can only support one architecture per Operating System. As such, we have chosen to export the jar with support for the two main OSes we personally use.
+
+**Running on Windows**
 
 - In order to run the server, execute this command:
     ```bash
@@ -44,6 +48,19 @@ The application requires an installation of Java 21 or newer.
     ```bash
     java -jar Client.jar
     ```
+**Running on macOS**
+
+- In order to run the server, execute this command:
+    ```bash
+    java -jar macOSClient.jar
+    ```
+
+- To run the client, execute this command:
+    ```bash
+    java -jar macOSServer.jar
+    ```
+**General Instructions**
+
 In order to play you'll need at least:
 - One server
 - Two clients <br>
