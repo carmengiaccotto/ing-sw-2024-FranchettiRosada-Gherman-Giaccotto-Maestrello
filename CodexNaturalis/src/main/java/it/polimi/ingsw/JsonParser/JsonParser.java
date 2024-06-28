@@ -17,7 +17,6 @@ public class JsonParser {
      * @return InputStream The InputStream associated with the given path.
      */
     public static InputStream getStreamFromPath(String path){
-        System.out.println(path);
         InputStream inputStream = JsonParser.class.getResourceAsStream(path);
         return inputStream;
     }
