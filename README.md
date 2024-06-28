@@ -46,7 +46,7 @@ The application requires an installation of Java 21 or newer.
     ```
 In order to play you'll need at least:
 - One server
-- Two clients
+- Two clients <br>
 You will be able to choose between the TUI or the GUI interface by typing the option number on your keyboard accordingly.
 
 ## More
