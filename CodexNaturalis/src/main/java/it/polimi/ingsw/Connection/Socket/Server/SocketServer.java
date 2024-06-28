@@ -19,7 +19,7 @@ public class SocketServer extends Thread {
     /**
      * The port number on which the server will be listening for client connections.
      */
-    public static final int SERVERPORT = 2972;
+    public static final int SERVERPORT = 2974;
 
     /**
      * The ServerSocket object that represents the server in the socket communication.
