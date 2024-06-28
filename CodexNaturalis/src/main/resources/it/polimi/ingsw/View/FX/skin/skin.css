@@ -1,0 +1,323 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 8, 2021, 2:54:08 PM
+    Author     : alessio.vinerbi
+*/
+
+
+
+.root{
+    -fx-background: rgb(50, 50, 50);
+    -fx-base:rgb(40,40,40);
+    -fx-focus-color:rgba(255,0,0,0.0);
+}
+
+
+.separator .line {
+    -fx-background-color: rgb(70,70,70);
+}
+
+.button
+{
+    -fx-background-color : rgb(40, 40, 40);
+    -fx-border-color:rgb(70,70,70);
+}
+
+.button-unselected-tool
+{
+    -fx-background-color : rgb(40, 40, 40);
+    -fx-border-color:rgb(70,70,70);
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+}
+
+.button-selected-tool
+{
+    -fx-background-color : purple;
+    -fx-border-color:rgb(70,70,70);
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+}
+
+.image-button
+{
+    -fx-background-color : null;
+    -fx-border-color:null;
+}
+
+.cancel-button
+{
+    -fx-background-color : rgb(120, 0, 0);
+    -fx-border-color:rgb(100, 0, 0);
+}
+
+.tool-bar
+{
+    -fx-background-color : rgb(40, 40, 40);
+    -fx-pref-height:30;
+}
+
+
+.node_name
+{
+    -fx-text-fill : white;
+    -fx-font-size: 12px;
+}
+
+.node_instance_name
+{
+    -fx-text-fill : white;
+    -fx-font-size: 10px;
+}
+
+.label-low-color
+{
+    -fx-text-fill : dark gray;
+}
+
+.label-section
+{
+    -fx-text-fill : white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.titled-pane-properties > .title {
+    -fx-background-color: rgb(20,20,20);
+    -fx-background-insets: 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.2em 0.2em 0.2em 0.2em;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-selection-bar: rgb(80,80,80);
+    -fx-selection-bar-non-focused:transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: rgb(50,50,50);
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell:selected{
+    -fx-background-color: blue;
+}
+
+.table-view .table-row-cell:selected{
+    -fx-background-color: rgb(80,80,80);
+}
+.table-view .table-row-cell{
+    -fx-background-color: transparent;
+}
+
+.menu-bar {
+    -fx-background-color: rgb(30,30,30);
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background-color: rgb(50, 50, 50);
+}
+
+.menu-button:selected {
+    -fx-background-color: rgb(50, 50, 50);
+}
+
+.menu-item {
+    -fx-text-fill: black;
+    -fx-background: rgb(30,30,30);
+}
+
+.menu-item:hover {
+    -fx-background-color: rgb(50, 50, 50);
+}
+
+.context-menu {
+    -fx-background-color: rgb(30,30,30);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.progress-bar > .track {
+    -fx-text-box-border: rgb(50, 50, 50);
+    -fx-control-inner-background: rgb(30,30,30);
+}
+
+.progress-bar .bar {
+    -fx-background-color: purple;
+    -fx-background-insets: 3;
+}
+
+.progress-indicator {
+    -fx-progress-color:white;
+}
+
+.pane-status-bar{
+    -fx-background-color: rgb(30,30,30);
+}
+
+.pane-properties-container{
+    -fx-background-color: transparent;
+}
+
+.pane-properties-item{
+    -fx-border-color: rgb(50,50,50);
+}
+
+.text-field {
+    -fx-background-color:rgb(40,40,40);
+    -fx-border-color:rgb(70,70,70);
+    -fx-text-fill: orange;
+    -fx-accent: rgb(10,10,10);
+    -fx-min-height:20;
+    -fx-border-radius:10;
+    -fx-background-radius:10;
+}
+
+.choice-box {
+    -fx-background-color:rgb(40,40,40);
+    -fx-border-radius:10;
+    -fx-background-radius:10;
+    -fx-border-color:rgb(70,70,70);
+
+}
+
+.choice-box .label {
+    -fx-text-fill: orange;
+}
+
+.scroll-pane-transparent > .viewport {
+    -fx-background-color: null;
+}
+
+.scroll-pane-transparent {
+    -fx-background-color: null;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: rgb(50,50,50);
+    -fx-padding: 1;
+}
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: rgb(50,50,50);
+    -fx-padding: 1;
+}
+
+.split-pane
+{
+    -fx-background-color:rgb(40,40,40);
+}
+
+.logtextarea {
+    -fx-text-fill: white;
+    -fx-display-caret:false;
+    -fx-highlight-fill: #505050;
+    -fx-font-family: Consolas;
+}
+
+.logtextarea .content{
+    -fx-background-color: #202020;
+}
+
+.variableLogErrorArea {
+    -fx-border-color:rgb(70,70,70);
+    -fx-text-fill: red;
+    -fx-display-caret:false;
+    -fx-highlight-fill: #505050;
+    -fx-font-family: Consolas;
+}
+
+.variableLogErrorArea .content{
+    -fx-background-color: #202020;
+}
+
+.logtextarea-engine {
+    -fx-text-fill: white;
+    -fx-display-caret:false;
+    -fx-highlight-fill: #505050;
+    -fx-font-family: Consolas;
+}
+
+.logtextarea-engine .content{
+    -fx-background-color: #202020;
+}
+
+.tree-view, .tree-cell {
+    -fx-background-color: rgb(30,30,30) ;
+    -fx-text-fill: white ;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: rgb(200,200,200);
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: white;
+}
+
+.tree-cell:expanded, .tree-cell:sub-tree-item {
+    -fx-background-color: rgb(30,30,30) ;
+}
+.tree-cell:selected {
+    -fx-font-weight: bold ;
+}
+.tree-cell {
+    -fx-padding: 0.15em 0em 0.15em 0em ;
+}
+.tree-cell:sub-tree-item {
+    -fx-padding: 0.25em ;
+}
+
+.list-view {
+    -fx-background-color: rgb(30,30,30);
+}
+
+.list-cell:even {
+    -fx-background-color: rgb(30,30,30);
+    -fx-text-fill: white;
+}
+
+.list-cell:odd {
+    -fx-background-color: rgb(30,30,30);
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgb(40,40,40);
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: rgb(50,50,50);
+}
+
+.toggle-button{
+    -fx-background-color: rgb(30,30,30);
+    -fx-border-color: rgb(40,40,40);
+}
+
+.toggle-button:selected{
+    -fx-background-color: rgb(60,60,60);
+    -fx-border-color: rgb(40,40,40);
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: white;
+}
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(255,255,255,0.3);
+}

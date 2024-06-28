@@ -9,24 +9,30 @@ import it.polimi.ingsw.Model.Enumerations.Symbol;
 import java.io.Serializable;
 import java.util.*;
 
-/**This class represents the playArea. Each player has its own*/
+/**
+ * This class represents the play area in the game. Each player has their own play area.
+ * It implements Serializable to allow the state of the play area to be saved and loaded.
+ */
 public class PlayArea implements Serializable {
+
     /**
-     * A map that contains all the symbols that are visible on the playArea. It is going to be used for
-     * goldCards requirement check and to attribute ObjectiveCards points and goldCard points
+     * A map that contains all the symbols that are visible on the play area.
+     * This map is used for checking the requirements of gold cards and for attributing points for objective cards and gold cards.
+     * The key is the symbol and the value is the number of occurrences of that symbol in the play area.
      */
     private final Map<Symbol, Integer> symbols;
 
-
     /**
-     * Dynamic matrix of SideOfCard. We are using SideOfCard, because, if the card is present here, is because the player has
-     * already made a choice about what side they want to play
+     * A dynamic matrix of SideOfCard objects. This matrix represents the current state of the play area.
+     * A SideOfCard object is used because when a card is present in the play area, the player has already made a choice about what side they want to play.
      */
     private List<List<SideOfCard>> cardsOnArea=new ArrayList<>();
 
-
     /**
-     * Class Constructor
+     * Default constructor for the PlayArea class.
+     * It initializes the play area with an empty list of lists, representing an empty play area.
+     * It also adds a null element to the first list, representing an empty space.
+     * Finally, it initializes the symbols map, which will keep track of the symbols present in the play area.
      */
     public PlayArea() {
         cardsOnArea.add(new ArrayList<>()); // Adding an inner list
@@ -34,59 +40,62 @@ public class PlayArea implements Serializable {
         symbols = InitializeSymbolMap();
     }
 
-
     /**
-     * Class Constructor
-     * @param cardsOnPlayArea matrix of cards on the playArea
-     * @param symbols map of symbols on the playArea
+     * This is a constructor for the PlayArea class that takes a matrix of cards and a map of symbols as parameters.
+     * It sets the state of the play area and the symbols map to the provided parameters.
+     * This constructor is typically used when you want to create a PlayArea with a specific initial state and symbols map.
+     *
+     * @param cardsOnPlayArea A matrix of SideOfCard objects representing the initial state of the play area.
+     * @param symbols A map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
      */
     public PlayArea(List<List<SideOfCard>> cardsOnPlayArea, Map<Symbol, Integer> symbols) {
         this.cardsOnArea = cardsOnPlayArea;
         this.symbols = symbols;
     }
 
-
     /**
-     * Getter method for Symbols attribute
-     * @return  symbols  on the playArea
-     * */
-
+     * This method is a getter for the 'symbols' attribute of the PlayArea class.
+     * The 'symbols' attribute is a map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
+     * This method is used to retrieve the current state of the 'symbols' map.
+     *
+     * @return A map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
+     */
     public Map<Symbol, Integer> getSymbols() {
         return symbols;
     }
 
-
-
-
     /**
-     * Returns the number of occurrences of a specified symbol on the playArea
-     * @param symbol whose occurrences we want to check
-     * */
-
+     * This method is used to get the number of occurrences of a specified symbol on the play area.
+     * The 'symbols' attribute is a map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
+     * This method is typically used when you want to check the frequency of a specific symbol in the play area.
+     *
+     * @param symbol The symbol whose occurrences we want to check.
+     * @return The number of occurrences of the specified symbol in the play area.
+     */
     public int getNumSymbols(Symbol symbol) {
         return symbols.get(symbol);
-    } //tested
-
-
-
+    }
 
     /**
-     * Setter method for cardsOnArea attribute. Used for testing purposes
-     * */
-
+     * This method is a setter for the 'cardsOnArea' attribute of the PlayArea class.
+     * The 'cardsOnArea' attribute is a dynamic matrix of SideOfCard objects that represents the current state of the play area.
+     * This method is used to set the state of the play area to a specific state.
+     * It is primarily used for testing purposes, to set up specific scenarios for testing.
+     *
+     * @param cards A matrix of SideOfCard objects representing the new state of the play area.
+     */
     public void setCardsOnArea(List<List<SideOfCard>> cards){
         this.cardsOnArea=cards;
     }
 
-
-
-
     /**
-     * Method that is used to initialize the Symbols map of the playArea.
-     * Populates the map with all the symbols from Symbol enum, and sets all their values to zero
-     * @return playAreaMap which is going to be our symbols map
+     * This method is used to initialize the 'symbols' map of the PlayArea class.
+     * The 'symbols' map is a map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
+     * This method populates the map with all the symbols from the Symbol enum, and sets all their values to zero.
+     * This method is typically used when you want to create a PlayArea with a specific initial state of the 'symbols' map.
+     *
+     * @return A map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area. Initially, all values are set to zero.
      */
-
     public Map<Symbol, Integer> InitializeSymbolMap() { //tested
         Map<Symbol, Integer> playAreaMap = new HashMap<>();
         for (Symbol symbol : Symbol.values()) {
@@ -96,43 +105,44 @@ public class PlayArea implements Serializable {
 
     }
 
-
-
-
     /**
-     * Method to add the initial card to the area. It is used only for the first card of the game
-     * Once the card is added, the matrix is expanded, adding a new row before and after, and a new
-     * column before and after. The new card is placed in the center of the matrix.
-     * @param card initial card to be added
-     * */
-
-    public void addInitialCardOnArea(SideOfCard card){//tested
+     * This method is used to add the initial card to the play area. It is only used for the first card of the game.
+     * Once the card is added, the matrix is expanded by adding a new row before and after, and a new column before and after.
+     * The new card is placed in the center of the matrix.
+     * This method also updates the 'symbols' map of the PlayArea class with the symbols of the new card.
+     *
+     * @param card The initial card to be added to the play area. This is a SideOfCard object representing the card to be added.
+     */
+    public void addInitialCardOnArea(SideOfCard card) {
         cardsOnArea.getFirst().set(0, card);
         AddSymbolsToArea(card);
 
-        //add an empty row at the beginning of the playArea
+        // Add an empty row at the beginning of the play area
         cardsOnArea.addFirst(new ArrayList<>(Collections.nCopies(cardsOnArea.getFirst().size(), null)));
-        //add an empty row at the  ending of the playArea
+        // Add an empty row at the end of the play area
         cardsOnArea.add(new ArrayList<>(Collections.nCopies(cardsOnArea.getFirst().size(), null)));
 
-        // add an empty column at the beginning of each row
+        // Add an empty column at the beginning of each row
         for (List<SideOfCard> row : cardsOnArea) {
             row.add(0, null);
         }
-        //add an empty column at the end of each row
+        // Add an empty column at the end of each row
         for (List<SideOfCard> row : cardsOnArea) {
             row.add(null);
         }
     }
 
-
-
     /**
-     * Method to get the card that occupies a specified position on the area.
-     * @param  i desired row
-     * @param j desired column
-     * */
-
+     * This method is used to retrieve the card that occupies a specified position on the play area.
+     * The play area is represented as a matrix of SideOfCard objects, where each position corresponds to a specific card.
+     * If the specified position is valid and within the bounds of the play area, the method returns the card at that position.
+     * If the specified position is not valid or outside the bounds of the play area, the method throws an ArrayIndexOutOfBoundsException.
+     *
+     * @param i The row index of the desired position. This should be a non-negative integer less than the number of rows in the play area.
+     * @param j The column index of the desired position. This should be a non-negative integer less than the number of columns in the play area.
+     * @return The card that occupies the specified position on the play area. This is a SideOfCard object representing the card at the specified position.
+     * @throws ArrayIndexOutOfBoundsException If the specified position is not valid or outside the bounds of the play area.
+     */
     public SideOfCard getCardInPosition(int i, int j) { //tested
         if(i<cardsOnArea.size() && j< cardsOnArea.getFirst().size()) {
             List<SideOfCard> internalList = getCardsOnArea().get(i);
@@ -142,47 +152,45 @@ public class PlayArea implements Serializable {
             throw new ArrayIndexOutOfBoundsException("Invalid Position");
     }
 
-
-
-
     /**
-     * Checks if the PlayArea has a column in the given position
+     * This method checks if a column exists in the play area.
+     * The play area is represented as a matrix of SideOfCard objects, where each column corresponds to a specific vertical section of the play area.
+     * The method checks if the specified column index is within the bounds of the play area.
+     * If the specified column index is valid and within the bounds of the play area, the method returns true.
+     * If the specified column index is not valid or outside the bounds of the play area, the method returns false.
      *
-     * @param column the column whose existence we have to check
-     * @return boolean true if the column exists, false if it doesn't
+     * @param column The column index to check. This should be a non-negative integer less than the number of columns in the play area.
+     * @return A boolean value indicating whether the specified column exists in the play area. Returns true if the column exists, false otherwise.
      */
-
-    public boolean columnExists(int column) { //tested
+    public boolean columnExists(int column) {
         return column >= 0 && column < cardsOnArea.getFirst().size();
     }
 
-
-
-
     /**
-     * Method that we are using to check if we are trying to access a row that does not exist
+     * This method checks if a row exists in the play area.
+     * The play area is represented as a matrix of SideOfCard objects, where each row corresponds to a specific horizontal section of the play area.
+     * The method checks if the specified row index is within the bounds of the play area.
+     * If the specified row index is valid and within the bounds of the play area, the method returns true.
+     * If the specified row index is not valid or outside the bounds of the play area, the method returns false.
      *
-     * @param row the row whose existence we want to check
-     * @return exists boolean
+     * @param row The row index to check. This should be a non-negative integer less than the number of rows in the play area.
+     * @return A boolean value indicating whether the specified row exists in the play area. Returns true if the row exists, false otherwise.
      */
-
     public boolean rowExists(int row) {
         return row >= 0 && row < cardsOnArea.size();
-    } //tested
-
-
-
+    }
 
     /**
-     * Once the Card is placed, we also want to check if it covers other corners besides the one the player has indicated.
-     * We check the positions where the card can cover other cards without covering two corners of the same card.
-     * If  a card in the searched position is found, get the right cover to corner, through the CornerPosition Enum and set the corner to covered
-     * Update the NextCorner attribute: these corners are now each others next.
-     * Update the symbols map: if the covered corner contained a symbol, now it is not visible on the map anymore
+     * This method checks the neighboring positions of a newly placed card on the play area.
+     * It verifies if the new card covers other corners besides the one the player has indicated.
+     * The method checks the positions where the card can cover other cards without covering two corners of the same card.
+     * If a card in the searched position is found, it gets the corresponding corner to cover, through the CornerPosition Enum and sets the corner to covered.
+     * It also updates the NextCorner attribute: these corners are now each others next.
+     * Finally, it updates the symbols map: if the covered corner contained a symbol, now it is not visible on the map anymore.
      *
-     * @param newCard the card that has just been placed: this method is called after the card has been added to the PlayArea
+     * @param newCardPosition The position of the newly placed card. This is a Pair object where the first element is the row index and the second element is the column index.
+     * @param newCard The card that has just been placed. This method is called after the card has been added to the PlayArea. This is a SideOfCard object representing the newly placed card.
      */
-
     public void checkCloseNeighbours(Pair<Integer, Integer>newCardPosition, SideOfCard newCard) {
         for (Corner[] Rowcorner : newCard.getCorners()) {//access the corners lines
             for (Corner corner : Rowcorner) {// access the single corner
@@ -215,11 +223,12 @@ public class PlayArea implements Serializable {
         }
     }
 
-
-
-    /**resets the attribute InConfig pf all the cards on the playArea to false.
-     * This method is used when we finished checking the number of occurrences of
-     * one Objective Disposition, and we have to start to check for a new one*/
+    /**
+     * This method resets the 'InConfig' attribute of all the cards on the play area to false.
+     * The 'InConfig' attribute is a boolean value that indicates whether a card is part of a specific configuration.
+     * This method is used when we have finished checking the number of occurrences of one Objective Disposition, and we have to start to check for a new one.
+     * By resetting the 'InConfig' attribute of all cards, we ensure that the next check starts from a clean state.
+     */
     public void resetConfig() {
         for (List<SideOfCard> row :cardsOnArea)
             for (SideOfCard card : row) {
@@ -230,34 +239,32 @@ public class PlayArea implements Serializable {
             }
     }
 
-
-
     /**
-     * Once the card has been placed, the symbols that the corners of the card contain, need to update the playArea symbols map
+     * This method is used to update the 'symbols' map of the PlayArea class with the symbols of a newly placed card.
+     * The 'symbols' map is a map where the key is a Symbol and the value is the number of occurrences of that symbol in the play area.
+     * The method iterates over the symbols of the new card, and for each symbol, it increases the corresponding value in the 'symbols' map by the number of occurrences of that symbol on the new card.
+     * This method is typically used after a new card has been placed on the play area, to update the 'symbols' map with the symbols of the new card.
      *
-     * @param NewCard card that has just been placed
+     * @param NewCard The card that has just been placed on the play area. This is a SideOfCard object representing the newly placed card.
      */
-    public void AddSymbolsToArea(SideOfCard NewCard) { //ToTest
+    public void AddSymbolsToArea(SideOfCard NewCard) {
         for (Symbol symbol : NewCard.getSymbols().keySet()) {
             int newValue = NewCard.getSymbols().get(symbol) + symbols.get(symbol);
             symbols.put(symbol, newValue);
-
         }
     }
 
-
     /**
-     * Main method of the player's round. Once a player has chosen the card they want to play, and the side of the card, they have to place it on the area.
-     * PlayArea has to be updated with new dimensions
-     * else the playArea stays the same and the card gets Placed in the chosen position.
-     * The corner to cover is set to covered, and the nextCorners are set
-     * Card symbols are added to the PlayAreaMap
-     * Neighbours check
+     * This method is used to add a new card to the play area.
+     * The play area is represented as a matrix of SideOfCard objects, where each position corresponds to a specific card.
+     * The method checks if the specified position is valid and not already occupied.
+     * If the specified position is valid and not occupied, the method adds the new card to that position, covers the corners of the surrounding cards, expands the area if needed, and updates the 'symbols' map with the symbols of the new card.
+     * If the specified position is not valid or already occupied, the method prints an error message.
      *
-     * @param NewCard       card the player wants to place
-
+     * @param NewCard The card that the player wants to place on the play area. This is a SideOfCard object representing the card to be placed.
+     * @param r The row index of the desired position. This should be a non-negative integer less than the number of rows in the play area.
+     * @param c The column index of the desired position. This should be a non-negative integer less than the number of columns in the play area.
      */
-
     public void  addCardOnArea(SideOfCard NewCard, int r, int c) {
         //check if the desired position exists and is not already occupied
         if(rowExists(r) && columnExists(c)) {
@@ -273,12 +280,16 @@ public class PlayArea implements Serializable {
         }
     }
 
-
-
-    /**Method that verifies if the placement of the new card in the desired position is an edge case
-     * and the matrix needs to be Expanded
-     * @param positionPlacedCard position where the player wants to place a new card
-     * */
+    /**
+     * This method checks if the placement of a new card in the desired position is an edge case,
+     * and if the matrix needs to be expanded.
+     * The method creates an instance of the EdgePositions class and iterates over its EdgeCases enum values.
+     * For each EdgeCases enum value, it checks if the desired position for the new card is an edge position according to that enum value.
+     * If the desired position is an edge position, it calls the ExpandArea method of the EdgeCases enum value to expand the play area.
+     * This method is typically used after a new card has been placed on the play area, to ensure that the play area is expanded if necessary.
+     *
+     * @param positionPlacedCard The position where the player wants to place a new card. This is a Pair object where the first element is the row index and the second element is the column index.
+     */
     public void IsEdgeCase(Pair<Integer, Integer>positionPlacedCard) {
         EdgePositions edgePositions=new EdgePositions();
         for (EdgePositions.EdgeCases key : EdgePositions.EdgeCases.values()) {
@@ -288,15 +299,16 @@ public class PlayArea implements Serializable {
         }
     }
 
-
-
-    /**Getter method for cardsOnArea attribute
-     * @return cardsOnArea */
-
+    /**
+     * This method is a getter for the 'cardsOnArea' attribute of the PlayArea class.
+     * The 'cardsOnArea' attribute is a dynamic matrix of SideOfCard objects that represents the current state of the play area.
+     * This method is used to retrieve the current state of the play area.
+     *
+     * @return A dynamic matrix of SideOfCard objects representing the current state of the play area.
+     */
     public List<List<SideOfCard>> getCardsOnArea() {
         return cardsOnArea;
     }
-
 
 
 }

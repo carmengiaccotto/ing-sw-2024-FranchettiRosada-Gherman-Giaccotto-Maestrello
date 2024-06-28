@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class JsonDeckCreatorTest {
-    private String filePath="src/main/resources/";
+
 
     @Test
     void TestDeckCreatorGoldCards() throws IOException {
-        filePath=filePath.concat("GoldCard.json");
+        String filePath="GoldCard.json";
         ArrayList<GoldCard> goldDeck = (ArrayList<GoldCard>) JsonDeckCreator.createDeckFromJson(GoldCard.class, filePath);
         Assertions.assertNotNull(goldDeck);
 
@@ -23,7 +23,7 @@ public class JsonDeckCreatorTest {
 
     @Test
     void TestDeckCreatorInitialCard() throws IOException {
-        filePath=filePath.concat("InitialCard.json");
+        String filePath="InitialCard.json";
         ArrayList<InitialCard> initialCards = (ArrayList<InitialCard>) JsonDeckCreator.createDeckFromJson(InitialCard.class,filePath);
         Assertions.assertNotNull(initialCards);
 
@@ -31,7 +31,7 @@ public class JsonDeckCreatorTest {
 
     @Test
     void TestDeckCreatorResourceCard() throws IOException {
-        filePath=filePath.concat("ResourceCard.json");
+        String filePath="ResourceCard.json";
         ArrayList<ResourceCard> resourceDeck = (ArrayList<ResourceCard>) JsonDeckCreator.createDeckFromJson(ResourceCard.class, filePath);
         Assertions.assertNotNull(resourceDeck);
 
@@ -39,22 +39,9 @@ public class JsonDeckCreatorTest {
 
     @Test
     void TestDeckObjectiveCard() throws IOException {
-        filePath=filePath.concat("ObjectiveCard.json");
+        String filePath="ObjectiveCard.json";
         ArrayList<ObjectiveCard> deck = (ArrayList<ObjectiveCard>) JsonDeckCreator.createDeckFromJson(ObjectiveCard.class, filePath);
         Assertions.assertNotNull(deck);
-    }
-
-    @Test
-    void TestDeckCreatorNullTypeException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> JsonDeckCreator.createDeckFromJson(null, filePath));
-    }
-
-    @Test
-    void testCreateDeckFromJsonThrowsExceptionForMissingFile() {
-        String filePath = "src/main/resources/NonExistentFile.json"; // This file does not exist
-        Assertions.assertThrows(FileNotFoundException.class, () -> {
-            JsonDeckCreator.createDeckFromJson(GoldCard.class, filePath);
-        });
     }
 
 

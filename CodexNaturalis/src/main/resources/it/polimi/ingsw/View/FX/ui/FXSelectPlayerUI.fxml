@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root prefHeight="390.0" prefWidth="699.0" style="-fx-background-color: black;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="twoButton" layoutX="191.0" layoutY="181.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="97.0" text="2" />
+      <Button fx:id="threeButton" layoutX="304.0" layoutY="181.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="97.0" text="3" />
+      <Button fx:id="fourButton" layoutX="412.0" layoutY="181.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="97.0" text="4" />
+      <Label layoutX="30.0" layoutY="48.0" prefHeight="69.0" prefWidth="546.0" text="How Many Players do you want to have for this match? Please select a Number between 2 and 4" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</fx:root>

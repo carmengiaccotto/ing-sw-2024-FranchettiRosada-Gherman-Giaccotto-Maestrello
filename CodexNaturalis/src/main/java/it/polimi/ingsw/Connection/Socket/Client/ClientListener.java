@@ -14,10 +14,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The ClientListener class extends Thread and is responsible for listening to messages from the server.
+ * It contains methods to send and receive messages, and to handle different types of messages.
+ * It also contains a reference to the client controller, and input and output streams for communication.
+ *
+ * Each type of response message from the server has a corresponding response object and a lock object in this class.
+ * The lock objects are used to synchronize the threads when waiting for a response from the server.
+ */
 public class ClientListener extends Thread {
-    private ClientController clientController;
-    private ObjectInputStream inputStream;
-    private final ObjectOutputStream outputStream;
+
+    private ClientController clientController; // The client controller
+    private ObjectInputStream inputStream; // The input stream for receiving messages from the server
+    private final ObjectOutputStream outputStream; // The output stream for sending messages to the server
+
+    // Response objects and lock objects for different types of messages
     private NumRequiredPlayersResponse numRequiredPlayersResponse;
     private final Object numRequiredPlayersResponseLockObject = new Object();
     private CheckUniqueNickNameResponse checkUniqueNickNameResponse;
@@ -63,12 +74,27 @@ public class ClientListener extends Thread {
     private final Object displayAvailableColorsLockObject = new Object();
 
 
+    /**
+     * Constructor for the ClientListener class.
+     * Initializes the input and output streams and the client controller.
+     *
+     * @param oos The ObjectOutputStream used for sending messages to the server.
+     * @param ois The ObjectInputStream used for receiving messages from the server.
+     * @param clientController The ClientController used for handling client-side logic.
+     */
     public ClientListener(ObjectOutputStream oos, ObjectInputStream ois, ClientController clientController) {
         this.outputStream = oos;
         this.inputStream = ois;
         this.clientController = clientController;
     }
 
+    /**
+     * Sends a message to the server.
+     * This method is synchronized on the output stream to ensure that messages are sent one at a time.
+     *
+     * @param message The GenericMessage object to be sent to the server.
+     * @throws IOException If an I/O error occurs while sending the message.
+     */
     private void sendMessage(GenericMessage message) throws IOException {
         synchronized (outputStream) {
             outputStream.writeObject(message);
@@ -76,6 +102,13 @@ public class ClientListener extends Thread {
         }
     }
 
+    /**
+     * This method is the main execution point for the ClientListener thread.
+     * It continuously listens for incoming messages from the server and handles them accordingly.
+     * Each type of message is checked using instanceof and handled in a separate thread to avoid blocking the main thread.
+     * The handling of each message type involves either calling a method on the client controller or updating a response object and notifying the waiting thread.
+     * If an IOException or ClassNotFoundException occurs, the stack trace is printed.
+     */
     public void run() {
         try {
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(100);
@@ -269,6 +302,13 @@ public class ClientListener extends Thread {
         }
     }
 
+    /**
+     * This method is used to retrieve the response for the number of required players.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it prints the stack trace.
+     *
+     * @return The NumRequiredPlayersResponse object containing the response for the number of required players.
+     */
     public NumRequiredPlayersResponse getNumRequiredPlayersResponse() {
         synchronized (numRequiredPlayersResponseLockObject) {
             try {
@@ -280,6 +320,13 @@ public class ClientListener extends Thread {
         return numRequiredPlayersResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the uniqueness of the nickname.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it prints the stack trace.
+     *
+     * @return The CheckUniqueNickNameResponse object containing the response for the uniqueness of the nickname.
+     */
     public CheckUniqueNickNameResponse getCheckUniqueNickNameResponse() {
         synchronized (checkUniqueNickNameResponseLockObject) {
             try {
@@ -291,6 +338,13 @@ public class ClientListener extends Thread {
         return checkUniqueNickNameResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the available games.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it prints the stack trace.
+     *
+     * @return The DisplayAvailableGamesResponse object containing the response for the available games.
+     */
     public DisplayAvailableGamesResponse getDisplayAvailableGamesResponse() {
         synchronized (displayAvailableGamesResponseLockObject) {
             try {
@@ -302,6 +356,13 @@ public class ClientListener extends Thread {
         return displayAvailableGamesResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the available colors.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it prints the stack trace.
+     *
+     * @return The GetAvailableColorsResponse object containing the response for the available colors.
+     */
     public GetAvailableColorsResponse getAvailableColorsResponse() {
         synchronized (getAvailableColorsResponseLockObject) {
             try {
@@ -313,6 +374,13 @@ public class ClientListener extends Thread {
         return getAvailableColorsResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the initial card extraction.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The ExtractInitialCardResponse object containing the response for the initial card extraction.
+     */
     public ExtractInitialCardResponse getInitialCardResponse() {
         synchronized (initialCardResponseLockObject) {
             try {
@@ -324,6 +392,13 @@ public class ClientListener extends Thread {
         return initialCardResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the players in the game.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetPlayersResponse object containing the response for the players in the game.
+     */
     public GetPlayersResponse getPlayersResponse() {
         synchronized (getPlayerResponseLockObject) {
             try {
@@ -335,6 +410,13 @@ public class ClientListener extends Thread {
         return getPlayerResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the game model.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetModelResponse object containing the response for the game model.
+     */
     public GetModelResponse getModelResponse() {
         synchronized (getModelresponseLockObject) {
             try {
@@ -346,6 +428,13 @@ public class ClientListener extends Thread {
         return getModelResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the game creation.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The CreateGameResponse object containing the response for the game creation.
+     */
     public CreateGameResponse createGameResponse() {
         synchronized (createGameResponseLockObject) {
             try {
@@ -357,6 +446,13 @@ public class ClientListener extends Thread {
         return createGameResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for joining a game.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The JoinGameResponse object containing the response for joining a game.
+     */
     public JoinGameResponse getJoinGameResponse() {
         synchronized (joinGameResponseLockObject) {
             try {
@@ -368,6 +464,13 @@ public class ClientListener extends Thread {
         return joinGameResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for a player joining the game.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The NotifyGamePlayerJoinedResponse object containing the response for a player joining the game.
+     */
     public NotifyGamePlayerJoinedResponse getNotifyGamePlayerJoinedResponse() {
         synchronized (notifyGamePlayerJoinedResponseLockObject) {
             try {
@@ -379,6 +482,13 @@ public class ClientListener extends Thread {
         return notifyGamePlayerJoinedResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the personal objective cards.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetPersonalObjectiveCardsResponse object containing the response for the personal objective cards.
+     */
     public GetPersonalObjectiveCardsResponse getPersonalObjectiveCardsResponse() {
         synchronized (getPersonalObjectiveCardsResponseLockObject) {
             synchronized (getPersonalObjectiveCardsResponseLockObject) {
@@ -392,6 +502,13 @@ public class ClientListener extends Thread {
         return getPersonalObjectiveCardsResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the listener.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetListenerResponse object containing the response for the listener.
+     */
     public GetListenerResponse getListenerResponse() {
         synchronized (getListenerResponseLockObject) {
             try {
@@ -403,6 +520,13 @@ public class ClientListener extends Thread {
         return getListenerResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the increment of players who chose an objective.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The IncrementPlayersWhoChoseObjectiveResponse object containing the response for the increment of players who chose an objective.
+     */
     public IncrementPlayersWhoChoseObjectiveResponse getIncrementPlayersWhoChoseObjectiveResponse() {
         synchronized (incrementPlayersWhoChoseObjectiveResponseLockObject) {
             try {
@@ -414,6 +538,13 @@ public class ClientListener extends Thread {
         return incrementPlayersWhoChoseObjectiveResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the players who chose an objective.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetPlayersWhoChoseObjectiveResponse object containing the response for the players who chose an objective.
+     */
     public GetPlayersWhoChoseObjectiveResponse getPlayersWhoChoseObjectiveResponse() {
         synchronized (getPlayersWhoChoseObjectiveResponseLockObject) {
             try {
@@ -425,6 +556,13 @@ public class ClientListener extends Thread {
         return getPlayersWhoChoseObjectiveResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the extraction of player hand cards.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The ExtractPlayerHandCardsResponse object containing the response for the extraction of player hand cards.
+     */
     public ExtractPlayerHandCardsResponse extractPlayerHandCardsResponse() {
         synchronized (extractPlayerHandCardsResponseLockObject) {
             try {
@@ -436,6 +574,13 @@ public class ClientListener extends Thread {
         return extractPlayerHandCardsResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the validity of a move.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The IsValidMoveResponse object containing the response for the validity of a move.
+     */
     public IsValidMoveResponse isValidMoveResponse() {
         synchronized (isValidMoveResponseLockObject) {
             try {
@@ -447,6 +592,13 @@ public class ClientListener extends Thread {
         return isValidMoveResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the game status.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The GetStatusResponse object containing the response for the game status.
+     */
     public GetStatusResponse getStatusResponse() {
         synchronized (getStatusResponseLockObject) {
             try {
@@ -458,6 +610,13 @@ public class ClientListener extends Thread {
         return getStatusResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the update of players.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The UpdatePlayersResponse object containing the response for the update of players.
+     */
     public UpdatePlayersResponse getUpdatePlayersResponse() {
         synchronized (updatePlayersResponseLockObject) {
             try {
@@ -469,6 +628,13 @@ public class ClientListener extends Thread {
         return updatePlayersResponse;
     }
 
+    /**
+     * This method is used to retrieve the response for the final ranking of players.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The FinalRankingResponse object containing the response for the final ranking of players.
+     */
     public FinalRankingResponse getFinalRankingResponse() {
         synchronized (finalRankingResponseLockObject) {
             try {
@@ -480,6 +646,13 @@ public class ClientListener extends Thread {
         }
     }
 
+    /**
+     * This method is used to retrieve the response for a disconnect event.
+     * It waits until the response is available by synchronizing on the lock object associated with the response.
+     * If the thread is interrupted while waiting, it throws a RuntimeException.
+     *
+     * @return The DisconnectResponse object containing the response for a disconnect event.
+     */
     public DisconnectResponse getDisconnectResponse() {
         synchronized (disconnectResponseLockObject) {
             try {

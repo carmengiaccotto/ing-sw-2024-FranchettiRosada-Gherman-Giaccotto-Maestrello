@@ -10,14 +10,23 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * This class represents a socket server that extends the Thread class.
+ * It contains a static ServerSocket object, a static integer for the server port, and a MainController object.
+ */
 public class SocketServer extends Thread {
 
-    public static final int SERVERPORT = 2970;
-
+    public static final int SERVERPORT = 2972;
     public static ServerSocket server;
     private MainController mainController;
 
-
+    /**
+     * Starts the server.
+     * This method creates a new ServerSocket with the server port, accepts connections from clients,
+     * creates new ObjectOutputStream and ObjectInputStream objects for each client,
+     * and creates a new ServerCallsToClient object for each client.
+     * @throws IOException if an I/O error occurs when opening the socket
+     */
     public void startServer() throws IOException {
         try {
             server = new ServerSocket(SERVERPORT);
@@ -45,6 +54,10 @@ public class SocketServer extends Thread {
         server.close();
     }
 
+    /**
+     * Sets the main controller.
+     * @param mainController the main controller
+     */
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }

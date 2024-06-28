@@ -273,7 +273,6 @@ public class MainController extends UnicastRemoteObject implements MainControlle
 
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
         clients.remove(player);
-        nicknames.remove(player.getNickname());
 
 
         for (Iterator<GameController> iterator = runningGames.iterator(); iterator.hasNext();) {
@@ -287,6 +286,9 @@ public class MainController extends UnicastRemoteObject implements MainControlle
                     return false;
                 }
             })) {
+                for (String nickname : game.getNicknames()) {
+                    nicknames.remove(nickname);
+                }
                 iterator.remove();
             }
         }

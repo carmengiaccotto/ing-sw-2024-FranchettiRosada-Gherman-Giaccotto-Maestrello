@@ -9,69 +9,72 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**This is the class that implements the generic deck of cards*/
+/**
+ * This class represents a generic deck of cards.
+ * It implements Serializable interface for saving the state of an object.
+ * The deck is represented as an ArrayList of Card objects.
+ */
 public class Deck implements Serializable {
     private ArrayList<? extends Card> deck;
     private String filepath = "CodexNaturalis/src/main/resources/";
 
-
-
-
-
     /**
-     * Class Constructor
-     * */
-
-    public Deck(Class<? extends Card> DeckType) throws IOException {
-        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
-        this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
-    }
-
-
-
-
-    /**
-     * Class Constructor for testing purpose
-     * */
-
-    public Deck(Class<? extends Card> DeckType, String filepath){
-        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
-        try {
-            this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
-        } catch (IOException e) {
-            throw new DeckCreationException("Error during deck creation", e);
-        }
-    }
-
-
-
-
-
-    /**
-     * Returns the Cards that are currently contained in the Deck
-    * @return ArrayList<CardClass>
+     * This constructor initializes a deck of a specific type of cards.
+     * It uses the JsonDeckCreator to create the deck from a JSON file.
+     * The file path is constructed using the simple name of the DeckType class.
+     *
+     * @param DeckType The class of the cards that the deck should contain.
+     * @throws IOException If there is an error reading the JSON file.
      */
+    public Deck(Class<? extends Card> DeckType) throws IOException {
+        String filepathfinal = (DeckType.getSimpleName() + ".Json");
+        this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepathfinal);
+    }
 
+//    /**
+//     * This constructor is used for testing purposes.
+//     * It also initializes a deck of a specific type of cards from a JSON file.
+//     * If there is an error reading the JSON file, it throws a DeckCreationException.
+//     *
+//     * @param DeckType The class of the cards that the deck should contain.
+//     * @param filepath The path to the JSON file.
+//     */
+//    public Deck(Class<? extends Card> DeckType, String filepath){
+//        filepath=filepath.concat(DeckType.getSimpleName() + ".json");
+//        try {
+//            this.deck = JsonDeckCreator.createDeckFromJson(DeckType, filepath);
+//        } catch (IOException e) {
+//            throw new DeckCreationException("Error during deck creation", e);
+//        }
+//    }
+
+    /**
+     * This method returns the cards that are currently in the deck.
+     *
+     * @return An ArrayList of Card objects.
+     */
     public ArrayList<? extends Card> getCards() {
         return deck;
     }
 
-
-
-
-
     /**
-     * Method that returns the size of the deck
-     * @return Cards.size() the size of the deck we are considering
-     * */
-
+     * This method returns the size of the deck.
+     *
+     * @return The number of cards in the deck.
+     */
     public int getSize(){
         return deck.size();
     }
 
 
-    /**Method used to draw a card from a deck. Returns the drawn Card and removes it from the deck
-     * @return drawn card*/
+    /**
+     * This method is used to draw a card from the deck.
+     * It first checks if the deck is empty. If it is, it throws a RuntimeException.
+     * If the deck is not empty, it gets the last card from the deck, removes it from the deck, and returns it.
+     *
+     * @return The card that was drawn from the deck.
+     * @throws RuntimeException If the deck is empty.
+     */
     public Card drawCard(){
         if(deck.isEmpty())
             throw new RuntimeException("Deck is empty");
@@ -80,10 +83,10 @@ public class Deck implements Serializable {
         return card;
     }
 
-
     /**
-     * Method used to shuffle the cards
-     * */
+     * This method is used to shuffle the cards in the deck.
+     * It uses the Collections.shuffle method to randomly permute the cards in the deck.
+     */
     public void shuffle() {
         Collections.shuffle(deck);
     }

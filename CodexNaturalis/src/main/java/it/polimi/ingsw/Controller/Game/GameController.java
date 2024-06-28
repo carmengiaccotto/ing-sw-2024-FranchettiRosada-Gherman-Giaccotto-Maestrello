@@ -46,6 +46,8 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     private final List<PawnColor> availableColors;
 
+    private ArrayList<String> nicknames = new ArrayList<>();
+
     private GameStatus status;
 
     private final int numPlayers;
@@ -189,7 +191,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     }
                                 }
                             } catch (Exception e) {
-                                clientDisconnected(c);
+                                try {
+                                    clientDisconnected(c);
+                                } catch (RemoteException ex) {
+                                    throw new RuntimeException(ex);
+                                }
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -249,7 +255,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     }
                                 }
                             } catch (RemoteException e) {
-                                clientDisconnected(c);
+                                try {
+                                    clientDisconnected(c);
+                                } catch (RemoteException ex) {
+                                    throw new RuntimeException(ex);
+                                }
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -314,7 +324,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                         latch.countDown();
                                     }
                                 } catch (RemoteException e) {
-                                    clientDisconnected(c);
+                                    try {
+                                        clientDisconnected(c);
+                                    } catch (RemoteException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                 }
                             });
                             gameLoopThreads.add(thread);
@@ -607,6 +621,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         if(listener.getPlayers().size()==getNumPlayers()){
             if(allPlayersReady()) {
                 setStatus(GameStatus.SETUP);
+                ArrayList<String> nicknames2 = new ArrayList<>();
+                for (ClientControllerInterface client : listener.getPlayers()) {
+                        nicknames2.add(client.getNickname());
+                }
+                nicknames = nicknames2;
                 if (executor.isShutdown()) {
                     executor.execute(this);
                 }
@@ -673,7 +692,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * @throws RuntimeException If the objective card deck does not contain enough cards.
      */
     public synchronized void extractCommonObjectiveCards() {
-        synchronized (model.getObjectiveCardDeck()) {//todo check synchronization
+        synchronized (model.getObjectiveCardDeck()) {
             while (model.getCommonObjectivesCards().size() < 2) {
                 ObjectiveCard c = (ObjectiveCard) model.getObjectiveCardDeck().drawCard();
                 model.addCommonCard(c);
@@ -691,7 +710,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
      * Note: The method assumes that the gold and resource card decks contain at least 2 cards each.
      */
     public void extractCommonPlaygroundCards() {
-        synchronized (model) {//todo check synchronization
+        synchronized (model) {
             while (model.getCommonGoldCards().size() < 2) {
                 GoldCard c = (GoldCard) model.getGoldCardDeck().drawCard();
                 model.addCommonCard(c);
@@ -985,4 +1004,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    public ArrayList<String> getNicknames() {
+        return nicknames;
+    }
 }
