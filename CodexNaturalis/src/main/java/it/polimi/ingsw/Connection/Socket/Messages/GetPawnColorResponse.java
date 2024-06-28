@@ -7,7 +7,9 @@ import it.polimi.ingsw.Model.Enumerations.PawnColor;
  * It contains a PawnColor object representing the pawn color.
  */
 public class GetPawnColorResponse extends GenericMessage{
-    // The PawnColor object representing the pawn color.
+    /**
+    * The PawnColor object representing the pawn color.
+     */
     private final PawnColor pawnColor;
 
     /**

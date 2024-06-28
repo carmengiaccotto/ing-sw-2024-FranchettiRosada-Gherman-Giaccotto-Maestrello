@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a String object representing the action to be performed.
  */
 public class WhatDoIDoNowMessage extends GenericMessage {
-    // The action to be performed.
+    /**
+    * The action to be performed.
+     */
     private final String doThis;
 
     /**

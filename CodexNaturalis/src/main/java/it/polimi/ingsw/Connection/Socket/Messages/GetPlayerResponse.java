@@ -9,7 +9,9 @@ import it.polimi.ingsw.Model.PlayGround.Player;
  * It contains a PlayerForSocket object representing the player.
  */
 public class GetPlayerResponse extends GenericMessage {
-    // The PlayerForSocket object representing the player.
+    /**
+    * The PlayerForSocket object representing the player.
+     */
     private final PlayerForSocket player;
 
     /**

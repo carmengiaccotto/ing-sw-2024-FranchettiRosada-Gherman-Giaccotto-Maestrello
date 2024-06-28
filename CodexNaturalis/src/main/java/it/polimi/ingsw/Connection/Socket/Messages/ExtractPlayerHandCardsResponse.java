@@ -8,7 +8,9 @@ import java.util.ArrayList;
  * It contains an ArrayList of PlayCard objects representing the player's hand cards.
  */
 public class ExtractPlayerHandCardsResponse extends GenericMessage {
-    // An ArrayList of PlayCard objects representing the player's hand cards.
+    /**
+    * An ArrayList of PlayCard objects representing the player's hand cards.
+     */
     private final ArrayList<PlayCard> playerHandCards;
 
     /**

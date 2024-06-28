@@ -7,7 +7,9 @@ import it.polimi.ingsw.Model.Enumerations.GameStatus;
  * It contains a GameStatus object representing the status of the game.
  */
 public class GetStatusResponse extends GenericMessage {
-    // The GameStatus object representing the status of the game.
+    /**
+    * The GameStatus object representing the status of the game.
+     */
     private final GameStatus status;
 
     /**

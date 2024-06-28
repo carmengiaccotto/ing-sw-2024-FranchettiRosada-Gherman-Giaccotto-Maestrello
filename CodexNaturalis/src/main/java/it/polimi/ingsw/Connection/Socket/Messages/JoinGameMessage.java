@@ -5,7 +5,9 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains an integer representing the ID of the game to join.
  */
 public class JoinGameMessage extends GenericMessage{
-    // The ID of the game to join.
+    /**
+    * The ID of the game to join.
+     */
     private final int gameId;
 
     /**

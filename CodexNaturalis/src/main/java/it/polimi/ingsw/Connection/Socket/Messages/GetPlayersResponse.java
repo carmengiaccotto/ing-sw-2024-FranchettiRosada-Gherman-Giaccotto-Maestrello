@@ -11,7 +11,9 @@ import java.util.ArrayList;
  * It contains an ArrayList of PlayerForSocket objects representing the players.
  */
 public class GetPlayersResponse extends GenericMessage {
-    // The ArrayList of PlayerForSocket objects representing the players.
+    /**
+    * The ArrayList of PlayerForSocket objects representing the players.
+     */
     private final ArrayList<PlayerForSocket> playersForSocket;
 
     /**

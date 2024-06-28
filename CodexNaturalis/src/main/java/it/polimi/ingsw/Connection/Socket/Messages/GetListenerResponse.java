@@ -7,7 +7,9 @@ import it.polimi.ingsw.Controller.Game.GameListener;
  * It contains a GameListener object.
  */
 public class GetListenerResponse extends GenericMessage {
-    // The GameListener object.
+    /**
+    * The GameListener object.
+     */
     private final GameListener gameListener;
 
     /**

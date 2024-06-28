@@ -7,7 +7,9 @@ import it.polimi.ingsw.Model.Cards.ObjectiveCard;
  * It contains an ObjectiveCard object representing the personal objective card.
  */
 public class SetPersonalObjectiveCardMessage extends GenericMessage {
-    // The personal objective card to be set.
+    /**
+    * The personal objective card to be set.
+     */
     private  ObjectiveCard objectiveCard;
 
     /**
