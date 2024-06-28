@@ -462,6 +462,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
     public void removeAvailableColor(PawnColor color) throws RemoteException {
         try {
             sendMessage(new RemoveAvailableColorMessage(color));
+            RemoveAvailableColorResponse response = clientListener.removeAvailablecolorResponse();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -72,6 +72,8 @@ public class ClientListener extends Thread {
     private final Object disconnectResponseLockObject = new Object();
     private DisplayAvailableColorsResponse displayAvailableColorsResponse;
     private final Object displayAvailableColorsLockObject = new Object();
+    private RemoveAvailableColorResponse removeAvailableColorResponse;
+    private final Object removeAvailableColorResponseLockObject = new Object();
 
 
     /**
@@ -289,6 +291,11 @@ public class ClientListener extends Thread {
                             synchronized (disconnectResponseLockObject) {
                                 disconnectResponse = (DisconnectResponse) message;
                                 disconnectResponseLockObject.notify();
+                            }
+                        } else if (message instanceof RemoveAvailableColorResponse) {
+                            synchronized (removeAvailableColorResponseLockObject) {
+                                removeAvailableColorResponse = (RemoveAvailableColorResponse) message;
+                                removeAvailableColorResponseLockObject.notify();
                             }
                         }
                     });
@@ -662,5 +669,16 @@ public class ClientListener extends Thread {
             }
             return disconnectResponse;
         }
+    }
+
+    public RemoveAvailableColorResponse removeAvailablecolorResponse() {
+        synchronized (removeAvailableColorResponseLockObject) {
+        try {
+            removeAvailableColorResponseLockObject.wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return removeAvailableColorResponse;
+    }
     }
 }

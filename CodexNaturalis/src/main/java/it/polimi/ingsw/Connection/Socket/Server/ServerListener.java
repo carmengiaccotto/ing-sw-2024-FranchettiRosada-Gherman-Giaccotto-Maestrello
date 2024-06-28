@@ -203,7 +203,8 @@ public class ServerListener extends Thread implements Serializable {
                     } else if (message instanceof RemoveAvailableColorMessage) {
                         try {
                             gamecontroller.removeAvailableColor(((RemoveAvailableColorMessage) message).getColor());
-                        } catch (RemoteException e) {
+                            sendMessage(new RemoveAvailableColorResponse());
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     } else if (message instanceof ExtractInitialCardMessage) {
