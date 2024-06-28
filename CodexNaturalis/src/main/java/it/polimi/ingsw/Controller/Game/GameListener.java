@@ -15,6 +15,11 @@ import java.util.Objects;
  */
 public class GameListener implements Serializable {
 
+    /**
+     * A list of ClientControllerInterface objects representing the players in the game.
+     * This list is used to manage the players' state and actions during the game.
+     * It is initialized as an empty ArrayList at the start of the game.
+     */
     private List<ClientControllerInterface> players = new ArrayList<>();
 
 //    /**

@@ -33,10 +33,15 @@ import java.util.List;
  */
 
 public class RMIClient extends UnicastRemoteObject implements Serializable, ClientControllerInterface {
-    private MainControllerInterface server;
-    private ClientControllerInterface controller;
-    private Registry registry;
 
+    // MainControllerInterface instance representing the server for the RMI client.
+private MainControllerInterface server;
+
+// ClientControllerInterface instance representing the controller for the RMI client.
+private ClientControllerInterface controller;
+
+// Registry instance used for the RMI client.
+private Registry registry;
 
     /**
      * The constructor for the RMIClient class.
@@ -252,7 +257,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry(ipAddress, 8347);
+                        registry = LocateRegistry.getRegistry(ipAddress, 8357);
                         Object obj = registry.lookup("rmi://" + ipAddress + ":8344/CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;
@@ -270,7 +275,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                     controller.setServer(server);
                     controller.connect(ipAddress); // Moved inside the if block
                 } else {
-                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8347 + "' with name: '" + "CodexNaturalis" + "'");
+                    System.out.println("[#" + attempt + "]Waiting to reconnect to Server on port: '" + 8357 + "' with name: '" + "CodexNaturalis" + "'");
                     attempt++;
                     if (attempt <= 4) {
                         System.out.println("Retrying...");

@@ -42,27 +42,38 @@ import java.util.concurrent.*;
  *
  */
 public class GameController extends UnicastRemoteObject implements  Runnable, Serializable, GameControllerInterface {
-    private GameListener listener = new GameListener();
+    // The GameListener object that listens for game events.
+private GameListener listener = new GameListener();
 
-    private final List<PawnColor> availableColors;
+// A list of available colors for the players. Each color is represented as a PawnColor enum.
+private final List<PawnColor> availableColors;
 
-    private ArrayList<String> nicknames = new ArrayList<>();
+// An ArrayList of strings representing the nicknames of the players in the game.
+private ArrayList<String> nicknames = new ArrayList<>();
 
-    private GameStatus status;
+// The current status of the game. The status is represented as a GameStatus enum.
+private GameStatus status;
 
-    private final int numPlayers;
+// The number of players in the game. This is a constant value that is set when the game is created.
+private final int numPlayers;
 
-    private final int id;
+// The unique identifier for the game. This is a constant value that is set when the game is created.
+private final int id;
 
-    private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+// A ScheduledExecutorService for scheduling tasks. This is a transient field, meaning it is not serialized when the game is saved.
+private transient ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private String currentPlayerNickname;
+// The nickname of the current player. This is a string that represents the player's chosen nickname.
+private String currentPlayerNickname;
 
-    private PlayGround model;
+// The current game model. The game model represents the state of the game, including the game board, the players, and the cards.
+private PlayGround model;
 
-    private int playersWhoChoseObjective = 0;
+// The number of players who have chosen their objective. This is an integer that is incremented each time a player chooses their objective.
+private int playersWhoChoseObjective = 0;
 
-    private transient ExecutorService executor = Executors.newSingleThreadExecutor();
+// An ExecutorService for executing tasks. This is a transient field, meaning it is not serialized when the game is saved.
+private transient ExecutorService executor = Executors.newSingleThreadExecutor();
 
     //private Chat chat=new Chat();
 
@@ -951,6 +962,14 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
         return true;
     }
 
+    /**
+     * Shuts down the game by disconnecting all players and stopping all tasks.
+     * First, it disconnects all players and clears the list of players.
+     * Then, it attempts to gracefully shut down the executor service by stopping all tasks.
+     * If tasks do not finish within 60 seconds, it forces a shutdown.
+     *
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void shutdown() throws RemoteException {
 
         listener.getPlayers().forEach(c -> {
@@ -971,7 +990,15 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
             executor.shutdownNow();
         }
     }
-
+    /**
+     * Handles the disconnection of a client.
+     * First, it removes the disconnected client from the list of players.
+     * Then, it updates all remaining players about the disconnection.
+     * Finally, it sets the game status to FINILIZE and interrupts all game loop threads.
+     *
+     * @param client The client that has disconnected. This is an instance of ClientControllerInterface.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void clientDisconnected(ClientControllerInterface client) {
         try {
             boolean removeSucceded = listener.getPlayers().remove(client);
@@ -992,6 +1019,11 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
 
     }
 
+    /**
+     * Retrieves the nicknames of all players in the game.
+     *
+     * @return An ArrayList of strings representing the nicknames of all players in the game.
+     */
     public ArrayList<String> getNicknames() {
         return nicknames;
     }

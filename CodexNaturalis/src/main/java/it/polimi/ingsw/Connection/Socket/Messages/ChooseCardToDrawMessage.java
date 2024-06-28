@@ -7,6 +7,11 @@ import it.polimi.ingsw.Model.PlayGround.PlayGround;
  * It contains a PlayGround object that represents the current state of the playground.
  */
 public class ChooseCardToDrawMessage extends GenericMessage {
+    /**
+     * The PlayGround object representing the current state of the playground.
+     * This is a final field, meaning that once it is initialized in the constructor of the class, it cannot be changed.
+     * It is used to keep track of the current state of the playground throughout the game.
+     */
     private final PlayGround playGround;
 
     /**

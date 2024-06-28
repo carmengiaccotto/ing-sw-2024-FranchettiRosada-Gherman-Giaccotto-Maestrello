@@ -14,7 +14,17 @@ import java.util.Map;
  * Each Gold Card has a requirement, which is a map of symbols and their counts, and a point value.
  */
 public class GoldCard extends PlayCard implements Serializable {
+    /**
+     * A HashMap that represents the requirement of the Gold Card.
+     * The requirement is a map of symbols and their counts.
+     * This is a final variable, meaning that it cannot be changed once it has been initialized.
+     */
     private final HashMap<Symbol, Integer> requirement;
+
+    /**
+     * An integer that represents the point value of the Gold Card.
+     * This value can be changed after initialization.
+     */
     private int point;
 
     /**

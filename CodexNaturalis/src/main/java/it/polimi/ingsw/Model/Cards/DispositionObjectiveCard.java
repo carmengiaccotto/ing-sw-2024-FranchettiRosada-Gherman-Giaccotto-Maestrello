@@ -15,9 +15,19 @@ import java.util.Map;
  */
 public class DispositionObjectiveCard extends ObjectiveCard {
 
+    /**
+     * CentralCardColor is an attribute of the DispositionObjectiveCard class.
+     * It represents the color of the central card in the card disposition.
+     * The color is defined by the CardColors enumeration.
+     */
     private CardColors CentralCardColor;
-    private Map<Position, CardColors> Neighbors;
 
+    /**
+     * Neighbors is an attribute of the DispositionObjectiveCard class.
+     * It represents a map of the neighboring cards around the central card in the card disposition.
+     * The map associates each Position (representing the relative position of a neighbor) to a CardColors value (representing the color of the card in that position).
+     */
+    private Map<Position, CardColors> Neighbors;
 
     /**
      * Class Constructor.
@@ -46,6 +56,8 @@ public class DispositionObjectiveCard extends ObjectiveCard {
     /**
      * Method that returns the number of times a certain configuration has been found on the PlayArea.
      * It checks for all cards in the play area if they match the desired configuration.
+     * Once all the occurrences of a given configuration are found,
+     * All the card's isInConfiguration attribute is set to false, in order to allow the check of another configuration
      *
      * @param playArea The play area to check the configuration on.
      * @return The number of times the configuration has been found.

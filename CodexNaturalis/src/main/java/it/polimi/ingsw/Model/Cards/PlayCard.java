@@ -10,8 +10,22 @@ import it.polimi.ingsw.Model.Enumerations.Side;
  */
 public class PlayCard extends Card {
 
+    /**
+     * The front side of the PlayCard. This is a final attribute, meaning it cannot be changed after the PlayCard object is created.
+     * It is of type SideOfCard, which represents one side of the PlayCard.
+     */
     private final SideOfCard Front;
+
+    /**
+     * The back side of the PlayCard. This is a final attribute, meaning it cannot be changed after the PlayCard object is created.
+     * It is of type SideOfCard, which represents one side of the PlayCard.
+     */
     private final SideOfCard Back;
+
+    /**
+     * The color of the PlayCard. This is a final attribute, meaning it cannot be changed after the PlayCard object is created.
+     * It is of type CardColors, an enumeration that represents the possible colors a PlayCard can have.
+     */
     private final CardColors color;
 
     /**

@@ -5,6 +5,11 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains an integer that represents the maximum number of players for the game.
  */
 public class CreateGameMessage extends GenericMessage {
+    /**
+     * The maximum number of players that can participate in a game.
+     * This is a final variable, meaning that once it's set, it cannot be changed.
+     * It is set in the constructor of the CreateGameMessage class.
+     */
     private final int maxNumberOfPlayers;
 
     /**

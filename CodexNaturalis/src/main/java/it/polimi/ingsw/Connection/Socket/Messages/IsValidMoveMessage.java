@@ -17,11 +17,20 @@ import java.util.Map;
  * and a SideOfCard object representing the new card.
  */
 public class IsValidMoveMessage extends GenericMessage {
-    private final ArrayList<ArrayList<SideOfCard>> cardsOnPlayArea;
-    private final HashMap<Symbol, Integer> symbols;
-    private final int row;
-    private final int column;
-    private final SideOfCard newCard;
+    // Represents the cards on the play area. It is a 2D ArrayList where each element is a list of SideOfCard objects.
+private final ArrayList<ArrayList<SideOfCard>> cardsOnPlayArea;
+
+// Represents the symbols. It is a HashMap where the key is a Symbol and the value is an Integer.
+private final HashMap<Symbol, Integer> symbols;
+
+// Represents the row. It is an integer that specifies the row number.
+private final int row;
+
+// Represents the column. It is an integer that specifies the column number.
+private final int column;
+
+// Represents the new card. It is a SideOfCard object that specifies the new card to be placed on the play area.
+private final SideOfCard newCard;
 
     /**
      * Constructs a new IsValidMoveMessage with the specified cards on the play area, symbols, row, column, and new card.

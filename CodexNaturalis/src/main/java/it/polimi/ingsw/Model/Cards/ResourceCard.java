@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public class ResourceCard extends PlayCard implements Serializable {
 
+    /**
+     * A boolean value that represents the point of the card.
+     * It indicates whether the card has been played on the front side.
+     * If the card has been played on the front side, the value is true; otherwise, it is false.
+     */
     private boolean point;
 
     /**

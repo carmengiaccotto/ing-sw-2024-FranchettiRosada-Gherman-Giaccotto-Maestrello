@@ -24,13 +24,21 @@ import java.util.List;
  * It implements the ClientControllerInterface and is Serializable.
  */
 public class ServerCallsToClient implements ClientControllerInterface, Serializable {
-    private transient final ObjectOutputStream oos;
-    private transient ServerListener serverListener;
 
-    private transient MainControllerInterface mainController;
-    private transient GameControllerInterface gameController;
+    // ObjectOutputStream used to send objects to the client.
+private transient final ObjectOutputStream oos;
 
-    private String nickname;
+// ServerListener that listens for incoming messages from the client.
+private transient ServerListener serverListener;
+
+// MainControllerInterface that controls the main operations of the server.
+private transient MainControllerInterface mainController;
+
+// GameControllerInterface that controls the game operations of the server.
+private transient GameControllerInterface gameController;
+
+// String that stores the nickname of the client.
+private String nickname;
 
     /**
      * Constructor for the ServerCallsToClient class.
@@ -479,6 +487,7 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
      * Sends a request to the server about what to do next.
      * This method sends a WhatDoIDoNowMessage to the server with the request and waits for a WhatDoIDoNowResponse.
      * @param doThis The request to be sent to the server.
+     * @return Object An object representing the result of the move.
      * @throws RemoteException If a remote access error occurs.
      */
     @Override

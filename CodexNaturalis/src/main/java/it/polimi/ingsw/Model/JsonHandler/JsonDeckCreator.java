@@ -15,6 +15,11 @@ import java.util.ArrayList;
  * It uses the Gson library to parse the JSON file and map it to Java objects.
  */
 public class JsonDeckCreator {
+    /**
+     * The JsonCardsMapper instance used for mapping JSON objects to card objects.
+     * This mapper is responsible for converting the JSON representation of a card into a Java object.
+     * It is used in the process of creating a deck of cards from a JSON file.
+     */
     private JsonCardsMapper mapper;
 
     /**

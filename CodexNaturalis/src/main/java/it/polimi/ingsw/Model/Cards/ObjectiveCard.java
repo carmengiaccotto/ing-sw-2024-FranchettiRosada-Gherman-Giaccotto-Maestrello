@@ -11,6 +11,11 @@ import java.io.Serializable;
  */
 public class ObjectiveCard extends Card implements Serializable {
 
+    /**
+     * The points of the Objective Card.
+     * This attribute represents the points a player can earn by achieving the objective on the card.
+     * It is of type ObjectivePoints enum.
+     */
     private ObjectivePoints points;
 
     /**

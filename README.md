@@ -28,7 +28,7 @@ Maestrello Lucrezia <br>
 
 | Package  | Class Coverage | Method Coverage | Line Coverage  |
 |----------|----------------|-----------------|----------------|
-| Model    | 95 % (39/41)   | 90 % (170/187)  | 91 % (556/608) |
+| Model    | 95 % (39/41)   | 90 % (169/186)  | 91 % (551/605) |
 
 ## How to run
 
@@ -59,4 +59,8 @@ You will be able to choose between the TUI or the GUI interface by typing the op
 - **[Maven](https://maven.apache.org/)**: Package and dependency management.
 - **[SceneBuilder](https://gluonhq.com/products/scene-builder/)**: GUI design.
 - **[Overleaf](https://www.overleaf.com/)**: Documentation.
+
+**Credits**
+
+Codex Naturalis is a board game developed and published by Cranio Creations Srl. The graphic content of this project is used with the approval of Cranio Creations Srl for educational purposes only. Distribution, copying, or reproduction of the content and images in any form outside of this project is prohibited, as is the redistribution and publication of the content and images for purposes other than those mentioned above. Additionally, commercial use of said content is prohibited.
 
