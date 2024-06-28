@@ -5,6 +5,11 @@ package it.polimi.ingsw.Connection.Socket.Messages;
  * It contains a String object that represents the nickname to be added.
  */
 public class AddNicknameMessage extends GenericMessage {
+    /**
+     * The nickname of the user.
+     * This is a private instance variable used to store the nickname of the user.
+     * It is used in the AddNicknameMessage class to represent the nickname that is to be added.
+     */
     private String nickname;
 
     /**

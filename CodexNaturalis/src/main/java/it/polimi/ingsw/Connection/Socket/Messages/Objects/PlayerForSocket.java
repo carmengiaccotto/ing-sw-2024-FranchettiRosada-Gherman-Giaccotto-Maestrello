@@ -15,7 +15,16 @@ import java.util.Map;
  */
 public class PlayerForSocket extends Player {
 
+    /**
+     * This field represents the cards on the play area for a player in a socket-based connection.
+     * It is an ArrayList of ArrayList of SideOfCard objects, which is used to handle the conversion of data types for socket communication.
+     */
     private ArrayList<ArrayList<SideOfCard>> cardsOnPlayAreaForSocket;
+
+    /**
+     * This field represents the symbols for a player in a socket-based connection.
+     * It is a HashMap of Symbol and Integer pairs, which is used to handle the conversion of data types for socket communication.
+     */
     private HashMap<Symbol, Integer> symbolsForSocket;
 
     /**

@@ -7,6 +7,10 @@ import it.polimi.ingsw.Model.Cards.PlayCard;
  * It contains a PlayCard object that represents the card to be added.
  */
 public class AddCardToHand extends GenericMessage {
+    /**
+     * The PlayCard object that represents the card to be added to the hand.
+     * This object is used in the AddCardToHand message to specify which card should be added.
+     */
     private PlayCard playCard;
 
     /**

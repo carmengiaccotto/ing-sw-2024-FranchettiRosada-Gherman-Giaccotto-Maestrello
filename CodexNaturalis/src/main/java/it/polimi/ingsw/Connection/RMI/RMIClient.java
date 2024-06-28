@@ -33,10 +33,15 @@ import java.util.List;
  */
 
 public class RMIClient extends UnicastRemoteObject implements Serializable, ClientControllerInterface {
-    private MainControllerInterface server;
-    private ClientControllerInterface controller;
-    private Registry registry;
 
+    // MainControllerInterface instance representing the server for the RMI client.
+private MainControllerInterface server;
+
+// ClientControllerInterface instance representing the controller for the RMI client.
+private ClientControllerInterface controller;
+
+// Registry instance used for the RMI client.
+private Registry registry;
 
     /**
      * The constructor for the RMIClient class.

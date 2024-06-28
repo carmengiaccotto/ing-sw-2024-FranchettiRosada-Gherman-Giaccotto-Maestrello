@@ -7,6 +7,10 @@ import it.polimi.ingsw.Model.Cards.SideOfCard;
  * It contains a SideOfCard object that represents the side of the card chosen.
  */
 public class ChooseCardToPlayResponse extends GenericMessage {
+    /**
+     * The SideOfCard object representing the side of the card chosen.
+     * This is used to store the choice of the player in terms of which side of the card they want to play.
+     */
     private SideOfCard sideOfCard;
 
     /**

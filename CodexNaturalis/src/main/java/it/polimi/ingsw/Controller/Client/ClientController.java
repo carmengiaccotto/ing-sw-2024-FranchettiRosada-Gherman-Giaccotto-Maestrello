@@ -30,11 +30,20 @@ import java.util.Map;
  * It extends UnicastRemoteObject and implements ClientControllerInterface.
  */
 public class ClientController extends UnicastRemoteObject implements ClientControllerInterface {
-    private UserInterface view;
-    private GameControllerInterface game;
-    private Player player = new Player();
-    private MainControllerInterface server;
-    private boolean ItsMyTurn;
+    // The UserInterface instance that the client will interact with.
+private UserInterface view;
+
+// The GameControllerInterface instance that controls the game logic.
+private GameControllerInterface game;
+
+// The Player instance representing the client in the game.
+private Player player = new Player();
+
+// The MainControllerInterface instance that manages the game server.
+private MainControllerInterface server;
+
+// A boolean flag indicating whether it's the client's turn to play.
+private boolean ItsMyTurn;
 
 
     /**

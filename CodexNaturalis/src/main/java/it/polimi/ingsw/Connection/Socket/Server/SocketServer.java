@@ -16,8 +16,21 @@ import java.util.ArrayList;
  */
 public class SocketServer extends Thread {
 
-    public static final int SERVERPORT = 2872;
+    /**
+     * The port number on which the server will be listening for client connections.
+     */
+    public static final int SERVERPORT = 2972;
+
+    /**
+     * The ServerSocket object that represents the server in the socket communication.
+     * This object is used to accept connections from clients.
+     */
     public static ServerSocket server;
+
+    /**
+     * The MainController object that controls the main logic of the server.
+     * This object is used to handle the requests from the clients.
+     */
     private MainController mainController;
 
     /**

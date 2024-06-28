@@ -271,6 +271,14 @@ public class MainController extends UnicastRemoteObject implements MainControlle
         return games;
     }
 
+    /**
+     * This method is used to disconnect a player from the server.
+     * It removes the player from the list of connected clients and also removes the game the player was part of.
+     * If the player was part of a game, it removes all the nicknames associated with that game from the list of used nicknames.
+     *
+     * @param player The player that is to be disconnected. This is an instance of ClientControllerInterface.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     public void disconnectPlayer(ClientControllerInterface player) throws RemoteException {
         clients.remove(player);
 

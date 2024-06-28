@@ -28,11 +28,20 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class ServerCallsToClient implements ClientControllerInterface, Serializable {
 
-    private final ObjectOutputStream oos;
-    private ServerListener serverListener;
-    private MainControllerInterface mainController;
-    private GameControllerInterface gameController;
-    private String nickname;
+    // ObjectOutputStream used to send objects to the client.
+private final ObjectOutputStream oos;
+
+// ServerListener that listens for incoming messages from the client.
+private ServerListener serverListener;
+
+// MainControllerInterface that controls the main operations of the server.
+private MainControllerInterface mainController;
+
+// GameControllerInterface that controls the game operations of the server.
+private GameControllerInterface gameController;
+
+// String that stores the nickname of the client.
+private String nickname;
 
     /**
      * Constructor for the ServerCallsToClient class.

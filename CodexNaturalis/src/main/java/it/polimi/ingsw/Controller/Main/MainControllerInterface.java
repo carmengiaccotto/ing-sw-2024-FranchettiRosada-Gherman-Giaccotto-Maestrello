@@ -125,5 +125,14 @@ public interface MainControllerInterface extends Remote, Serializable {
         return null;
     }
 
+    /**
+     * Disconnects a player from the game.
+     *
+     * This method is used when a player wants to leave the game or when a player is disconnected due to network issues.
+     * It takes as an argument an instance of ClientControllerInterface representing the player to be disconnected.
+     *
+     * @param player The player that wants to be disconnected or needs to be disconnected due to network issues.
+     * @throws RemoteException If a remote or network communication error occurs.
+     */
     void disconnectPlayer(ClientControllerInterface player) throws RemoteException;
 }
