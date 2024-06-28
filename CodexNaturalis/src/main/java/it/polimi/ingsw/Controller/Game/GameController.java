@@ -191,11 +191,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     }
                                 }
                             } catch (Exception e) {
-                                try {
-                                    clientDisconnected(c);
-                                } catch (RemoteException ex) {
-                                    throw new RuntimeException(ex);
-                                }
+                                clientDisconnected(c);
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -255,11 +251,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                     }
                                 }
                             } catch (RemoteException e) {
-                                try {
-                                    clientDisconnected(c);
-                                } catch (RemoteException ex) {
-                                    throw new RuntimeException(ex);
-                                }
+                                clientDisconnected(c);
                             }
                         });
                         gameLoopThreads.add(thread);
@@ -324,11 +316,7 @@ public class GameController extends UnicastRemoteObject implements  Runnable, Se
                                         latch.countDown();
                                     }
                                 } catch (RemoteException e) {
-                                    try {
-                                        clientDisconnected(c);
-                                    } catch (RemoteException ex) {
-                                        throw new RuntimeException(ex);
-                                    }
+                                    clientDisconnected(c);
                                 }
                             });
                             gameLoopThreads.add(thread);
