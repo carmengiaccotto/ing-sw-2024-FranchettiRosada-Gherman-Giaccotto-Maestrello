@@ -287,12 +287,15 @@ private transient ExecutorService executor = Executors.newSingleThreadExecutor()
                                 if (!c.getNickname().equals(currentPlayerNickname)) {
                                     c.sendUpdateMessage("It's " + currentPlayerNickname + "'s turn!");
                                 } else {
-                                    PlayGround playGround = (PlayGround) c.WhatDoIDoNow("PLAY-TURN");
-                                    setModel(playGround);
+                                   // PlayGround playGround = (PlayGround)
+                                            c.WhatDoIDoNow("PLAY-TURN");
+                                    //setModel(playGround);
                                     for(ClientControllerInterface client: listener.getPlayers()) {
                                         client.sendUpdateMessage(c.getNickname() + " has played a card.");
                                         client.sendUpdateMessage("This is the current Playground: ");
-                                        client.showBoardAndPlayAreas(playGround);
+                                        //System.out.println("size: "+model.getResourceCardDeck().getCards().size());
+                                        //System.out.println("size: "+model.getCommonGoldCards().size());
+                                        client.showBoardAndPlayAreas(this.model);
                                     }
                                 }
                             } catch (RemoteException e) {

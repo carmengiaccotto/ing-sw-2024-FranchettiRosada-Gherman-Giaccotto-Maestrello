@@ -310,6 +310,7 @@ public class ServerListener extends Thread implements Serializable {
                         }
                     } else if (message instanceof ExtractPlayerHandCardsMessage) {
                         try {
+
                             ArrayList<PlayCard> cards = gamecontroller.extractPlayerHandCards();
                             sendMessage(new ExtractPlayerHandCardsResponse(cards));
                         } catch (IOException e) {

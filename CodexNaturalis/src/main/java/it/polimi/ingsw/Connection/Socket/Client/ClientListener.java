@@ -425,6 +425,7 @@ public class ClientListener extends Thread {
                         } else if (message instanceof GetModelResponse) {
                             synchronized (getModelresponseLockObject) {
                                 getModelResponse = (GetModelResponse) message;
+                                //System.out.println(getModelResponse.getModel().getResourceCardDeck().getSize());
                                 getModelresponseLockObject.notify();
                             }
                         } else if (message instanceof JoinGameResponse) {

@@ -275,7 +275,7 @@ public class RMIClient extends UnicastRemoteObject implements Serializable, Clie
                 Thread connectionThread = new Thread(() -> {
                     // ...
                     try {
-                        registry = LocateRegistry.getRegistry(ipAddress, 8359);
+                        registry = LocateRegistry.getRegistry(ipAddress, 8364);
                         Object obj = registry.lookup("rmi://" + ipAddress + ":8344/CodexNaturalis");
                         Class<?>[] interfaces = obj.getClass().getInterfaces();
                         server = (MainControllerInterface) obj;

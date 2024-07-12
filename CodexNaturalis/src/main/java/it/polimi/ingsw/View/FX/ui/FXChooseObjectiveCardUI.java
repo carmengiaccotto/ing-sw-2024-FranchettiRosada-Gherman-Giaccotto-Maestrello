@@ -55,13 +55,13 @@ public class FXChooseObjectiveCardUI extends FXDialogGamePane {
         getChildren().add(obj2);
 
         obj1.setOnMouseClicked(e->{
-            choose = 1;
+            choose = 0;
             close();
 
         });
 
         obj2.setOnMouseClicked(e->{
-            choose = 2;
+            choose = 1;
             close();
 
         });

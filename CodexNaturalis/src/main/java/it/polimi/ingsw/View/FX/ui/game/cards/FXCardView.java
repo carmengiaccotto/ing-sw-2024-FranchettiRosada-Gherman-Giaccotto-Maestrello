@@ -550,4 +550,10 @@ public class FXCardView extends AnchorPane {
         bottleft.setMouseTransparent(false);
         bottright.setMouseTransparent(false);
     }
+
+    public String toString()
+    {
+        boolean hasParent = getParent() != null;
+        return "CARD :"+card.getIdCard()+ " > "+hasParent;
+    }
 }

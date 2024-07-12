@@ -405,7 +405,7 @@ public class ClientCallsToServer implements MainControllerInterface, GameControl
 
     /**
      * This method is used to retrieve the model of the playground.
-     * It sends a GetModelMessage to the server and waits for a response.
+     * It sends a Message to the server and waits for a response.
      * The server responds with a GetModelResponse, which contains the model of the playground.
      *
      * @return The model of the playground as a PlayGround object.

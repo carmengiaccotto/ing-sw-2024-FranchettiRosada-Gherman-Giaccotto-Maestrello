@@ -265,6 +265,8 @@ public class FXMainUI extends FXGamePane {
     public void openInfoPanel(String message) {
         infoMoveLabel.setText(message);
 
+        infoMovePanel.toFront();
+
         FadeTransition fade = new FadeTransition(Duration.seconds(0.2), infoMovePanel);
         fade.setToValue(1);
         fade.play();
@@ -479,7 +481,10 @@ public class FXMainUI extends FXGamePane {
 
         for (Card c : me.getCardsInHand()) {
             FXCardView view = FXCardFactory.getView(c);
-            getChildren().add(view);
+
+            if (!getChildren().contains(view)) {
+                getChildren().add(view);
+            }
 
             cardsOnTable.add(view);
 
@@ -801,8 +806,8 @@ public class FXMainUI extends FXGamePane {
      */
     private FXCardView showCard(SideOfCard sideCard, int row, int col, List<Integer> visibleRows, List<Integer> visibleCols) {
 
-        int deltaCardX = 148;
-        int deltaCardY = 78;
+        int deltaCardX = 74;
+        int deltaCardY = 39;
 
         //visibleRows.removeLast();
         //visibleRows.removeLast();
@@ -825,7 +830,9 @@ public class FXMainUI extends FXGamePane {
         FXCardView card = FXCardFactory.getView(sideCard.getParentCard());
 
         card.setCurrentMatrixPosition(new Pair<>(row, col));
-        getChildren().add(card);
+
+
+            getChildren().add(card);
         card.relocate(deltaXFromCenter - (card.getPrefWidth() / 2), deltaYFromCenter - (card.getPrefHeight() / 2));
 
         cardsOnTable.add(card);
@@ -964,6 +971,7 @@ public class FXMainUI extends FXGamePane {
      * @return String The string representing the current play card.
      */
     public String getCurrentPlayCardString() {
+
         return currentPlayCardString;
     }
 
@@ -1094,8 +1102,8 @@ public class FXMainUI extends FXGamePane {
                         }
 
                         if (currentCard == null) {
-                            int deltaCardX = 148;
-                            int deltaCardY = 78;
+                            int deltaCardX = 74;
+                            int deltaCardY = 39;
 
 
                             double centerX = getWidth() / 2;
@@ -1121,7 +1129,7 @@ public class FXMainUI extends FXGamePane {
 
                             card.setCurrentMatrixPosition(new Pair<>(cardRowIndex, cardColumnIndex));
                             root.getChildren().add(card);
-                            card.relocate(deltaXFromCenter - (card.getPrefWidth() / 2), deltaYFromCenter - (card.getPrefHeight() / 2));
+                            card.relocate(deltaXFromCenter - (card.getPrefWidth() / 2)*getScaleX(), deltaYFromCenter - (card.getPrefHeight() / 2)*getScaleY());
 
                         }
 

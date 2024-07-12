@@ -138,6 +138,7 @@ private boolean ItsMyTurn;
     @Override
     public void showBoardAndPlayAreas(PlayGround model) throws RemoteException {
         ArrayList<Player> opponents= getOpponents();
+       // PlayGround p=game.getModel();
         view.printBoard(model, opponents, this.player);
     }
 
@@ -185,22 +186,22 @@ private boolean ItsMyTurn;
         switch (draw) {
 
             case "GOLD-DECK":
-                card = (GoldCard) model.getGoldCardDeck().drawCard();
+                card = (GoldCard) game.getModel().getGoldCardDeck().drawCard();
 
                 break;
 
             case "RESOURCE-DECK":
-                card = (ResourceCard) model.getResourceCardDeck().drawCard();
+                card = (ResourceCard) game.getModel().getResourceCardDeck().drawCard();
                 break;
 
             case "RESOURCE-CARD1":
-                card =  model.getCommonResourceCards().getFirst();
-                model.drawCardFromPlayground(0,card);
+                card =  game.getModel().getCommonResourceCards().getFirst();
+                game.getModel().drawCardFromPlayground(0,card);
                 break;
 
             case "RESOURCE-CARD2":
-                card =  model.getCommonResourceCards().get(1);
-                model.drawCardFromPlayground(1,card);
+                card =  game.getModel().getCommonResourceCards().get(1);
+                game.getModel().drawCardFromPlayground(1,card);
                 break;
 
             case "GOLD-CARD1":
@@ -749,7 +750,7 @@ private boolean ItsMyTurn;
 //        game.getListener().updatePlayers(getNickname() + " has played a card.", this);
         if(game.getStatus() == GameStatus.RUNNING) {
             PlayGround model = chooseCardToDraw(game.getModel());
-            game.setModel(model);
+            //game.setModel(model);
 //            game.getListener().updatePlayers("This is the current Playground: ");
 //            game.getListener().updatePlayers(game.getModel());
             return game.getModel();

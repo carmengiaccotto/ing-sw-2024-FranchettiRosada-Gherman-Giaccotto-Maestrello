@@ -505,7 +505,7 @@ public class ServerCallsToClient implements ClientControllerInterface, Serializa
         try {
             sendMessage(new WhatDoIDoNowMessage(doThis));
             WhatDoIDoNowResponse response = serverListener.whatDoIDoNowResponse();
-            return response.getObject();
+            //return response.getObject();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

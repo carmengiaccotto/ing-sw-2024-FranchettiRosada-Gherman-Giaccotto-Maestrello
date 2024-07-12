@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<fx:root prefHeight="137.0" prefWidth="200.0" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="70.0" maxWidth="100.0" minHeight="70.0" minWidth="100.0" prefHeight="70.0" prefWidth="100.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="cardImageView" fitHeight="137.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <Rectangle fx:id="topleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
-      <Rectangle fx:id="topright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
-      <Rectangle fx:id="bottleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutX="147.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
-      <Rectangle fx:id="bottright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa5" height="62.0" layoutX="147.0" layoutY="75.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+      <ImageView fx:id="cardImageView" fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="topleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa6" height="31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" />
+      <Rectangle fx:id="topright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa6" height="31.0" layoutY="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" />
+      <Rectangle fx:id="bottleft" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa6" height="31.0" layoutX="75.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" />
+      <Rectangle fx:id="bottright" arcHeight="5.0" arcWidth="5.0" fill="#ffffffa6" height="31.0" layoutX="75.0" layoutY="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="25.0" />
    </children>
 </fx:root>
