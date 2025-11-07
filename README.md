@@ -52,12 +52,12 @@ Because of limitations caused by how JavaFX loads its native libraries, the jar 
 
 - In order to run the server, execute this command:
     ```bash
-    java -jar macOSClient.jar
+    java -jar macOSServer.jar
     ```
 
 - To run the client, execute this command:
     ```bash
-    java -jar macOSServer.jar
+    java -jar macOSClient.jar
     ```
 **General Instructions**
 
